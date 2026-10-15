@@ -5,10 +5,13 @@ import { starsFor } from '../app/progress';
 import { actionForCode, getSettings } from '../app/settings';
 import { useSettings } from '../hooks/useSettings';
 import { audio } from '../game/audio';
+import { fullscreenSupported, toggleFullscreen } from '../app/pwa';
 import { SettingsDialog } from './Dialogs';
 import { layouts } from '../game/levels/layouts';
 import s from './Screens.module.css';
 
+/** Celular em pé: os controles de toque e a visão do jogo só fazem sentido na horizontal. */
+const PORTRAIT = '(orientation: portrait) and (max-width: 900px)';
 const reduceMotion = () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
 /** Número que sobe até o valor final (some a animação se o sistema pede movimento reduzido). */
@@ -60,6 +63,7 @@ export default function GameView({ level, onExit, onWin, onNext }: Props) {
         onLose: (r) => setResult({ win: false, r, stars: 0 }),
       });
       engine.current = eng; eng.start(); setLoading(false);
+      if (window.matchMedia?.(PORTRAIT).matches) setPause(true);
     });
     return () => { dead = true; eng?.destroy(); engine.current = null; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -84,6 +88,13 @@ export default function GameView({ level, onExit, onWin, onNext }: Props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => () => audio.duck(false), []);
+  const [portrait, setPortrait] = useState(() => !!window.matchMedia?.(PORTRAIT).matches);
+  useEffect(() => {
+    const mq = window.matchMedia?.(PORTRAIT); if (!mq) return;
+    const on = () => { setPortrait(mq.matches); if (mq.matches) setPause(true); };
+    mq.addEventListener?.('change', on); return () => mq.removeEventListener?.('change', on);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const restart = () => { setSettingsOpen(false); setRun((n) => n + 1); };
   const hold = (c: Control) => ({
     onPointerDown: (ev: React.PointerEvent) => { ev.preventDefault(); (ev.target as HTMLElement).setPointerCapture?.(ev.pointerId); engine.current?.setControl(c, true); },
@@ -93,7 +104,13 @@ export default function GameView({ level, onExit, onWin, onNext }: Props) {
   return (
     <div className={s.game}>
       <canvas ref={canvas} className={s.canvas} />
-      <div className={s.rotateGame}>↻ Gire o celular para jogar em tela cheia</div>
+      {portrait && (
+        <div className={s.rotateGame} role="alert">
+          <i className={s.phoneIcon} aria-hidden="true" />
+          <b>Gire o celular</b>
+          <span>O CrisoGuardian é jogado na horizontal.</span>
+        </div>
+      )}
       {loading && <div className={s.loading}>Carregando {name}…</div>}
       {!loading && !result && <button className={s.pauseBtn} onClick={toggle} aria-label="Pausar">{paused ? '▶' : '❚❚'}</button>}
       <div className={s.mobile} data-touch={st.touchMode} data-size={st.touchSize}>
@@ -101,27 +118,33 @@ export default function GameView({ level, onExit, onWin, onNext }: Props) {
         <div className={s.pad}><button {...hold('special')}>★</button><button {...hold('shoot')}>●</button><button className={s.jump} {...hold('jump')}>⤒</button></div>
       </div>
       {paused && !result && (
-        <div className={s.overlay}><div className={s.dialog}><h2>Pausado</h2>
-          <button onClick={toggle}>Continuar</button><button className={s.secondary} onClick={restart}>Reiniciar fase</button><button className={s.secondary} onClick={() => setSettingsOpen(true)}>Configurações</button><button className={s.ghost} onClick={onExit}>Voltar ao mapa</button></div></div>
+        <div className={s.overlay}><div className={`${s.dialog} ${s.dlgPause}`}><h2>Pausado</h2>
+          <button onClick={toggle}>Continuar</button><button className={s.secondary} onClick={restart}>Reiniciar fase</button><button className={s.secondary} onClick={() => setSettingsOpen(true)}>Configurações</button>
+          {fullscreenSupported() && <button className={s.secondary} onClick={() => { void toggleFullscreen(); }}>Tela cheia</button>}
+          <button className={s.ghost} onClick={onExit}>Voltar ao mapa</button></div></div>
       )}
       {paused && !result && settingsOpen && <SettingsDialog onClose={() => setSettingsOpen(false)} inGame={{ onRestart: restart, onExit }} />}
       {result && (
         <div className={`${s.overlay} ${result.win ? s.overlayWin : ''}`}>
           {result.win && <Confetti />}
-          <div className={`${s.dialog} ${s.pop}`}>
-            {result.win && <p className={s.kicker}>Fase {level + 1} · {name}</p>}
-            <h2 className={result.win ? s.winTitle : undefined}>{result.win ? 'Fase concluída!' : 'Você foi derrotado'}</h2>
-            {result.win && <div className={s.stars}>{[0, 1, 2].map((k) => <span key={k} className={k < result.stars ? `${s.starOn} ${s.starPop}` : s.starOff} style={k < result.stars ? { animationDelay: `${0.45 + k * 0.4}s` } : undefined}>★</span>)}</div>}
-            <div className={s.results}>
-              <span className={s.rowIn} style={{ animationDelay: '.25s' }}>Pontos <b><Count to={result.r.score} delay={250} /></b></span>
-              <span className={s.rowIn} style={{ animationDelay: '.4s' }}>Moedas <b><Count to={result.r.coins} delay={400} /></b></span>
-              <span className={s.rowIn} style={{ animationDelay: '.55s' }}>Resíduos reciclados <b><Count to={result.r.materials} delay={550} />/{result.r.totalMaterials}</b></span>
-              <span className={s.rowIn} style={{ animationDelay: '.7s' }}>Tempo <b><Count to={Math.round(result.r.time)} delay={700} />s</b></span>
+          <div className={`${s.dialog} ${s.pop} ${s.dlgSplit}`}>
+            <div className={s.dlgHead}>
+              {result.win && <p className={s.kicker}>Fase {level + 1} · {name}</p>}
+              <h2 className={result.win ? s.winTitle : undefined}>{result.win ? 'Fase concluída!' : 'Você foi derrotado'}</h2>
+              {result.win && <div className={s.stars}>{[0, 1, 2].map((k) => <span key={k} className={k < result.stars ? `${s.starOn} ${s.starPop}` : s.starOff} style={k < result.stars ? { animationDelay: `${0.45 + k * 0.4}s` } : undefined}>★</span>)}</div>}
             </div>
-            {result.win && level < layouts.length - 1 && <button className={s.nextBtn} onClick={() => onNext(level + 1)} autoFocus>Próxima fase ▶</button>}
-            {result.win && level === layouts.length - 1 && <p>Você salvou o Planeta Crisoverde! 🌍</p>}
-            <button className={s.secondary} onClick={() => setRun((n) => n + 1)}>{result.win ? 'Jogar de novo' : 'Tentar de novo'}</button>
-            <button className={s.ghost} onClick={onExit}>Voltar ao mapa</button>
+            <div className={s.dlgBody}>
+              <div className={s.results}>
+                <span className={s.rowIn} style={{ animationDelay: '.25s' }}>Pontos <b><Count to={result.r.score} delay={250} /></b></span>
+                <span className={s.rowIn} style={{ animationDelay: '.4s' }}>Moedas <b><Count to={result.r.coins} delay={400} /></b></span>
+                <span className={s.rowIn} style={{ animationDelay: '.55s' }}>Resíduos reciclados <b><Count to={result.r.materials} delay={550} />/{result.r.totalMaterials}</b></span>
+                <span className={s.rowIn} style={{ animationDelay: '.7s' }}>Tempo <b><Count to={Math.round(result.r.time)} delay={700} />s</b></span>
+              </div>
+              {result.win && level < layouts.length - 1 && <button className={s.nextBtn} onClick={() => onNext(level + 1)} autoFocus>Próxima fase ▶</button>}
+              {result.win && level === layouts.length - 1 && <p>Você salvou o Planeta Crisoverde! 🌍</p>}
+              <button className={s.secondary} onClick={() => setRun((n) => n + 1)}>{result.win ? 'Jogar de novo' : 'Tentar de novo'}</button>
+              <button className={s.ghost} onClick={onExit}>Voltar ao mapa</button>
+            </div>
           </div>
         </div>
       )}

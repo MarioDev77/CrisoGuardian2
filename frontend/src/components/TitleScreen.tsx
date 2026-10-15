@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ExitDialog, Modal, SettingsDialog, TutorialDialog } from './Dialogs';
 import s from './Screens.module.css';
 import { useFit } from './useFit';
+import InstallButton from './InstallButton';
 
 const ART = '/assets/title/crisoguardian-title.webp';
 /** Botões pintados na arte (1536x1024): posição e tamanho em pixels da imagem original. */
@@ -19,7 +20,8 @@ interface Props { onPlay: () => void }
 
 export default function TitleScreen({ onPlay }: Props) {
   const [panel, setPanel] = useState<Panel>(null);
-  const fit = useFit(W / H, 1.25, 0.25);
+  // faixa segura 7%–86%: do alto do logo até a base do botão SAIR nunca é cortada (celular com barra do navegador)
+  const fit = useFit(W / H, { maxStretch: 1.25, cap: 1.6, safe: [0.07, 0.86], cropTop: 0.25 });
   const close = () => setPanel(null);
 
   // Enter inicia o jogo (quando nenhuma janela está aberta e o foco não está em outro botão)
@@ -42,13 +44,15 @@ export default function TitleScreen({ onPlay }: Props) {
 
   return (
     <div className={s.title}>
+      {fit.bars && <div className={s.backdrop} style={{ backgroundImage: `url('${ART}')` }} aria-hidden="true" />}
       <div className={s.titleStage} style={{ backgroundImage: `url('${ART}')`, left: fit.left, top: fit.top, width: fit.width, height: fit.height }} role="group" aria-label="CrisoGuardian — Protegendo o amanhã">
         <button className={s.tbtn} style={box(BTN.play)} aria-label="Jogar" onClick={onPlay} />
         <button className={s.tbtn} style={box(BTN.settings)} aria-label="Configurações" onClick={() => setPanel('settings')} />
         <button className={s.tbtn} style={box(BTN.tutorial)} aria-label="Tutoriais" onClick={() => setPanel('tutorial')} />
         <button className={s.tbtn} style={box(BTN.exit)} aria-label="Sair" onClick={() => setPanel('exit')} />
       </div>
-      <div className={s.rotate}>↻ Gire o celular para jogar melhor</div>
+      <div className={s.rotate}><i className={s.phoneIcon} aria-hidden="true" /> Gire o celular para jogar na horizontal</div>
+      <InstallButton />
 
       {panel === 'settings' && <SettingsDialog onClose={close} />}
       {panel === 'tutorial' && <TutorialDialog onClose={close} />}

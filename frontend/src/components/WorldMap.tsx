@@ -18,7 +18,8 @@ const T = (y: number) => `${(y / H) * 100}%`;
 interface Props { progress: Progress; onPlay: (level: number) => void; onBack: () => void }
 
 export default function WorldMap({ progress, onPlay, onBack }: Props) {
-  const fit = useFit(W / H, 1.25, 0.5);
+  // o mapa inteiro é "seguro" (HUD no topo, botão de fases na base): estica até 1.5x e, se não couber, mostra inteiro com fundo desfocado nas laterais
+  const fit = useFit(W / H, { maxStretch: 1.25, cap: 1.5, safe: [0, 0.96], cropTop: 0.5 });
   const [shake, setShake] = useState(-1);
   const [settings, setSettings] = useState(false);
   const click = (i: number) => {
@@ -27,6 +28,7 @@ export default function WorldMap({ progress, onPlay, onBack }: Props) {
   };
   return (
     <div className={s.mapWrap}>
+      {fit.bars && <div className={s.backdrop} style={{ backgroundImage: "url('/assets/map/mapa.png')" }} aria-hidden="true" />}
       <div className={s.map} style={{ backgroundImage: "url('/assets/map/mapa.png')", left: fit.left, top: fit.top, width: fit.width, height: fit.height }}>
         {/* selo CrisoGuardian cobre o logo antigo pintado no canto do mapa */}
         <div className={s.brand} style={{ left: 0, top: 0, width: px(392), height: px(190) }}>

@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import {
   ACTION_LABEL, ACTIONS, clearAlt, defaultSettings, DIFFICULTY, getSettings, keyLabel, QUALITY, rebind, resetSettings, updateSettings,
   type Action, type Difficulty, type Quality,
@@ -9,6 +9,9 @@ import s from './Screens.module.css';
 
 /** Janela modal: fecha com Esc ou clicando fora. */
 export function Modal({ label, onClose, wide, children }: { label: string; onClose: () => void; wide?: boolean; children: ReactNode }) {
+  const box = useRef<HTMLDivElement>(null);
+  // o botão com foco automático fica no rodapé: em tela baixa isso rolava a janela até o fim; abre sempre no topo
+  useEffect(() => { if (box.current) box.current.scrollTop = 0; }, []);
   useEffect(() => {
     const k = (e: KeyboardEvent) => { if (e.code === 'Escape') { e.stopPropagation(); onClose(); } };
     window.addEventListener('keydown', k);
@@ -16,7 +19,7 @@ export function Modal({ label, onClose, wide, children }: { label: string; onClo
   }, [onClose]);
   return (
     <div className={s.overlay} onClick={onClose}>
-      <div className={`${s.dialog} ${wide ? s.dialogWide : ''}`} role="dialog" aria-modal="true" aria-label={label} onClick={(e) => e.stopPropagation()}>
+      <div ref={box} className={`${s.dialog} ${wide ? s.dialogWide : ''}`} role="dialog" aria-modal="true" aria-label={label} onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>
