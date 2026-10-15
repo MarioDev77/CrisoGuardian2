@@ -1,0 +1,1 @@
+*{box-sizing:border-box}html,body,#root{margin:0;width:100%;height:100%;height:100dvh;overflow:hidden}body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#06170f;overscroll-behavior:none}button{font-family:inherit}button:focus-visible{outline:3px solid #f0ff8c;outline-offset:3px}::selection{background:#70d97c;color:#062013}

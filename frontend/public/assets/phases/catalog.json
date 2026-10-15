@@ -1,0 +1,2303 @@
+[
+ {
+  "name": "p01_ground",
+  "phase": 1,
+  "category": "terrain",
+  "role": "ground",
+  "src": "/assets/phases/phase-01-floresta-viva/terrain/ground.png",
+  "w": 70,
+  "h": 50,
+  "hitbox": {
+   "x": 4,
+   "y": 2,
+   "w": 62,
+   "h": 47
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/platform_long.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 14,
+  "surfaceInset": 0.02,
+  "lip": 0.06
+ },
+ {
+  "name": "p01_ledge",
+  "phase": 1,
+  "category": "terrain",
+  "role": "ledge",
+  "src": "/assets/phases/phase-01-floresta-viva/terrain/ledge.png",
+  "w": 40,
+  "h": 36,
+  "hitbox": {
+   "x": 2,
+   "y": 1,
+   "w": 35,
+   "h": 34
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/platform_medium.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 8,
+  "surfaceInset": 0.0,
+  "lip": 0.06
+ },
+ {
+  "name": "p01_bridge",
+  "phase": 1,
+  "category": "terrain",
+  "role": "bridge",
+  "src": "/assets/phases/phase-01-floresta-viva/terrain/bridge.png",
+  "w": 45,
+  "h": 28,
+  "hitbox": {
+   "x": 3,
+   "y": 1,
+   "w": 40,
+   "h": 26
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/ladder.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 9,
+  "surfaceInset": 0.143,
+  "lip": 0.06
+ },
+ {
+  "name": "p01_block",
+  "phase": 1,
+  "category": "terrain",
+  "role": "block",
+  "src": "/assets/phases/phase-01-floresta-viva/terrain/block.png",
+  "w": 36,
+  "h": 40,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 32,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/wooden_bridge.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p01_wall",
+  "phase": 1,
+  "category": "terrain",
+  "role": "wall",
+  "src": "/assets/phases/phase-01-floresta-viva/terrain/wall.png",
+  "w": 74,
+  "h": 79,
+  "hitbox": {
+   "x": 4,
+   "y": 3,
+   "w": 65,
+   "h": 74
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/stone_wall.png",
+   "component": 1
+  },
+  "issues": []
+ },
+ {
+  "name": "p01_crate",
+  "phase": 1,
+  "category": "props",
+  "role": "crate",
+  "src": "/assets/phases/phase-01-floresta-viva/props/crate.png",
+  "w": 36,
+  "h": 40,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 32,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/barrel.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p01_barrel",
+  "phase": 1,
+  "category": "props",
+  "role": "barrel",
+  "src": "/assets/phases/phase-01-floresta-viva/props/barrel.png",
+  "w": 63,
+  "h": 85,
+  "hitbox": {
+   "x": 4,
+   "y": 3,
+   "w": 55,
+   "h": 80
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/metal_pipe.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p01_ladder",
+  "phase": 1,
+  "category": "props",
+  "role": "ladder",
+  "src": "/assets/phases/phase-01-floresta-viva/props/ladder.png",
+  "w": 50,
+  "h": 90,
+  "hitbox": {
+   "x": 3,
+   "y": 4,
+   "w": 44,
+   "h": 85
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/crate.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p01_pipe",
+  "phase": 1,
+  "category": "props",
+  "role": "pipe",
+  "src": "/assets/phases/phase-01-floresta-viva/props/pipe.png",
+  "w": 60,
+  "h": 55,
+  "hitbox": {
+   "x": 4,
+   "y": 2,
+   "w": 53,
+   "h": 52
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/stone_wall.png",
+   "component": 0
+  },
+  "issues": []
+ },
+ {
+  "name": "p01_bin",
+  "phase": 1,
+  "category": "props",
+  "role": "bin",
+  "src": "/assets/phases/phase-01-floresta-viva/props/bin.png",
+  "w": 41,
+  "h": 54,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 36,
+   "h": 51
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/recycle_bin.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p01_coin",
+  "phase": 1,
+  "category": "collectibles",
+  "role": "coin",
+  "src": "/assets/phases/phase-01-floresta-viva/collectibles/coin.png",
+  "w": 51,
+  "h": 60,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 45,
+   "h": 56
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/leaf_coin.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p01_shield",
+  "phase": 1,
+  "category": "collectibles",
+  "role": "shield",
+  "src": "/assets/phases/phase-01-floresta-viva/collectibles/shield.png",
+  "w": 55,
+  "h": 73,
+  "hitbox": {
+   "x": 3,
+   "y": 3,
+   "w": 48,
+   "h": 69
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/banana.png",
+   "component": 0
+  },
+  "issues": []
+ },
+ {
+  "name": "p01_paper",
+  "phase": 1,
+  "category": "collectibles",
+  "role": "paper",
+  "src": "/assets/phases/phase-01-floresta-viva/collectibles/paper.png",
+  "w": 37,
+  "h": 40,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 33,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/paper_scrap.png",
+   "component": 0
+  },
+  "issues": []
+ },
+ {
+  "name": "p01_bottle",
+  "phase": 1,
+  "category": "collectibles",
+  "role": "bottle",
+  "src": "/assets/phases/phase-01-floresta-viva/collectibles/bottle.png",
+  "w": 27,
+  "h": 56,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 24,
+   "h": 53
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/paper_scrap.png",
+   "component": 1
+  },
+  "issues": []
+ },
+ {
+  "name": "p01_banana",
+  "phase": 1,
+  "category": "collectibles",
+  "role": "banana",
+  "src": "/assets/phases/phase-01-floresta-viva/collectibles/banana.png",
+  "w": 71,
+  "h": 81,
+  "hitbox": {
+   "x": 4,
+   "y": 3,
+   "w": 62,
+   "h": 76
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/water_bottle.png",
+   "component": null
+  },
+  "issues": [
+   "halo azul opaco removido por cor"
+  ]
+ },
+ {
+  "name": "p01_rat",
+  "phase": 1,
+  "category": "enemies",
+  "role": "rat",
+  "src": "/assets/phases/phase-01-floresta-viva/enemies/rat.png",
+  "w": 76,
+  "h": 72,
+  "hitbox": {
+   "x": 5,
+   "y": 3,
+   "w": 67,
+   "h": 68
+  },
+  "source": {
+   "file": "fase_01_floresta_viva/forest_mouse.png",
+   "component": 1
+  },
+  "issues": []
+ },
+ {
+  "name": "p02_ground",
+  "phase": 2,
+  "category": "terrain",
+  "role": "ground",
+  "src": "/assets/phases/phase-02-rio-limpo/terrain/ground.png",
+  "w": 60,
+  "h": 50,
+  "hitbox": {
+   "x": 4,
+   "y": 2,
+   "w": 53,
+   "h": 47
+  },
+  "source": {
+   "file": "fase_02_rio_limpo/river_platform_long.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 12,
+  "surfaceInset": 0.02,
+  "lip": 0.06
+ },
+ {
+  "name": "p02_ledge",
+  "phase": 2,
+  "category": "terrain",
+  "role": "ledge",
+  "src": "/assets/phases/phase-02-rio-limpo/terrain/ledge.png",
+  "w": 50,
+  "h": 36,
+  "hitbox": {
+   "x": 3,
+   "y": 1,
+   "w": 44,
+   "h": 34
+  },
+  "source": {
+   "file": "fase_02_rio_limpo/river_platform_medium.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 10,
+  "surfaceInset": 0.0,
+  "lip": 0.06
+ },
+ {
+  "name": "p02_bridge",
+  "phase": 2,
+  "category": "terrain",
+  "role": "bridge",
+  "src": "/assets/phases/phase-02-rio-limpo/terrain/bridge.png",
+  "w": 45,
+  "h": 28,
+  "hitbox": {
+   "x": 3,
+   "y": 1,
+   "w": 40,
+   "h": 26
+  },
+  "source": {
+   "file": "fase_02_rio_limpo/barrel.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 9,
+  "surfaceInset": 0.286,
+  "lip": 0.06
+ },
+ {
+  "name": "p02_block",
+  "phase": 2,
+  "category": "terrain",
+  "role": "block",
+  "src": "/assets/phases/phase-02-rio-limpo/terrain/block.png",
+  "w": 42,
+  "h": 40,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 37,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_02_rio_limpo/river_bridge.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p02_barrel",
+  "phase": 2,
+  "category": "props",
+  "role": "barrel",
+  "src": "/assets/phases/phase-02-rio-limpo/props/barrel.png",
+  "w": 48,
+  "h": 63,
+  "hitbox": {
+   "x": 3,
+   "y": 3,
+   "w": 42,
+   "h": 59
+  },
+  "source": {
+   "file": "fase_02_rio_limpo/blue_drum.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p02_rock",
+  "phase": 2,
+  "category": "props",
+  "role": "rock",
+  "src": "/assets/phases/phase-02-rio-limpo/props/rock.png",
+  "w": 61,
+  "h": 55,
+  "hitbox": {
+   "x": 4,
+   "y": 2,
+   "w": 54,
+   "h": 52
+  },
+  "source": {
+   "file": "fase_02_rio_limpo/ladder.png",
+   "component": 0
+  },
+  "issues": []
+ },
+ {
+  "name": "p02_pipe",
+  "phase": 2,
+  "category": "props",
+  "role": "pipe",
+  "src": "/assets/phases/phase-02-rio-limpo/props/pipe.png",
+  "w": 76,
+  "h": 58,
+  "hitbox": {
+   "x": 5,
+   "y": 2,
+   "w": 67,
+   "h": 55
+  },
+  "source": {
+   "file": "fase_02_rio_limpo/recycle_bin.png",
+   "component": 0
+  },
+  "issues": []
+ },
+ {
+  "name": "p02_bin",
+  "phase": 2,
+  "category": "props",
+  "role": "bin",
+  "src": "/assets/phases/phase-02-rio-limpo/props/bin.png",
+  "w": 38,
+  "h": 54,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 34,
+   "h": 51
+  },
+  "source": {
+   "file": "tools/sources/p02_bin_source.png",
+   "component": null
+  },
+  "issues": [
+   "recorte original (recycle_bin.png #1) era um barril azul fatiado; substituído pela lixeira verde de reciclagem com alfa limpo"
+  ]
+ },
+ {
+  "name": "p02_bag",
+  "phase": 2,
+  "category": "collectibles",
+  "role": "bag",
+  "src": "/assets/phases/phase-02-rio-limpo/collectibles/bag.png",
+  "w": 54,
+  "h": 46,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 48,
+   "h": 43
+  },
+  "source": {
+   "file": "fase_02_rio_limpo/trash_bag.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p02_bottle",
+  "phase": 2,
+  "category": "collectibles",
+  "role": "bottle",
+  "src": "/assets/phases/phase-02-rio-limpo/collectibles/bottle.png",
+  "w": 35,
+  "h": 75,
+  "hitbox": {
+   "x": 2,
+   "y": 3,
+   "w": 31,
+   "h": 70
+  },
+  "source": {
+   "file": "fase_02_rio_limpo/trash_paper.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p02_paper",
+  "phase": 2,
+  "category": "collectibles",
+  "role": "paper",
+  "src": "/assets/phases/phase-02-rio-limpo/collectibles/paper.png",
+  "w": 40,
+  "h": 48,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 35,
+   "h": 45
+  },
+  "source": {
+   "file": "fase_02_rio_limpo/fish_enemy.png",
+   "component": 0
+  },
+  "issues": []
+ },
+ {
+  "name": "p02_fish",
+  "phase": 2,
+  "category": "enemies",
+  "role": "fish",
+  "src": "/assets/phases/phase-02-rio-limpo/enemies/fish.png",
+  "w": 86,
+  "h": 71,
+  "hitbox": {
+   "x": 5,
+   "y": 3,
+   "w": 76,
+   "h": 67
+  },
+  "source": {
+   "file": "fase_02_rio_limpo/fish_enemy.png",
+   "component": 1
+  },
+  "issues": []
+ },
+ {
+  "name": "p02_coin",
+  "phase": 2,
+  "category": "collectibles",
+  "role": "coin",
+  "src": "/assets/game/tiles/f02_coin.png",
+  "w": 0,
+  "h": 0,
+  "hitbox": null,
+  "source": {
+   "file": "projeto: f02_coin",
+   "component": null
+  },
+  "issues": [
+   "peça ausente/quebrada no pacote; reaproveitada do projeto"
+  ]
+ },
+ {
+  "name": "p03_ground",
+  "phase": 3,
+  "category": "terrain",
+  "role": "ground",
+  "src": "/assets/phases/phase-03-cidade-verde/terrain/ground.png",
+  "w": 60,
+  "h": 50,
+  "hitbox": {
+   "x": 4,
+   "y": 2,
+   "w": 53,
+   "h": 47
+  },
+  "source": {
+   "file": "fase_03_cidade_verde/city_platform_long.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 12,
+  "surfaceInset": 0.04,
+  "lip": 0.06
+ },
+ {
+  "name": "p03_ledge",
+  "phase": 3,
+  "category": "terrain",
+  "role": "ledge",
+  "src": "/assets/phases/phase-03-cidade-verde/terrain/ledge.png",
+  "w": 50,
+  "h": 36,
+  "hitbox": {
+   "x": 3,
+   "y": 1,
+   "w": 44,
+   "h": 34
+  },
+  "source": {
+   "file": "fase_03_cidade_verde/city_platform_medium.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 10,
+  "surfaceInset": 0.028,
+  "lip": 0.06
+ },
+ {
+  "name": "p03_bridge",
+  "phase": 3,
+  "category": "terrain",
+  "role": "bridge",
+  "src": "/assets/phases/phase-03-cidade-verde/terrain/bridge.png",
+  "w": 75,
+  "h": 28,
+  "hitbox": {
+   "x": 4,
+   "y": 1,
+   "w": 66,
+   "h": 26
+  },
+  "source": {
+   "file": "fase_03_cidade_verde/traffic_cone.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 15,
+  "surfaceInset": 0.0,
+  "lip": 0.06
+ },
+ {
+  "name": "p03_block",
+  "phase": 3,
+  "category": "terrain",
+  "role": "block",
+  "src": "/assets/phases/phase-03-cidade-verde/terrain/block.png",
+  "w": 52,
+  "h": 40,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 46,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_03_cidade_verde/bench.png",
+   "component": null
+  },
+  "issues": [
+   "mancha verde translúcida à esquerda cortada"
+  ]
+ },
+ {
+  "name": "p03_wall",
+  "phase": 3,
+  "category": "terrain",
+  "role": "wall",
+  "src": "/assets/phases/phase-03-cidade-verde/terrain/wall.png",
+  "w": 70,
+  "h": 93,
+  "hitbox": {
+   "x": 4,
+   "y": 4,
+   "w": 62,
+   "h": 87
+  },
+  "source": {
+   "file": "fase_03_cidade_verde/brick_wall.png",
+   "component": 1
+  },
+  "issues": []
+ },
+ {
+  "name": "p03_crate",
+  "phase": 3,
+  "category": "props",
+  "role": "crate",
+  "src": "/assets/phases/phase-03-cidade-verde/props/crate.png",
+  "w": 39,
+  "h": 40,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 34,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_03_cidade_verde/barrel.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p03_barrel",
+  "phase": 3,
+  "category": "props",
+  "role": "barrel",
+  "src": "/assets/phases/phase-03-cidade-verde/props/barrel.png",
+  "w": 67,
+  "h": 82,
+  "hitbox": {
+   "x": 4,
+   "y": 3,
+   "w": 59,
+   "h": 77
+  },
+  "source": {
+   "file": "fase_03_cidade_verde/pipe.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p03_cone",
+  "phase": 3,
+  "category": "props",
+  "role": "cone",
+  "src": "/assets/phases/phase-03-cidade-verde/props/cone.png",
+  "w": 17,
+  "h": 24,
+  "hitbox": {
+   "x": 1,
+   "y": 1,
+   "w": 15,
+   "h": 23
+  },
+  "source": {
+   "file": "fase_03_cidade_verde/crate.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p03_pipe",
+  "phase": 3,
+  "category": "props",
+  "role": "pipe",
+  "src": "/assets/phases/phase-03-cidade-verde/props/pipe.png",
+  "w": 68,
+  "h": 57,
+  "hitbox": {
+   "x": 4,
+   "y": 2,
+   "w": 60,
+   "h": 54
+  },
+  "source": {
+   "file": "fase_03_cidade_verde/brick_wall.png",
+   "component": 0
+  },
+  "issues": []
+ },
+ {
+  "name": "p03_coin",
+  "phase": 3,
+  "category": "collectibles",
+  "role": "coin",
+  "src": "/assets/phases/phase-03-cidade-verde/collectibles/coin.png",
+  "w": 48,
+  "h": 55,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 42,
+   "h": 52
+  },
+  "source": {
+   "file": "fase_03_cidade_verde/paper.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p03_wrapper",
+  "phase": 3,
+  "category": "collectibles",
+  "role": "wrapper",
+  "src": "/assets/phases/phase-03-cidade-verde/collectibles/wrapper.png",
+  "w": 52,
+  "h": 51,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 46,
+   "h": 48
+  },
+  "source": {
+   "file": "fase_03_cidade_verde/food_wrapper.png",
+   "component": 0
+  },
+  "issues": []
+ },
+ {
+  "name": "p03_bottle",
+  "phase": 3,
+  "category": "collectibles",
+  "role": "bottle",
+  "src": "/assets/phases/phase-03-cidade-verde/collectibles/bottle.png",
+  "w": 36,
+  "h": 70,
+  "hitbox": {
+   "x": 2,
+   "y": 3,
+   "w": 32,
+   "h": 66
+  },
+  "source": {
+   "file": "fase_03_cidade_verde/bottle.png",
+   "component": 1
+  },
+  "issues": []
+ },
+ {
+  "name": "p03_robot",
+  "phase": 3,
+  "category": "enemies",
+  "role": "robot",
+  "src": "/assets/phases/phase-03-cidade-verde/enemies/robot.png",
+  "w": 64,
+  "h": 87,
+  "hitbox": {
+   "x": 4,
+   "y": 3,
+   "w": 56,
+   "h": 82
+  },
+  "source": {
+   "file": "fase_03_cidade_verde/robot_enemy.png",
+   "component": 1
+  },
+  "issues": []
+ },
+ {
+  "name": "p03_bin",
+  "phase": 3,
+  "category": "props",
+  "role": "bin",
+  "src": "/assets/game/tiles/f03_bin.png",
+  "w": 0,
+  "h": 0,
+  "hitbox": null,
+  "source": {
+   "file": "projeto: f03_bin",
+   "component": null
+  },
+  "issues": [
+   "peça ausente/quebrada no pacote; reaproveitada do projeto"
+  ]
+ },
+ {
+  "name": "p04_ground",
+  "phase": 4,
+  "category": "terrain",
+  "role": "ground",
+  "src": "/assets/phases/phase-04-montanha/terrain/ground.png",
+  "w": 60,
+  "h": 50,
+  "hitbox": {
+   "x": 4,
+   "y": 2,
+   "w": 53,
+   "h": 47
+  },
+  "source": {
+   "file": "fase_04_montanha/snow_platform_long.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 12,
+  "surfaceInset": 0.02,
+  "lip": 0.06
+ },
+ {
+  "name": "p04_ledge",
+  "phase": 4,
+  "category": "terrain",
+  "role": "ledge",
+  "src": "/assets/phases/phase-04-montanha/terrain/ledge.png",
+  "w": 40,
+  "h": 36,
+  "hitbox": {
+   "x": 2,
+   "y": 1,
+   "w": 35,
+   "h": 34
+  },
+  "source": {
+   "file": "fase_04_montanha/snow_platform_small.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 8,
+  "surfaceInset": 0.0,
+  "lip": 0.06
+ },
+ {
+  "name": "p04_bridge",
+  "phase": 4,
+  "category": "terrain",
+  "role": "bridge",
+  "src": "/assets/phases/phase-04-montanha/terrain/bridge.png",
+  "w": 65,
+  "h": 28,
+  "hitbox": {
+   "x": 4,
+   "y": 1,
+   "w": 57,
+   "h": 26
+  },
+  "source": {
+   "file": "fase_04_montanha/ladder.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 13,
+  "surfaceInset": 0.071,
+  "lip": 0.06
+ },
+ {
+  "name": "p04_block",
+  "phase": 4,
+  "category": "terrain",
+  "role": "block",
+  "src": "/assets/phases/phase-04-montanha/terrain/block.png",
+  "w": 34,
+  "h": 40,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 30,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_04_montanha/snow_bridge.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p04_rock",
+  "phase": 4,
+  "category": "terrain",
+  "role": "rock",
+  "src": "/assets/phases/phase-04-montanha/terrain/rock.png",
+  "w": 58,
+  "h": 47,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 51,
+   "h": 44
+  },
+  "source": {
+   "file": "fase_04_montanha/ice_crystal.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p04_wall",
+  "phase": 4,
+  "category": "terrain",
+  "role": "wall",
+  "src": "/assets/phases/phase-04-montanha/terrain/wall.png",
+  "w": 81,
+  "h": 76,
+  "hitbox": {
+   "x": 5,
+   "y": 3,
+   "w": 71,
+   "h": 71
+  },
+  "source": {
+   "file": "fase_04_montanha/snow_wall.png",
+   "component": 1
+  },
+  "issues": []
+ },
+ {
+  "name": "p04_crate",
+  "phase": 4,
+  "category": "props",
+  "role": "crate",
+  "src": "/assets/phases/phase-04-montanha/props/crate.png",
+  "w": 38,
+  "h": 40,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 33,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_04_montanha/barrel.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p04_barrel",
+  "phase": 4,
+  "category": "props",
+  "role": "barrel",
+  "src": "/assets/phases/phase-04-montanha/props/barrel.png",
+  "w": 62,
+  "h": 82,
+  "hitbox": {
+   "x": 4,
+   "y": 3,
+   "w": 55,
+   "h": 77
+  },
+  "source": {
+   "file": "fase_04_montanha/pipe.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p04_ladder",
+  "phase": 4,
+  "category": "props",
+  "role": "ladder",
+  "src": "/assets/phases/phase-04-montanha/props/ladder.png",
+  "w": 54,
+  "h": 84,
+  "hitbox": {
+   "x": 3,
+   "y": 3,
+   "w": 48,
+   "h": 79
+  },
+  "source": {
+   "file": "fase_04_montanha/crate.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p04_pipe",
+  "phase": 4,
+  "category": "props",
+  "role": "pipe",
+  "src": "/assets/phases/phase-04-montanha/props/pipe.png",
+  "w": 57,
+  "h": 54,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 50,
+   "h": 51
+  },
+  "source": {
+   "file": "fase_04_montanha/snow_wall.png",
+   "component": 0
+  },
+  "issues": []
+ },
+ {
+  "name": "p04_snowball",
+  "phase": 4,
+  "category": "props",
+  "role": "snowball",
+  "src": "/assets/phases/phase-04-montanha/props/snowball.png",
+  "w": 46,
+  "h": 43,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 40,
+   "h": 40
+  },
+  "source": {
+   "file": "fase_04_montanha/snowball.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p04_coin",
+  "phase": 4,
+  "category": "collectibles",
+  "role": "coin",
+  "src": "/assets/phases/phase-04-montanha/collectibles/coin.png",
+  "w": 42,
+  "h": 57,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 37,
+   "h": 54
+  },
+  "source": {
+   "file": "fase_04_montanha/leaf_coin.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p04_bottle",
+  "phase": 4,
+  "category": "collectibles",
+  "role": "bottle",
+  "src": "/assets/phases/phase-04-montanha/collectibles/bottle.png",
+  "w": 33,
+  "h": 68,
+  "hitbox": {
+   "x": 2,
+   "y": 3,
+   "w": 29,
+   "h": 64
+  },
+  "source": {
+   "file": "fase_04_montanha/bottle.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p04_yeti",
+  "phase": 4,
+  "category": "enemies",
+  "role": "yeti",
+  "src": "/assets/phases/phase-04-montanha/enemies/yeti.png",
+  "w": 98,
+  "h": 100,
+  "hitbox": {
+   "x": 6,
+   "y": 4,
+   "w": 86,
+   "h": 94
+  },
+  "source": {
+   "file": "fase_04_montanha/yeti_enemy.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p04_bin",
+  "phase": 4,
+  "category": "props",
+  "role": "bin",
+  "src": "/assets/game/tiles/f04_bin2.png",
+  "w": 0,
+  "h": 0,
+  "hitbox": null,
+  "source": {
+   "file": "projeto: f04_bin2",
+   "component": null
+  },
+  "issues": [
+   "peça ausente/quebrada no pacote; reaproveitada do projeto"
+  ]
+ },
+ {
+  "name": "p05_ground",
+  "phase": 5,
+  "category": "terrain",
+  "role": "ground",
+  "src": "/assets/phases/phase-05-praia-limpa/terrain/ground.png",
+  "w": 60,
+  "h": 50,
+  "hitbox": {
+   "x": 4,
+   "y": 2,
+   "w": 53,
+   "h": 47
+  },
+  "source": {
+   "file": "fase_05_praia_limpa/sand_platform_small.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 12,
+  "surfaceInset": 0.0,
+  "lip": 0.06
+ },
+ {
+  "name": "p05_ledge",
+  "phase": 5,
+  "category": "terrain",
+  "role": "ledge",
+  "src": "/assets/phases/phase-05-praia-limpa/terrain/ledge.png",
+  "w": 45,
+  "h": 36,
+  "hitbox": {
+   "x": 3,
+   "y": 1,
+   "w": 40,
+   "h": 34
+  },
+  "source": {
+   "file": "fase_05_praia_limpa/sand_platform_small.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 9,
+  "surfaceInset": 0.0,
+  "lip": 0.06
+ },
+ {
+  "name": "p05_bridge",
+  "phase": 5,
+  "category": "terrain",
+  "role": "bridge",
+  "src": "/assets/phases/phase-05-praia-limpa/terrain/bridge.png",
+  "w": 55,
+  "h": 28,
+  "hitbox": {
+   "x": 3,
+   "y": 1,
+   "w": 48,
+   "h": 26
+  },
+  "source": {
+   "file": "fase_05_praia_limpa/palm_tree.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 11,
+  "surfaceInset": 0.321,
+  "lip": 0.06
+ },
+ {
+  "name": "p05_block",
+  "phase": 5,
+  "category": "terrain",
+  "role": "block",
+  "src": "/assets/phases/phase-05-praia-limpa/terrain/block.png",
+  "w": 48,
+  "h": 40,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 42,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_05_praia_limpa/star_block.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p05_wall",
+  "phase": 5,
+  "category": "terrain",
+  "role": "wall",
+  "src": "/assets/phases/phase-05-praia-limpa/terrain/wall.png",
+  "w": 86,
+  "h": 84,
+  "hitbox": {
+   "x": 5,
+   "y": 3,
+   "w": 76,
+   "h": 79
+  },
+  "source": {
+   "file": "fase_05_praia_limpa/stone_wall.png",
+   "component": 1
+  },
+  "issues": []
+ },
+ {
+  "name": "p05_crate",
+  "phase": 5,
+  "category": "props",
+  "role": "crate",
+  "src": "/assets/phases/phase-05-praia-limpa/props/crate.png",
+  "w": 42,
+  "h": 40,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 37,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_05_praia_limpa/barrel.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p05_palm",
+  "phase": 5,
+  "category": "props",
+  "role": "palm",
+  "src": "/assets/phases/phase-05-praia-limpa/props/palm.png",
+  "w": 68,
+  "h": 92,
+  "hitbox": {
+   "x": 4,
+   "y": 4,
+   "w": 60,
+   "h": 86
+  },
+  "source": {
+   "file": "fase_05_praia_limpa/crate.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p05_bin",
+  "phase": 5,
+  "category": "props",
+  "role": "bin",
+  "src": "/assets/phases/phase-05-praia-limpa/props/bin.png",
+  "w": 40,
+  "h": 54,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 35,
+   "h": 51
+  },
+  "source": {
+   "file": "fase_05_praia_limpa/recycle_bin.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p05_ring",
+  "phase": 5,
+  "category": "props",
+  "role": "ring",
+  "src": "/assets/phases/phase-05-praia-limpa/props/ring.png",
+  "w": 42,
+  "h": 44,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 37,
+   "h": 41
+  },
+  "source": {
+   "file": "fase_05_praia_limpa/crab_enemy.png",
+   "component": 1
+  },
+  "issues": []
+ },
+ {
+  "name": "p05_coin",
+  "phase": 5,
+  "category": "collectibles",
+  "role": "coin",
+  "src": "/assets/phases/phase-05-praia-limpa/collectibles/coin.png",
+  "w": 49,
+  "h": 58,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 43,
+   "h": 55
+  },
+  "source": {
+   "file": "fase_05_praia_limpa/leaf_coin.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p05_fishbone",
+  "phase": 5,
+  "category": "collectibles",
+  "role": "fishbone",
+  "src": "/assets/phases/phase-05-praia-limpa/collectibles/fishbone.png",
+  "w": 72,
+  "h": 63,
+  "hitbox": {
+   "x": 4,
+   "y": 3,
+   "w": 63,
+   "h": 59
+  },
+  "source": {
+   "file": "fase_05_praia_limpa/bottle.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p05_bottle",
+  "phase": 5,
+  "category": "collectibles",
+  "role": "bottle",
+  "src": "/assets/phases/phase-05-praia-limpa/collectibles/bottle.png",
+  "w": 34,
+  "h": 69,
+  "hitbox": {
+   "x": 2,
+   "y": 3,
+   "w": 30,
+   "h": 65
+  },
+  "source": {
+   "file": "fase_05_praia_limpa/shell.png",
+   "component": 1
+  },
+  "issues": []
+ },
+ {
+  "name": "p05_crab",
+  "phase": 5,
+  "category": "enemies",
+  "role": "crab",
+  "src": "/assets/phases/phase-05-praia-limpa/enemies/crab.png",
+  "w": 86,
+  "h": 66,
+  "hitbox": {
+   "x": 5,
+   "y": 3,
+   "w": 76,
+   "h": 62
+  },
+  "source": {
+   "file": "fase_05_praia_limpa/crab_enemy.png",
+   "component": 0
+  },
+  "issues": []
+ },
+ {
+  "name": "p06_ground",
+  "phase": 6,
+  "category": "terrain",
+  "role": "ground",
+  "src": "/assets/phases/phase-06-deserto/terrain/ground.png",
+  "w": 60,
+  "h": 50,
+  "hitbox": {
+   "x": 4,
+   "y": 2,
+   "w": 53,
+   "h": 47
+  },
+  "source": {
+   "file": "fase_06_deserto/desert_platform_small.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 12,
+  "surfaceInset": 0.02,
+  "lip": 0.06
+ },
+ {
+  "name": "p06_ledge",
+  "phase": 6,
+  "category": "terrain",
+  "role": "ledge",
+  "src": "/assets/phases/phase-06-deserto/terrain/ledge.png",
+  "w": 40,
+  "h": 36,
+  "hitbox": {
+   "x": 2,
+   "y": 1,
+   "w": 35,
+   "h": 34
+  },
+  "source": {
+   "file": "fase_06_deserto/desert_platform_small.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 8,
+  "surfaceInset": 0.028,
+  "lip": 0.06
+ },
+ {
+  "name": "p06_bridge",
+  "phase": 6,
+  "category": "terrain",
+  "role": "bridge",
+  "src": "/assets/phases/phase-06-deserto/terrain/bridge.png",
+  "w": 70,
+  "h": 28,
+  "hitbox": {
+   "x": 4,
+   "y": 1,
+   "w": 62,
+   "h": 26
+  },
+  "source": {
+   "file": "fase_06_deserto/ladder.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 14,
+  "surfaceInset": 0.143,
+  "lip": 0.06
+ },
+ {
+  "name": "p06_block",
+  "phase": 6,
+  "category": "terrain",
+  "role": "block",
+  "src": "/assets/phases/phase-06-deserto/terrain/block.png",
+  "w": 50,
+  "h": 40,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 44,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_06_deserto/cactus.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p06_wall",
+  "phase": 6,
+  "category": "terrain",
+  "role": "wall",
+  "src": "/assets/phases/phase-06-deserto/terrain/wall.png",
+  "w": 76,
+  "h": 72,
+  "hitbox": {
+   "x": 5,
+   "y": 3,
+   "w": 67,
+   "h": 68
+  },
+  "source": {
+   "file": "fase_06_deserto/sandstone_wall.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p06_crate",
+  "phase": 6,
+  "category": "props",
+  "role": "crate",
+  "src": "/assets/phases/phase-06-deserto/props/crate.png",
+  "w": 39,
+  "h": 40,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 34,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_06_deserto/barrel.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p06_ladder",
+  "phase": 6,
+  "category": "props",
+  "role": "ladder",
+  "src": "/assets/phases/phase-06-deserto/props/ladder.png",
+  "w": 54,
+  "h": 67,
+  "hitbox": {
+   "x": 3,
+   "y": 3,
+   "w": 48,
+   "h": 63
+  },
+  "source": {
+   "file": "fase_06_deserto/crate.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p06_cactus",
+  "phase": 6,
+  "category": "props",
+  "role": "cactus",
+  "src": "/assets/phases/phase-06-deserto/props/cactus.png",
+  "w": 42,
+  "h": 61,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 37,
+   "h": 57
+  },
+  "source": {
+   "file": "fase_06_deserto/desert_bridge.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p06_bin",
+  "phase": 6,
+  "category": "props",
+  "role": "bin",
+  "src": "/assets/phases/phase-06-deserto/props/bin.png",
+  "w": 45,
+  "h": 54,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 40,
+   "h": 51
+  },
+  "source": {
+   "file": "fase_06_deserto/red_bin.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p06_coin",
+  "phase": 6,
+  "category": "collectibles",
+  "role": "coin",
+  "src": "/assets/phases/phase-06-deserto/collectibles/coin.png",
+  "w": 49,
+  "h": 55,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 43,
+   "h": 52
+  },
+  "source": {
+   "file": "fase_06_deserto/leaf_coin.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p06_paper",
+  "phase": 6,
+  "category": "collectibles",
+  "role": "paper",
+  "src": "/assets/phases/phase-06-deserto/collectibles/paper.png",
+  "w": 52,
+  "h": 42,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 46,
+   "h": 39
+  },
+  "source": {
+   "file": "fase_06_deserto/paper.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p06_lizard",
+  "phase": 6,
+  "category": "enemies",
+  "role": "lizard",
+  "src": "/assets/phases/phase-06-deserto/enemies/lizard.png",
+  "w": 109,
+  "h": 67,
+  "hitbox": {
+   "x": 7,
+   "y": 3,
+   "w": 96,
+   "h": 63
+  },
+  "source": {
+   "file": "fase_06_deserto/lizard_enemy.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p07_ground",
+  "phase": 7,
+  "category": "terrain",
+  "role": "ground",
+  "src": "/assets/phases/phase-07-metropole-sustentavel/terrain/ground.png",
+  "w": 100,
+  "h": 50,
+  "hitbox": {
+   "x": 6,
+   "y": 2,
+   "w": 88,
+   "h": 47
+  },
+  "source": {
+   "file": "fase_07_metropole_sustentavel/tech_platform_long.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 20,
+  "surfaceInset": 0.0,
+  "lip": 0.06
+ },
+ {
+  "name": "p07_ledge",
+  "phase": 7,
+  "category": "terrain",
+  "role": "ledge",
+  "src": "/assets/phases/phase-07-metropole-sustentavel/terrain/ledge.png",
+  "w": 85,
+  "h": 36,
+  "hitbox": {
+   "x": 5,
+   "y": 1,
+   "w": 75,
+   "h": 34
+  },
+  "source": {
+   "file": "fase_07_metropole_sustentavel/tech_platform_medium.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 17,
+  "surfaceInset": 0.0,
+  "lip": 0.06
+ },
+ {
+  "name": "p07_bridge",
+  "phase": 7,
+  "category": "terrain",
+  "role": "bridge",
+  "src": "/assets/phases/phase-07-metropole-sustentavel/terrain/bridge.png",
+  "w": 100,
+  "h": 28,
+  "hitbox": {
+   "x": 6,
+   "y": 1,
+   "w": 88,
+   "h": 26
+  },
+  "source": {
+   "file": "fase_07_metropole_sustentavel/tech_ladder.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 20,
+  "surfaceInset": 0.0,
+  "lip": 0.06
+ },
+ {
+  "name": "p07_block",
+  "phase": 7,
+  "category": "terrain",
+  "role": "block",
+  "src": "/assets/phases/phase-07-metropole-sustentavel/terrain/block.png",
+  "w": 56,
+  "h": 40,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 49,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_07_metropole_sustentavel/energy_bridge.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p07_hazard",
+  "phase": 7,
+  "category": "terrain",
+  "role": "hazard",
+  "src": "/assets/phases/phase-07-metropole-sustentavel/terrain/hazard.png",
+  "w": 96,
+  "h": 64,
+  "hitbox": {
+   "x": 6,
+   "y": 3,
+   "w": 84,
+   "h": 60
+  },
+  "source": {
+   "file": "fase_07_metropole_sustentavel/hazard_block.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p07_crate",
+  "phase": 7,
+  "category": "props",
+  "role": "crate",
+  "src": "/assets/phases/phase-07-metropole-sustentavel/props/crate.png",
+  "w": 46,
+  "h": 40,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 40,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_07_metropole_sustentavel/tech_barrel.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p07_ladder",
+  "phase": 7,
+  "category": "props",
+  "role": "ladder",
+  "src": "/assets/phases/phase-07-metropole-sustentavel/props/ladder.png",
+  "w": 51,
+  "h": 68,
+  "hitbox": {
+   "x": 3,
+   "y": 3,
+   "w": 45,
+   "h": 64
+  },
+  "source": {
+   "file": "fase_07_metropole_sustentavel/tech_crate.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p07_shield",
+  "phase": 7,
+  "category": "collectibles",
+  "role": "shield",
+  "src": "/assets/phases/phase-07-metropole-sustentavel/collectibles/shield.png",
+  "w": 45,
+  "h": 57,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 40,
+   "h": 54
+  },
+  "source": {
+   "file": "fase_07_metropole_sustentavel/drone.png",
+   "component": 0
+  },
+  "issues": []
+ },
+ {
+  "name": "p07_battery",
+  "phase": 7,
+  "category": "collectibles",
+  "role": "battery",
+  "src": "/assets/phases/phase-07-metropole-sustentavel/collectibles/battery.png",
+  "w": 34,
+  "h": 65,
+  "hitbox": {
+   "x": 2,
+   "y": 3,
+   "w": 30,
+   "h": 61
+  },
+  "source": {
+   "file": "fase_07_metropole_sustentavel/battery.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p07_circuit",
+  "phase": 7,
+  "category": "collectibles",
+  "role": "circuit",
+  "src": "/assets/phases/phase-07-metropole-sustentavel/collectibles/circuit.png",
+  "w": 68,
+  "h": 65,
+  "hitbox": {
+   "x": 4,
+   "y": 3,
+   "w": 60,
+   "h": 61
+  },
+  "source": {
+   "file": "fase_07_metropole_sustentavel/circuit.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p07_drone",
+  "phase": 7,
+  "category": "enemies",
+  "role": "drone",
+  "src": "/assets/phases/phase-07-metropole-sustentavel/enemies/drone.png",
+  "w": 75,
+  "h": 57,
+  "hitbox": {
+   "x": 4,
+   "y": 2,
+   "w": 66,
+   "h": 54
+  },
+  "source": {
+   "file": "fase_07_metropole_sustentavel/drone.png",
+   "component": 1
+  },
+  "issues": []
+ },
+ {
+  "name": "p07_coin",
+  "phase": 7,
+  "category": "collectibles",
+  "role": "coin",
+  "src": "/assets/game/tiles/f07_coin.png",
+  "w": 0,
+  "h": 0,
+  "hitbox": null,
+  "source": {
+   "file": "projeto: f07_coin",
+   "component": null
+  },
+  "issues": [
+   "peça ausente/quebrada no pacote; reaproveitada do projeto"
+  ]
+ },
+ {
+  "name": "p07_bin",
+  "phase": 7,
+  "category": "props",
+  "role": "bin",
+  "src": "/assets/game/tiles/f07_bin.png",
+  "w": 0,
+  "h": 0,
+  "hitbox": null,
+  "source": {
+   "file": "projeto: f07_bin",
+   "component": null
+  },
+  "issues": [
+   "peça ausente/quebrada no pacote; reaproveitada do projeto"
+  ]
+ },
+ {
+  "name": "p08_ground",
+  "phase": 8,
+  "category": "terrain",
+  "role": "ground",
+  "src": "/assets/phases/phase-08-planeta-crisoverde/terrain/ground.png",
+  "w": 75,
+  "h": 50,
+  "hitbox": {
+   "x": 4,
+   "y": 2,
+   "w": 66,
+   "h": 47
+  },
+  "source": {
+   "file": "fase_08_planeta_crisoverde/alien_platform_long.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 15,
+  "surfaceInset": 0.04,
+  "lip": 0.06
+ },
+ {
+  "name": "p08_ledge",
+  "phase": 8,
+  "category": "terrain",
+  "role": "ledge",
+  "src": "/assets/phases/phase-08-planeta-crisoverde/terrain/ledge.png",
+  "w": 60,
+  "h": 36,
+  "hitbox": {
+   "x": 4,
+   "y": 1,
+   "w": 53,
+   "h": 34
+  },
+  "source": {
+   "file": "fase_08_planeta_crisoverde/alien_platform_medium.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 12,
+  "surfaceInset": 0.0,
+  "lip": 0.06
+ },
+ {
+  "name": "p08_bridge",
+  "phase": 8,
+  "category": "terrain",
+  "role": "bridge",
+  "src": "/assets/phases/phase-08-planeta-crisoverde/terrain/bridge.png",
+  "w": 65,
+  "h": 28,
+  "hitbox": {
+   "x": 4,
+   "y": 1,
+   "w": 57,
+   "h": 26
+  },
+  "source": {
+   "file": "fase_08_planeta_crisoverde/energy_ladder.png",
+   "component": null
+  },
+  "issues": [],
+  "modular": true,
+  "capPx": 13,
+  "surfaceInset": 0.107,
+  "lip": 0.06
+ },
+ {
+  "name": "p08_block",
+  "phase": 8,
+  "category": "terrain",
+  "role": "block",
+  "src": "/assets/phases/phase-08-planeta-crisoverde/terrain/block.png",
+  "w": 41,
+  "h": 40,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 36,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_08_planeta_crisoverde/purple_wall.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p08_float",
+  "phase": 8,
+  "category": "terrain",
+  "role": "float",
+  "src": "/assets/phases/phase-08-planeta-crisoverde/terrain/float.png",
+  "w": 60,
+  "h": 45,
+  "hitbox": {
+   "x": 4,
+   "y": 2,
+   "w": 53,
+   "h": 42
+  },
+  "source": {
+   "file": "fase_08_planeta_crisoverde/crystal.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p08_crate",
+  "phase": 8,
+  "category": "props",
+  "role": "crate",
+  "src": "/assets/phases/phase-08-planeta-crisoverde/props/crate.png",
+  "w": 37,
+  "h": 40,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 33,
+   "h": 38
+  },
+  "source": {
+   "file": "fase_08_planeta_crisoverde/tech_barrel.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p08_ladder",
+  "phase": 8,
+  "category": "props",
+  "role": "ladder",
+  "src": "/assets/phases/phase-08-planeta-crisoverde/props/ladder.png",
+  "w": 48,
+  "h": 68,
+  "hitbox": {
+   "x": 3,
+   "y": 3,
+   "w": 42,
+   "h": 64
+  },
+  "source": {
+   "file": "fase_08_planeta_crisoverde/tech_crate.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p08_crystal",
+  "phase": 8,
+  "category": "props",
+  "role": "crystal",
+  "src": "/assets/phases/phase-08-planeta-crisoverde/props/crystal.png",
+  "w": 53,
+  "h": 69,
+  "hitbox": {
+   "x": 3,
+   "y": 3,
+   "w": 47,
+   "h": 65
+  },
+  "source": {
+   "file": "fase_08_planeta_crisoverde/energy_bridge.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p08_pipe",
+  "phase": 8,
+  "category": "props",
+  "role": "pipe",
+  "src": "/assets/phases/phase-08-planeta-crisoverde/props/pipe.png",
+  "w": 23,
+  "h": 41,
+  "hitbox": {
+   "x": 1,
+   "y": 2,
+   "w": 20,
+   "h": 39
+  },
+  "source": {
+   "file": "fase_08_planeta_crisoverde/energy_pipe.png",
+   "component": 1
+  },
+  "issues": []
+ },
+ {
+  "name": "p08_shield",
+  "phase": 8,
+  "category": "collectibles",
+  "role": "shield",
+  "src": "/assets/phases/phase-08-planeta-crisoverde/collectibles/shield.png",
+  "w": 46,
+  "h": 56,
+  "hitbox": {
+   "x": 3,
+   "y": 2,
+   "w": 40,
+   "h": 53
+  },
+  "source": {
+   "file": "fase_08_planeta_crisoverde/alien_enemy.png",
+   "component": 0
+  },
+  "issues": []
+ },
+ {
+  "name": "p08_capsule",
+  "phase": 8,
+  "category": "collectibles",
+  "role": "capsule",
+  "src": "/assets/phases/phase-08-planeta-crisoverde/collectibles/capsule.png",
+  "w": 32,
+  "h": 61,
+  "hitbox": {
+   "x": 2,
+   "y": 2,
+   "w": 28,
+   "h": 57
+  },
+  "source": {
+   "file": "fase_08_planeta_crisoverde/capsule.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p08_banana",
+  "phase": 8,
+  "category": "collectibles",
+  "role": "banana",
+  "src": "/assets/phases/phase-08-planeta-crisoverde/collectibles/banana.png",
+  "w": 54,
+  "h": 65,
+  "hitbox": {
+   "x": 3,
+   "y": 3,
+   "w": 48,
+   "h": 61
+  },
+  "source": {
+   "file": "fase_08_planeta_crisoverde/energy_bottle.png",
+   "component": null
+  },
+  "issues": []
+ },
+ {
+  "name": "p08_alien",
+  "phase": 8,
+  "category": "enemies",
+  "role": "alien",
+  "src": "/assets/phases/phase-08-planeta-crisoverde/enemies/alien.png",
+  "w": 64,
+  "h": 68,
+  "hitbox": {
+   "x": 4,
+   "y": 3,
+   "w": 56,
+   "h": 64
+  },
+  "source": {
+   "file": "fase_08_planeta_crisoverde/alien_enemy.png",
+   "component": 1
+  },
+  "issues": []
+ },
+ {
+  "name": "p08_coin",
+  "phase": 8,
+  "category": "collectibles",
+  "role": "coin",
+  "src": "/assets/game/tiles/f08_coin.png",
+  "w": 0,
+  "h": 0,
+  "hitbox": null,
+  "source": {
+   "file": "projeto: f08_coin",
+   "component": null
+  },
+  "issues": [
+   "peça ausente/quebrada no pacote; reaproveitada do projeto"
+  ]
+ },
+ {
+  "name": "p08_bin",
+  "phase": 8,
+  "category": "props",
+  "role": "bin",
+  "src": "/assets/game/tiles/f08_bin.png",
+  "w": 0,
+  "h": 0,
+  "hitbox": null,
+  "source": {
+   "file": "projeto: f08_bin",
+   "component": null
+  },
+  "issues": [
+   "peça ausente/quebrada no pacote; reaproveitada do projeto"
+  ]
+ }
+]
