@@ -87,7 +87,7 @@ describe('o motor obedece às configurações', () => {
   });
   it('tiro automático atira sem apertar nada; desligado, não atira', () => {
     const e = make(0); e.update(1 / 60); expect(e.shots.length).toBe(0);
-    updateSettings({ autoFire: true }); e.update(1 / 60); expect(e.shots.length).toBe(1); e.destroy();
+    updateSettings({ autoFire: true }); for (let i = 0; i < 6; i++) e.update(1 / 60); expect(e.shots.length).toBe(1); e.destroy(); // o tiro sai no quadro ativo do golpe (~0,06 s)
   });
   it('desligar a abertura pula a animação de início', () => {
     updateSettings({ introAnim: false }); const a = make(0); expect(a.introT).toBeGreaterThan(2.8);

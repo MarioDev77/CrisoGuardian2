@@ -1,6 +1,7 @@
 import { Assets } from './assets';
 import { buildWorld, VIEW_H, VIEW_W as BASE_VIEW_W, type World, type WSurface } from './level';
 import { audio } from './audio';
+import { PlayerAnim, ATTACK_FIRE_T, INTERACT_TIME } from './playerAnim';
 import { actionForCode, DIFFICULTY, getSettings, QUALITY, subscribeSettings, type Action } from '../app/settings';
 import { ENEMIES, WASTE_VALUE, type Bin, type Boss, type Enemy, type EnemySpec, type FloatText, type Particle, type Pickup, type Player, type Rect, type Shot, type Sludge, type Body } from './entities';
 
@@ -20,6 +21,8 @@ export class Engine {
   private world!: World;
   private keys: Record<Control, boolean> = { left: false, right: false, jump: false, shoot: false, special: false, up: false, down: false };
   private jumpWas = false; private specialWas = false;
+  /** Máquina de estados da animação do herói; `interactT` = pose de interação; `shotPending` = tiro aguardando o quadro ativo do golpe. */
+  private anim = new PlayerAnim(); private interactT = 0; private shotPending = false;
   paused = false; private ended = false;
 
   private p!: Player;
@@ -31,7 +34,7 @@ export class Engine {
   private specialFx = 0; private shake = 0; private banner = { text: '', t: 0 };
   private nextId = 1; private time = 0; private fallCount = 0;
   /** Sequência de vitória (andar até o portal → sucção → explosão → íris) e abertura de fase. */
-  private win: { t: number; phase: 'walk' | 'suck' | 'burst' | 'iris'; pt: number; sx: number; sy: number; z: number; glow: number; armed: boolean; sparks: { a: number; r: number; w: number; s: number; c: number }[] } | null = null;
+  private win: { t: number; phase: 'walk' | 'suck' | 'burst' | 'iris'; hop: boolean; pt: number; sx: number; sy: number; z: number; glow: number; armed: boolean; sparks: { a: number; r: number; w: number; s: number; c: number }[] } | null = null;
   private introT = 0; private portalSpin = 0;
   private onKey: (e: KeyboardEvent, down: boolean) => void;
   private resizeObs: ResizeObserver;
@@ -69,6 +72,7 @@ export class Engine {
       shootT: 9, shootCd: 0, specialCd: 0, hurtT: 0, landT: 0, dieT: 0, animT: 0, climbing: false, dropT: 0, coyote: 0, jumpBuf: 0, specialT: 9,
     };
     this.safe = { x: this.p.x, y: this.p.y, t: 0 };
+    this.anim.reset(); this.interactT = 0; this.shotPending = false;
     this.fallCount = 0; this.enemies = []; this.pickups = []; this.bins = []; this.shots = []; this.sludge = []; this.parts = []; this.texts = [];
     this.coins = 0; this.score = 0; this.materials = 0; this.sinceBin = 0; this.time = 0; this.ended = false; this.boss = null; this.win = null; this.introT = getSettings().introAnim ? 0 : 99; this.portalSpin = 0;
     for (const s of w.walkers) {
@@ -170,6 +174,7 @@ export class Engine {
     this.portalSpin += dt * 0.8;
     const p = this.p; const w = this.world; this.t += dt; this.time += dt;
     for (const k of ['inv', 'shield', 'speed', 'hurtT', 'landT', 'shootCd', 'specialCd', 'dropT', 'jumpBuf'] as const) p[k] = Math.max(0, p[k] - dt);
+    this.interactT = Math.max(0, this.interactT - dt);
     p.shootT += dt; p.specialT += dt; p.animT += dt; this.shake = Math.max(0, this.shake - dt); this.specialFx = Math.max(0, this.specialFx - dt);
     this.banner.t = Math.max(0, this.banner.t - dt);
 
@@ -213,7 +218,11 @@ export class Engine {
 
     // --- shooting / special
     if ((this.keys.shoot || getSettings().autoFire) && p.shootCd <= 0) {
-      p.shootCd = 0.26; p.shootT = 0; audio.sfx('shoot');
+      p.shootCd = 0.26; p.shootT = 0; this.shotPending = true;
+    }
+    // o tiro sai no quadro ativo do golpe (não no primeiro instante), alinhado com a pose e o som
+    if (this.shotPending && p.shootT >= ATTACK_FIRE_T) {
+      this.shotPending = false; audio.sfx('shoot');
       this.shots.push({ x: p.x + p.w / 2 + p.facing * 36, y: p.y + 40, vx: p.facing * 780, life: 1.1 });
     }
     if (this.keys.special && !this.specialWas && p.specialCd <= 0) {
@@ -267,7 +276,7 @@ export class Engine {
 
   private startWin(): void {
     const p = this.p; const g = this.world.goal; this.score += p.hp * 100;
-    audio.sfx('win'); this.win = { t: 0, phase: 'walk', pt: 0, sx: 0, sy: 0, z: 1, glow: 0, armed: false, sparks: [] };
+    audio.sfx('win'); this.win = { t: 0, phase: 'walk', hop: false, pt: 0, sx: 0, sy: 0, z: 1, glow: 0, armed: false, sparks: [] };
     p.vx = 0; p.climbing = false; this.shake = 0.2;
     this.float(g.x, g.y - 190, `+${p.hp * 100} VIDA`, '#9dffb0');
   }
@@ -286,7 +295,9 @@ export class Engine {
       if (Math.abs(dx) > 10 && w.pt < 0.9) { p.facing = dx > 0 ? 1 : -1; p.vx = p.facing * 230; } else p.vx = 0;
       p.vy += GRAV * dt; this.move(p, dt);
       w.glow = Math.min(0.35, w.pt * 0.5);
-      if (((Math.abs(dx) <= 10 || w.pt >= 0.9) && p.onGround) || w.pt > 2.5) { w.phase = 'suck'; w.pt = 0; w.sx = p.x + p.w / 2; w.sy = p.y + p.h * 0.55; p.vx = 0; this.shake = 0.15; }
+      const arrived = (Math.abs(dx) <= 10 || w.pt >= 0.9) && p.onGround;
+      if (arrived && !w.hop) { w.hop = true; p.vy = -430; p.onGround = false; }   // pulinho de comemoração ao chegar no portal
+      else if (arrived || w.pt > 3.2) { w.phase = 'suck'; w.pt = 0; w.sx = p.x + p.w / 2; w.sy = p.y + p.h * 0.55; p.vx = 0; this.shake = 0.15; }
     } else if (w.phase === 'suck') {
       const u = Math.min(1, w.pt / 0.85); w.glow = 0.35 + 0.55 * u;
       for (let i = 0; i < 2; i++) w.sparks.push({ a: Math.random() * Math.PI * 2, r: 150 + Math.random() * 110, w: 4 + Math.random() * 3, s: 170 + Math.random() * 150, c: Math.floor(Math.random() * 3) });
@@ -424,7 +435,7 @@ export class Engine {
     }
     for (const b of this.bins) {
       if (b.used || !overlap(p, b)) continue;
-      b.used = true; b.pulse = 0.8; audio.sfx('bin'); this.safe = { x: b.x + b.w / 2, y: b.y + b.h - PH, t: 0 };
+      b.used = true; b.pulse = 0.8; this.interactT = INTERACT_TIME; audio.sfx('bin'); this.safe = { x: b.x + b.w / 2, y: b.y + b.h - PH, t: 0 };
       const bonus = this.sinceBin * 25; this.score += bonus + 50; this.sinceBin = 0;
       if (p.hp < p.maxHp) p.hp++;
       this.float(b.x + b.w / 2, b.y - 10, bonus ? `♻ RECICLADO +${bonus + 50}` : '♻ CHECKPOINT', '#9dffb0'); this.spawnParts(b.x + b.w / 2, b.y + 20, '#7dff9a', 14, 220);
@@ -512,20 +523,14 @@ export class Engine {
     }
   }
 
-  private playerFrame(): { name: string; alpha: number } {
-    const p = this.p; let name = 'p_idle_0'; const t = p.animT;
-    const pick = (n: string, count: number, fps: number) => `${n}_${Math.floor(t * fps) % count}`;
-    if (p.dieT > 0) name = `p_die_${Math.min(2, Math.floor(p.dieT * 3))}`;
-    else if (p.hurtT > 0) name = `p_hurt_${Math.min(3, Math.floor((0.45 - p.hurtT) * 9))}`;
-    else if (p.specialT < 0.4) name = 'p_special_0';
-    else if (p.climbing) name = pick('p_walk', 5, 8);
-    else if (!p.onGround) { name = p.vy < -250 ? 'p_jump_1' : p.vy < -40 ? 'p_jump_2' : p.vy < 80 ? 'p_jump_3' : p.vy < 420 ? 'p_fall_1' : 'p_fall_2'; }
-    else if (p.shootT < 0.28) name = `p_shoot_${p.shootT < 0.06 ? 0 : p.shootT < 0.12 ? 1 : 2}`;
-    else if (p.landT > 0) name = `p_land_${Math.min(2, Math.floor((0.2 - p.landT) * 15))}`;
-    else if (Math.abs(p.vx) > 270) name = pick('p_run', 4, 12);
-    else if (Math.abs(p.vx) > 20) name = pick('p_walk', 5, 10);
-    else name = pick('p_idle', 4, 4);
-    return { name, alpha: p.inv > 0 && p.dieT <= 0 && Math.floor(p.inv * 14) % 2 ? 0.45 : 1 };
+  private playerFrame(): { name: string; alpha: number; state: string } {
+    const p = this.p; const k = this.keys;
+    const f = this.anim.update({
+      t: p.animT, onGround: p.onGround, vx: p.vx, vy: p.vy, climbing: p.climbing, climbMoving: k.up || k.down || Math.abs(p.vx) > 20,
+      dead: p.dieT > 0, dieT: p.dieT, hurtT: p.hurtT, landT: p.landT, shootT: p.shootT, specialT: p.specialT, interactT: this.interactT,
+      victory: !!this.win && this.win.phase === 'walk',
+    });
+    return { name: f.name, state: f.state, alpha: p.inv > 0 && p.dieT <= 0 && Math.floor(p.inv * 14) % 2 ? 0.45 : 1 };
   }
 
   private enemyFrame(e: Enemy): string {
