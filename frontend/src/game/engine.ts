@@ -2,6 +2,7 @@ import { Assets } from './assets';
 import { buildWorld, VIEW_H, VIEW_W as BASE_VIEW_W, type World, type WSurface } from './level';
 import { audio } from './audio';
 import { PlayerAnim, ATTACK_FIRE_T, INTERACT_TIME } from './playerAnim';
+import { moveBody, moveX, moveY, settle, sweptBox, nearestAlong, playerHurtbox, type Box } from './collision';
 import { actionForCode, DIFFICULTY, getSettings, QUALITY, subscribeSettings, type Action } from '../app/settings';
 import { ENEMIES, WASTE_VALUE, type Bin, type Boss, type Enemy, type EnemySpec, type FloatText, type Particle, type Pickup, type Player, type Rect, type Shot, type Sludge, type Body } from './entities';
 
@@ -119,25 +120,8 @@ export class Engine {
   }
 
   // ---------------------------------------------------------------- physics
-  private move(b: Body, dt: number, drop = false): void {
-    const surfaces = this.world.surfaces;
-    b.x += b.vx * dt;
-    for (const s of surfaces) {
-      if (!s.solid) continue; const r = sfRect(s);
-      if (!overlap(b, r)) continue;
-      if (b.y + b.h - r.y < 16 && b.vy >= 0) { b.y = r.y - b.h; continue; } // auto-step small ledges
-      if (b.vx > 0) b.x = r.x - b.w; else if (b.vx < 0) b.x = r.x + r.w; else b.x = b.x + b.w / 2 < r.x + r.w / 2 ? r.x - b.w : r.x + r.w;
-      b.vx = 0;
-    }
-    const prevBottom = b.y + b.h; b.y += b.vy * dt; b.onGround = false;
-    for (const s of surfaces) {
-      const r = sfRect(s); if (!overlap(b, r)) continue;
-      if (s.solid) {
-        if (b.vy >= 0 && prevBottom <= r.y + 18) { b.y = r.y - b.h; b.vy = 0; b.onGround = true; }
-        else if (b.vy < 0) { b.y = r.y + r.h; b.vy = 0; }
-      } else if (b.vy >= 0 && !drop && prevBottom <= r.y + 10) { b.y = r.y - b.h; b.vy = 0; b.onGround = true; }
-    }
-  }
+  /** Movimento com colisão (subpassos + rede de segurança): ver collision.ts. */
+  private move(b: Body, dt: number, drop = false): void { moveBody(b, dt, this.world.surfaces, { drop, minX: 0, maxX: this.world.width }); }
 
   private spawnParts(x: number, y: number, color: string, n = 8, speed = 220): void {
     for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, v = (0.4 + Math.random()) * speed; this.parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 80, life: 0.5 + Math.random() * 0.4, max: 0.9, color, size: 3 + Math.random() * 4 }); }
@@ -192,8 +176,8 @@ export class Engine {
     if (p.climbing && !ladder) p.climbing = false;
 
     if (p.climbing && ladder) {
-      p.vy = 0; p.vx = dir * 110; p.x += p.vx * dt; p.x = Math.max(ladder.x - 10, Math.min(ladder.x + ladder.w - p.w + 10, p.x));
-      p.y += ((this.keys.down ? 1 : 0) - (this.keys.up ? 1 : 0)) * 190 * dt;
+      p.vy = 0; p.vx = dir * 110; moveX(p, p.vx * dt, w.surfaces); p.x = Math.max(ladder.x - 10, Math.min(ladder.x + ladder.w - p.w + 10, p.x)); settle(p, w.surfaces, false);
+      const cdy = ((this.keys.down ? 1 : 0) - (this.keys.up ? 1 : 0)) * 190 * dt; p.onGround = false; moveY(p, cdy, w.surfaces, true); if (p.onGround && cdy > 0) p.climbing = false; // sólidos ao lado da escada bloqueiam
       p.y = Math.min(p.y, ladder.y + ladder.h - p.h); if (p.y + p.h < ladder.y + 6) { p.y = ladder.y - p.h; p.climbing = false; p.onGround = true; }
       if (wantJump && !this.jumpWas) { p.climbing = false; p.vy = -JUMP_V * 0.75; p.vx = dir * 240; audio.sfx('jump'); }
       if (this.keys.down && p.y + p.h >= ladder.y + ladder.h - 2) p.climbing = false;
@@ -358,9 +342,10 @@ export class Engine {
         if (e.x < 0) { e.x = 0; e.dir = 1; }
         if (Math.abs(dx) < 70 && Math.abs(dy) < 60 && e.kind !== 'armor') e.attacking = Math.max(e.attacking, 0.25);
       }
+      if (sp.fly) { const y0 = e.y; settle(e, this.world.surfaces, false); if (e.y !== y0) e.baseY += e.y - y0; }
       // contact with player
-      if (p.dieT <= 0 && overlap({ x: p.x + 6, y: p.y + 8, w: p.w - 12, h: p.h - 12 }, e)) {
-        if (p.shield > 0) { this.damageEnemy(e, 2); e.x += Math.sign(-dx) * 30; }
+      if (p.dieT <= 0 && overlap(playerHurtbox(p), e)) {
+        if (p.shield > 0) { if (e.hurt <= 0) this.damageEnemy(e, 2); moveX(e, Math.sign(-dx) * 30, this.world.surfaces, { minX: 0, maxX: this.world.width }); }
         else if (p.vy > 160 && p.y + p.h < e.y + e.h * 0.7 && !p.onGround) { this.damageEnemy(e, 2); p.vy = -560; }
         else this.hurtPlayer(e.x + e.w / 2);
       }
@@ -390,8 +375,8 @@ export class Engine {
     }
     b.vy += GRAV * dt; this.move(b, dt);
     if (b.x < this.world.width - 1500) { b.x = this.world.width - 1500; }
-    if (p.dieT <= 0 && overlap({ x: p.x + 6, y: p.y + 8, w: p.w - 12, h: p.h - 12 }, { x: b.x + 10, y: b.y + 20, w: b.w - 20, h: b.h - 20 })) {
-      if (p.shield > 0) { this.damageBoss(1); p.vx = -b.dir * 400; p.shield = Math.max(0, p.shield - 1.5); }
+    if (p.dieT <= 0 && overlap(playerHurtbox(p), { x: b.x + 10, y: b.y + 20, w: b.w - 20, h: b.h - 20 })) {
+      if (p.shield > 0) { if (b.hurt <= 0) { this.damageBoss(1); p.vx = -b.dir * 400; p.shield = Math.max(0, p.shield - 1.5); } }
       else if (p.vy > 160 && p.y + p.h < b.y + 70 && !p.onGround) { this.damageBoss(2); p.vy = -650; }
       else this.hurtPlayer(b.x + b.w / 2);
     }
@@ -400,10 +385,16 @@ export class Engine {
   private updateWorldBits(dt: number): void {
     const p = this.p;
     for (const s of this.shots) {
-      s.x += s.vx * dt; s.life -= dt;
-      for (const e of this.enemies) if (e.dying <= 0 && s.life > 0 && overlap({ x: s.x - 20, y: s.y - 10, w: 40, h: 20 }, e)) { this.damageEnemy(e, 1); s.life = 0; }
-      const b = this.boss; if (b && b.state !== 'dead' && b.active && s.life > 0 && overlap({ x: s.x - 20, y: s.y - 10, w: 40, h: 20 }, b)) { this.damageBoss(1); s.life = 0; }
-      for (const sf of this.world.surfaces) if (sf.solid && s.life > 0 && overlap({ x: s.x - 6, y: s.y - 6, w: 12, h: 12 }, sfRect(sf))) { s.life = 0; this.spawnParts(s.x, s.y, '#8cff8c', 4, 120); }
+      const x0 = s.x; s.x += s.vx * dt; s.life -= dt; if (s.life <= 0) continue;
+      // varre o trajeto do quadro (não só a posição final) e atinge o alvo mais próximo: nada é atravessado por um tiro rápido
+      const sw = sweptBox(x0, s.x, s.y, 20, 10), sws = sweptBox(x0, s.x, s.y, 6, 6);
+      const cand: { box: Box; e?: Enemy; boss?: true }[] = [];
+      for (const e of this.enemies) if (e.dying <= 0 && overlap(sw, e)) cand.push({ box: e, e });
+      const b = this.boss; if (b && b.state !== 'dead' && b.active && overlap(sw, b)) cand.push({ box: b, boss: true });
+      for (const sf of this.world.surfaces) if (sf.solid && overlap(sws, sfRect(sf))) cand.push({ box: sfRect(sf) });
+      const hit = nearestAlong(x0, s.x, cand); if (!hit) continue;
+      if (hit.e) this.damageEnemy(hit.e, 1); else if (hit.boss) this.damageBoss(1); else this.spawnParts(s.x, s.y, '#8cff8c', 4, 120);
+      s.life = 0;
     }
     this.shots = this.shots.filter((s) => s.life > 0);
     for (const s of this.sludge) {
