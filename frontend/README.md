@@ -39,3 +39,10 @@ Código: `src/app/settings.ts` (estado, validação, teclas), `src/hooks/useSett
 - `src/game/level.ts` — monta o mundo, espelha as telas e distribui inimigos/itens.
 - `src/game/engine.ts` — física, IA, chefe, render e HUD.
 - `src/components/` — tela inicial, mapa, tela de jogo.
+
+
+## Modo de depuração (somente desenvolvimento)
+Com `npm run dev`, aperte **F3** (ou abra com `?debug=1`) para ver hitboxes, superfícies sólidas, origem do sprite, estado da animação e velocidades. Não existe no build de produção.
+
+## Sprites do Crisoman
+Regenerar: `python3 tools/build_crisoman_sprites.py` (veja `public/assets/sprites/crisoman/README.md`).

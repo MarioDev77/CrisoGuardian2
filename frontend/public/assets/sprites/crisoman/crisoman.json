@@ -1,0 +1,1239 @@
+{
+ "version": 1,
+ "image": "crisoman.png",
+ "source": "public/assets/game/atlas.png (retângulos exatos de atlas.json)",
+ "cell": {
+  "w": 94,
+  "h": 83
+ },
+ "origin": {
+  "x": 47,
+  "y": 81
+ },
+ "origin_note": "(origin.x, origin.y) é o ponto dos pés, idêntico em todos os quadros; desenhe o quadro com este ponto sobre a posição dos pés.",
+ "frames": {
+  "p_idle_0": {
+   "x": 0,
+   "y": 0,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "idle",
+   "index": 0,
+   "file": "frames/idle/idle_00.png",
+   "body": {
+    "w": 36,
+    "h": 71
+   },
+   "source": {
+    "x": 394,
+    "y": 171,
+    "w": 40,
+    "h": 75,
+    "ax": 20,
+    "ay": 75
+   }
+  },
+  "p_idle_1": {
+   "x": 94,
+   "y": 0,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "idle",
+   "index": 1,
+   "file": "frames/idle/idle_01.png",
+   "body": {
+    "w": 37,
+    "h": 71
+   },
+   "source": {
+    "x": 438,
+    "y": 171,
+    "w": 41,
+    "h": 75,
+    "ax": 20,
+    "ay": 75
+   }
+  },
+  "p_idle_2": {
+   "x": 188,
+   "y": 0,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "idle",
+   "index": 2,
+   "file": "frames/idle/idle_02.png",
+   "body": {
+    "w": 37,
+    "h": 71
+   },
+   "source": {
+    "x": 483,
+    "y": 171,
+    "w": 41,
+    "h": 75,
+    "ax": 20,
+    "ay": 75
+   }
+  },
+  "p_idle_3": {
+   "x": 282,
+   "y": 0,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "idle",
+   "index": 3,
+   "file": "frames/idle/idle_03.png",
+   "body": {
+    "w": 37,
+    "h": 72
+   },
+   "source": {
+    "x": 48,
+    "y": 171,
+    "w": 41,
+    "h": 76,
+    "ax": 20,
+    "ay": 76
+   }
+  },
+  "p_walk_0": {
+   "x": 0,
+   "y": 83,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "walk",
+   "index": 0,
+   "file": "frames/walk/walk_00.png",
+   "body": {
+    "w": 40,
+    "h": 71
+   },
+   "source": {
+    "x": 703,
+    "y": 171,
+    "w": 44,
+    "h": 75,
+    "ax": 22,
+    "ay": 75
+   }
+  },
+  "p_walk_1": {
+   "x": 94,
+   "y": 83,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "walk",
+   "index": 1,
+   "file": "frames/walk/walk_01.png",
+   "body": {
+    "w": 41,
+    "h": 71
+   },
+   "source": {
+    "x": 751,
+    "y": 171,
+    "w": 45,
+    "h": 75,
+    "ax": 22,
+    "ay": 75
+   }
+  },
+  "p_walk_2": {
+   "x": 188,
+   "y": 83,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "walk",
+   "index": 2,
+   "file": "frames/walk/walk_02.png",
+   "body": {
+    "w": 40,
+    "h": 71
+   },
+   "source": {
+    "x": 800,
+    "y": 171,
+    "w": 44,
+    "h": 75,
+    "ax": 23,
+    "ay": 75
+   }
+  },
+  "p_walk_3": {
+   "x": 282,
+   "y": 83,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "walk",
+   "index": 3,
+   "file": "frames/walk/walk_03.png",
+   "body": {
+    "w": 38,
+    "h": 72
+   },
+   "source": {
+    "x": 202,
+    "y": 171,
+    "w": 42,
+    "h": 76,
+    "ax": 21,
+    "ay": 76
+   }
+  },
+  "p_walk_4": {
+   "x": 376,
+   "y": 83,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "walk",
+   "index": 4,
+   "file": "frames/walk/walk_04.png",
+   "body": {
+    "w": 39,
+    "h": 72
+   },
+   "source": {
+    "x": 248,
+    "y": 171,
+    "w": 43,
+    "h": 76,
+    "ax": 21,
+    "ay": 76
+   }
+  },
+  "p_run_0": {
+   "x": 0,
+   "y": 166,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "run",
+   "index": 0,
+   "file": "frames/run/run_00.png",
+   "body": {
+    "w": 50,
+    "h": 71
+   },
+   "source": {
+    "x": 528,
+    "y": 171,
+    "w": 54,
+    "h": 75,
+    "ax": 32,
+    "ay": 75
+   }
+  },
+  "p_run_1": {
+   "x": 94,
+   "y": 166,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "run",
+   "index": 1,
+   "file": "frames/run/run_01.png",
+   "body": {
+    "w": 50,
+    "h": 71
+   },
+   "source": {
+    "x": 586,
+    "y": 171,
+    "w": 54,
+    "h": 75,
+    "ax": 32,
+    "ay": 75
+   }
+  },
+  "p_run_2": {
+   "x": 188,
+   "y": 166,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "run",
+   "index": 2,
+   "file": "frames/run/run_02.png",
+   "body": {
+    "w": 53,
+    "h": 72
+   },
+   "source": {
+    "x": 141,
+    "y": 171,
+    "w": 57,
+    "h": 76,
+    "ax": 31,
+    "ay": 76
+   }
+  },
+  "p_run_3": {
+   "x": 282,
+   "y": 166,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "run",
+   "index": 3,
+   "file": "frames/run/run_03.png",
+   "body": {
+    "w": 51,
+    "h": 71
+   },
+   "source": {
+    "x": 644,
+    "y": 171,
+    "w": 55,
+    "h": 75,
+    "ax": 34,
+    "ay": 75
+   }
+  },
+  "p_jump_0": {
+   "x": 0,
+   "y": 249,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "jump",
+   "index": 0,
+   "file": "frames/jump/jump_00.png",
+   "body": {
+    "w": 39,
+    "h": 74
+   },
+   "source": {
+    "x": 721,
+    "y": 2,
+    "w": 43,
+    "h": 78,
+    "ax": 21,
+    "ay": 78
+   }
+  },
+  "p_jump_1": {
+   "x": 94,
+   "y": 249,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "jump",
+   "index": 1,
+   "file": "frames/jump/jump_01.png",
+   "body": {
+    "w": 41,
+    "h": 73
+   },
+   "source": {
+    "x": 815,
+    "y": 2,
+    "w": 45,
+    "h": 77,
+    "ax": 20,
+    "ay": 77
+   }
+  },
+  "p_jump_2": {
+   "x": 188,
+   "y": 249,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "jump",
+   "index": 2,
+   "file": "frames/jump/jump_02.png",
+   "body": {
+    "w": 39,
+    "h": 74
+   },
+   "source": {
+    "x": 768,
+    "y": 2,
+    "w": 43,
+    "h": 78,
+    "ax": 20,
+    "ay": 78
+   }
+  },
+  "p_jump_3": {
+   "x": 282,
+   "y": 249,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "jump",
+   "index": 3,
+   "file": "frames/jump/jump_03.png",
+   "body": {
+    "w": 41,
+    "h": 73
+   },
+   "source": {
+    "x": 864,
+    "y": 2,
+    "w": 45,
+    "h": 77,
+    "ax": 21,
+    "ay": 77
+   }
+  },
+  "p_jump_4": {
+   "x": 376,
+   "y": 249,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "jump",
+   "index": 4,
+   "file": "frames/jump/jump_04.png",
+   "body": {
+    "w": 40,
+    "h": 72
+   },
+   "source": {
+    "x": 93,
+    "y": 171,
+    "w": 44,
+    "h": 76,
+    "ax": 22,
+    "ay": 76
+   }
+  },
+  "p_fall_0": {
+   "x": 0,
+   "y": 332,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "fall",
+   "index": 0,
+   "file": "frames/fall/fall_00.png",
+   "body": {
+    "w": 38,
+    "h": 72
+   },
+   "source": {
+    "x": 2,
+    "y": 171,
+    "w": 42,
+    "h": 76,
+    "ax": 20,
+    "ay": 76
+   }
+  },
+  "p_fall_1": {
+   "x": 94,
+   "y": 332,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "fall",
+   "index": 1,
+   "file": "frames/fall/fall_01.png",
+   "body": {
+    "w": 43,
+    "h": 71
+   },
+   "source": {
+    "x": 295,
+    "y": 171,
+    "w": 47,
+    "h": 75,
+    "ax": 25,
+    "ay": 75
+   }
+  },
+  "p_fall_2": {
+   "x": 188,
+   "y": 332,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "fall",
+   "index": 2,
+   "file": "frames/fall/fall_02.png",
+   "body": {
+    "w": 41,
+    "h": 79
+   },
+   "source": {
+    "x": 446,
+    "y": 2,
+    "w": 45,
+    "h": 83,
+    "ax": 20,
+    "ay": 83
+   }
+  },
+  "p_fall_3": {
+   "x": 282,
+   "y": 332,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "fall",
+   "index": 3,
+   "file": "frames/fall/fall_03.png",
+   "body": {
+    "w": 40,
+    "h": 71
+   },
+   "source": {
+    "x": 346,
+    "y": 171,
+    "w": 44,
+    "h": 75,
+    "ax": 23,
+    "ay": 75
+   }
+  },
+  "p_land_0": {
+   "x": 0,
+   "y": 415,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "land",
+   "index": 0,
+   "file": "frames/land/land_00.png",
+   "body": {
+    "w": 45,
+    "h": 67
+   },
+   "source": {
+    "x": 397,
+    "y": 251,
+    "w": 49,
+    "h": 71,
+    "ax": 27,
+    "ay": 71
+   }
+  },
+  "p_land_1": {
+   "x": 94,
+   "y": 415,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "land",
+   "index": 1,
+   "file": "frames/land/land_01.png",
+   "body": {
+    "w": 40,
+    "h": 68
+   },
+   "source": {
+    "x": 114,
+    "y": 251,
+    "w": 44,
+    "h": 72,
+    "ax": 23,
+    "ay": 72
+   }
+  },
+  "p_land_2": {
+   "x": 188,
+   "y": 415,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "land",
+   "index": 2,
+   "file": "frames/land/land_02.png",
+   "body": {
+    "w": 40,
+    "h": 67
+   },
+   "source": {
+    "x": 450,
+    "y": 251,
+    "w": 44,
+    "h": 71,
+    "ax": 22,
+    "ay": 71
+   }
+  },
+  "p_shoot_0": {
+   "x": 0,
+   "y": 498,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "shoot",
+   "index": 0,
+   "file": "frames/shoot/shoot_00.png",
+   "body": {
+    "w": 48,
+    "h": 68
+   },
+   "source": {
+    "x": 212,
+    "y": 251,
+    "w": 52,
+    "h": 72,
+    "ax": 22,
+    "ay": 72
+   }
+  },
+  "p_shoot_1": {
+   "x": 94,
+   "y": 498,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "shoot",
+   "index": 1,
+   "file": "frames/shoot/shoot_01.png",
+   "body": {
+    "w": 50,
+    "h": 68
+   },
+   "source": {
+    "x": 268,
+    "y": 251,
+    "w": 54,
+    "h": 72,
+    "ax": 22,
+    "ay": 72
+   }
+  },
+  "p_shoot_2": {
+   "x": 188,
+   "y": 498,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "shoot",
+   "index": 2,
+   "file": "frames/shoot/shoot_02.png",
+   "body": {
+    "w": 51,
+    "h": 69
+   },
+   "source": {
+    "x": 2,
+    "y": 251,
+    "w": 55,
+    "h": 73,
+    "ax": 23,
+    "ay": 73
+   }
+  },
+  "p_reload_0": {
+   "x": 0,
+   "y": 581,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "reload",
+   "index": 0,
+   "file": "frames/reload/reload_00.png",
+   "body": {
+    "w": 43,
+    "h": 69
+   },
+   "source": {
+    "x": 848,
+    "y": 171,
+    "w": 47,
+    "h": 73,
+    "ax": 22,
+    "ay": 73
+   }
+  },
+  "p_reload_1": {
+   "x": 94,
+   "y": 581,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "reload",
+   "index": 1,
+   "file": "frames/reload/reload_01.png",
+   "body": {
+    "w": 42,
+    "h": 68
+   },
+   "source": {
+    "x": 162,
+    "y": 251,
+    "w": 46,
+    "h": 72,
+    "ax": 21,
+    "ay": 72
+   }
+  },
+  "p_reload_2": {
+   "x": 188,
+   "y": 581,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "reload",
+   "index": 2,
+   "file": "frames/reload/reload_02.png",
+   "body": {
+    "w": 43,
+    "h": 69
+   },
+   "source": {
+    "x": 899,
+    "y": 171,
+    "w": 47,
+    "h": 73,
+    "ax": 24,
+    "ay": 73
+   }
+  },
+  "p_reload_3": {
+   "x": 282,
+   "y": 581,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "reload",
+   "index": 3,
+   "file": "frames/reload/reload_03.png",
+   "body": {
+    "w": 42,
+    "h": 69
+   },
+   "source": {
+    "x": 950,
+    "y": 171,
+    "w": 46,
+    "h": 73,
+    "ax": 24,
+    "ay": 73
+   }
+  },
+  "p_hurt_0": {
+   "x": 0,
+   "y": 664,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "hurt",
+   "index": 0,
+   "file": "frames/hurt/hurt_00.png",
+   "body": {
+    "w": 41,
+    "h": 52
+   },
+   "source": {
+    "x": 796,
+    "y": 328,
+    "w": 45,
+    "h": 56,
+    "ax": 20,
+    "ay": 56
+   }
+  },
+  "p_hurt_1": {
+   "x": 94,
+   "y": 664,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "hurt",
+   "index": 1,
+   "file": "frames/hurt/hurt_01.png",
+   "body": {
+    "w": 40,
+    "h": 53
+   },
+   "source": {
+    "x": 570,
+    "y": 328,
+    "w": 44,
+    "h": 57,
+    "ax": 19,
+    "ay": 57
+   }
+  },
+  "p_hurt_2": {
+   "x": 188,
+   "y": 664,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "hurt",
+   "index": 2,
+   "file": "frames/hurt/hurt_02.png",
+   "body": {
+    "w": 41,
+    "h": 53
+   },
+   "source": {
+    "x": 618,
+    "y": 328,
+    "w": 45,
+    "h": 57,
+    "ax": 21,
+    "ay": 57
+   }
+  },
+  "p_hurt_3": {
+   "x": 282,
+   "y": 664,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "hurt",
+   "index": 3,
+   "file": "frames/hurt/hurt_03.png",
+   "body": {
+    "w": 44,
+    "h": 46
+   },
+   "source": {
+    "x": 651,
+    "y": 396,
+    "w": 48,
+    "h": 50,
+    "ax": 21,
+    "ay": 50
+   }
+  },
+  "p_die_0": {
+   "x": 0,
+   "y": 747,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "die",
+   "index": 0,
+   "file": "frames/die/die_00.png",
+   "body": {
+    "w": 43,
+    "h": 50
+   },
+   "source": {
+    "x": 2,
+    "y": 396,
+    "w": 47,
+    "h": 54,
+    "ax": 25,
+    "ay": 54
+   }
+  },
+  "p_die_1": {
+   "x": 94,
+   "y": 747,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "die",
+   "index": 1,
+   "file": "frames/die/die_01.png",
+   "body": {
+    "w": 56,
+    "h": 47
+   },
+   "source": {
+    "x": 383,
+    "y": 396,
+    "w": 60,
+    "h": 51,
+    "ax": 39,
+    "ay": 51
+   }
+  },
+  "p_die_2": {
+   "x": 188,
+   "y": 747,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "die",
+   "index": 2,
+   "file": "frames/die/die_02.png",
+   "body": {
+    "w": 71,
+    "h": 34
+   },
+   "source": {
+    "x": 845,
+    "y": 454,
+    "w": 75,
+    "h": 38,
+    "ax": 28,
+    "ay": 38
+   }
+  },
+  "p_special_0": {
+   "x": 0,
+   "y": 830,
+   "w": 94,
+   "h": 83,
+   "ax": 47,
+   "ay": 81,
+   "anim": "special",
+   "index": 0,
+   "file": "frames/special/special_00.png",
+   "body": {
+    "w": 45,
+    "h": 69
+   },
+   "source": {
+    "x": 61,
+    "y": 251,
+    "w": 49,
+    "h": 73,
+    "ax": 21,
+    "ay": 73
+   }
+  }
+ },
+ "animations": {
+  "idle": {
+   "sheet": "sheets/idle.png",
+   "frames": [
+    "p_idle_0",
+    "p_idle_1",
+    "p_idle_2",
+    "p_idle_3"
+   ],
+   "count": 4
+  },
+  "walk": {
+   "sheet": "sheets/walk.png",
+   "frames": [
+    "p_walk_0",
+    "p_walk_1",
+    "p_walk_2",
+    "p_walk_3",
+    "p_walk_4"
+   ],
+   "count": 5
+  },
+  "run": {
+   "sheet": "sheets/run.png",
+   "frames": [
+    "p_run_0",
+    "p_run_1",
+    "p_run_2",
+    "p_run_3"
+   ],
+   "count": 4
+  },
+  "jump": {
+   "sheet": "sheets/jump.png",
+   "frames": [
+    "p_jump_0",
+    "p_jump_1",
+    "p_jump_2",
+    "p_jump_3",
+    "p_jump_4"
+   ],
+   "count": 5
+  },
+  "fall": {
+   "sheet": "sheets/fall.png",
+   "frames": [
+    "p_fall_0",
+    "p_fall_1",
+    "p_fall_2",
+    "p_fall_3"
+   ],
+   "count": 4
+  },
+  "land": {
+   "sheet": "sheets/land.png",
+   "frames": [
+    "p_land_0",
+    "p_land_1",
+    "p_land_2"
+   ],
+   "count": 3
+  },
+  "shoot": {
+   "sheet": "sheets/shoot.png",
+   "frames": [
+    "p_shoot_0",
+    "p_shoot_1",
+    "p_shoot_2"
+   ],
+   "count": 3
+  },
+  "reload": {
+   "sheet": "sheets/reload.png",
+   "frames": [
+    "p_reload_0",
+    "p_reload_1",
+    "p_reload_2",
+    "p_reload_3"
+   ],
+   "count": 4
+  },
+  "hurt": {
+   "sheet": "sheets/hurt.png",
+   "frames": [
+    "p_hurt_0",
+    "p_hurt_1",
+    "p_hurt_2",
+    "p_hurt_3"
+   ],
+   "count": 4
+  },
+  "die": {
+   "sheet": "sheets/die.png",
+   "frames": [
+    "p_die_0",
+    "p_die_1",
+    "p_die_2"
+   ],
+   "count": 3
+  },
+  "special": {
+   "sheet": "sheets/special.png",
+   "frames": [
+    "p_special_0"
+   ],
+   "count": 1
+  }
+ },
+ "states": {
+  "idle": {
+   "frames": [
+    "p_idle_0",
+    "p_idle_1",
+    "p_idle_2",
+    "p_idle_3"
+   ],
+   "loop": true,
+   "fps": 4,
+   "status": "original"
+  },
+  "walk": {
+   "frames": [
+    "p_walk_0",
+    "p_walk_1",
+    "p_walk_2",
+    "p_walk_3",
+    "p_walk_4"
+   ],
+   "loop": true,
+   "fps": "7-12 (segue a velocidade)",
+   "status": "original"
+  },
+  "run": {
+   "frames": [
+    "p_run_0",
+    "p_run_1",
+    "p_run_2",
+    "p_run_3"
+   ],
+   "loop": true,
+   "fps": "10-16 (segue a velocidade)",
+   "status": "original"
+  },
+  "jumpStart": {
+   "frames": [
+    "p_jump_0"
+   ],
+   "loop": false,
+   "fps": null,
+   "status": "shared",
+   "note": "pose de agachar/impulso é o 1º quadro da família jump"
+  },
+  "jumpRise": {
+   "frames": [
+    "p_jump_1",
+    "p_jump_2"
+   ],
+   "loop": false,
+   "fps": null,
+   "status": "original"
+  },
+  "jumpApex": {
+   "frames": [
+    "p_jump_3",
+    "p_jump_4"
+   ],
+   "loop": false,
+   "fps": null,
+   "status": "original"
+  },
+  "fall": {
+   "frames": [
+    "p_fall_0",
+    "p_fall_1",
+    "p_fall_2",
+    "p_fall_3"
+   ],
+   "loop": true,
+   "fps": 8,
+   "status": "original"
+  },
+  "landing": {
+   "frames": [
+    "p_land_0",
+    "p_land_1",
+    "p_land_2"
+   ],
+   "loop": false,
+   "fps": null,
+   "status": "original"
+  },
+  "attackStart": {
+   "frames": [
+    "p_shoot_0"
+   ],
+   "loop": false,
+   "fps": null,
+   "status": "original"
+  },
+  "attack": {
+   "frames": [
+    "p_shoot_1"
+   ],
+   "loop": false,
+   "fps": null,
+   "status": "original"
+  },
+  "attackRecovery": {
+   "frames": [
+    "p_shoot_2"
+   ],
+   "loop": false,
+   "fps": null,
+   "status": "original"
+  },
+  "hurt": {
+   "frames": [
+    "p_hurt_0",
+    "p_hurt_1",
+    "p_hurt_2",
+    "p_hurt_3"
+   ],
+   "loop": false,
+   "fps": null,
+   "status": "original"
+  },
+  "death": {
+   "frames": [
+    "p_die_0",
+    "p_die_1",
+    "p_die_2"
+   ],
+   "loop": false,
+   "fps": null,
+   "status": "original"
+  },
+  "victory": {
+   "frames": [
+    "p_jump_1",
+    "p_jump_3",
+    "p_jump_4",
+    "p_fall_0"
+   ],
+   "loop": false,
+   "fps": null,
+   "status": "borrowed",
+   "pending": true,
+   "note": "sem arte dedicada de comemoração; reaproveita poses de salto"
+  },
+  "interact": {
+   "frames": [
+    "p_reload_0",
+    "p_reload_1",
+    "p_reload_2",
+    "p_reload_3"
+   ],
+   "loop": false,
+   "fps": null,
+   "status": "borrowed",
+   "pending": true,
+   "note": "usa a pose de recarga como gesto de interação; falta arte dedicada"
+  },
+  "special": {
+   "frames": [
+    "p_special_0"
+   ],
+   "loop": false,
+   "fps": null,
+   "status": "original"
+  },
+  "climb": {
+   "frames": [
+    "p_walk_0",
+    "p_walk_1",
+    "p_walk_2",
+    "p_walk_3",
+    "p_walk_4"
+   ],
+   "loop": true,
+   "fps": 8,
+   "status": "borrowed",
+   "pending": true,
+   "note": "sem arte de escalada; reaproveita o ciclo de caminhada"
+  }
+ },
+ "pending": [
+  {
+   "state": "victory",
+   "note": "sem arte dedicada de comemoração; reaproveita poses de salto"
+  },
+  {
+   "state": "interact",
+   "note": "usa a pose de recarga como gesto de interação; falta arte dedicada"
+  },
+  {
+   "state": "climb",
+   "note": "sem arte de escalada; reaproveita o ciclo de caminhada"
+  }
+ ],
+ "cleanup": {
+  "specks_removed": 1,
+  "hidden_rgb_cleared": 60395
+ }
+}

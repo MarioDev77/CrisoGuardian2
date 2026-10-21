@@ -87,7 +87,8 @@ export function settle(b: Mover, surfaces: readonly Surface[], ground = true): v
 /** Passo completo de física de um corpo: subpassos X→Y e rede de segurança. */
 export function moveBody(b: Mover, dt: number, surfaces: readonly Surface[], opts: { drop?: boolean } & Bounds = {}): void {
   const dx = b.vx * dt, dy = b.vy * dt;
-  const n = clamp(Math.ceil(Math.max(Math.abs(dx), Math.abs(dy)) / MAX_STEP), 1, 24);
+  // Não limite a 24 subpassos: em frames longos ou testes de estresse isso cria passos maiores que MAX_STEP e permite atravessar paredes finas.
+  const n = clamp(Math.ceil(Math.max(Math.abs(dx), Math.abs(dy)) / MAX_STEP), 1, 256);
   b.onGround = false;
   for (let i = 0; i < n; i++) { moveX(b, dx / n, surfaces, opts); moveY(b, dy / n, surfaces, opts.drop ?? false); }
   settle(b, surfaces);

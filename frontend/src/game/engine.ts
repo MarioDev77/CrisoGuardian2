@@ -3,6 +3,7 @@ import { buildWorld, VIEW_H, VIEW_W as BASE_VIEW_W, type World, type WSurface } 
 import { audio } from './audio';
 import { PlayerAnim, ATTACK_FIRE_T, INTERACT_TIME } from './playerAnim';
 import { moveBody, moveX, moveY, settle, sweptBox, nearestAlong, playerHurtbox, type Box } from './collision';
+import { drawDebugWorld, drawDebugPanel, type DebugState } from './debugOverlay';
 import { actionForCode, DIFFICULTY, getSettings, QUALITY, subscribeSettings, type Action } from '../app/settings';
 import { ENEMIES, WASTE_VALUE, type Bin, type Boss, type Enemy, type EnemySpec, type FloatText, type Particle, type Pickup, type Player, type Rect, type Shot, type Sludge, type Body } from './entities';
 
@@ -11,6 +12,8 @@ export interface LevelResult { coins: number; score: number; materials: number; 
 export interface EngineCallbacks { onWin: (r: LevelResult) => void; onLose: (r: LevelResult) => void }
 
 const PW = 40, PH = 92, PS = 1.32;
+/** Folga (px do mundo) entre o fundo da hitbox e a sola do sprite: com o spritesheet novo a origem já é a linha exata dos pés. */
+const FEET_SINK = 0.4;
 const GRAV = 2400, JUMP_V = 980;
 
 const overlap = (a: Rect, b: Rect) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
@@ -44,6 +47,8 @@ export class Engine {
   private fps = 0; private fpsFrames = 0; private fpsT = 0;
   /** Largura lógica da câmera: acompanha a proporção da tela para preencher tudo na horizontal. */
   private vw = BASE_VIEW_W;
+  /** Modo de depuração visual: só existe em desenvolvimento (`import.meta.env.DEV`); o build de produção remove todo o código. */
+  private debug = false; private dbgFrame = '';
 
   constructor(private canvas: HTMLCanvasElement, private assets: Assets, private levelIndex: number, private cb: EngineCallbacks) {
     this.ctx = canvas.getContext('2d')!;
@@ -55,10 +60,15 @@ export class Engine {
       e.preventDefault(); this.keys[a] = down;
     };
     window.addEventListener('keydown', this.kd); window.addEventListener('keyup', this.ku); window.addEventListener('blur', this.releaseAll);
+    if (import.meta.env.DEV) { this.debug = new URLSearchParams(window.location.search).get('debug') === '1'; window.addEventListener('keydown', this.dbgKey); }
     this.unsubSettings = subscribeSettings(() => this.resize());
     this.resizeObs = new ResizeObserver(() => this.resize()); this.resizeObs.observe(canvas.parentElement ?? canvas);
     this.resize();
   }
+  /** Estado entregue ao overlay de depuração (só é montado quando o modo está ligado, em DEV). */
+  private dbgState = (): DebugState => ({ p: this.p, world: this.world, enemies: this.enemies, boss: this.boss, bins: this.bins, shots: this.shots, cam: Math.round(this.cam), vw: this.vw, frame: this.assets.meta[this.dbgFrame], frameName: this.dbgFrame, ps: PS, feetY: this.assets.crisoman ? FEET_SINK : 3, animState: this.anim.state, animT: this.anim.stateT, shotPending: this.shotPending, fps: this.fps });
+  /** F3 liga/desliga o overlay de depuração (somente em desenvolvimento). */
+  private dbgKey = (e: KeyboardEvent): void => { if (e.code === 'F3') { e.preventDefault(); this.debug = !this.debug; } };
   private kd = (e: KeyboardEvent) => this.onKey(e, true);
   private ku = (e: KeyboardEvent) => this.onKey(e, false);
   /** Solta todas as teclas (ao pausar, trocar de aba ou remapear), para o herói não ficar "preso" andando. */
@@ -104,7 +114,7 @@ export class Engine {
   }
 
   start(): void { this.last = performance.now(); const loop = (n: number) => { const raw = (n - this.last) / 1000; const dt = Math.min(0.033, raw); this.last = n; this.fpsT += raw; this.fpsFrames++; if (this.fpsT >= 0.5) { this.fps = Math.round(this.fpsFrames / this.fpsT); this.fpsT = 0; this.fpsFrames = 0; } if (!this.paused) this.update(dt); this.render(); this.raf = requestAnimationFrame(loop); }; this.raf = requestAnimationFrame(loop); }
-  destroy(): void { cancelAnimationFrame(this.raf); window.removeEventListener('keydown', this.kd); window.removeEventListener('keyup', this.ku); this.resizeObs.disconnect(); window.removeEventListener('blur', this.releaseAll); this.unsubSettings(); }
+  destroy(): void { cancelAnimationFrame(this.raf); window.removeEventListener('keydown', this.kd); window.removeEventListener('keyup', this.ku); this.resizeObs.disconnect(); window.removeEventListener('blur', this.releaseAll); if (import.meta.env.DEV) window.removeEventListener('keydown', this.dbgKey); this.unsubSettings(); }
   restart(): void { this.reset(); }
   setControl(c: Control, v: boolean): void { this.keys[c] = v; }
   private say(text: string, t = 1.6): void { this.banner = { text, t }; }
@@ -550,6 +560,7 @@ export class Engine {
     return { sx, sy, rot, dy };
   }
 
+
   // ---------------------------------------------------------------- render
   private render(): void {
     const ctx = this.ctx; const cw = this.canvas.width, ch = this.canvas.height; const w = this.world; const a = this.assets;
@@ -622,13 +633,14 @@ export class Engine {
     const wn = this.win;
     if (!wn || wn.phase === 'walk') {
       const gy = p.onGround ? p.y + p.h : this.groundBelow(p.x + p.w / 2, p.y + p.h); if (gy !== null && p.dieT <= 0) this.shadow(p.x + p.w / 2, gy, 30, 1, p.onGround ? 0 : gy - (p.y + p.h));
-      a.draw(ctx, pf.name, p.x + p.w / 2, p.y + p.h + 3, { scale: PS, flip: p.facing < 0, alpha: pf.alpha });
+      this.dbgFrame = pf.name;
+      a.draw(ctx, pf.name, p.x + p.w / 2, p.y + p.h + (a.crisoman ? FEET_SINK : 3), { scale: PS, flip: p.facing < 0, alpha: pf.alpha });
     } else if (wn.phase === 'suck') {
       // o herói é puxado em espiral para dentro do portal: arco, giro, encolhendo e apagando
       const u = Math.min(1, wn.pt / 0.85), e = Math.pow(u, 2.2); const gx = this.world.goal.x, gyy = this.world.goal.y - 78;
       const x = wn.sx + (gx - wn.sx) * e, y = wn.sy + (gyy - wn.sy) * e - Math.sin(u * Math.PI) * 46;
       ctx.save(); ctx.translate(x, y); ctx.rotate(e * Math.PI * 5);
-      a.draw(ctx, 'p_jump_3', 0, 0, { scale: PS * (1 - 0.92 * e), flip: p.facing < 0, anchor: 'center', alpha: 1 - 0.55 * e * e * e });
+      const sc = PS * (1 - 0.92 * e); a.draw(ctx, 'p_jump_3', 0, sc * 38, { scale: sc, flip: p.facing < 0, alpha: 1 - 0.55 * e * e * e }); // pés a 38 px do centro do corpo
       ctx.restore();
     }
     if (wn) this.drawWinFx(wn);
@@ -639,11 +651,13 @@ export class Engine {
     ctx.textAlign = 'center'; ctx.font = '800 18px system-ui';
     for (const t of this.texts) { ctx.globalAlpha = Math.min(1, t.life * 2); ctx.lineWidth = 4; ctx.strokeStyle = '#04200f'; ctx.strokeText(t.text, t.x, t.y); ctx.fillStyle = t.color; ctx.fillText(t.text, t.x, t.y); }
     ctx.globalAlpha = 1;
+    if (import.meta.env.DEV && this.debug) drawDebugWorld(ctx, this.dbgState());
     ctx.restore();
     if (getSettings().lighting) this.drawGrade();
     const hudA = this.win ? Math.max(0, 1 - this.win.t / 0.35) : 1;
     if (hudA > 0) { ctx.globalAlpha = hudA; this.drawHud(); ctx.globalAlpha = 1; }
     this.drawTransition();
+    if (import.meta.env.DEV && this.debug) drawDebugPanel(this.ctx, this.dbgState());
   }
 
   /** Efeitos da vitória no mundo: faíscas em espiral, raios de luz e ondas de choque do portal. */

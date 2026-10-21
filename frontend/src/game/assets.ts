@@ -1,3 +1,12 @@
+/** Metadados de `public/assets/sprites/crisoman/crisoman.json` (gerado por tools/build_crisoman_sprites.py). */
+export interface CrisomanMeta {
+  version: number; image: string; cell: { w: number; h: number }; origin: { x: number; y: number };
+  frames: Record<string, { x: number; y: number; w: number; h: number; ax: number; ay: number; anim: string; index: number; file: string }>;
+  animations: Record<string, { sheet: string; frames: string[]; count: number }>;
+  states: Record<string, { frames: string[]; loop: boolean; fps: number | string | null; status: 'original' | 'shared' | 'borrowed'; pending?: boolean; note?: string }>;
+  pending: { state: string; note: string }[];
+}
+const CRISOMAN = '/assets/sprites/crisoman/';
 export interface Frame { x: number; y: number; w: number; h: number; ax: number; ay: number }
 export interface Src { img: CanvasImageSource; x: number; y: number; w: number; h: number }
 /** Entrada de public/assets/phases/catalog.json (gerada por tools/build_phase_assets.py). */
@@ -111,6 +120,10 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 /** Holds the sprite atlas, per-phase tile pieces and the 8 scene backdrops cut from the official sprites. */
 export class Assets {
   atlas!: HTMLImageElement;
+  /** Spritesheet normalizado do Crisoman (células iguais, origem nos pés); ausente = cai para o atlas original. */
+  crisoman: HTMLImageElement | null = null;
+  /** Metadados completos do Crisoman (estados, pendências); `null` se o pacote não carregou. */
+  crisomanMeta: CrisomanMeta | null = null;
   meta: Record<string, Frame> = {};
   tiles = new Map<string, HTMLImageElement>();
   /** Recuo (fração da altura do tile) entre o topo da imagem e a linha onde o personagem pisa; vem do catálogo de sprites. */
@@ -131,10 +144,25 @@ export class Assets {
       const n = index + 1; const raw = this.rawScenes.get(n) ?? (this.scenes.get(n) as HTMLImageElement | undefined);
       if (raw && !this.rawScenes.has(n)) { this.rawScenes.set(n, raw); this.scenes.set(n, sharpenScene(raw)); }
       const look = raw ? lookFromScene(raw) : DEFAULT_LOOK;
-      g = { look, world: gradeAtlas(this.atlas, look, 0.35, 0.05, 0.0), actor: gradeAtlas(this.atlas, look, 0.2, 0.02, 0.0) };
+      g = { look, world: gradeAtlas(this.atlas, look, 0.35, 0.05, 0.0), actor: gradeAtlas(this.crisoman ?? this.atlas, look, 0.2, 0.02, 0.0) };
       this.graded.set(index, g);
     }
     this.look = g.look; this.worldAtlas = g.world; this.actorAtlas = g.actor;
+  }
+
+  /**
+   * Troca os quadros `p_*` do atlas pelos do spritesheet normalizado do Crisoman. Todos os quadros passam a ter
+   * a mesma célula e a origem (pés) no mesmo ponto. Se algo falhar, o jogo segue com os quadros do atlas.
+   */
+  private async loadCrisoman(): Promise<void> {
+    try {
+      const m = await fetch(CRISOMAN + 'crisoman.json').then((r) => { if (!r.ok) throw new Error('crisoman.json'); return r.json() as Promise<CrisomanMeta>; });
+      const img = await loadImage(CRISOMAN + m.image);
+      const next: Record<string, Frame> = {};
+      for (const [n, f] of Object.entries(m.frames)) next[n] = { x: f.x, y: f.y, w: f.w, h: f.h, ax: f.ax, ay: f.ay };
+      if (!Object.keys(next).length) return;
+      Object.assign(this.meta, next); this.crisoman = img; this.crisomanMeta = m;
+    } catch { /* sem pacote novo: continua com os quadros p_* do atlas */ }
   }
 
   /** Qual cópia do atlas usar: heroi = leve, inimigos/boss/objetos = completa, efeitos/itens/UI = original. */
@@ -160,6 +188,7 @@ export class Assets {
     ]);
     this.atlas = atlas;
     this.meta = meta;
+    await this.loadCrisoman();
     // catálogo de sprites por fase (terreno modular, caixas, lixeiras, decoração): public/assets/phases/catalog.json
     const catalog = await fetch('/assets/phases/catalog.json').then((r) => r.json() as Promise<CatalogEntry[]>).catch(() => [] as CatalogEntry[]);
     await Promise.all(catalog.map(async (e) => {
