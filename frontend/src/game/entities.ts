@@ -1,3 +1,4 @@
+import type { EnemyState } from './enemyAI';
 import type { EnemyKind, Material } from './levels/layouts';
 
 export interface Rect { x: number; y: number; w: number; h: number }
@@ -39,6 +40,8 @@ export const ENEMIES: Record<EnemyKind, EnemySpec> = {
 export interface Enemy extends Body {
   id: number; kind: EnemyKind; hp: number; maxHp: number; dir: 1 | -1; minX: number; maxX: number; baseY: number;
   t: number; hurt: number; dying: number; chasing: boolean; attacking: number;
+  /** Máquina de estados da IA (ver enemyAI.ts): estado atual, tempo nele, espera entre ataques, pausa e arrancada. */
+  state: EnemyState; stateT: number; atkCd: number; idleT: number; dartT: number;
   /** Tempo (s) em que o bicho não persegue depois de bater num objeto ou na borda: evita ficar tremendo/virando a cada quadro. */
   turnCd: number;
 }

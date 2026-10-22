@@ -2,8 +2,8 @@ import { Assets } from './assets';
 import { buildWorld, VIEW_H, VIEW_W as BASE_VIEW_W, type World, type WSurface } from './level';
 import { audio } from './audio';
 import { PlayerAnim, ATTACK_FIRE_T, INTERACT_TIME } from './playerAnim';
+import { AI, stepGround, stepFlyer, bump, kill, hurt as hurtAi, initAi, strikeBox, type TickCtx } from './enemyAI';
 import { moveBody, moveX, moveY, settle, sweptBox, nearestAlong, playerHurtbox, type Box } from './collision';
-import { drawDebugWorld, drawDebugPanel, type DebugState } from './debugOverlay';
 import { actionForCode, DIFFICULTY, getSettings, QUALITY, subscribeSettings, type Action } from '../app/settings';
 import { ENEMIES, WASTE_VALUE, type Bin, type Boss, type Enemy, type EnemySpec, type FloatText, type Particle, type Pickup, type Player, type Rect, type Shot, type Sludge, type Body } from './entities';
 
@@ -12,8 +12,6 @@ export interface LevelResult { coins: number; score: number; materials: number; 
 export interface EngineCallbacks { onWin: (r: LevelResult) => void; onLose: (r: LevelResult) => void }
 
 const PW = 40, PH = 92, PS = 1.32;
-/** Folga (px do mundo) entre o fundo da hitbox e a sola do sprite: com o spritesheet novo a origem já é a linha exata dos pés. */
-const FEET_SINK = 0.4;
 const GRAV = 2400, JUMP_V = 980;
 
 const overlap = (a: Rect, b: Rect) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
@@ -47,8 +45,6 @@ export class Engine {
   private fps = 0; private fpsFrames = 0; private fpsT = 0;
   /** Largura lógica da câmera: acompanha a proporção da tela para preencher tudo na horizontal. */
   private vw = BASE_VIEW_W;
-  /** Modo de depuração visual: só existe em desenvolvimento (`import.meta.env.DEV`); o build de produção remove todo o código. */
-  private debug = false; private dbgFrame = '';
 
   constructor(private canvas: HTMLCanvasElement, private assets: Assets, private levelIndex: number, private cb: EngineCallbacks) {
     this.ctx = canvas.getContext('2d')!;
@@ -60,15 +56,10 @@ export class Engine {
       e.preventDefault(); this.keys[a] = down;
     };
     window.addEventListener('keydown', this.kd); window.addEventListener('keyup', this.ku); window.addEventListener('blur', this.releaseAll);
-    if (import.meta.env.DEV) { this.debug = new URLSearchParams(window.location.search).get('debug') === '1'; window.addEventListener('keydown', this.dbgKey); }
     this.unsubSettings = subscribeSettings(() => this.resize());
     this.resizeObs = new ResizeObserver(() => this.resize()); this.resizeObs.observe(canvas.parentElement ?? canvas);
     this.resize();
   }
-  /** Estado entregue ao overlay de depuração (só é montado quando o modo está ligado, em DEV). */
-  private dbgState = (): DebugState => ({ p: this.p, world: this.world, enemies: this.enemies, boss: this.boss, bins: this.bins, shots: this.shots, cam: Math.round(this.cam), vw: this.vw, frame: this.assets.meta[this.dbgFrame], frameName: this.dbgFrame, ps: PS, feetY: this.assets.crisoman ? FEET_SINK : 3, animState: this.anim.state, animT: this.anim.stateT, shotPending: this.shotPending, fps: this.fps });
-  /** F3 liga/desliga o overlay de depuração (somente em desenvolvimento). */
-  private dbgKey = (e: KeyboardEvent): void => { if (e.code === 'F3') { e.preventDefault(); this.debug = !this.debug; } };
   private kd = (e: KeyboardEvent) => this.onKey(e, true);
   private ku = (e: KeyboardEvent) => this.onKey(e, false);
   /** Solta todas as teclas (ao pausar, trocar de aba ou remapear), para o herói não ficar "preso" andando. */
@@ -95,11 +86,11 @@ export class Engine {
         if (c.kind !== 'crates') continue; const r = sfRect(c);
         if (wx < r.x + r.w + 2 && wx + sp.w > r.x - 2 && s.y > r.y) wx = wx + sp.w / 2 < r.x + r.w / 2 ? r.x - sp.w - 2 : r.x + r.w + 2;
       }
-      this.enemies.push({ id: this.nextId++, kind: s.type, x: wx, y: s.y - sp.h, w: sp.w, h: sp.h, vx: 0, vy: 0, onGround: true, hp: Math.max(1, Math.round(sp.hp * df.enemyHp)), maxHp: Math.max(1, Math.round(sp.hp * df.enemyHp)), dir: Math.random() < 0.5 ? 1 : -1, minX: mnX, maxX: mxX, baseY: s.y, t: Math.random() * 5, hurt: 0, dying: 0, chasing: false, attacking: 0, turnCd: 0 });
+      this.enemies.push({ id: this.nextId++, kind: s.type, x: wx, y: s.y - sp.h, w: sp.w, h: sp.h, vx: 0, vy: 0, onGround: true, hp: Math.max(1, Math.round(sp.hp * df.enemyHp)), maxHp: Math.max(1, Math.round(sp.hp * df.enemyHp)), dir: Math.random() < 0.5 ? 1 : -1, minX: mnX, maxX: mxX, baseY: s.y, t: Math.random() * 5, hurt: 0, dying: 0, chasing: false, attacking: 0, turnCd: 0, ...initAi(Math.random, s.type) });
     }
     for (const s of w.flyers) {
       const sp = ENEMIES[s.type];
-      this.enemies.push({ id: this.nextId++, kind: s.type, x: s.x, y: s.y, w: sp.w, h: sp.h, vx: 0, vy: 0, onGround: false, hp: Math.max(1, Math.round(sp.hp * df.enemyHp)), maxHp: Math.max(1, Math.round(sp.hp * df.enemyHp)), dir: Math.random() < 0.5 ? 1 : -1, minX: Math.max(40, s.x - 520), maxX: Math.min(w.width - 40, s.x + 520), baseY: s.y, t: Math.random() * 5, hurt: 0, dying: 0, chasing: false, attacking: 0, turnCd: 0 });
+      this.enemies.push({ id: this.nextId++, kind: s.type, x: s.x, y: s.y, w: sp.w, h: sp.h, vx: 0, vy: 0, onGround: false, hp: Math.max(1, Math.round(sp.hp * df.enemyHp)), maxHp: Math.max(1, Math.round(sp.hp * df.enemyHp)), dir: Math.random() < 0.5 ? 1 : -1, minX: Math.max(40, s.x - 520), maxX: Math.min(w.width - 40, s.x + 520), baseY: s.y, t: Math.random() * 5, hurt: 0, dying: 0, chasing: false, attacking: 0, turnCd: 0, ...initAi(Math.random, s.type) });
     }
     for (const c of w.coins) this.pickups.push({ id: this.nextId++, type: 'coin', sprite: 'it_moeda', value: 'coin', x: c.x - 14, y: c.y - 14, w: 28, h: 28, taken: false, phase: Math.random() * 6 });
     for (const c of w.waste) { this.pickups.push({ id: this.nextId++, type: 'waste', sprite: 'it_' + c.type, value: c.type, x: c.x - 18, y: c.y - 18, w: 36, h: 36, taken: false, phase: Math.random() * 6 }); this.totalMaterials++; }
@@ -114,7 +105,7 @@ export class Engine {
   }
 
   start(): void { this.last = performance.now(); const loop = (n: number) => { const raw = (n - this.last) / 1000; const dt = Math.min(0.033, raw); this.last = n; this.fpsT += raw; this.fpsFrames++; if (this.fpsT >= 0.5) { this.fps = Math.round(this.fpsFrames / this.fpsT); this.fpsT = 0; this.fpsFrames = 0; } if (!this.paused) this.update(dt); this.render(); this.raf = requestAnimationFrame(loop); }; this.raf = requestAnimationFrame(loop); }
-  destroy(): void { cancelAnimationFrame(this.raf); window.removeEventListener('keydown', this.kd); window.removeEventListener('keyup', this.ku); this.resizeObs.disconnect(); window.removeEventListener('blur', this.releaseAll); if (import.meta.env.DEV) window.removeEventListener('keydown', this.dbgKey); this.unsubSettings(); }
+  destroy(): void { cancelAnimationFrame(this.raf); window.removeEventListener('keydown', this.kd); window.removeEventListener('keyup', this.ku); this.resizeObs.disconnect(); window.removeEventListener('blur', this.releaseAll); this.unsubSettings(); }
   restart(): void { this.reset(); }
   setControl(c: Control, v: boolean): void { this.keys[c] = v; }
   private say(text: string, t = 1.6): void { this.banner = { text, t }; }
@@ -147,11 +138,11 @@ export class Engine {
 
   private damageEnemy(e: Enemy, dmg: number): void {
     if (e.dying > 0) return;
-    e.hp -= dmg; e.hurt = 0.18; e.vx = 0; audio.sfx(e.hp <= 0 ? 'enemyDie' : 'hit'); this.spawnParts(e.x + e.w / 2, e.y + e.h / 2, '#caff7a', 6, 160);
+    e.hp -= dmg; e.hurt = 0.18; audio.sfx(e.hp <= 0 ? 'enemyDie' : 'hit'); this.spawnParts(e.x + e.w / 2, e.y + e.h / 2, '#caff7a', 6, 160);
     if (e.hp <= 0) {
-      e.dying = 0.6; const sp = ENEMIES[e.kind]; this.score += sp.score; this.float(e.x + e.w / 2, e.y - 6, '+' + sp.score, '#ffe35b');
+      kill(e); e.dying = 0.6; const sp = ENEMIES[e.kind]; this.score += sp.score; this.float(e.x + e.w / 2, e.y - 6, '+' + sp.score, '#ffe35b');
       if (Math.random() < 0.3) this.pickups.push({ id: this.nextId++, type: 'coin', sprite: 'it_moeda', value: 'coin', x: e.x + e.w / 2 - 14, y: e.y - 20, w: 28, h: 28, taken: false, phase: 0 });
-    }
+    } else hurtAi(e, e.kind, this.p.x + this.p.w / 2 < e.x + e.w / 2 ? 1 : -1); // atordoa e empurra para longe do herói
   }
 
   private damageBoss(d: number): void {
@@ -175,6 +166,7 @@ export class Engine {
     if (p.dieT > 0) {
       p.dieT += dt; p.vy += GRAV * dt; this.move(p, dt); p.vx *= 0.9;
       if (p.dieT > 1.5) { this.ended = true; this.cb.onLose(this.resultNow()); }
+      this.updateEnemies(dt); // a IA segue rodando: com o herói morto os bichos largam a perseguição em vez de congelar no meio do golpe
       this.updateWorldBits(dt); return;
     }
 
@@ -323,48 +315,48 @@ export class Engine {
   private updateEnemies(dt: number): void {
     const p = this.p;
     for (const e of this.enemies) {
-      const sp = ENEMIES[e.kind]; e.t += dt; e.hurt = Math.max(0, e.hurt - dt); e.attacking = Math.max(0, e.attacking - dt);
+      const sp = ENEMIES[e.kind], pr = AI[e.kind]; e.t += dt; e.hurt = Math.max(0, e.hurt - dt);
       if (e.dying > 0) { e.dying -= dt; e.y += (sp.fly ? 90 : 0) * dt; continue; }
       const dx = p.x + p.w / 2 - (e.x + e.w / 2), dy = p.y + p.h / 2 - (e.y + e.h / 2);
+      const ctx: TickCtx = {
+        dt, speedMul: this.enemySpeed, dx, dy, gap: Math.abs(dx) - e.w / 2 - p.w / 2, playerAlive: p.dieT <= 0,
+        inLeash: e.x + e.w / 2 > e.minX - 40 && e.x + e.w / 2 < e.maxX + 40, rand: Math.random,
+      };
       if (sp.fly) {
-        const near = Math.abs(dx) < 460 && Math.abs(dy) < 360 && p.dieT <= 0;
-        e.chasing = near;
-        if (e.kind === 'cloud') { e.x += (near ? Math.sign(dx) : e.dir) * sp.speed * this.enemySpeed * dt; e.y += (near ? Math.sign(dy) * 20 : 0) * dt + Math.sin(e.t * 1.6) * 0.6; }
+        stepFlyer(e, pr, ctx); const near = e.chasing;
+        if (e.state === 'hurt') e.x += e.vx * dt; // atordoado: só o empurrão
+        else if (e.kind === 'cloud') { e.x += (near ? Math.sign(dx) : e.dir) * sp.speed * this.enemySpeed * dt; e.y += (near ? Math.sign(dy) * 20 : 0) * dt + Math.sin(e.t * 1.6) * 0.6; }
         else if (near) { e.x += Math.sign(dx) * sp.speed * this.enemySpeed * 0.95 * dt; e.baseY += Math.sign(dy) * 55 * dt; e.y = e.baseY + Math.sin(e.t * 4 + e.id) * 24; }
         else { e.x += e.dir * sp.speed * this.enemySpeed * 0.5 * dt; if (e.x < e.minX) e.dir = 1; if (e.x > e.maxX) e.dir = -1; e.y = e.baseY + Math.sin(e.t * 2 + e.id) * 34; }
         e.baseY = Math.max(90, Math.min(VIEW_H - 190, e.baseY));
         if (e.kind !== 'cloud' && !near) e.dir = e.x < e.minX ? 1 : e.x > e.maxX ? -1 : e.dir;
       } else {
-        const near = Math.abs(dx) < 300 && Math.abs(dy) < 90 && p.dieT <= 0 && dx > -9999;
-        e.turnCd = Math.max(0, e.turnCd - dt);
-        const inLeash = e.x + e.w / 2 > e.minX - 40 && e.x + e.w / 2 < e.maxX + 40;
-        if (e.chasing && !inLeash) e.turnCd = 0.8; // saiu da coleira: volta pra casa um tempo (evita ficar virando no limite)
-        e.chasing = e.turnCd <= 0 && near && inLeash;
-        if (e.chasing) e.dir = dx >= 0 ? 1 : -1; else { if (e.x < e.minX) e.dir = 1; if (e.x + e.w > e.maxX) e.dir = -1; }
-        const spd = sp.speed * this.enemySpeed * (e.chasing ? 1.7 : 1);
-        const want = e.attacking > 0 ? 0 : e.dir * spd;
-        e.vx = want; e.vy += GRAV * dt;
-        const px = e.x; this.move(e, dt);
-        // bateu num objeto (caixa, parede): vira e deixa de perseguir por um instante, em vez de empurrar e virar todo quadro
-        if (want !== 0 && e.vx === 0) { e.dir = (e.dir * -1) as 1 | -1; e.turnCd = e.chasing ? 1 : 0.2; e.chasing = false; }
-        // don't walk off the surface edge (mesma regra: não fica tremendo na borda)
-        else if (e.onGround && !this.groundAhead(e)) { e.x = px; e.dir = (e.dir * -1) as 1 | -1; e.turnCd = e.chasing ? 1 : 0.2; e.chasing = false; }
+        stepGround(e, sp.speed, pr, ctx); // decide estado e velocidade desejada
+        e.vy += GRAV * dt;
+        const px = e.x, vx0 = e.vx; this.move(e, dt);
+        const away = e.state === 'hurt'; // empurrão de dano: não vira nem muda de estado ao bater
+        // bateu num objeto (caixa, parede) ou chegou na borda: o bote para, a patrulha vira (com um instante sem perseguir)
+        if (vx0 !== 0 && e.vx === 0) { if (!away) bump(e, e.kind, Math.random); }
+        else if (e.onGround && !this.groundAhead(e, away ? ((Math.sign(vx0) || e.dir) as 1 | -1) : e.dir)) { e.x = px; e.vx = 0; if (!away) bump(e, e.kind, Math.random); }
         if (e.x < 0) { e.x = 0; e.dir = 1; }
-        if (Math.abs(dx) < 70 && Math.abs(dy) < 60 && e.kind !== 'armor') e.attacking = Math.max(e.attacking, 0.25);
+        e.attacking = e.state === 'windup' || e.state === 'strike' ? 0.1 : 0; // compatibilidade com o desenho
       }
       if (sp.fly) { const y0 = e.y; settle(e, this.world.surfaces, false); if (e.y !== y0) e.baseY += e.y - y0; }
-      // contact with player
-      if (p.dieT <= 0 && overlap(playerHurtbox(p), e)) {
-        if (p.shield > 0) { if (e.hurt <= 0) this.damageEnemy(e, 2); moveX(e, Math.sign(-dx) * 30, this.world.surfaces, { minX: 0, maxX: this.world.width }); }
-        else if (p.vy > 160 && p.y + p.h < e.y + e.h * 0.7 && !p.onGround) { this.damageEnemy(e, 2); p.vy = -560; }
-        else this.hurtPlayer(e.x + e.w / 2);
+      // contato e golpe: o corpo machuca, exceto na recuperação e no atordoamento (janela para o jogador); o bote tem alcance extra
+      if (p.dieT <= 0) {
+        const hb = playerHurtbox(p), atk = pr.attack;
+        const touching = overlap(hb, e);
+        const striking = !!atk && e.state === 'strike' && overlap(hb, strikeBox(e, atk.reach));
+        if (touching && p.shield > 0) { if (e.hurt <= 0) this.damageEnemy(e, 2); moveX(e, Math.sign(-dx) * 30, this.world.surfaces, { minX: 0, maxX: this.world.width }); }
+        else if (touching && p.vy > 160 && p.y + p.h < e.y + e.h * 0.7 && !p.onGround) { this.damageEnemy(e, 2); p.vy = -560; }
+        else if (p.shield <= 0 && (striking || (touching && e.state !== 'recover' && e.state !== 'hurt'))) this.hurtPlayer(e.x + e.w / 2);
       }
     }
     this.enemies = this.enemies.filter((e) => e.dying > -1 && !(e.dying <= 0 && e.hp <= 0));
   }
 
-  private groundAhead(e: Enemy): boolean {
-    const fx = e.x + e.w / 2 + e.dir * (e.w / 2 + 8); const fy = e.y + e.h + 10;
+  private groundAhead(e: Enemy, dir: 1 | -1 = e.dir): boolean {
+    const fx = e.x + e.w / 2 + dir * (e.w / 2 + 8); const fy = e.y + e.h + 10;
     return this.world.surfaces.some((s) => fx >= s.x && fx <= s.x + s.w && fy >= s.top && fy <= s.top + Math.max(s.h, 24));
   }
 
@@ -537,7 +529,7 @@ export class Engine {
   private enemyFrame(e: Enemy): string {
     const sp = ENEMIES[e.kind];
     if (e.dying > 0 && sp.die) return sp.die;
-    if (e.kind === 'rat') { if (e.attacking > 0 && sp.attack) return sp.attack; if (e.chasing && sp.chase) return Math.floor(e.t * 10) % 2 ? sp.chase : sp.frames[0]!; return sp.frames[Math.floor(e.t * 4) % 2]!; }
+    if (e.kind === 'rat') { if (e.state === 'strike' && sp.attack) return sp.attack; if (e.state === 'windup' || e.state === 'recover') return sp.frames[1]!; if (e.chasing && sp.chase) return Math.floor(e.t * 10) % 2 ? sp.chase : sp.frames[0]!; return sp.frames[Math.floor(e.t * 4) % 2]!; }
     if (e.kind === 'fly') return e.chasing && Math.floor(e.t * 14) % 2 ? 'fly_2' : sp.frames[Math.floor(e.t * 18) % 2]!;
     return sp.frames[Math.floor(e.t * 6) % sp.frames.length]!;
   }
@@ -550,16 +542,28 @@ export class Engine {
       case 'swim': { const w = t * 7 * run; rot = Math.sin(w) * 0.1 + (e.chasing ? face * 0.08 : 0); sx = 1 + Math.sin(w * 2) * 0.05; sy = 1 - Math.sin(w * 2) * 0.03; break; }
       case 'stomp': { const w = t * 5 * run, k = Math.abs(Math.sin(w)); rot = Math.sin(w) * 0.06; sy = 0.94 + 0.06 * k; sx = 1.04 - 0.04 * k; break; }
       case 'sway': { const w = t * 3.2 * run; rot = Math.sin(w) * 0.05; sy = 1 + Math.sin(w * 2) * 0.025; sx = 1 - Math.sin(w * 2) * 0.015; break; }
-      case 'scuttle': { const w = t * 14 * run; rot = Math.sin(w) * 0.05; sx = 1 + Math.sin(w * 2) * 0.04; dy = -Math.abs(Math.sin(w)) * 2; if (e.attacking > 0) { sy *= 1.12; sx *= 0.94; } break; }
+      case 'scuttle': { const w = t * 14 * run; rot = Math.sin(w) * 0.05; sx = 1 + Math.sin(w * 2) * 0.04; dy = -Math.abs(Math.sin(w)) * 2; break; }
       case 'slither': { const w = t * 9 * run; sx = 1 + Math.sin(w) * 0.05; sy = 1 - Math.sin(w) * 0.03; rot = Math.sin(w * 0.5) * 0.035; break; }
       case 'hover': { rot = Math.sin(t * 3) * 0.04 + (e.chasing ? face * 0.14 : 0); dy = Math.sin(t * 5 + e.id) * 3; sx = 1 + Math.sin(t * 34) * 0.025; break; }
       case 'hop': { const k = Math.abs(Math.sin(t * 4 * run)); dy = -k * 9; sy = 1 + (k - 0.5) * 0.14; sx = 1 - (k - 0.5) * 0.1; break; }
     }
     if (e.hurt > 0) { sx *= 1.12; sy *= 0.9; }
     if (e.dying > 0 && !sp.die) { const u = Math.min(1, Math.max(0, 1 - e.dying / 0.6)); rot += u * (sp.fly ? 5 : 1.4) * face; if (!sp.fly) sy *= 1 - 0.35 * u; }
+    const ap = this.aiPose(e); sx *= ap.sx; sy *= ap.sy; rot += ap.rot;
     return { sx, sy, rot, dy };
   }
 
+  /** Pose do ataque: encolhe e se inclina para trás na preparação, estica no golpe, afunda na recuperação (só bichos que atacam). */
+  private aiPose(e: Enemy): { sx: number; sy: number; rot: number } {
+    const atk = AI[e.kind].attack, d = e.dir;
+    if (!atk) return { sx: 1, sy: 1, rot: 0 };
+    switch (e.state) {
+      case 'windup': { const u = Math.min(1, e.stateT / atk.windup); return { sx: 1 + 0.08 * u, sy: 1 - 0.14 * u, rot: -d * 0.2 * u }; }
+      case 'strike': return { sx: 1.16, sy: 0.9, rot: d * 0.12 };
+      case 'recover': { const u = Math.min(1, e.stateT / atk.recover); return { sx: 1.04 - 0.04 * u, sy: 0.92 + 0.08 * u, rot: d * 0.06 * (1 - u) }; }
+      default: return { sx: 1, sy: 1, rot: 0 };
+    }
+  }
 
   // ---------------------------------------------------------------- render
   private render(): void {
@@ -613,7 +617,7 @@ export class Engine {
       const faceDir = e.chasing && sp.fly ? (this.p.x < e.x ? -1 : 1) : e.dir; const flip = sp.noFlip ? false : sp.nativeLeft ? faceDir > 0 : faceDir < 0;
       const bob = sp.fly ? 0 : Math.abs(Math.sin(e.t * 8)) * 2;
       if (e.dying <= 0) { const gy = sp.fly ? this.groundBelow(e.x + e.w / 2, e.y + e.h) : e.y + e.h; if (gy !== null) this.shadow(e.x + e.w / 2, gy, e.w * 0.55, 0.85, sp.fly ? gy - (e.y + e.h) : 0); }
-      ctx.save(); if (e.hurt > 0) ctx.filter = 'brightness(2.2)'; if (e.dying > 0) ctx.globalAlpha = Math.max(0, e.dying / 0.6);
+      ctx.save(); if (e.hurt > 0) ctx.filter = 'brightness(2.2)'; else if (e.state === 'windup') ctx.filter = 'brightness(1.4) saturate(1.5)'; // brilha na preparação do golpe (aviso) if (e.dying > 0) ctx.globalAlpha = Math.max(0, e.dying / 0.6);
       if (sp.motion) {
         // sprite estático: pose (inclinação, squash/stretch, deslocamento) calculada por código
         const pose = this.enemyPose(e, sp, faceDir >= 0 ? 1 : -1);
@@ -621,7 +625,7 @@ export class Engine {
         a.draw(ctx, name, 0, 0, sp.fly ? { scale: sp.scale, flip, anchor: 'center' } : { scale: sp.scale, flip });
       }
       else if (sp.fly) a.draw(ctx, name, e.x + e.w / 2, e.y + e.h / 2, { scale: sp.scale, flip, anchor: 'center' });
-      else a.draw(ctx, name, e.x + e.w / 2, e.y + e.h + 2 - bob, { scale: sp.scale, flip });
+      else { const ap = this.aiPose(e); ctx.translate(e.x + e.w / 2, e.y + e.h + 2 - bob); ctx.rotate(ap.rot); ctx.scale(ap.sx, ap.sy); a.draw(ctx, name, 0, 0, { scale: sp.scale, flip }); }
       ctx.restore();
       if (e.dying <= 0 && e.hp < e.maxHp) { ctx.fillStyle = '#0008'; ctx.fillRect(e.x, e.y - 10, e.w, 5); ctx.fillStyle = '#ff6b6b'; ctx.fillRect(e.x, e.y - 10, e.w * Math.max(0, e.hp / e.maxHp), 5); }
     }
@@ -633,14 +637,13 @@ export class Engine {
     const wn = this.win;
     if (!wn || wn.phase === 'walk') {
       const gy = p.onGround ? p.y + p.h : this.groundBelow(p.x + p.w / 2, p.y + p.h); if (gy !== null && p.dieT <= 0) this.shadow(p.x + p.w / 2, gy, 30, 1, p.onGround ? 0 : gy - (p.y + p.h));
-      this.dbgFrame = pf.name;
-      a.draw(ctx, pf.name, p.x + p.w / 2, p.y + p.h + (a.crisoman ? FEET_SINK : 3), { scale: PS, flip: p.facing < 0, alpha: pf.alpha });
+      a.draw(ctx, pf.name, p.x + p.w / 2, p.y + p.h + 3, { scale: PS, flip: p.facing < 0, alpha: pf.alpha });
     } else if (wn.phase === 'suck') {
       // o herói é puxado em espiral para dentro do portal: arco, giro, encolhendo e apagando
       const u = Math.min(1, wn.pt / 0.85), e = Math.pow(u, 2.2); const gx = this.world.goal.x, gyy = this.world.goal.y - 78;
       const x = wn.sx + (gx - wn.sx) * e, y = wn.sy + (gyy - wn.sy) * e - Math.sin(u * Math.PI) * 46;
       ctx.save(); ctx.translate(x, y); ctx.rotate(e * Math.PI * 5);
-      const sc = PS * (1 - 0.92 * e); a.draw(ctx, 'p_jump_3', 0, sc * 38, { scale: sc, flip: p.facing < 0, alpha: 1 - 0.55 * e * e * e }); // pés a 38 px do centro do corpo
+      a.draw(ctx, 'p_jump_3', 0, 0, { scale: PS * (1 - 0.92 * e), flip: p.facing < 0, anchor: 'center', alpha: 1 - 0.55 * e * e * e });
       ctx.restore();
     }
     if (wn) this.drawWinFx(wn);
@@ -651,13 +654,11 @@ export class Engine {
     ctx.textAlign = 'center'; ctx.font = '800 18px system-ui';
     for (const t of this.texts) { ctx.globalAlpha = Math.min(1, t.life * 2); ctx.lineWidth = 4; ctx.strokeStyle = '#04200f'; ctx.strokeText(t.text, t.x, t.y); ctx.fillStyle = t.color; ctx.fillText(t.text, t.x, t.y); }
     ctx.globalAlpha = 1;
-    if (import.meta.env.DEV && this.debug) drawDebugWorld(ctx, this.dbgState());
     ctx.restore();
     if (getSettings().lighting) this.drawGrade();
     const hudA = this.win ? Math.max(0, 1 - this.win.t / 0.35) : 1;
     if (hudA > 0) { ctx.globalAlpha = hudA; this.drawHud(); ctx.globalAlpha = 1; }
     this.drawTransition();
-    if (import.meta.env.DEV && this.debug) drawDebugPanel(this.ctx, this.dbgState());
   }
 
   /** Efeitos da vitória no mundo: faíscas em espiral, raios de luz e ondas de choque do portal. */
