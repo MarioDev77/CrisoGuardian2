@@ -1,4 +1,5 @@
 import type { EnemyState } from './enemyAI';
+import type { BossAttack, BossPhase, BossState } from './bossAI';
 import type { EnemyKind, Material } from './levels/layouts';
 
 export interface Rect { x: number; y: number; w: number; h: number }
@@ -47,8 +48,10 @@ export interface Enemy extends Body {
 }
 
 export interface Boss extends Body {
-  hp: number; maxHp: number; dir: 1 | -1; state: 'idle' | 'charge' | 'leap' | 'dead'; stateT: number; cd: number;
-  hurt: number; dying: number; active: boolean; slam: boolean;
+  hp: number; maxHp: number; dir: 1 | -1; hurt: number; dying: number; active: boolean;
+  /** Máquina de estados e fases (ver bossAI.ts). */
+  state: BossState; stateT: number; cd: number; phase: BossPhase;
+  atk: BossAttack | null; lastAtk: BossAttack | null; streak: number; aimX: number; spitLeft: number; spitT: number; combo: boolean;
 }
 
 export interface Pickup extends Rect {

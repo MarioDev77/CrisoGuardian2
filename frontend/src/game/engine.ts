@@ -3,6 +3,7 @@ import { buildWorld, VIEW_H, VIEW_W as BASE_VIEW_W, type World, type WSurface } 
 import { audio } from './audio';
 import { PlayerAnim, ATTACK_FIRE_T, INTERACT_TIME } from './playerAnim';
 import { AI, stepGround, stepFlyer, bump, kill, hurt as hurtAi, initAi, strikeBox, type TickCtx } from './enemyAI';
+import { stepBoss, AIM_LOCK, onDamaged, kill as killBoss, initBoss, bossBody, bossTouch, bossHarmful, PHASES, type BossEvent } from './bossAI';
 import { moveBody, moveX, moveY, settle, sweptBox, nearestAlong, playerHurtbox, type Box } from './collision';
 import { actionForCode, DIFFICULTY, getSettings, QUALITY, subscribeSettings, type Action } from '../app/settings';
 import { ENEMIES, WASTE_VALUE, type Bin, type Boss, type Enemy, type EnemySpec, type FloatText, type Particle, type Pickup, type Player, type Rect, type Shot, type Sludge, type Body } from './entities';
@@ -28,7 +29,7 @@ export class Engine {
   paused = false; private ended = false;
 
   private p!: Player;
-  private enemies: Enemy[] = []; private boss: Boss | null = null;
+  private enemies: Enemy[] = []; private boss: Boss | null = null; private bossBlocked = false;
   private pickups: Pickup[] = []; private bins: Bin[] = [];
   private shots: Shot[] = []; private sludge: Sludge[] = []; private parts: Particle[] = []; private texts: FloatText[] = [];
   private coins = 0; private score = 0; private materials = 0; private totalMaterials = 0; private sinceBin = 0;
@@ -100,7 +101,7 @@ export class Engine {
       this.bins.push({ id: this.nextId++, sprite: w.layout.bin, x: b.x - sz.w * sc / 2, y: b.y - sz.h * sc, w: sz.w * sc, h: sz.h * sc, used: false, pulse: 0 });
     }
     if (w.bossAt) {
-      this.boss = { x: w.bossAt.x - 60, y: w.bossAt.y - 180, w: 120, h: 180, vx: 0, vy: 0, onGround: true, hp: Math.round(28 * df.bossHp), maxHp: Math.round(28 * df.bossHp), dir: -1, state: 'idle', stateT: 0, cd: 2.5, hurt: 0, dying: 0, active: false, slam: false };
+      this.boss = { x: w.bossAt.x - 60, y: w.bossAt.y - 180, w: 120, h: 180, vx: 0, vy: 0, onGround: true, hp: Math.round(28 * df.bossHp), maxHp: Math.round(28 * df.bossHp), dir: -1, ...initBoss(Math.random), hurt: 0, dying: 0, active: false };
     }
   }
 
@@ -145,10 +146,26 @@ export class Engine {
     } else hurtAi(e, e.kind, this.p.x + this.p.w / 2 < e.x + e.w / 2 ? 1 : -1); // atordoa e empurra para longe do herói
   }
 
-  private damageBoss(d: number): void {
+  /**
+   * Dano no chefão. `src`: tiro e especial sempre acertam; pisão e escudo respeitam a janela de 0,16 s (sem dano duplicado
+   * no mesmo contato). Na transição de fase ele é invulnerável.
+   */
+  private damageBoss(d: number, src: 'shot' | 'blast' | 'stomp' | 'shield' = 'shot'): void {
     const b = this.boss; if (!b || b.state === 'dead') return;
+    if (b.state === 'phase') { this.spawnParts(b.x + b.w / 2, b.y + 80, '#ffffff', 3, 120); return; }
+    if ((src === 'stomp' || src === 'shield') && b.hurt > 0) return;
     b.hp -= d; b.hurt = 0.16; audio.sfx('bossHit'); this.spawnParts(b.x + b.w / 2, b.y + 80, '#b6ff6a', 6, 200);
-    if (b.hp <= 0) { b.state = 'dead'; b.dying = 1.6; audio.sfx('enemyDie'); audio.sfx('win'); this.score += 2000; this.float(b.x + b.w / 2, b.y - 10, '+2000', '#ffe35b'); this.say('MONSTRO DERROTADO! ALCANCE O PORTAL', 3); this.shake = 0.6; }
+    if (b.hp <= 0) { killBoss(b); b.dying = 1.6; this.sludge = []; audio.sfx('enemyDie'); audio.sfx('win'); this.score += 2000; this.float(b.x + b.w / 2, b.y - 10, '+2000', '#ffe35b'); this.say('MONSTRO DERROTADO! ALCANCE O PORTAL', 3); this.shake = 0.6; }
+    else this.applyBossEvents(onDamaged(b));
+  }
+
+  private applyBossEvents(events: BossEvent[]): void {
+    for (const ev of events) {
+      if (ev.type === 'slam') { this.shake = 0.5; audio.sfx('slam'); for (const v of ev.vx) this.sludge.push({ x: ev.x, y: ev.y, vx: v, life: 2.2 }); }
+      else if (ev.type === 'spit') { audio.sfx('hit'); this.sludge.push({ x: ev.x, y: ev.y, vx: ev.vx, life: 2.4 }); }
+      else if (ev.type === 'roar') { this.shake = 0.6; audio.sfx('bossRoar'); }
+      else this.say(ev.text, 2.2);
+    }
   }
 
   // ---------------------------------------------------------------- update
@@ -215,7 +232,7 @@ export class Engine {
       p.specialCd = DIFFICULTY[getSettings().difficulty].specialCd; p.specialT = 0; this.specialFx = 0.7; this.shake = 0.3; audio.sfx('special');
       const cx = p.x + p.w / 2, cy = p.y + p.h / 2;
       for (const e of this.enemies) if (e.dying <= 0 && Math.hypot(e.x + e.w / 2 - cx, e.y + e.h / 2 - cy) < 340) this.damageEnemy(e, 3);
-      if (this.boss && this.boss.active && Math.hypot(this.boss.x + 60 - cx, this.boss.y + 90 - cy) < 380) this.damageBoss(4);
+      if (this.boss && this.boss.active && Math.hypot(this.boss.x + 60 - cx, this.boss.y + 90 - cy) < 380) this.damageBoss(4, 'blast');
       this.sludge = []; this.say('ATAQUE ESPECIAL!', 0.9);
     }
     this.specialWas = this.keys.special;
@@ -362,25 +379,19 @@ export class Engine {
 
   private updateBoss(dt: number): void {
     const b = this.boss; if (!b) return; const p = this.p;
-    if (b.state === 'dead') { b.dying -= dt; if (b.dying < -3) this.boss = b; return; }
-    b.hurt = Math.max(0, b.hurt - dt); b.cd -= dt; b.stateT += dt;
+    if (b.state === 'dead') { b.dying -= dt; return; }
+    b.hurt = Math.max(0, b.hurt - dt);
     if (!b.active) { if (p.x > b.x - 780) { b.active = true; audio.sfx('bossRoar'); this.say('MONSTRO DO LIXÃO!', 2); } else return; }
     const dx = p.x + p.w / 2 - (b.x + b.w / 2);
-    if (b.state === 'idle') {
-      b.dir = dx >= 0 ? 1 : -1; b.vx = b.dir * 62;
-      if (b.cd <= 0) { b.state = Math.random() < 0.5 ? 'charge' : 'leap'; b.stateT = 0; if (b.state === 'leap') { b.vy = -1100; b.vx = Math.max(-420, Math.min(420, dx / 0.9)); b.onGround = false; b.slam = true; } }
-    } else if (b.state === 'charge') {
-      b.vx = b.dir * 270; if (b.stateT > 1.5) { b.state = 'idle'; b.cd = 2.2; b.vx = 0; }
-    } else if (b.state === 'leap') {
-      if (b.onGround && b.stateT > 0.25) { b.state = 'idle'; b.cd = 2.6; b.vx = 0;
-        if (b.slam) { b.slam = false; this.shake = 0.5; audio.sfx('slam'); for (const d of [-1, 1]) this.sludge.push({ x: b.x + b.w / 2, y: b.y + b.h - 18, vx: d * 340, life: 2.2 }); } }
-    }
-    b.vy += GRAV * dt; this.move(b, dt);
-    if (b.x < this.world.width - 1500) { b.x = this.world.width - 1500; }
-    if (p.dieT <= 0 && overlap(playerHurtbox(p), { x: b.x + 10, y: b.y + 20, w: b.w - 20, h: b.h - 20 })) {
-      if (p.shield > 0) { if (b.hurt <= 0) { this.damageBoss(1); p.vx = -b.dir * 400; p.shield = Math.max(0, p.shield - 1.5); } }
-      else if (p.vy > 160 && p.y + p.h < b.y + 70 && !p.onGround) { this.damageBoss(2); p.vy = -650; }
-      else this.hurtPlayer(b.x + b.w / 2);
+    this.applyBossEvents(stepBoss(b, { dt, dx, playerAlive: p.dieT <= 0, blocked: this.bossBlocked, rand: Math.random }));
+    b.vy += GRAV * dt;
+    // a arena vai da borda esquerda do chefão (1500 px antes do fim) até o fim do mapa; parede/limite barram a investida
+    const vx0 = b.vx; moveBody(b, dt, this.world.surfaces, { minX: this.world.width - 1500, maxX: this.world.width });
+    this.bossBlocked = b.state === 'charge' && vx0 !== 0 && b.vx === 0;
+    if (p.dieT <= 0 && overlap(playerHurtbox(p), bossTouch(b))) {
+      if (p.shield > 0) { if (b.hurt <= 0 && b.state !== 'phase') { this.damageBoss(1, 'shield'); p.vx = -b.dir * 400; p.shield = Math.max(0, p.shield - 1.5); } }
+      else if (p.vy > 160 && p.y + p.h < b.y + 70 && !p.onGround) { this.damageBoss(2, 'stomp'); p.vy = -650; }
+      else if (bossHarmful(b.state)) this.hurtPlayer(b.x + b.w / 2); // na recuperação e na transição o toque não machuca
     }
   }
 
@@ -392,7 +403,7 @@ export class Engine {
       const sw = sweptBox(x0, s.x, s.y, 20, 10), sws = sweptBox(x0, s.x, s.y, 6, 6);
       const cand: { box: Box; e?: Enemy; boss?: true }[] = [];
       for (const e of this.enemies) if (e.dying <= 0 && overlap(sw, e)) cand.push({ box: e, e });
-      const b = this.boss; if (b && b.state !== 'dead' && b.active && overlap(sw, b)) cand.push({ box: b, boss: true });
+      const b = this.boss; if (b && b.state !== 'dead' && b.active && overlap(sw, bossBody(b))) cand.push({ box: bossBody(b), boss: true });
       for (const sf of this.world.surfaces) if (sf.solid && overlap(sws, sfRect(sf))) cand.push({ box: sfRect(sf) });
       const hit = nearestAlong(x0, s.x, cand); if (!hit) continue;
       if (hit.e) this.damageEnemy(hit.e, 1); else if (hit.boss) this.damageBoss(1); else this.spawnParts(s.x, s.y, '#8cff8c', 4, 120);
@@ -760,10 +771,38 @@ export class Engine {
   private drawBoss(): void {
     const b = this.boss; if (!b) return; const ctx = this.ctx; const a = this.assets;
     if (b.state === 'dead' && b.dying < -2) return;
-    const name = b.state === 'dead' ? 'boss_die' : b.hurt > 0 ? 'boss_hurt' : b.state === 'leap' ? 'boss_atk2' : b.state === 'charge' ? 'boss_atk1' : Math.floor(this.t * 3) % 2 ? 'boss_idle' : 'boss_atk1';
-    if (b.state !== 'dead') this.shadow(b.x + b.w / 2, b.y + b.h + 4, b.w * 0.7, 1);
-    ctx.save(); if (b.state === 'dead') ctx.globalAlpha = Math.max(0, 1 + b.dying / 1.6 * 0.0 + (b.dying < 0 ? b.dying / 2 : 0)); if (b.hurt > 0) ctx.filter = 'brightness(2)';
-    a.draw(ctx, name, b.x + b.w / 2, b.y + b.h + 6, { scale: 2.1, flip: b.dir > 0 ? false : true });
+    const st = b.state, t = this.t, pr = PHASES[b.phase];
+    const name = st === 'dead' ? 'boss_die' : b.hurt > 0 || st === 'phase' ? 'boss_hurt' : st === 'leap' ? 'boss_atk2' : st === 'charge' || st === 'spit' ? 'boss_atk1'
+      : st === 'windup' ? (b.atk === 'leap' ? 'boss_idle' : 'boss_atk1') : st === 'recover' ? 'boss_idle' : Math.floor(t * 3) % 2 ? 'boss_idle' : 'boss_atk1';
+    const wind = b.atk ? pr.windup[b.atk] * (b.combo ? 0.6 : 1) : 1, cx = b.x + b.w / 2, gy = b.y + b.h;
+    // aviso no chão: onde o salto vai cair / por onde a investida passa (some quando o ataque começa)
+    if (st === 'windup' && b.atk && b.active) {
+      const u = Math.min(1, b.stateT / wind), locked = b.stateT >= wind - AIM_LOCK; ctx.save();
+      if (b.atk === 'leap') {
+        ctx.globalAlpha = 0.25 + 0.25 * Math.abs(Math.sin(t * 14)); ctx.fillStyle = '#ff3b30'; ctx.beginPath(); ctx.ellipse(b.aimX, gy - 4, 64, 14, 0, 0, 7); ctx.fill();
+        ctx.globalAlpha = 0.9; ctx.lineWidth = locked ? 4 : 2; ctx.strokeStyle = locked ? '#ffffff' : '#ff9a8f'; ctx.beginPath(); ctx.ellipse(b.aimX, gy - 4, 64 * (1.2 - 0.2 * u), 14, 0, 0, 7); ctx.stroke();
+      } else if (b.atk === 'charge') {
+        const dir = b.aimX >= cx ? 1 : -1, len = Math.min(720, pr.chargeSpeed * pr.chargeDur), x0 = cx + dir * 40;
+        const g = ctx.createLinearGradient(x0, 0, x0 + dir * len, 0); g.addColorStop(0, '#ff3b30aa'); g.addColorStop(1, '#ff3b3000');
+        ctx.fillStyle = g; ctx.globalAlpha = 0.45 + 0.4 * Math.abs(Math.sin(t * 14)); ctx.fillRect(Math.min(x0, x0 + dir * len), gy - 16, len, 14);
+      }
+      ctx.restore();
+    }
+    if (st !== 'dead') this.shadow(cx, gy + 4, b.w * 0.7, 1);
+    // pose: agacha e treme no aviso, afunda na recuperação, sacode na transição de fase
+    let sx = 1, sy = 1, ox = 0;
+    if (st === 'windup') { const u = Math.min(1, b.stateT / wind); sy = 1 - 0.1 * u; sx = 1 + 0.06 * u; ox = Math.sin(t * 70) * 2.5 * u; }
+    else if (st === 'recover') { const u = Math.min(1, Math.max(0, b.stateT) / 0.5); sy = 0.92 + 0.08 * u; sx = 1.04 - 0.04 * u; }
+    else if (st === 'phase') { ox = Math.sin(t * 55) * 4; sx = 1 + 0.05 * Math.sin(t * 20); sy = 1 - 0.05 * Math.sin(t * 20); }
+    else if (st === 'charge') { sx = 1.06; sy = 0.96; }
+    ctx.save(); if (st === 'dead') ctx.globalAlpha = Math.max(0, 1 + (b.dying < 0 ? b.dying / 2 : 0));
+    const f: string[] = []; if (b.hurt > 0) f.push('brightness(2)');
+    else if (st === 'windup') f.push('brightness(1.3)');
+    if (b.phase === 2) f.push('sepia(0.35) saturate(1.5)'); else if (b.phase === 3) f.push('hue-rotate(-25deg) saturate(1.9) brightness(1.08)');
+    if (f.length) ctx.filter = f.join(' ');
+    if (b.phase === 3 && st !== 'dead') { ctx.save(); ctx.globalAlpha = 0.18 + 0.1 * Math.sin(t * 8); ctx.fillStyle = '#ff4a2a'; ctx.beginPath(); ctx.ellipse(cx, gy - 80, 110, 130, 0, 0, 7); ctx.fill(); ctx.restore(); } // aura de fúria
+    ctx.translate(cx + ox, gy + 6); ctx.scale(sx, sy);
+    a.draw(ctx, name, 0, 0, { scale: 2.1, flip: b.dir > 0 ? false : true });
     ctx.restore();
   }
 
@@ -798,8 +837,9 @@ export class Engine {
     if (p.speed > 0) { this.pill(12, py, 118, 24); ctx.fillStyle = '#7fe9ff'; ctx.fillText(`VELOC. ${p.speed.toFixed(1)}s`, 24, py + 17); py += 30; }
     // boss bar
     const b = this.boss; if (b && b.active && b.state !== 'dead') {
-      ctx.fillStyle = '#0009'; ctx.fillRect(VIEW_W / 2 - 200, 556, 400, 16); ctx.fillStyle = '#b9ff4a'; ctx.fillRect(VIEW_W / 2 - 198, 558, 396 * Math.max(0, b.hp / b.maxHp), 12);
-      ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.font = '800 12px system-ui'; ctx.fillText('MONSTRO DO LIXÃO', VIEW_W / 2, 550);
+      ctx.fillStyle = '#0009'; ctx.fillRect(VIEW_W / 2 - 200, 556, 400, 16); ctx.fillStyle = b.phase === 1 ? '#b9ff4a' : b.phase === 2 ? '#ffb84a' : '#ff5a4a'; ctx.fillRect(VIEW_W / 2 - 198, 558, 396 * Math.max(0, b.hp / b.maxHp), 12);
+      ctx.fillStyle = '#000a'; for (const m of [0.66, 0.33]) ctx.fillRect(VIEW_W / 2 - 198 + 396 * m - 1, 556, 2, 16);
+      ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.font = '800 12px system-ui'; ctx.fillText('MONSTRO DO LIXÃO · FASE ' + b.phase, VIEW_W / 2, 550);
     }
     // banner
     if (this.banner.t > 0) { ctx.globalAlpha = Math.min(1, this.banner.t * 2); ctx.textAlign = 'center'; ctx.font = '900 34px system-ui'; ctx.lineWidth = 7; ctx.strokeStyle = '#04200f'; ctx.strokeText(this.banner.text, VIEW_W / 2, 150); ctx.fillStyle = '#d8ff8c'; ctx.fillText(this.banner.text, VIEW_W / 2, 150); ctx.globalAlpha = 1; }
