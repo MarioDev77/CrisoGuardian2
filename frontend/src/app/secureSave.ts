@@ -1,0 +1,13 @@
+import type { EconomyState } from './economy';
+const DB = 'criso-guardian-secure-save-v1';
+const STORE = 'records';
+const open = () => new Promise<IDBDatabase>((resolve, reject) => { const req=indexedDB.open(DB,1); req.onupgradeneeded=()=>req.result.createObjectStore(STORE); req.onsuccess=()=>resolve(req.result); req.onerror=()=>reject(req.error); });
+async function record<T>(_key:string, mode:IDBTransactionMode, action:(store:IDBObjectStore)=>IDBRequest<T>):Promise<T>{const db=await open();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,mode);const req=action(tx.objectStore(STORE));req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);tx.oncomplete=()=>db.close();tx.onerror=()=>reject(tx.error);});}
+async function signingKey():Promise<CryptoKey>{let k=await record<CryptoKey|undefined>('key','readonly',s=>s.get('key'));if(k)return k;k=await crypto.subtle.generateKey({name:'HMAC',hash:'SHA-256'},false,['sign','verify']);await record('key','readwrite',s=>s.put(k,'key'));return k;}
+const bytes=(s:string)=>new TextEncoder().encode(s);
+async function sign(data:string){return [...new Uint8Array(await crypto.subtle.sign('HMAC',await signingKey(),bytes(data)))].map(x=>x.toString(16).padStart(2,'0')).join('');}
+async function valid(envelope:any):Promise<boolean>{if(!envelope||typeof envelope.data!=='string'||typeof envelope.mac!=='string')return false;return crypto.subtle.verify('HMAC',await signingKey(),new Uint8Array(envelope.mac.match(/.{2}/g)?.map((x:string)=>parseInt(x,16))??[]),bytes(envelope.data));}
+export async function loadSecureEconomy(fallback:EconomyState):Promise<EconomyState>{try{const current=await record<any>('current','readonly',s=>s.get('current'));if(current&&await valid(current))return JSON.parse(current.data) as EconomyState;const backup=await record<any>('backup','readonly',s=>s.get('backup'));if(backup&&await valid(backup)){await record('current','readwrite',s=>s.put(backup,'current'));return JSON.parse(backup.data) as EconomyState;}return fallback;}catch{return fallback;}}
+let chain=Promise.resolve();
+export function saveSecureEconomy(state:EconomyState):Promise<void>{chain=chain.then(async()=>{try{const prev=await record<any>('current','readonly',s=>s.get('current'));const data=JSON.stringify(state);const envelope={data,mac:await sign(data)};const db=await open();await new Promise<void>((resolve,reject)=>{const tx=db.transaction(STORE,'readwrite');const st=tx.objectStore(STORE);if(prev)st.put(prev,'backup');st.put(envelope,'current');tx.oncomplete=()=>{db.close();resolve();};tx.onerror=()=>{db.close();reject(tx.error);};});}catch{/* storage errors never mint or alter currency */}});return chain;}
+

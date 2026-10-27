@@ -1,0 +1,4 @@
+export interface ServerSnapshot { economy: import('./economy').EconomyState; progress: import('./progress').Progress }
+export class ApiError extends Error { constructor(message:string,readonly status:number){super(message);} }
+export async function api<T>(path:string,body?:unknown):Promise<T>{const response=await fetch(path,{method:body===undefined?'GET':'POST',credentials:'same-origin',cache:'no-store',headers:body===undefined?undefined:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});let result:any={};try{result=await response.json();}catch{}if(!response.ok)throw new ApiError(typeof result.message==='string'?result.message:'O servidor não conseguiu concluir a operação.',response.status);return result as T;}
+export const getServerSnapshot=()=>api<ServerSnapshot>('/api/economy');

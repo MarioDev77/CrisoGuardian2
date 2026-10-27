@@ -55,7 +55,7 @@ export interface Boss extends Body {
 }
 
 export interface Pickup extends Rect {
-  id: number; type: 'waste' | 'coin' | 'power'; sprite: string; value: string; taken: boolean; phase: number;
+  id: number; type: 'waste' | 'coin' | 'power'; sprite: string; value: string; taken: boolean; phase: number; spawnKey?: string;
 }
 
 export interface Bin extends Rect { id: number; sprite: string; used: boolean; pulse: number }
@@ -68,3 +68,4 @@ export type WasteMaterial = Material;
 export const WASTE_VALUE: Record<Material, number> = {
   papel: 50, plastico: 50, metal: 60, vidro: 60, fruta: 40, restos: 40, folhas: 40, bateria: 90, tinta: 90, eletronico: 100,
 };
+

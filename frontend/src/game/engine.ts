@@ -8,9 +8,10 @@ import { stepBoss, AIM_LOCK, onDamaged, kill as killBoss, initBoss, bossBody, bo
 import { moveBody, moveX, moveY, settle, sweptBox, nearestAlong, playerHurtbox, type Box } from './collision';
 import { actionForCode, DIFFICULTY, getSettings, QUALITY, subscribeSettings, type Action } from '../app/settings';
 import { ENEMIES, WASTE_VALUE, type Bin, type Boss, type Enemy, type EnemySpec, type FloatText, type Particle, type Pickup, type Player, type Rect, type Shot, type Sludge, type Body } from './entities';
+import type { CharacterId } from '../app/catalog';
 
 export type Control = 'left' | 'right' | 'jump' | 'shoot' | 'special' | 'up' | 'down';
-export interface LevelResult { coins: number; score: number; materials: number; totalMaterials: number; hpLeft: number; time: number }
+export interface LevelResult { coins: number; score: number; materials: number; totalMaterials: number; hpLeft: number; time: number; collectibles: { id: string; type: 'coin' | 'material'; material?: string }[] }
 export interface EngineCallbacks { onWin: (r: LevelResult) => void; onLose: (r: LevelResult) => void; onAnnounce?: (message: string) => void }
 
 const PW = 40, PH = 92, PS = 1.32;
@@ -18,6 +19,8 @@ const GRAV = 2400, JUMP_V = 980;
 
 const overlap = (a: Rect, b: Rect) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 const sfRect = (s: WSurface): Rect => ({ x: s.x, y: s.top, w: s.w, h: s.h });
+
+export interface PlayerAppearance { character: CharacterId; skinId: string; petId: string | null }
 
 export class Engine {
   private ctx: CanvasRenderingContext2D;
@@ -35,7 +38,7 @@ export class Engine {
   private enemies: Enemy[] = []; private boss: Boss | null = null; private bossBlocked = false;
   private pickups: Pickup[] = []; private bins: Bin[] = [];
   private shots: Shot[] = []; private sludge: Sludge[] = []; private parts: Particle[] = []; private texts: FloatText[] = [];
-  private coins = 0; private score = 0; private materials = 0; private totalMaterials = 0; private sinceBin = 0;
+  private coins = 0; private score = 0; private materials = 0; private totalMaterials = 0; private sinceBin = 0; private runCollectibles: LevelResult['collectibles'] = [];
   private cam = 0; private safe = { x: 0, y: 0, t: 0 };
   private specialFx = 0; private shake = 0; private banner = { text: '', t: 0 };
   private nextId = 1; private time = 0; private fallCount = 0;
@@ -50,7 +53,7 @@ export class Engine {
   /** Largura lógica da câmera: acompanha a proporção da tela para preencher tudo na horizontal. */
   private vw = BASE_VIEW_W;
 
-  constructor(private canvas: HTMLCanvasElement, private assets: Assets, private levelIndex: number, private cb: EngineCallbacks) {
+  constructor(private canvas: HTMLCanvasElement, private assets: Assets, private levelIndex: number, private cb: EngineCallbacks, private appearance: PlayerAppearance = { character: 'crisoman', skinId: 'skin-crisoman-verde', petId: null }) {
     this.ctx = canvas.getContext('2d')!;
     this.assets.setLevel?.(levelIndex);
     this.reset();
@@ -81,7 +84,7 @@ export class Engine {
     this.safe = { x: this.p.x, y: this.p.y, t: 0 };
     this.anim.reset(); this.interactT = 0; this.shotPending = false;
     this.fallCount = 0; this.enemies = []; this.pickups = []; this.bins = []; this.shots = []; this.sludge = []; this.parts = []; this.texts = [];
-    this.coins = 0; this.score = 0; this.materials = 0; this.sinceBin = 0; this.time = 0; this.ended = false; this.boss = null; this.win = null; this.introT = getSettings().introAnim ? 0 : 99; this.portalSpin = 0;
+    this.coins = 0; this.score = 0; this.materials = 0; this.runCollectibles = []; this.sinceBin = 0; this.time = 0; this.ended = false; this.boss = null; this.win = null; this.introT = getSettings().introAnim ? 0 : 99; this.portalSpin = 0;
     for (const s of w.walkers) {
       const sp = ENEMIES[s.type];
       // nasce dentro da faixa de patrulha e nunca dentro de caixa (se sobrepor, empurra para o lado livre mais próximo)
@@ -97,8 +100,8 @@ export class Engine {
       const sp = ENEMIES[s.type];
       this.enemies.push({ id: this.nextId++, kind: s.type, x: s.x, y: s.y, w: sp.w, h: sp.h, vx: 0, vy: 0, onGround: false, hp: Math.max(1, Math.round(sp.hp * df.enemyHp)), maxHp: Math.max(1, Math.round(sp.hp * df.enemyHp)), dir: Math.random() < 0.5 ? 1 : -1, minX: Math.max(40, s.x - 520), maxX: Math.min(w.width - 40, s.x + 520), baseY: s.y, t: Math.random() * 5, hurt: 0, dying: 0, chasing: false, attacking: 0, turnCd: 0, ...initAi(Math.random, s.type) });
     }
-    for (const c of w.coins) this.pickups.push({ id: this.nextId++, type: 'coin', sprite: 'it_moeda', value: 'coin', x: c.x - 14, y: c.y - 14, w: 28, h: 28, taken: false, phase: Math.random() * 6 });
-    for (const c of w.waste) { this.pickups.push({ id: this.nextId++, type: 'waste', sprite: 'it_' + c.type, value: c.type, x: c.x - 18, y: c.y - 18, w: 36, h: 36, taken: false, phase: Math.random() * 6 }); this.totalMaterials++; }
+    for (const c of w.coins) this.pickups.push({ id: this.nextId++, type: 'coin', sprite: 'it_moeda', value: 'coin', x: c.x - 14, y: c.y - 14, w: 28, h: 28, taken: false, phase: Math.random() * 6, spawnKey: `coin:${Math.round(c.x)}:${Math.round(c.y)}` });
+    for (const c of w.waste) { this.pickups.push({ id: this.nextId++, type: 'waste', sprite: 'it_' + c.type, value: c.type, x: c.x - 18, y: c.y - 18, w: 36, h: 36, taken: false, phase: Math.random() * 6, spawnKey: `material:${c.type}:${Math.round(c.x)}:${Math.round(c.y)}` }); this.totalMaterials++; }
     for (const c of w.powers) this.pickups.push({ id: this.nextId++, type: 'power', sprite: 'it_' + c.type, value: c.type, x: c.x - 20, y: c.y - 20, w: 40, h: 40, taken: false, phase: Math.random() * 6 });
     for (const b of w.bins) {
       const sz = this.assets.size(w.layout.bin); const sc = w.scale * 0.95;
@@ -114,7 +117,7 @@ export class Engine {
   restart(): void { this.reset(); }
   setControl(c: Control, v: boolean): void { this.keys[c] = v; }
   private say(text: string, t = 1.6): void { this.banner = { text, t }; this.cb.onAnnounce?.(text); }
-  private resultNow(): LevelResult { return { coins: this.coins, score: this.score, materials: this.materials, totalMaterials: this.totalMaterials, hpLeft: this.p.hp, time: this.time }; }
+  private resultNow(): LevelResult { return { coins: this.coins, score: this.score, materials: this.materials, totalMaterials: this.totalMaterials, hpLeft: this.p.hp, time: this.time, collectibles: [...this.runCollectibles] }; }
 
   private resize(): void {
     const host = this.canvas.parentElement ?? this.canvas; const r = host.getBoundingClientRect(); const dpr = Math.min(QUALITY[getSettings().quality].cap, window.devicePixelRatio || 1);
@@ -146,7 +149,7 @@ export class Engine {
     e.hp -= dmg; this.cb.onAnnounce?.(e.hp <= 0 ? 'Inimigo derrotado.' : 'Ataque acertou um inimigo.'); e.hurt = 0.18; audio.sfx(e.hp <= 0 ? 'enemyDie' : 'hit'); this.spawnParts(e.x + e.w / 2, e.y + e.h / 2, '#caff7a', 6, 160);
     if (e.hp <= 0) {
       kill(e); e.dying = 0.6; const sp = ENEMIES[e.kind]; this.score += sp.score; this.float(e.x + e.w / 2, e.y - 6, '+' + sp.score, '#ffe35b');
-      if (Math.random() < 0.3) this.pickups.push({ id: this.nextId++, type: 'coin', sprite: 'it_moeda', value: 'coin', x: e.x + e.w / 2 - 14, y: e.y - 20, w: 28, h: 28, taken: false, phase: 0 });
+      if (Math.random() < 0.3) this.pickups.push({ id: this.nextId++, type: 'coin', sprite: 'it_moeda', value: 'coin', x: e.x + e.w / 2 - 14, y: e.y - 20, w: 28, h: 28, taken: false, phase: 0, spawnKey: `enemy-coin:${e.kind}:${Math.round(e.x)}:${Math.round(e.y)}` });
     } else hurtAi(e, e.kind, this.p.x + this.p.w / 2 < e.x + e.w / 2 ? 1 : -1); // atordoa e empurra para longe do herói
   }
 
@@ -431,8 +434,8 @@ export class Engine {
     for (const k of this.pickups) {
       if (k.taken || !overlap(p, { x: k.x - 6, y: k.y - 6, w: k.w + 12, h: k.h + 12 })) continue;
       k.taken = true; const cx = k.x + k.w / 2, cy = k.y + k.h / 2;
-      if (k.type === 'coin') { audio.sfx('coin'); this.coins++; this.cb.onAnnounce?.(`Moeda coletada. Total: ${this.coins}.`); this.score += 10; this.spawnParts(cx, cy, '#ffd84a', 4, 120); }
-      else if (k.type === 'waste') { audio.sfx('waste'); this.materials++; this.sinceBin++; this.cb.onAnnounce?.(`Resíduo recolhido. ${this.materials} de ${this.totalMaterials}.`); const v = WASTE_VALUE[k.value as keyof typeof WASTE_VALUE] ?? 50; this.score += v; this.float(cx, cy - 10, '+' + v, '#9dffb0'); this.spawnParts(cx, cy, '#9dffb0', 6, 150); }
+      if (k.type === 'coin') { this.runCollectibles.push({ id: k.spawnKey ?? `coin:${k.id}`, type: 'coin' }); audio.sfx('coin'); this.coins++; this.cb.onAnnounce?.(`Moeda coletada. Total: ${this.coins}.`); this.score += 10; this.spawnParts(cx, cy, '#ffd84a', 4, 120); }
+      else if (k.type === 'waste') { this.runCollectibles.push({ id: k.spawnKey ?? `material:${k.id}`, type: 'material', material: k.value }); audio.sfx('waste'); this.materials++; this.sinceBin++; this.cb.onAnnounce?.(`Resíduo recolhido. ${this.materials} de ${this.totalMaterials}.`); const v = WASTE_VALUE[k.value as keyof typeof WASTE_VALUE] ?? 50; this.score += v; this.float(cx, cy - 10, '+' + v, '#9dffb0'); this.spawnParts(cx, cy, '#9dffb0', 6, 150); }
       else {
         this.score += 100; audio.sfx('power');
         if (k.value === 'escudo') { p.shield = 7; this.say('ESCUDO ATIVO!', 1.2); }
@@ -540,6 +543,12 @@ export class Engine {
       victory: !!this.win && this.win.phase === 'walk',
     });
     return { name: f.name, state: f.state, alpha: p.inv > 0 && p.dieT <= 0 && Math.floor(p.inv * 14) % 2 ? 0.45 : 1 };
+  }
+
+  private drawPet(ctx: CanvasRenderingContext2D): void {
+    if (!this.appearance.petId) return; const p=this.p; const pet=this.appearance.petId; const x=p.x+(p.facing>0?-20:46); const y=p.y+54+Math.sin(this.t*4)*5; const colors:Record<string,string>={'pet-turtix':'#60c980','pet-foxy':'#f29a4a','pet-folhinha':'#a5df55','pet-pipoca':'#64d8dc','pet-brasa':'#ff744e'}; const color=colors[pet]??'#8ee99f'; const px=3;
+    ctx.save();ctx.globalAlpha=.96;ctx.fillStyle='#06150d';ctx.fillRect(x+2*px,y+8*px,7*px,2*px);ctx.fillStyle=color;ctx.fillRect(x+2*px,y+3*px,8*px,5*px);ctx.fillRect(x+4*px,y+1*px,5*px,4*px);
+    if(pet==='pet-turtix'){ctx.fillStyle='#277c4b';ctx.fillRect(x+2*px,y+2*px,7*px,4*px);ctx.fillStyle='#a0e69a';ctx.fillRect(x+4*px,y+3*px,2*px,2*px);}else if(pet==='pet-foxy'||pet==='pet-brasa'){ctx.fillStyle=color;ctx.fillRect(x+4*px,y,2*px,3*px);ctx.fillRect(x+8*px,y,2*px,3*px);ctx.fillStyle='#fff2cf';ctx.fillRect(x+5*px,y+3*px,3*px,2*px);}else{ctx.fillStyle=color;ctx.fillRect(x+5*px,y-2*px,2*px,4*px);ctx.fillRect(x+8*px,y-1*px,2*px,3*px);}ctx.fillStyle='#102318';ctx.fillRect(x+7*px,y+3*px,px,px);ctx.fillRect(x+10*px,y+3*px,px,px);ctx.fillStyle=color;ctx.fillRect(x+3*px,y+7*px,2*px,2*px);ctx.fillRect(x+8*px,y+7*px,2*px,2*px);ctx.restore();
   }
 
   private enemyFrame(e: Enemy): string {
@@ -654,12 +663,13 @@ export class Engine {
     const wn = this.win;
     if (!wn || wn.phase === 'walk') {
       const gy = p.onGround ? p.y + p.h : this.groundBelow(p.x + p.w / 2, p.y + p.h); if (gy !== null && p.dieT <= 0) this.shadow(p.x + p.w / 2, gy, 30, 1, p.onGround ? 0 : gy - (p.y + p.h));
-      a.draw(ctx, pf.name, p.x + p.w / 2, p.y + p.h + 3, { scale: PS, flip: p.facing < 0, alpha: pf.alpha });
+      this.drawPet(ctx); ctx.save(); const alt=this.appearance.skinId; const filter=this.appearance.character==='crisogirl'?'hue-rotate(205deg) ':''; const palette=alt.includes('urbana')||alt.includes('urbano')?'grayscale(.72) ':alt.includes('natureza')||alt.includes('floresta')?'sepia(.55) saturate(1.25) ':alt.includes('agua')?'hue-rotate(100deg) saturate(1.2) ':alt.includes('fogo')?'hue-rotate(250deg) saturate(1.35) ':''; ctx.filter=filter+palette; a.draw(ctx, pf.name, p.x + p.w / 2, p.y + p.h + 3, { scale: PS, flip: p.facing < 0, alpha: pf.alpha }); ctx.restore();
     } else if (wn.phase === 'suck') {
       // o herói é puxado em espiral para dentro do portal: arco, giro, encolhendo e apagando
       const u = Math.min(1, wn.pt / 0.85), e = Math.pow(u, 2.2); const gx = this.world.goal.x, gyy = this.world.goal.y - 78;
       const x = wn.sx + (gx - wn.sx) * e, y = wn.sy + (gyy - wn.sy) * e - Math.sin(u * Math.PI) * 46;
-      ctx.save(); ctx.translate(x, y); ctx.rotate(e * Math.PI * 5);
+      this.drawPet(ctx); ctx.save(); ctx.translate(x, y); ctx.rotate(e * Math.PI * 5);
+      ctx.filter=(this.appearance.character==='crisogirl'?'hue-rotate(205deg) ':'')+(this.appearance.skinId.includes('urbana')||this.appearance.skinId.includes('urbano')?'grayscale(.72) ':this.appearance.skinId.includes('natureza')||this.appearance.skinId.includes('floresta')?'sepia(.55) saturate(1.25) ':this.appearance.skinId.includes('agua')?'hue-rotate(100deg) saturate(1.2) ':this.appearance.skinId.includes('fogo')?'hue-rotate(250deg) saturate(1.35) ':'');
       a.draw(ctx, 'p_jump_3', 0, 0, { scale: PS * (1 - 0.92 * e), flip: p.facing < 0, anchor: 'center', alpha: 1 - 0.55 * e * e * e });
       ctx.restore();
     }
@@ -865,3 +875,9 @@ export class Engine {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
   }
 }
+
+
+
+
+
+

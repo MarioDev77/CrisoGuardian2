@@ -46,3 +46,6 @@ Thumbs.db
 
 # Pacotes zip de entrega (não versionar)
 *.zip
+../backend/data/
+../backend/test-data/
+../backend/test-runtime-*/

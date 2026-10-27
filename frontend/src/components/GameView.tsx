@@ -39,15 +39,15 @@ function Confetti() {
   );
 }
 
-interface Props { level: number; onExit: () => void; onWin: (level: number, r: LevelResult, stars: number) => void; onNext: (level: number) => void }
+interface Props { level: number; runId: string; character: 'crisoman'|'crisogirl'; skinId: string; petId: string|null; onExit: () => void; onWin: (level: number, r: LevelResult, stars: number, runId: string) => Promise<{ coins: number; materials: number; discarded?: number }>; onNext: (level: number) => void }
 
-export default function GameView({ level, onExit, onWin, onNext }: Props) {
+export default function GameView({ level, runId, character, skinId, petId, onExit, onWin, onNext }: Props) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const announcements = useRef<HTMLDivElement>(null);
   const announceFrame = useRef<number | null>(null);
   const engine = useRef<Engine | null>(null);
   const [paused, setPaused] = useState(false);
-  const [result, setResult] = useState<{ win: boolean; r: LevelResult; stars: number } | null>(null);
+  const [result, setResult] = useState<{ win: boolean; r: LevelResult; stars: number; payout?: { coins: number; materials: number; discarded?: number }; settleError?: boolean } | null>(null);
   const [loading, setLoading] = useState(true);
   const [run, setRun] = useState(0);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -61,7 +61,7 @@ export default function GameView({ level, onExit, onWin, onNext }: Props) {
     Assets.get().then((a) => {
       if (dead || !canvas.current) return;
       eng = new Engine(canvas.current, a, level, {
-        onWin: (r) => { const stars = starsFor(r.materials, r.totalMaterials); setResult({ win: true, r, stars }); onWin(level, r, stars); },
+        onWin: (r) => { const stars = starsFor(r.materials, r.totalMaterials); void onWin(level, r, stars, runId).then((payout) => setResult({ win: true, r, stars, payout })).catch(() => setResult({ win: true, r, stars, payout: { coins: 0, materials: 0 }, settleError: true })); },
         onLose: (r) => setResult({ win: false, r, stars: 0 }),
         onAnnounce: (message) => {
           const region = announcements.current; if (!region) return;
@@ -69,14 +69,14 @@ export default function GameView({ level, onExit, onWin, onNext }: Props) {
           if (announceFrame.current !== null) cancelAnimationFrame(announceFrame.current);
           announceFrame.current = requestAnimationFrame(() => { if (announcements.current) announcements.current.textContent = message; });
         },
-      });
+      }, { character, skinId, petId });
       engine.current = eng; eng.start(); setLoading(false);
       if (announcements.current) announcements.current.textContent = `Fase ${level + 1}: ${name}. ${layouts[level]?.objective ?? ''} Consulte o tutorial ou as configurações para ver os comandos.`;
       if (window.matchMedia?.(PORTRAIT).matches) setPause(true);
     });
     return () => { dead = true; eng?.destroy(); engine.current = null; if (announceFrame.current !== null) cancelAnimationFrame(announceFrame.current); };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [level, run]);
+  }, [level, run, runId, character, skinId, petId]);
 
   // pausa: Esc (fixo) ou a tecla "Pausar" configurada; ignorada com a janela de configurações aberta (Esc fecha a janela)
   useEffect(() => {
@@ -146,8 +146,10 @@ export default function GameView({ level, onExit, onWin, onNext }: Props) {
             <div className={s.dlgBody}>
               <div className={s.results}>
                 <span className={s.rowIn} style={{ animationDelay: '.25s' }}>Pontos <b><Count to={result.r.score} delay={250} /></b></span>
-                <span className={s.rowIn} style={{ animationDelay: '.4s' }}>Moedas <b><Count to={result.r.coins} delay={400} /></b></span>
-                <span className={s.rowIn} style={{ animationDelay: '.55s' }}>Resíduos reciclados <b><Count to={result.r.materials} delay={550} />/{result.r.totalMaterials}</b></span>
+                <span className={s.rowIn} style={{ animationDelay: '.4s' }}>Moedas validadas <b><Count to={result.payout?.coins ?? 0} delay={400} /></b></span>
+                <span className={s.rowIn} style={{ animationDelay: '.55s' }}>Materiais no inventário <b><Count to={result.payout?.materials ?? 0} delay={550} /></b></span>
+                <span className={s.rowIn} style={{ animationDelay: '.65s' }}>Resíduos recuperados <b><Count to={result.r.materials} delay={650} />/{result.r.totalMaterials}</b></span>
+                {result.settleError && <p role={'alert'}>Não foi possível validar a recompensa com o servidor. Conecte-se e tente novamente.</p>}
                 <span className={s.rowIn} style={{ animationDelay: '.7s' }}>Tempo <b><Count to={Math.round(result.r.time)} delay={700} />s</b></span>
               </div>
               {result.win && level < layouts.length - 1 && <button className={s.nextBtn} onClick={() => onNext(level + 1)} autoFocus>Próxima fase ▶</button>}
@@ -161,3 +163,8 @@ export default function GameView({ level, onExit, onWin, onNext }: Props) {
     </div>
   );
 }
+
+
+
+
+

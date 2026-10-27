@@ -10,7 +10,7 @@ import { loadProgress } from '../src/app/progress';
 
 let host: HTMLDivElement; let root: Root;
 beforeEach(() => { localStorage.clear(); host = document.createElement('div'); document.body.appendChild(host); root = createRoot(host); });
-afterEach(() => { act(() => root.unmount()); host.remove(); vi.useRealTimers(); vi.restoreAllMocks(); });
+afterEach(() => { act(() => root.unmount()); host.remove(); vi.useRealTimers(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });
 
 const render = (ui: React.ReactElement) => act(() => root.render(ui));
 const btn = (label: string) => host.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`)!;
@@ -61,8 +61,9 @@ describe('tela de título', () => {
 });
 
 describe('fluxo do app', () => {
-  it('título → mapa → voltar ao título; configurações do mapa funcionam', () => {
-    render(<App />);
+  it('título → mapa → voltar ao título; configurações do mapa funcionam', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => ({ economy: { coins: 0, materials: { plastico: 0, papel: 0, vidro: 0, metal: 0 }, owned: ['skin-crisoman-verde', 'skin-crisogirl-rosa'], equippedSkin: { crisoman: 'skin-crisoman-verde', crisogirl: 'skin-crisogirl-rosa' }, equippedPet: null, character: 'crisoman', claimedSpawns: [], transactions: [] }, progress: { unlocked: 1, stars: Array(8).fill(0), best: Array(8).fill(0) } }) }));
+    await act(async () => { root.render(<App />); await Promise.resolve(); await Promise.resolve(); });
     expect(btn('Jogar')).toBeTruthy();
     click(btn('Jogar')); expect(host.textContent).toContain('Como jogar'); click(textBtn('Começar a jogar')); expect(btn('Voltar à tela inicial')).toBeTruthy(); expect(btn('Fase 1')).toBeTruthy();
     click(btn('Configurações')); expect(host.textContent).toContain('Dificuldade'); expect(loadProgress().unlocked).toBe(1);
@@ -70,3 +71,4 @@ describe('fluxo do app', () => {
     click(btn('Voltar à tela inicial')); expect(btn('Jogar')).toBeTruthy();
   });
 });
+

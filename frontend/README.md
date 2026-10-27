@@ -39,3 +39,36 @@ Código: `src/app/settings.ts` (estado, validação, teclas), `src/hooks/useSett
 - `src/game/level.ts` — monta o mundo, espelha as telas e distribui inimigos/itens.
 - `src/game/engine.ts` — física, IA, chefe, render e HUD.
 - `src/components/` — tela inicial, mapa, tela de jogo.
+
+## Lobby, cosméticos e economia segura
+
+O jogo agora usa um lobby entre o mapa e a fase. A seleção de Crisoman/Crisogirl, skins e pets, a loja e o centro de reciclagem ficam disponíveis ali. O catálogo único está em `src/app/catalog-data.json`.
+
+### Rodar localmente
+
+Abra dois terminais nesta pasta:
+
+```bash
+npm install
+npm run dev:api
+```
+
+No segundo terminal:
+
+```bash
+npm run dev
+```
+
+Abra o endereço local mostrado pelo Vite. A API precisa estar ativa; servir apenas `dist/` não habilita a economia.
+
+### Build e hospedagem
+
+`npm run build` gera o frontend em `dist/`. A hospedagem precisa disponibilizar a API Node `../backend/economy-api.mjs` e encaminhar `/api` para ela na mesma origem do site. Configure `CRISO_SERVER_SECRET` com segredo forte de pelo menos 32 caracteres e `CRISO_DATA_DIR` em armazenamento persistente. Em produção use HTTPS, proxy reverso configurado para encaminhar `X-Forwarded-Proto: https`, e uma única instância do servidor. O armazenamento atual é JSON assinado, feito para uma instância; para escalar, migre as operações transacionais para banco de dados.
+
+### Dados e proteção
+
+O servidor é a autoridade para saldo, compras, reciclagem, desbloqueios e recompensas. A sessão usa cookie `HttpOnly` e o banco local tem HMAC, gravação atômica e cópia de recuperação. O progresso local antigo não é migrado: o saldo anterior era editável no navegador e não pode ser confiado. Novas sessões começam com saldo zero.
+
+A API limita recompensas, aceita cada ID de coletável uma vez por fase e paga a fase uma vez. Ainda assim, como o navegador controla a simulação do jogo, uma pessoa técnica pode forjar uma lista plausível de coletas numa partida válida. Os limites reduzem o ganho, mas a validação completa exige simular/validar a partida no servidor. Apagar o cookie anônimo cria outra sessão vazia; não transfere itens nem moedas.
+
+Os testes unitários/API rodam com `npm test`. Os testes de navegador rodam com `npm run test:e2e` após instalar os browsers do Playwright (`npx playwright install chromium`).
