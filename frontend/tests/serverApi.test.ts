@@ -50,5 +50,6 @@ describe('API de economia server-side', () => {
     launched = await launch(port, dataDir); base = launched.base; cookie = `criso_sid=${cookie.slice('criso_sid='.length)}`;
     const restored = await (await fetch(`${base}/api/economy`, { headers: { cookie } })).json() as any;
     expect(restored.economy.coins).toBe(120); expect(restored.economy.owned).not.toContain('skin-crisoman-urbano');
+    const fastRun=await post(base,cookie,'/api/run/start',{level:0});expect(fastRun.status).toBe(200);const {runId}=await fastRun.json() as {runId:string};const fastWin=await post(base,cookie,'/api/run/settle',{runId,level:0,won:true,collectibles:[{id:'coin:fast-win-1',type:'coin'}],stars:1,score:10});expect(fastWin.status).toBe(200);const advanced=await fastWin.json() as any;expect(advanced.progress.unlocked).toBe(2);expect(advanced.payout.coins).toBe(0);expect(advanced.economy.coins).toBe(120);
   }, 15000);
 });

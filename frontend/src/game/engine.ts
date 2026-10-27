@@ -17,6 +17,18 @@ export interface EngineCallbacks { onWin: (r: LevelResult) => void; onLose: (r: 
 const PW = 40, PH = 92, PS = 1.32;
 const GRAV = 2400, JUMP_V = 980;
 
+/** Crisoman uses the original shipped art; only Crisogirl uses the newly drawn atlas. */
+export function playerSpriteName(character: CharacterId, legacyName: string, girlFrame: string | null | undefined): string {
+  return character === 'crisogirl' && girlFrame ? girlFrame : legacyName;
+}
+function legacySkinFilter(skinId: string): string {
+  if (skinId.includes('urbana') || skinId.includes('urbano')) return 'grayscale(.72)';
+  if (skinId.includes('natureza') || skinId.includes('floresta')) return 'sepia(.55) saturate(1.25)';
+  if (skinId.includes('agua')) return 'hue-rotate(100deg) saturate(1.2)';
+  if (skinId.includes('fogo')) return 'hue-rotate(250deg) saturate(1.35)';
+  return 'none';
+}
+
 const overlap = (a: Rect, b: Rect) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 const sfRect = (s: WSurface): Rect => ({ x: s.x, y: s.top, w: s.w, h: s.h });
 
@@ -672,14 +684,14 @@ export class Engine {
     const wn = this.win;
     if (!wn || wn.phase === 'walk') {
       const gy = p.onGround ? p.y + p.h : this.groundBelow(p.x + p.w / 2, p.y + p.h); if (gy !== null && p.dieT <= 0) this.shadow(p.x + p.w / 2, gy, 30, 1, p.onGround ? 0 : gy - (p.y + p.h));
-      this.drawPet(ctx); const animName:Record<string,string>={idle:'idle',walk:'walk',run:'run',jumpStart:'jump',jumpRise:'jump',jumpApex:'jump',fall:'fall',landing:'jump',collect:'collect',interact:'collect',hurt:'hurt',victory:'celebrate',climb:'walk'}; const v2=a.actorFrame?.(this.appearance.character,this.appearance.skinId,animName[pf.state]??'',this.anim.stateT); a.draw(ctx, v2??pf.name, p.x + p.w / 2, p.y + p.h + 3, { scale: v2 ? 1.06 : PS, flip: p.facing < 0, alpha: pf.alpha });
+      this.drawPet(ctx); const animName:Record<string,string>={idle:'idle',walk:'walk',run:'run',jumpStart:'jump',jumpRise:'jump',jumpApex:'jump',fall:'fall',landing:'jump',collect:'collect',interact:'collect',hurt:'hurt',victory:'celebrate',climb:'walk',attackStart:'collect',attack:'collect',attackRecovery:'collect',special:'celebrate',death:'hurt'}; const girlFrame=this.appearance.character==='crisogirl'?a.actorFrame?.(this.appearance.character,this.appearance.skinId,animName[pf.state]??'',this.anim.stateT):null; const sprite=playerSpriteName(this.appearance.character,pf.name,girlFrame); ctx.save(); if(this.appearance.character==='crisoman')ctx.filter=legacySkinFilter(this.appearance.skinId); a.draw(ctx,sprite,p.x+p.w/2,p.y+p.h+3,{scale:girlFrame?1.06:PS,flip:p.facing<0,alpha:pf.alpha}); ctx.restore();
     } else if (wn.phase === 'suck') {
       // o herói é puxado em espiral para dentro do portal: arco, giro, encolhendo e apagando
       const u = Math.min(1, wn.pt / 0.85), e = Math.pow(u, 2.2); const gx = this.world.goal.x, gyy = this.world.goal.y - 78;
       const x = wn.sx + (gx - wn.sx) * e, y = wn.sy + (gyy - wn.sy) * e - Math.sin(u * Math.PI) * 46;
       this.drawPet(ctx); ctx.save(); ctx.translate(x, y); ctx.rotate(e * Math.PI * 5);
-      ctx.filter=(this.appearance.character==='crisogirl'?'hue-rotate(205deg) ':'')+(this.appearance.skinId.includes('urbana')||this.appearance.skinId.includes('urbano')?'grayscale(.72) ':this.appearance.skinId.includes('natureza')||this.appearance.skinId.includes('floresta')?'sepia(.55) saturate(1.25) ':this.appearance.skinId.includes('agua')?'hue-rotate(100deg) saturate(1.2) ':this.appearance.skinId.includes('fogo')?'hue-rotate(250deg) saturate(1.35) ':'');
-      a.draw(ctx, 'p_jump_3', 0, 0, { scale: PS * (1 - 0.92 * e), flip: p.facing < 0, anchor: 'center', alpha: 1 - 0.55 * e * e * e });
+      const girlPortal=this.appearance.character==='crisogirl'?a.actorFrame?.(this.appearance.character,this.appearance.skinId,'jump',wn.pt):null; const portalSprite=playerSpriteName(this.appearance.character,'p_jump_3',girlPortal); if(this.appearance.character==='crisoman')ctx.filter=legacySkinFilter(this.appearance.skinId);
+      a.draw(ctx,portalSprite,0,0,{scale:(girlPortal?1.06:PS)*(1-0.92*e),flip:p.facing<0,anchor:'center',alpha:1-0.55*e*e*e});
       ctx.restore();
     }
     if (wn) this.drawWinFx(wn);

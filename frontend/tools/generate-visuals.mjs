@@ -15,7 +15,8 @@ const palettes = {
   'skin-crisogirl-agua': ['#168dc6','#62d8f1','#15577f','#fff1b2'],
   'skin-crisogirl-fogo': ['#df642d','#ffb75e','#853b29','#ffea73'],
 };
-const heroes = ['crisoman','crisogirl'];
+// Crisoman's original in-game spritesheet remains authoritative; generate only Crisogirl here.
+const heroes = ['crisogirl'];
 const anims = { idle:[4,4,true], walk:[5,8,true], run:[6,12,true], jump:[4,11,false], fall:[4,8,true], collect:[4,9,false], hurt:[3,12,false], celebrate:[5,8,false] };
 const pets = [
   ['pet-turtix','#39b867','#b9ed78','turtle'], ['pet-foxy','#ef8f3f','#fff0ca','fox'],
@@ -38,14 +39,15 @@ function heroArt(character, pal, anim, frame) {
   if(anim==='hurt'){ armL='M34 42 L24 39 L18 47 L23 52 L34 50 Z'; armR='M62 42 L73 37 L80 43 L76 49 L64 51 Z'; }
   const face = character==='crisogirl' ? '#f2b58d' : '#eeb58a';
   const hair = '#272b39';
-  const hairBack = character==='crisogirl' ? path('M31 18 Q26 27 29 39 L24 50 L31 55 L38 38 Z',hair,'#18232c',2) : '';
-  const pony = character==='crisogirl' ? path('M65 19 Q80 24 76 36 L83 47 L75 52 L67 39 Z','#242839','#18232c',2) : '';
+  const hairBack = character==='crisogirl' ? path('M32 18 Q24 27 27 43 L21 56 Q24 66 34 61 L40 40 Z',hair,'#18232c',2) : '';
+  const pony = character==='crisogirl' ? path('M64 17 Q80 19 77 35 L88 44 Q87 58 77 61 L68 43 Z','#242839','#18232c',2)+`<path d="M75 36l8-4m-8 7 9-4" stroke="${pal[3]}" stroke-width="3" stroke-linecap="round"/>` : '';
   const strideY1=68+Math.max(-4,legA), strideY2=68+Math.max(-4,legB);
   const bodyY=crouch?34:30+bob; const headY=10+bob;
   let eyes=anim==='hurt' ? '<path d="M40 27l5 5m0-5l-5 5M54 27l5 5m0-5l-5 5" stroke="#17242a" stroke-width="2"/>' : '<ellipse cx="44" cy="29" rx="2.5" ry="3.4" fill="#17242a"/><ellipse cx="57" cy="29" rx="2.5" ry="3.4" fill="#17242a"/>';
   if(anim==='idle'&&frame===2) eyes='<path d="M41 29q3-3 6 0M54 29q3-3 6 0" fill="none" stroke="#17242a" stroke-width="2"/>';
   const emblem=character==='crisoman'?'♻':'✿';
-  const badge=`<circle cx="50" cy="47" r="5" fill="${accent}" stroke="#eaffdc" stroke-width="1"/><text x="50" y="49.5" text-anchor="middle" font-family="Arial" font-size="6" font-weight="700" fill="#183b28">${emblem}</text>`;
+  const badge=character==='crisogirl'?`<path d="M50 42c-5-6-11 1 0 9 11-8 5-15 0-9Z" fill="${accent}" stroke="#fff2dc" stroke-width="1"/>`:`<circle cx="50" cy="47" r="5" fill="${accent}" stroke="#eaffdc" stroke-width="1"/><text x="50" y="49.5" text-anchor="middle" font-family="Arial" font-size="6" font-weight="700" fill="#183b28">${emblem}</text>`;
+  const waist=character==='crisogirl'?path('M39 56 L61 56 L69 71 L50 77 L31 71 Z',main,'#152d32',2)+path('M37 62 L63 62 L66 69 L50 73 L34 69 Z',light,'#152d32',1):'';
   return `<g shape-rendering="crispEdges" transform="translate(${lean} ${bob})">
     ${hairBack}${pony}
     ${path(`M38 65 L${34+legA} 79 L${30+legA} 87 L${33+legA} 91 L${47+legA} 91 L${49+legA} 87 L${45+legA} 78 L50 66 Z`,shade)}
@@ -54,14 +56,14 @@ function heroArt(character, pal, anim, frame) {
     ${rect(31+legA,86,12,2,light,1,'none',0)}${rect(48+legB,86,12,2,light,1,'none',0)}
     ${path(armL,main)}${path(armR,main)}${rect(17,60,9,8,shade,3)}${rect(71,60,9,8,shade,3)}
     ${path(`M34 ${bodyY} Q49 ${bodyY-4} 64 ${bodyY} L67 61 Q50 68 31 61 Z`,main)}
-    ${path(`M39 ${bodyY+2} L60 ${bodyY+2} L62 58 L38 58 Z`,shade,'#152d32',1)}${path(`M39 ${bodyY} Q50 ${bodyY-2} 62 ${bodyY} L61 52 Q50 56 38 52 Z`,light,'#152d32',1)}${badge}
+    ${path(`M39 ${bodyY+2} L60 ${bodyY+2} L62 58 L38 58 Z`,shade,'#152d32',1)}${path(`M39 ${bodyY} Q50 ${bodyY-2} 62 ${bodyY} L61 52 Q50 56 38 52 Z`,light,'#152d32',1)}${waist}${badge}
     ${path(`M33 ${headY+10} Q31 ${headY-1} 42 ${headY-3} L58 ${headY-3} Q69 ${headY} 66 ${headY+13} L63 ${headY+23} L38 ${headY+23} Z`,face,'#57352d',2)}
     ${character==='crisogirl'?path(`M35 ${headY+10} Q34 ${headY-3} 48 ${headY-5} Q64 ${headY-4} 65 ${headY+10} L61 ${headY+4} Q49 ${headY} 38 ${headY+7} Z`,hair,'#18232c',2):path(`M36 ${headY+8} Q35 ${headY-3} 49 ${headY-5} Q64 ${headY-4} 64 ${headY+8} L59 ${headY+4} Q49 ${headY+1} 39 ${headY+6} Z`,hair,'#18232c',2)}
     ${rect(29,headY+3,7,16,main,3)}${rect(64,headY+3,7,16,main,3)}
     ${path(`M31 ${headY+7} Q29 ${headY-7} 48 ${headY-10} Q67 ${headY-8} 68 ${headY+7} L64 ${headY+3} L63 ${headY} L58 ${headY+3} L42 ${headY+2} L36 ${headY+7} Z`,main)}
     ${path(`M39 ${headY-2} Q50 ${headY-8} 61 ${headY-2} L58 ${headY+1} L42 ${headY+1} Z`,light,'#152d32',1)}
     <circle cx="50" cy="${headY-2}" r="3.5" fill="${accent}" stroke="#eaffdc" stroke-width="1"/><path d="M47 ${headY-2}h6m-3-3v6" stroke="#1d5733" stroke-width="1.4"/>
-    ${eyes}<path d="M48 35q2 2 4 0" fill="none" stroke="#9a4e46" stroke-width="1.5"/>
+    ${character==='crisogirl'?`<path d="M71 ${headY+4}q7-8 12 0-5 8-12 0Zm0 0-6-5v10Z" fill="${pal[3]}" stroke="#55304a" stroke-width="1"/>`:''}${eyes}<path d="M48 35q2 2 4 0" fill="none" stroke="#9a4e46" stroke-width="1.5"/>
     ${anim==='celebrate'?`<path d="M12 17l2 4 4 1-4 2-2 4-2-4-4-2 4-1zM84 18l2 4 4 1-4 2-2 4-2-4-4-2 4-1z" fill="${accent}"/>`:''}
   </g>`;
 }
@@ -80,7 +82,7 @@ const frameMeta={}; const body=[];
 frames.forEach((f,i)=>{const x=i%cols*cell,y=Math.floor(i/cols)*cell;frameMeta[f.name]={x,y,w:cell,h:cell,pivot:{x:48,y:92},animation:f.anim,index:f.index,fps:f.fps,loop:f.loop,character:f.character??null,skinId:f.skinId??null,petId:f.petId??null};body.push(`<g transform="translate(${x} ${y})">${f.art}</g>`);});
 await emit('sprites/v2/actors.svg',`<svg xmlns="http://www.w3.org/2000/svg" width="${atlasWidth}" height="${atlasHeight}" viewBox="0 0 ${atlasWidth} ${atlasHeight}" shape-rendering="crispEdges">${body.join('')}</svg>`);
 await emit('sprites/v2/actors.json',JSON.stringify({version:2,image:'/assets/sprites/v2/actors.svg',frame:{w:96,h:96,pivot:{x:48,y:92}},atlas:{w:atlasWidth,h:atlasHeight,columns:cols,rows},animations:anims,frames:frameMeta},null,2));
-await emit('sprites/v2/palettes.json',JSON.stringify(palettes,null,2));
+await emit('sprites/v2/palettes.json',JSON.stringify(Object.fromEntries(Object.entries(palettes).filter(([id])=>id.includes('crisogirl'))),null,2));
 
 const islands=[
  {id:'manguezal-09',name:'Manguezal Vivo',slug:'manguezal',palette:{sky:'#a5e3df',far:'#4b9a88',mid:'#257b69',near:'#164c49',water:'#2e9d9b',ground:'#704f38',accent:'#c3f16c'},theme:'mangrove'},

@@ -2,16 +2,15 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 const here=new URL('../public/assets/',import.meta.url).pathname.replace(/^\//,'').replaceAll('/','\\');
 const manifest=JSON.parse(await readFile(join(here,'sprites/v2/actors.json'),'utf8'));
+const original=JSON.parse(await readFile(join(here,'sprites/crisoman/crisoman.json'),'utf8'));
 const get=(name,x,y,w,h,size=72)=>`<svg x="${x}" y="${y}" width="${size}" height="${size}" viewBox="${manifest.frames[name].x} ${manifest.frames[name].y} 96 96"><image href="../sprites/v2/actors.svg" width="${manifest.atlas.w}" height="${manifest.atlas.h}"/></svg>`;
 const bg=(x,y,w,h)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#101f25" rx="5"/><path d="M${x} ${y+24}h${w}M${x} ${y+48}h${w}" stroke="#ffffff" opacity=".05"/>`;
-let rows=[],height=0;const animNames=Object.keys(manifest.animations), charW=680,rowH=98;
-for(const character of ['crisoman','crisogirl']){
- const skin=character==='crisoman'?'skin-crisoman-verde':'skin-crisogirl-rosa';
- rows.push(`<text x="18" y="${height+24}" fill="#eaffdc" font-family="Arial" font-size="20" font-weight="700">${character.toUpperCase()} · ${skin}</text>`);height+=34;
- for(const anim of animNames){const meta=manifest.animations[anim];rows.push(bg(12,height,charW-24,rowH-5));rows.push(`<text x="22" y="${height+18}" fill="#b9daca" font-family="Arial" font-size="12">${anim} · ${meta[1]} fps</text>`);const count=meta[0];for(let i=0;i<count;i++){const name=`${character}_${skin}_${anim}_${String(i).padStart(2,'0')}`;const x=135+i*78;rows.push(get(name,x,height+18,72,rowH-20));}height+=rowH;}
- height+=14;
-}
-const characters=`<svg xmlns="http://www.w3.org/2000/svg" width="${charW}" height="${height}" viewBox="0 0 ${charW} ${height}"><rect width="100%" height="100%" fill="#081317"/>${rows.join('')}</svg>`;
+let rows=[],height=0;const charW=680,rowH=98;
+rows.push('<text x="18" y="24" fill="#eaffdc" font-family="Arial" font-size="20" font-weight="700">CRISOMAN · SPRITES ORIGINAIS DO JOGO</text>');height=34;
+for(const [anim,meta] of Object.entries(original.animations)){rows.push(bg(12,height,charW-24,rowH-5));rows.push('<text x="22" y="'+(height+18)+'" fill="#b9daca" font-family="Arial" font-size="12">'+anim+' · arte original</text>');meta.frames.forEach((frameName,i)=>{const frame=original.frames[frameName];const x=135+i*78;rows.push('<svg x="'+x+'" y="'+(height+19)+'" width="72" height="68" viewBox="0 0 94 83"><image href="../sprites/crisoman/'+frame.file+'" width="94" height="83"/></svg>');});height+=rowH;}
+height+=10;rows.push('<text x="18" y="'+(height+24)+'" fill="#eaffdc" font-family="Arial" font-size="20" font-weight="700">CRISOGIRL · ARTE NOVA · SKIN ROSA</text>');height+=34;
+for(const anim of Object.keys(manifest.animations)){const meta=manifest.animations[anim];rows.push(bg(12,height,charW-24,rowH-5));rows.push('<text x="22" y="'+(height+18)+'" fill="#b9daca" font-family="Arial" font-size="12">'+anim+' · '+meta[1]+' fps</text>');for(let i=0;i<meta[0];i++){const name='crisogirl_skin-crisogirl-rosa_'+anim+'_'+String(i).padStart(2,'0');const x=135+i*78;rows.push(get(name,x,height+18,72,rowH-20));}height+=rowH;}
+const characters='<svg xmlns="http://www.w3.org/2000/svg" width="'+charW+'" height="'+height+'" viewBox="0 0 '+charW+' '+height+'"><rect width="100%" height="100%" fill="#081317"/>'+rows.join('')+'</svg>';
 await mkdir(join(here,'previews'),{recursive:true});await writeFile(join(here,'previews/characters-contact.svg'),characters);
 let pr=[],pw=900,ph=1300;pr.push(`<rect width="${pw}" height="${ph}" fill="#081317"/><text x="20" y="30" fill="#eaffdc" font-family="Arial" font-size="20">PETS · IDLE / SEGUIR / COLETA</text>`);
 for(let i=0;i<65;i++){const f=Object.values(manifest.frames).filter(x=>x.petId)[i];if(!f)continue;const name=Object.keys(manifest.frames).find(k=>manifest.frames[k]===f);const x=18+i%10*86,y=44+Math.floor(i/10)*98;pr.push(bg(x,y,82,94));pr.push(`<svg x="${x+5}" y="${y+4}" width="72" height="72" viewBox="${f.x} ${f.y} 96 96"><image href="../sprites/v2/actors.svg" width="${manifest.atlas.w}" height="${manifest.atlas.h}"/></svg><text x="${x+4}" y="${y+91}" fill="#bdd5c8" font-family="Arial" font-size="7">${name}</text>`);}

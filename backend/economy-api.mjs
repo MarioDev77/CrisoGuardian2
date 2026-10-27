@@ -3,17 +3,9 @@ import { createHmac, randomBytes, timingSafeEqual, randomUUID } from 'node:crypt
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-async function loadCatalog() {
-  // Monorepo/dev: fonte única no frontend. Deploy só da pasta backend/: usa a cópia local.
-  for (const rel of ['../frontend/src/app/catalog-data.json', './catalog-data.json']) {
-    try { return JSON.parse((await readFile(new URL(rel, import.meta.url), 'utf8')).replace(/^\uFEFF/, '')); } catch { /* tenta o próximo */ }
-  }
-  throw new Error('catalog-data.json não encontrado (esperado em ../frontend/src/app/ ou em backend/).');
-}
-const catalog = await loadCatalog();
+const catalog = JSON.parse((await readFile(new URL('../frontend/src/app/catalog-data.json', import.meta.url), 'utf8')).replace(/^\uFEFF/, ''));
 
-const port = Number(process.env.CRISO_API_PORT ?? process.env.PORT ?? 4174);
-const host = process.env.CRISO_API_HOST ?? (process.env.PORT ? '0.0.0.0' : '127.0.0.1');
+const port = Number(process.env.CRISO_API_PORT ?? 4174);
 const backendDir = dirname(fileURLToPath(import.meta.url));
 const dataDir = process.env.CRISO_DATA_DIR ? resolve(process.env.CRISO_DATA_DIR) : join(backendDir, 'data');
 const legacyDataDir = resolve(backendDir, '../frontend/server/data');
@@ -125,7 +117,7 @@ const server = createServer(async (req, res) => {
     }
     if (url.pathname === '/api/run/settle') return await serialize(async () => {
       const run = activeRuns.get(sid); if (!run || body.runId !== run.id || body.level !== run.level) throw error('Partida inválida, expirada ou já finalizada.', 409); if (body.won !== true) throw error('Somente uma vitória pode entregar recompensas.');
-      const elapsed = (performance.now() - run.started) / 1000; if (elapsed < 15) throw error('A partida ainda não atingiu o tempo mínimo.');
+      const elapsed = (performance.now() - run.started) / 1000; 
       const next = structuredClone(database); const p = next.players[sid]; const e = p.economy; const seen = new Set(), fresh = []; let coins = 0; const mats = new Map();
       const list = Array.isArray(body.collectibles) ? body.collectibles.slice(0, 500) : [];
       for (const item of list) {
@@ -134,8 +126,8 @@ const server = createServer(async (req, res) => {
         if (item.type === 'coin') coins++; else if (item.type === 'material' && typeof item.material === 'string' && materialSet.has(item.material)) mats.set(item.material, (mats.get(item.material) ?? 0) + 1); fresh.push(item);
       }
       const materialTotal = [...mats.values()].reduce((sum, n) => sum + n, 0), paidBefore = p.paidLevels.includes(run.level), timeAllowed = elapsed <= catalog.runLimits.maxSeconds;
-      const paidCoins = paidBefore || !timeAllowed ? 0 : Math.min(coins, catalog.runLimits.maxCoins, Math.floor(elapsed / catalog.runLimits.secondsPerCoin));
-      const paidMaterials = paidBefore || !timeAllowed ? 0 : Math.min(materialTotal, catalog.runLimits.maxMaterials, Math.floor(elapsed / catalog.runLimits.secondsPerMaterial));
+      const paidCoins = paidBefore || !timeAllowed || elapsed < 15 ? 0 : Math.min(coins, catalog.runLimits.maxCoins, Math.floor(elapsed / catalog.runLimits.secondsPerCoin));
+      const paidMaterials = paidBefore || !timeAllowed || elapsed < 15 ? 0 : Math.min(materialTotal, catalog.runLimits.maxMaterials, Math.floor(elapsed / catalog.runLimits.secondsPerMaterial));
       if (paidCoins || paidMaterials) {
         e.coins = Math.min(Number.MAX_SAFE_INTEGER, e.coins + paidCoins); let remaining = paidMaterials;
         for (const [type, count] of mats) { const paid = Math.min(count, remaining); e.materials[type] = Math.min(Number.MAX_SAFE_INTEGER, e.materials[type] + paid); remaining -= paid; if (!remaining) break; }
@@ -150,7 +142,7 @@ const server = createServer(async (req, res) => {
   } catch (err) { const status = Number.isInteger(err?.status) ? err.status : 500; if (status === 500) console.error('API CrisoGuardian:', err); return reply(res, status, { message: status === 500 ? 'Falha interna ao salvar a operação.' : err.message }); }
 });
 await initialize();
-server.listen(port, host, () => console.log(`Economia CrisoGuardian API ouvindo em http://${host}:${port}`));
+server.listen(port, process.env.CRISO_API_HOST ?? '127.0.0.1', () => console.log(`Economia CrisoGuardian API ouvindo em http://127.0.0.1:${port}`));
 server.on('error', (err) => { console.error(err); process.exitCode = 1; });
 
 

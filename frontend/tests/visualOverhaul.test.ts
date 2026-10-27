@@ -10,9 +10,12 @@ describe('visual overhaul assets',()=>{
   expect(manifest.frame).toEqual({w:96,h:96,pivot:{x:48,y:92}});
   expect(manifest.atlas.w%96).toBe(0);expect(manifest.atlas.h%96).toBe(0);
   const keys=new Set(Object.keys(manifest.frames));
-  for(const skin of catalog.skins){const character=skin.character; for(const anim of ['idle','walk','run','jump','fall','collect','hurt','celebrate']) expect(keys.has(`${character}_${skin.id}_${anim}_00`),`${skin.id} ${anim}`).toBe(true);}
+  for(const skin of catalog.skins.filter(s=>s.character==='crisogirl')){const character=skin.character; for(const anim of ['idle','walk','run','jump','fall','collect','hurt','celebrate']) expect(keys.has(`${character}_${skin.id}_${anim}_00`),`${skin.id} ${anim}`).toBe(true);}
   for(const pet of catalog.pets) for(const anim of ['idle','follow','collect']) expect(keys.has(`${pet.id}_${anim}_00`),`${pet.id} ${anim}`).toBe(true);
   expect(existsSync(resolve(root,'sprites/v2/actors.svg'))).toBe(true);
+  expect(Object.keys(manifest.frames).some(k=>k.startsWith('crisoman_'))).toBe(false);
+  expect(existsSync(resolve(root,'sprites/crisoman/crisoman.png'))).toBe(true);
+  expect(existsSync(resolve(root,'sprites/crisoman/frames/idle/idle_00.png'))).toBe(true);
  });
  it('has three new island backgrounds and tiled assets wired to playable phases',()=>{
   expect(levelConfigs).toHaveLength(11);

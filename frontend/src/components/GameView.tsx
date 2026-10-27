@@ -149,10 +149,10 @@ export default function GameView({ level, runId, character, skinId, petId, onExi
                 <span className={s.rowIn} style={{ animationDelay: '.4s' }}>Moedas validadas <b><Count to={result.payout?.coins ?? 0} delay={400} /></b></span>
                 <span className={s.rowIn} style={{ animationDelay: '.55s' }}>Materiais no inventário <b><Count to={result.payout?.materials ?? 0} delay={550} /></b></span>
                 <span className={s.rowIn} style={{ animationDelay: '.65s' }}>Resíduos recuperados <b><Count to={result.r.materials} delay={650} />/{result.r.totalMaterials}</b></span>
-                {result.settleError && <p role={'alert'}>Não foi possível validar a recompensa com o servidor. Conecte-se e tente novamente.</p>}
+                {result.settleError && <p role={'alert'}>A vitória não foi registrada no servidor. Verifique a conexão antes de continuar.</p>}
                 <span className={s.rowIn} style={{ animationDelay: '.7s' }}>Tempo <b><Count to={Math.round(result.r.time)} delay={700} />s</b></span>
               </div>
-              {result.win && level < layouts.length - 1 && <button className={s.nextBtn} onClick={() => onNext(level + 1)} autoFocus>Próxima fase ▶</button>}
+              {result.win && !result.settleError && level < layouts.length - 1 && <button className={s.nextBtn} onClick={() => onNext(level + 1)} autoFocus>Próxima fase ▶</button>}
               {result.win && level === layouts.length - 1 && <p>Você salvou o Planeta Crisoverde! 🌍</p>}
               <button className={s.secondary} autoFocus={!result.win} onClick={() => setRun((n) => n + 1)}>{result.win ? 'Jogar de novo' : 'Tentar de novo'}</button>
               <button className={s.ghost} onClick={onExit}>Voltar ao mapa</button>

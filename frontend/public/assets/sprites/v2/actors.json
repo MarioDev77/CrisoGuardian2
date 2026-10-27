@@ -11,9 +11,9 @@
   },
   "atlas": {
     "w": 768,
-    "h": 4992,
+    "h": 2880,
     "columns": 8,
-    "rows": 52
+    "rows": 30
   },
   "animations": {
     "idle": [
@@ -58,2984 +58,9 @@
     ]
   },
   "frames": {
-    "crisoman_skin-crisoman-verde_idle_00": {
-      "x": 0,
-      "y": 0,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 0,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_idle_01": {
-      "x": 96,
-      "y": 0,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 1,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_idle_02": {
-      "x": 192,
-      "y": 0,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 2,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_idle_03": {
-      "x": 288,
-      "y": 0,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 3,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_walk_00": {
-      "x": 384,
-      "y": 0,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 0,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_walk_01": {
-      "x": 480,
-      "y": 0,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 1,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_walk_02": {
-      "x": 576,
-      "y": 0,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 2,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_walk_03": {
-      "x": 672,
-      "y": 0,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 3,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_walk_04": {
-      "x": 0,
-      "y": 96,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 4,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_run_00": {
-      "x": 96,
-      "y": 96,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 0,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_run_01": {
-      "x": 192,
-      "y": 96,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 1,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_run_02": {
-      "x": 288,
-      "y": 96,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 2,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_run_03": {
-      "x": 384,
-      "y": 96,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 3,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_run_04": {
-      "x": 480,
-      "y": 96,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 4,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_run_05": {
-      "x": 576,
-      "y": 96,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 5,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_jump_00": {
-      "x": 672,
-      "y": 96,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 0,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_jump_01": {
-      "x": 0,
-      "y": 192,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 1,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_jump_02": {
-      "x": 96,
-      "y": 192,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 2,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_jump_03": {
-      "x": 192,
-      "y": 192,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 3,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_fall_00": {
-      "x": 288,
-      "y": 192,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 0,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_fall_01": {
-      "x": 384,
-      "y": 192,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 1,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_fall_02": {
-      "x": 480,
-      "y": 192,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 2,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_fall_03": {
-      "x": 576,
-      "y": 192,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 3,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_collect_00": {
-      "x": 672,
-      "y": 192,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 0,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_collect_01": {
-      "x": 0,
-      "y": 288,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 1,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_collect_02": {
-      "x": 96,
-      "y": 288,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 2,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_collect_03": {
-      "x": 192,
-      "y": 288,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 3,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_hurt_00": {
-      "x": 288,
-      "y": 288,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 0,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_hurt_01": {
-      "x": 384,
-      "y": 288,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 1,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_hurt_02": {
-      "x": 480,
-      "y": 288,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 2,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_celebrate_00": {
-      "x": 576,
-      "y": 288,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 0,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_celebrate_01": {
-      "x": 672,
-      "y": 288,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 1,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_celebrate_02": {
-      "x": 0,
-      "y": 384,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 2,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_celebrate_03": {
-      "x": 96,
-      "y": 384,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 3,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-verde_celebrate_04": {
-      "x": 192,
-      "y": 384,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 4,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-verde",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_idle_00": {
-      "x": 288,
-      "y": 384,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 0,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_idle_01": {
-      "x": 384,
-      "y": 384,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 1,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_idle_02": {
-      "x": 480,
-      "y": 384,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 2,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_idle_03": {
-      "x": 576,
-      "y": 384,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 3,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_walk_00": {
-      "x": 672,
-      "y": 384,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 0,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_walk_01": {
-      "x": 0,
-      "y": 480,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 1,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_walk_02": {
-      "x": 96,
-      "y": 480,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 2,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_walk_03": {
-      "x": 192,
-      "y": 480,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 3,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_walk_04": {
-      "x": 288,
-      "y": 480,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 4,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_run_00": {
-      "x": 384,
-      "y": 480,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 0,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_run_01": {
-      "x": 480,
-      "y": 480,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 1,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_run_02": {
-      "x": 576,
-      "y": 480,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 2,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_run_03": {
-      "x": 672,
-      "y": 480,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 3,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_run_04": {
-      "x": 0,
-      "y": 576,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 4,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_run_05": {
-      "x": 96,
-      "y": 576,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 5,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_jump_00": {
-      "x": 192,
-      "y": 576,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 0,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_jump_01": {
-      "x": 288,
-      "y": 576,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 1,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_jump_02": {
-      "x": 384,
-      "y": 576,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 2,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_jump_03": {
-      "x": 480,
-      "y": 576,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 3,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_fall_00": {
-      "x": 576,
-      "y": 576,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 0,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_fall_01": {
-      "x": 672,
-      "y": 576,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 1,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_fall_02": {
-      "x": 0,
-      "y": 672,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 2,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_fall_03": {
-      "x": 96,
-      "y": 672,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 3,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_collect_00": {
-      "x": 192,
-      "y": 672,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 0,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_collect_01": {
-      "x": 288,
-      "y": 672,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 1,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_collect_02": {
-      "x": 384,
-      "y": 672,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 2,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_collect_03": {
-      "x": 480,
-      "y": 672,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 3,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_hurt_00": {
-      "x": 576,
-      "y": 672,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 0,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_hurt_01": {
-      "x": 672,
-      "y": 672,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 1,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_hurt_02": {
-      "x": 0,
-      "y": 768,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 2,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_celebrate_00": {
-      "x": 96,
-      "y": 768,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 0,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_celebrate_01": {
-      "x": 192,
-      "y": 768,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 1,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_celebrate_02": {
-      "x": 288,
-      "y": 768,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 2,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_celebrate_03": {
-      "x": 384,
-      "y": 768,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 3,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-urbano_celebrate_04": {
-      "x": 480,
-      "y": 768,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 4,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-urbano",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_idle_00": {
-      "x": 576,
-      "y": 768,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 0,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_idle_01": {
-      "x": 672,
-      "y": 768,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 1,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_idle_02": {
-      "x": 0,
-      "y": 864,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 2,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_idle_03": {
-      "x": 96,
-      "y": 864,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 3,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_walk_00": {
-      "x": 192,
-      "y": 864,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 0,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_walk_01": {
-      "x": 288,
-      "y": 864,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 1,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_walk_02": {
-      "x": 384,
-      "y": 864,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 2,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_walk_03": {
-      "x": 480,
-      "y": 864,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 3,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_walk_04": {
-      "x": 576,
-      "y": 864,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 4,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_run_00": {
-      "x": 672,
-      "y": 864,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 0,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_run_01": {
-      "x": 0,
-      "y": 960,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 1,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_run_02": {
-      "x": 96,
-      "y": 960,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 2,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_run_03": {
-      "x": 192,
-      "y": 960,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 3,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_run_04": {
-      "x": 288,
-      "y": 960,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 4,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_run_05": {
-      "x": 384,
-      "y": 960,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 5,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_jump_00": {
-      "x": 480,
-      "y": 960,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 0,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_jump_01": {
-      "x": 576,
-      "y": 960,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 1,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_jump_02": {
-      "x": 672,
-      "y": 960,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 2,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_jump_03": {
-      "x": 0,
-      "y": 1056,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 3,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_fall_00": {
-      "x": 96,
-      "y": 1056,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 0,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_fall_01": {
-      "x": 192,
-      "y": 1056,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 1,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_fall_02": {
-      "x": 288,
-      "y": 1056,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 2,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_fall_03": {
-      "x": 384,
-      "y": 1056,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 3,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_collect_00": {
-      "x": 480,
-      "y": 1056,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 0,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_collect_01": {
-      "x": 576,
-      "y": 1056,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 1,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_collect_02": {
-      "x": 672,
-      "y": 1056,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 2,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_collect_03": {
-      "x": 0,
-      "y": 1152,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 3,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_hurt_00": {
-      "x": 96,
-      "y": 1152,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 0,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_hurt_01": {
-      "x": 192,
-      "y": 1152,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 1,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_hurt_02": {
-      "x": 288,
-      "y": 1152,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 2,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_celebrate_00": {
-      "x": 384,
-      "y": 1152,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 0,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_celebrate_01": {
-      "x": 480,
-      "y": 1152,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 1,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_celebrate_02": {
-      "x": 576,
-      "y": 1152,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 2,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_celebrate_03": {
-      "x": 672,
-      "y": 1152,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 3,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-natureza_celebrate_04": {
-      "x": 0,
-      "y": 1248,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 4,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-natureza",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_idle_00": {
-      "x": 96,
-      "y": 1248,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 0,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_idle_01": {
-      "x": 192,
-      "y": 1248,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 1,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_idle_02": {
-      "x": 288,
-      "y": 1248,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 2,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_idle_03": {
-      "x": 384,
-      "y": 1248,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 3,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_walk_00": {
-      "x": 480,
-      "y": 1248,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 0,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_walk_01": {
-      "x": 576,
-      "y": 1248,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 1,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_walk_02": {
-      "x": 672,
-      "y": 1248,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 2,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_walk_03": {
-      "x": 0,
-      "y": 1344,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 3,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_walk_04": {
-      "x": 96,
-      "y": 1344,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 4,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_run_00": {
-      "x": 192,
-      "y": 1344,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 0,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_run_01": {
-      "x": 288,
-      "y": 1344,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 1,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_run_02": {
-      "x": 384,
-      "y": 1344,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 2,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_run_03": {
-      "x": 480,
-      "y": 1344,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 3,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_run_04": {
-      "x": 576,
-      "y": 1344,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 4,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_run_05": {
-      "x": 672,
-      "y": 1344,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 5,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_jump_00": {
-      "x": 0,
-      "y": 1440,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 0,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_jump_01": {
-      "x": 96,
-      "y": 1440,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 1,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_jump_02": {
-      "x": 192,
-      "y": 1440,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 2,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_jump_03": {
-      "x": 288,
-      "y": 1440,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 3,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_fall_00": {
-      "x": 384,
-      "y": 1440,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 0,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_fall_01": {
-      "x": 480,
-      "y": 1440,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 1,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_fall_02": {
-      "x": 576,
-      "y": 1440,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 2,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_fall_03": {
-      "x": 672,
-      "y": 1440,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 3,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_collect_00": {
-      "x": 0,
-      "y": 1536,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 0,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_collect_01": {
-      "x": 96,
-      "y": 1536,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 1,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_collect_02": {
-      "x": 192,
-      "y": 1536,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 2,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_collect_03": {
-      "x": 288,
-      "y": 1536,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 3,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_hurt_00": {
-      "x": 384,
-      "y": 1536,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 0,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_hurt_01": {
-      "x": 480,
-      "y": 1536,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 1,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_hurt_02": {
-      "x": 576,
-      "y": 1536,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 2,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_celebrate_00": {
-      "x": 672,
-      "y": 1536,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 0,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_celebrate_01": {
-      "x": 0,
-      "y": 1632,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 1,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_celebrate_02": {
-      "x": 96,
-      "y": 1632,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 2,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_celebrate_03": {
-      "x": 192,
-      "y": 1632,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 3,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-agua_celebrate_04": {
-      "x": 288,
-      "y": 1632,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 4,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-agua",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_idle_00": {
-      "x": 384,
-      "y": 1632,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 0,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_idle_01": {
-      "x": 480,
-      "y": 1632,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 1,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_idle_02": {
-      "x": 576,
-      "y": 1632,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 2,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_idle_03": {
-      "x": 672,
-      "y": 1632,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "idle",
-      "index": 3,
-      "fps": 4,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_walk_00": {
-      "x": 0,
-      "y": 1728,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 0,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_walk_01": {
-      "x": 96,
-      "y": 1728,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 1,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_walk_02": {
-      "x": 192,
-      "y": 1728,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 2,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_walk_03": {
-      "x": 288,
-      "y": 1728,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 3,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_walk_04": {
-      "x": 384,
-      "y": 1728,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "walk",
-      "index": 4,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_run_00": {
-      "x": 480,
-      "y": 1728,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 0,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_run_01": {
-      "x": 576,
-      "y": 1728,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 1,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_run_02": {
-      "x": 672,
-      "y": 1728,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 2,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_run_03": {
-      "x": 0,
-      "y": 1824,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 3,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_run_04": {
-      "x": 96,
-      "y": 1824,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 4,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_run_05": {
-      "x": 192,
-      "y": 1824,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "run",
-      "index": 5,
-      "fps": 12,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_jump_00": {
-      "x": 288,
-      "y": 1824,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 0,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_jump_01": {
-      "x": 384,
-      "y": 1824,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 1,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_jump_02": {
-      "x": 480,
-      "y": 1824,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 2,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_jump_03": {
-      "x": 576,
-      "y": 1824,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "jump",
-      "index": 3,
-      "fps": 11,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_fall_00": {
-      "x": 672,
-      "y": 1824,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 0,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_fall_01": {
-      "x": 0,
-      "y": 1920,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 1,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_fall_02": {
-      "x": 96,
-      "y": 1920,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 2,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_fall_03": {
-      "x": 192,
-      "y": 1920,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "fall",
-      "index": 3,
-      "fps": 8,
-      "loop": true,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_collect_00": {
-      "x": 288,
-      "y": 1920,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 0,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_collect_01": {
-      "x": 384,
-      "y": 1920,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 1,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_collect_02": {
-      "x": 480,
-      "y": 1920,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 2,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_collect_03": {
-      "x": 576,
-      "y": 1920,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "collect",
-      "index": 3,
-      "fps": 9,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_hurt_00": {
-      "x": 672,
-      "y": 1920,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 0,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_hurt_01": {
-      "x": 0,
-      "y": 2016,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 1,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_hurt_02": {
-      "x": 96,
-      "y": 2016,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "hurt",
-      "index": 2,
-      "fps": 12,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_celebrate_00": {
-      "x": 192,
-      "y": 2016,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 0,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_celebrate_01": {
-      "x": 288,
-      "y": 2016,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 1,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_celebrate_02": {
-      "x": 384,
-      "y": 2016,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 2,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_celebrate_03": {
-      "x": 480,
-      "y": 2016,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 3,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
-    "crisoman_skin-crisoman-fogo_celebrate_04": {
-      "x": 576,
-      "y": 2016,
-      "w": 96,
-      "h": 96,
-      "pivot": {
-        "x": 48,
-        "y": 92
-      },
-      "animation": "celebrate",
-      "index": 4,
-      "fps": 8,
-      "loop": false,
-      "character": "crisoman",
-      "skinId": "skin-crisoman-fogo",
-      "petId": null
-    },
     "crisogirl_skin-crisogirl-rosa_idle_00": {
-      "x": 672,
-      "y": 2016,
+      "x": 0,
+      "y": 0,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3051,8 +76,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_idle_01": {
-      "x": 0,
-      "y": 2112,
+      "x": 96,
+      "y": 0,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3068,8 +93,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_idle_02": {
-      "x": 96,
-      "y": 2112,
+      "x": 192,
+      "y": 0,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3085,8 +110,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_idle_03": {
-      "x": 192,
-      "y": 2112,
+      "x": 288,
+      "y": 0,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3102,8 +127,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_walk_00": {
-      "x": 288,
-      "y": 2112,
+      "x": 384,
+      "y": 0,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3119,8 +144,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_walk_01": {
-      "x": 384,
-      "y": 2112,
+      "x": 480,
+      "y": 0,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3136,8 +161,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_walk_02": {
-      "x": 480,
-      "y": 2112,
+      "x": 576,
+      "y": 0,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3153,8 +178,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_walk_03": {
-      "x": 576,
-      "y": 2112,
+      "x": 672,
+      "y": 0,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3170,8 +195,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_walk_04": {
-      "x": 672,
-      "y": 2112,
+      "x": 0,
+      "y": 96,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3187,8 +212,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_run_00": {
-      "x": 0,
-      "y": 2208,
+      "x": 96,
+      "y": 96,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3204,8 +229,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_run_01": {
-      "x": 96,
-      "y": 2208,
+      "x": 192,
+      "y": 96,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3221,8 +246,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_run_02": {
-      "x": 192,
-      "y": 2208,
+      "x": 288,
+      "y": 96,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3238,8 +263,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_run_03": {
-      "x": 288,
-      "y": 2208,
+      "x": 384,
+      "y": 96,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3255,8 +280,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_run_04": {
-      "x": 384,
-      "y": 2208,
+      "x": 480,
+      "y": 96,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3272,8 +297,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_run_05": {
-      "x": 480,
-      "y": 2208,
+      "x": 576,
+      "y": 96,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3289,8 +314,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_jump_00": {
-      "x": 576,
-      "y": 2208,
+      "x": 672,
+      "y": 96,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3306,8 +331,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_jump_01": {
-      "x": 672,
-      "y": 2208,
+      "x": 0,
+      "y": 192,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3323,8 +348,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_jump_02": {
-      "x": 0,
-      "y": 2304,
+      "x": 96,
+      "y": 192,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3340,8 +365,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_jump_03": {
-      "x": 96,
-      "y": 2304,
+      "x": 192,
+      "y": 192,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3357,8 +382,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_fall_00": {
-      "x": 192,
-      "y": 2304,
+      "x": 288,
+      "y": 192,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3374,8 +399,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_fall_01": {
-      "x": 288,
-      "y": 2304,
+      "x": 384,
+      "y": 192,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3391,8 +416,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_fall_02": {
-      "x": 384,
-      "y": 2304,
+      "x": 480,
+      "y": 192,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3408,8 +433,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_fall_03": {
-      "x": 480,
-      "y": 2304,
+      "x": 576,
+      "y": 192,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3425,8 +450,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_collect_00": {
-      "x": 576,
-      "y": 2304,
+      "x": 672,
+      "y": 192,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3442,8 +467,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_collect_01": {
-      "x": 672,
-      "y": 2304,
+      "x": 0,
+      "y": 288,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3459,8 +484,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_collect_02": {
-      "x": 0,
-      "y": 2400,
+      "x": 96,
+      "y": 288,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3476,8 +501,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_collect_03": {
-      "x": 96,
-      "y": 2400,
+      "x": 192,
+      "y": 288,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3493,8 +518,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_hurt_00": {
-      "x": 192,
-      "y": 2400,
+      "x": 288,
+      "y": 288,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3510,8 +535,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_hurt_01": {
-      "x": 288,
-      "y": 2400,
+      "x": 384,
+      "y": 288,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3527,8 +552,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_hurt_02": {
-      "x": 384,
-      "y": 2400,
+      "x": 480,
+      "y": 288,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3544,8 +569,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_celebrate_00": {
-      "x": 480,
-      "y": 2400,
+      "x": 576,
+      "y": 288,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3561,8 +586,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_celebrate_01": {
-      "x": 576,
-      "y": 2400,
+      "x": 672,
+      "y": 288,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3578,8 +603,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_celebrate_02": {
-      "x": 672,
-      "y": 2400,
+      "x": 0,
+      "y": 384,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3595,8 +620,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_celebrate_03": {
-      "x": 0,
-      "y": 2496,
+      "x": 96,
+      "y": 384,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3612,8 +637,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-rosa_celebrate_04": {
-      "x": 96,
-      "y": 2496,
+      "x": 192,
+      "y": 384,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3629,8 +654,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_idle_00": {
-      "x": 192,
-      "y": 2496,
+      "x": 288,
+      "y": 384,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3646,8 +671,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_idle_01": {
-      "x": 288,
-      "y": 2496,
+      "x": 384,
+      "y": 384,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3663,8 +688,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_idle_02": {
-      "x": 384,
-      "y": 2496,
+      "x": 480,
+      "y": 384,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3680,8 +705,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_idle_03": {
-      "x": 480,
-      "y": 2496,
+      "x": 576,
+      "y": 384,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3697,8 +722,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_walk_00": {
-      "x": 576,
-      "y": 2496,
+      "x": 672,
+      "y": 384,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3714,8 +739,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_walk_01": {
-      "x": 672,
-      "y": 2496,
+      "x": 0,
+      "y": 480,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3731,8 +756,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_walk_02": {
-      "x": 0,
-      "y": 2592,
+      "x": 96,
+      "y": 480,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3748,8 +773,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_walk_03": {
-      "x": 96,
-      "y": 2592,
+      "x": 192,
+      "y": 480,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3765,8 +790,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_walk_04": {
-      "x": 192,
-      "y": 2592,
+      "x": 288,
+      "y": 480,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3782,8 +807,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_run_00": {
-      "x": 288,
-      "y": 2592,
+      "x": 384,
+      "y": 480,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3799,8 +824,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_run_01": {
-      "x": 384,
-      "y": 2592,
+      "x": 480,
+      "y": 480,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3816,8 +841,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_run_02": {
-      "x": 480,
-      "y": 2592,
+      "x": 576,
+      "y": 480,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3833,8 +858,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_run_03": {
-      "x": 576,
-      "y": 2592,
+      "x": 672,
+      "y": 480,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3850,8 +875,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_run_04": {
-      "x": 672,
-      "y": 2592,
+      "x": 0,
+      "y": 576,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3867,8 +892,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_run_05": {
-      "x": 0,
-      "y": 2688,
+      "x": 96,
+      "y": 576,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3884,8 +909,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_jump_00": {
-      "x": 96,
-      "y": 2688,
+      "x": 192,
+      "y": 576,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3901,8 +926,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_jump_01": {
-      "x": 192,
-      "y": 2688,
+      "x": 288,
+      "y": 576,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3918,8 +943,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_jump_02": {
-      "x": 288,
-      "y": 2688,
+      "x": 384,
+      "y": 576,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3935,8 +960,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_jump_03": {
-      "x": 384,
-      "y": 2688,
+      "x": 480,
+      "y": 576,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3952,8 +977,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_fall_00": {
-      "x": 480,
-      "y": 2688,
+      "x": 576,
+      "y": 576,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3969,8 +994,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_fall_01": {
-      "x": 576,
-      "y": 2688,
+      "x": 672,
+      "y": 576,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -3986,8 +1011,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_fall_02": {
-      "x": 672,
-      "y": 2688,
+      "x": 0,
+      "y": 672,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4003,8 +1028,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_fall_03": {
-      "x": 0,
-      "y": 2784,
+      "x": 96,
+      "y": 672,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4020,8 +1045,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_collect_00": {
-      "x": 96,
-      "y": 2784,
+      "x": 192,
+      "y": 672,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4037,8 +1062,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_collect_01": {
-      "x": 192,
-      "y": 2784,
+      "x": 288,
+      "y": 672,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4054,8 +1079,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_collect_02": {
-      "x": 288,
-      "y": 2784,
+      "x": 384,
+      "y": 672,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4071,8 +1096,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_collect_03": {
-      "x": 384,
-      "y": 2784,
+      "x": 480,
+      "y": 672,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4088,8 +1113,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_hurt_00": {
-      "x": 480,
-      "y": 2784,
+      "x": 576,
+      "y": 672,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4105,8 +1130,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_hurt_01": {
-      "x": 576,
-      "y": 2784,
+      "x": 672,
+      "y": 672,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4122,8 +1147,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_hurt_02": {
-      "x": 672,
-      "y": 2784,
+      "x": 0,
+      "y": 768,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4139,8 +1164,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_celebrate_00": {
-      "x": 0,
-      "y": 2880,
+      "x": 96,
+      "y": 768,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4156,8 +1181,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_celebrate_01": {
-      "x": 96,
-      "y": 2880,
+      "x": 192,
+      "y": 768,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4173,8 +1198,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_celebrate_02": {
-      "x": 192,
-      "y": 2880,
+      "x": 288,
+      "y": 768,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4190,8 +1215,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_celebrate_03": {
-      "x": 288,
-      "y": 2880,
+      "x": 384,
+      "y": 768,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4207,8 +1232,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-urbana_celebrate_04": {
-      "x": 384,
-      "y": 2880,
+      "x": 480,
+      "y": 768,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4224,8 +1249,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_idle_00": {
-      "x": 480,
-      "y": 2880,
+      "x": 576,
+      "y": 768,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4241,8 +1266,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_idle_01": {
-      "x": 576,
-      "y": 2880,
+      "x": 672,
+      "y": 768,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4258,8 +1283,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_idle_02": {
-      "x": 672,
-      "y": 2880,
+      "x": 0,
+      "y": 864,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4275,8 +1300,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_idle_03": {
-      "x": 0,
-      "y": 2976,
+      "x": 96,
+      "y": 864,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4292,8 +1317,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_walk_00": {
-      "x": 96,
-      "y": 2976,
+      "x": 192,
+      "y": 864,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4309,8 +1334,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_walk_01": {
-      "x": 192,
-      "y": 2976,
+      "x": 288,
+      "y": 864,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4326,8 +1351,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_walk_02": {
-      "x": 288,
-      "y": 2976,
+      "x": 384,
+      "y": 864,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4343,8 +1368,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_walk_03": {
-      "x": 384,
-      "y": 2976,
+      "x": 480,
+      "y": 864,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4360,8 +1385,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_walk_04": {
-      "x": 480,
-      "y": 2976,
+      "x": 576,
+      "y": 864,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4377,8 +1402,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_run_00": {
-      "x": 576,
-      "y": 2976,
+      "x": 672,
+      "y": 864,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4394,8 +1419,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_run_01": {
-      "x": 672,
-      "y": 2976,
+      "x": 0,
+      "y": 960,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4411,8 +1436,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_run_02": {
-      "x": 0,
-      "y": 3072,
+      "x": 96,
+      "y": 960,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4428,8 +1453,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_run_03": {
-      "x": 96,
-      "y": 3072,
+      "x": 192,
+      "y": 960,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4445,8 +1470,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_run_04": {
-      "x": 192,
-      "y": 3072,
+      "x": 288,
+      "y": 960,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4462,8 +1487,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_run_05": {
-      "x": 288,
-      "y": 3072,
+      "x": 384,
+      "y": 960,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4479,8 +1504,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_jump_00": {
-      "x": 384,
-      "y": 3072,
+      "x": 480,
+      "y": 960,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4496,8 +1521,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_jump_01": {
-      "x": 480,
-      "y": 3072,
+      "x": 576,
+      "y": 960,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4513,8 +1538,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_jump_02": {
-      "x": 576,
-      "y": 3072,
+      "x": 672,
+      "y": 960,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4530,8 +1555,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_jump_03": {
-      "x": 672,
-      "y": 3072,
+      "x": 0,
+      "y": 1056,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4547,8 +1572,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_fall_00": {
-      "x": 0,
-      "y": 3168,
+      "x": 96,
+      "y": 1056,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4564,8 +1589,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_fall_01": {
-      "x": 96,
-      "y": 3168,
+      "x": 192,
+      "y": 1056,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4581,8 +1606,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_fall_02": {
-      "x": 192,
-      "y": 3168,
+      "x": 288,
+      "y": 1056,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4598,8 +1623,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_fall_03": {
-      "x": 288,
-      "y": 3168,
+      "x": 384,
+      "y": 1056,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4615,8 +1640,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_collect_00": {
-      "x": 384,
-      "y": 3168,
+      "x": 480,
+      "y": 1056,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4632,8 +1657,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_collect_01": {
-      "x": 480,
-      "y": 3168,
+      "x": 576,
+      "y": 1056,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4649,8 +1674,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_collect_02": {
-      "x": 576,
-      "y": 3168,
+      "x": 672,
+      "y": 1056,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4666,8 +1691,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_collect_03": {
-      "x": 672,
-      "y": 3168,
+      "x": 0,
+      "y": 1152,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4683,8 +1708,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_hurt_00": {
-      "x": 0,
-      "y": 3264,
+      "x": 96,
+      "y": 1152,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4700,8 +1725,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_hurt_01": {
-      "x": 96,
-      "y": 3264,
+      "x": 192,
+      "y": 1152,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4717,8 +1742,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_hurt_02": {
-      "x": 192,
-      "y": 3264,
+      "x": 288,
+      "y": 1152,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4734,8 +1759,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_celebrate_00": {
-      "x": 288,
-      "y": 3264,
+      "x": 384,
+      "y": 1152,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4751,8 +1776,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_celebrate_01": {
-      "x": 384,
-      "y": 3264,
+      "x": 480,
+      "y": 1152,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4768,8 +1793,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_celebrate_02": {
-      "x": 480,
-      "y": 3264,
+      "x": 576,
+      "y": 1152,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4785,8 +1810,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_celebrate_03": {
-      "x": 576,
-      "y": 3264,
+      "x": 672,
+      "y": 1152,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4802,8 +1827,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-floresta_celebrate_04": {
-      "x": 672,
-      "y": 3264,
+      "x": 0,
+      "y": 1248,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4819,8 +1844,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_idle_00": {
-      "x": 0,
-      "y": 3360,
+      "x": 96,
+      "y": 1248,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4836,8 +1861,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_idle_01": {
-      "x": 96,
-      "y": 3360,
+      "x": 192,
+      "y": 1248,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4853,8 +1878,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_idle_02": {
-      "x": 192,
-      "y": 3360,
+      "x": 288,
+      "y": 1248,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4870,8 +1895,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_idle_03": {
-      "x": 288,
-      "y": 3360,
+      "x": 384,
+      "y": 1248,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4887,8 +1912,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_walk_00": {
-      "x": 384,
-      "y": 3360,
+      "x": 480,
+      "y": 1248,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4904,8 +1929,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_walk_01": {
-      "x": 480,
-      "y": 3360,
+      "x": 576,
+      "y": 1248,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4921,8 +1946,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_walk_02": {
-      "x": 576,
-      "y": 3360,
+      "x": 672,
+      "y": 1248,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4938,8 +1963,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_walk_03": {
-      "x": 672,
-      "y": 3360,
+      "x": 0,
+      "y": 1344,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4955,8 +1980,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_walk_04": {
-      "x": 0,
-      "y": 3456,
+      "x": 96,
+      "y": 1344,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4972,8 +1997,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_run_00": {
-      "x": 96,
-      "y": 3456,
+      "x": 192,
+      "y": 1344,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -4989,8 +2014,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_run_01": {
-      "x": 192,
-      "y": 3456,
+      "x": 288,
+      "y": 1344,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5006,8 +2031,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_run_02": {
-      "x": 288,
-      "y": 3456,
+      "x": 384,
+      "y": 1344,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5023,8 +2048,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_run_03": {
-      "x": 384,
-      "y": 3456,
+      "x": 480,
+      "y": 1344,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5040,8 +2065,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_run_04": {
-      "x": 480,
-      "y": 3456,
+      "x": 576,
+      "y": 1344,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5057,8 +2082,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_run_05": {
-      "x": 576,
-      "y": 3456,
+      "x": 672,
+      "y": 1344,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5074,8 +2099,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_jump_00": {
-      "x": 672,
-      "y": 3456,
+      "x": 0,
+      "y": 1440,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5091,8 +2116,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_jump_01": {
-      "x": 0,
-      "y": 3552,
+      "x": 96,
+      "y": 1440,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5108,8 +2133,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_jump_02": {
-      "x": 96,
-      "y": 3552,
+      "x": 192,
+      "y": 1440,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5125,8 +2150,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_jump_03": {
-      "x": 192,
-      "y": 3552,
+      "x": 288,
+      "y": 1440,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5142,8 +2167,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_fall_00": {
-      "x": 288,
-      "y": 3552,
+      "x": 384,
+      "y": 1440,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5159,8 +2184,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_fall_01": {
-      "x": 384,
-      "y": 3552,
+      "x": 480,
+      "y": 1440,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5176,8 +2201,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_fall_02": {
-      "x": 480,
-      "y": 3552,
+      "x": 576,
+      "y": 1440,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5193,8 +2218,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_fall_03": {
-      "x": 576,
-      "y": 3552,
+      "x": 672,
+      "y": 1440,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5210,8 +2235,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_collect_00": {
-      "x": 672,
-      "y": 3552,
+      "x": 0,
+      "y": 1536,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5227,8 +2252,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_collect_01": {
-      "x": 0,
-      "y": 3648,
+      "x": 96,
+      "y": 1536,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5244,8 +2269,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_collect_02": {
-      "x": 96,
-      "y": 3648,
+      "x": 192,
+      "y": 1536,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5261,8 +2286,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_collect_03": {
-      "x": 192,
-      "y": 3648,
+      "x": 288,
+      "y": 1536,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5278,8 +2303,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_hurt_00": {
-      "x": 288,
-      "y": 3648,
+      "x": 384,
+      "y": 1536,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5295,8 +2320,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_hurt_01": {
-      "x": 384,
-      "y": 3648,
+      "x": 480,
+      "y": 1536,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5312,8 +2337,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_hurt_02": {
-      "x": 480,
-      "y": 3648,
+      "x": 576,
+      "y": 1536,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5329,8 +2354,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_celebrate_00": {
-      "x": 576,
-      "y": 3648,
+      "x": 672,
+      "y": 1536,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5346,8 +2371,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_celebrate_01": {
-      "x": 672,
-      "y": 3648,
+      "x": 0,
+      "y": 1632,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5363,8 +2388,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_celebrate_02": {
-      "x": 0,
-      "y": 3744,
+      "x": 96,
+      "y": 1632,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5380,8 +2405,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_celebrate_03": {
-      "x": 96,
-      "y": 3744,
+      "x": 192,
+      "y": 1632,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5397,8 +2422,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-agua_celebrate_04": {
-      "x": 192,
-      "y": 3744,
+      "x": 288,
+      "y": 1632,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5414,8 +2439,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_idle_00": {
-      "x": 288,
-      "y": 3744,
+      "x": 384,
+      "y": 1632,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5431,8 +2456,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_idle_01": {
-      "x": 384,
-      "y": 3744,
+      "x": 480,
+      "y": 1632,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5448,8 +2473,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_idle_02": {
-      "x": 480,
-      "y": 3744,
+      "x": 576,
+      "y": 1632,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5465,8 +2490,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_idle_03": {
-      "x": 576,
-      "y": 3744,
+      "x": 672,
+      "y": 1632,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5482,8 +2507,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_walk_00": {
-      "x": 672,
-      "y": 3744,
+      "x": 0,
+      "y": 1728,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5499,8 +2524,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_walk_01": {
-      "x": 0,
-      "y": 3840,
+      "x": 96,
+      "y": 1728,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5516,8 +2541,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_walk_02": {
-      "x": 96,
-      "y": 3840,
+      "x": 192,
+      "y": 1728,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5533,8 +2558,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_walk_03": {
-      "x": 192,
-      "y": 3840,
+      "x": 288,
+      "y": 1728,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5550,8 +2575,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_walk_04": {
-      "x": 288,
-      "y": 3840,
+      "x": 384,
+      "y": 1728,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5567,8 +2592,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_run_00": {
-      "x": 384,
-      "y": 3840,
+      "x": 480,
+      "y": 1728,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5584,8 +2609,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_run_01": {
-      "x": 480,
-      "y": 3840,
+      "x": 576,
+      "y": 1728,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5601,8 +2626,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_run_02": {
-      "x": 576,
-      "y": 3840,
+      "x": 672,
+      "y": 1728,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5618,8 +2643,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_run_03": {
-      "x": 672,
-      "y": 3840,
+      "x": 0,
+      "y": 1824,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5635,8 +2660,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_run_04": {
-      "x": 0,
-      "y": 3936,
+      "x": 96,
+      "y": 1824,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5652,8 +2677,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_run_05": {
-      "x": 96,
-      "y": 3936,
+      "x": 192,
+      "y": 1824,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5669,8 +2694,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_jump_00": {
-      "x": 192,
-      "y": 3936,
+      "x": 288,
+      "y": 1824,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5686,8 +2711,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_jump_01": {
-      "x": 288,
-      "y": 3936,
+      "x": 384,
+      "y": 1824,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5703,8 +2728,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_jump_02": {
-      "x": 384,
-      "y": 3936,
+      "x": 480,
+      "y": 1824,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5720,8 +2745,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_jump_03": {
-      "x": 480,
-      "y": 3936,
+      "x": 576,
+      "y": 1824,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5737,8 +2762,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_fall_00": {
-      "x": 576,
-      "y": 3936,
+      "x": 672,
+      "y": 1824,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5754,8 +2779,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_fall_01": {
-      "x": 672,
-      "y": 3936,
+      "x": 0,
+      "y": 1920,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5771,8 +2796,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_fall_02": {
-      "x": 0,
-      "y": 4032,
+      "x": 96,
+      "y": 1920,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5788,8 +2813,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_fall_03": {
-      "x": 96,
-      "y": 4032,
+      "x": 192,
+      "y": 1920,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5805,8 +2830,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_collect_00": {
-      "x": 192,
-      "y": 4032,
+      "x": 288,
+      "y": 1920,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5822,8 +2847,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_collect_01": {
-      "x": 288,
-      "y": 4032,
+      "x": 384,
+      "y": 1920,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5839,8 +2864,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_collect_02": {
-      "x": 384,
-      "y": 4032,
+      "x": 480,
+      "y": 1920,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5856,8 +2881,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_collect_03": {
-      "x": 480,
-      "y": 4032,
+      "x": 576,
+      "y": 1920,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5873,8 +2898,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_hurt_00": {
-      "x": 576,
-      "y": 4032,
+      "x": 672,
+      "y": 1920,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5890,8 +2915,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_hurt_01": {
-      "x": 672,
-      "y": 4032,
+      "x": 0,
+      "y": 2016,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5907,8 +2932,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_hurt_02": {
-      "x": 0,
-      "y": 4128,
+      "x": 96,
+      "y": 2016,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5924,8 +2949,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_celebrate_00": {
-      "x": 96,
-      "y": 4128,
+      "x": 192,
+      "y": 2016,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5941,8 +2966,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_celebrate_01": {
-      "x": 192,
-      "y": 4128,
+      "x": 288,
+      "y": 2016,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5958,8 +2983,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_celebrate_02": {
-      "x": 288,
-      "y": 4128,
+      "x": 384,
+      "y": 2016,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5975,8 +3000,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_celebrate_03": {
-      "x": 384,
-      "y": 4128,
+      "x": 480,
+      "y": 2016,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -5992,8 +3017,8 @@
       "petId": null
     },
     "crisogirl_skin-crisogirl-fogo_celebrate_04": {
-      "x": 480,
-      "y": 4128,
+      "x": 576,
+      "y": 2016,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6009,8 +3034,8 @@
       "petId": null
     },
     "pet-turtix_idle_00": {
-      "x": 576,
-      "y": 4128,
+      "x": 672,
+      "y": 2016,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6026,8 +3051,8 @@
       "petId": "pet-turtix"
     },
     "pet-turtix_idle_01": {
-      "x": 672,
-      "y": 4128,
+      "x": 0,
+      "y": 2112,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6043,8 +3068,8 @@
       "petId": "pet-turtix"
     },
     "pet-turtix_idle_02": {
-      "x": 0,
-      "y": 4224,
+      "x": 96,
+      "y": 2112,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6060,8 +3085,8 @@
       "petId": "pet-turtix"
     },
     "pet-turtix_idle_03": {
-      "x": 96,
-      "y": 4224,
+      "x": 192,
+      "y": 2112,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6077,8 +3102,8 @@
       "petId": "pet-turtix"
     },
     "pet-turtix_follow_00": {
-      "x": 192,
-      "y": 4224,
+      "x": 288,
+      "y": 2112,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6094,8 +3119,8 @@
       "petId": "pet-turtix"
     },
     "pet-turtix_follow_01": {
-      "x": 288,
-      "y": 4224,
+      "x": 384,
+      "y": 2112,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6111,8 +3136,8 @@
       "petId": "pet-turtix"
     },
     "pet-turtix_follow_02": {
-      "x": 384,
-      "y": 4224,
+      "x": 480,
+      "y": 2112,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6128,8 +3153,8 @@
       "petId": "pet-turtix"
     },
     "pet-turtix_follow_03": {
-      "x": 480,
-      "y": 4224,
+      "x": 576,
+      "y": 2112,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6145,8 +3170,8 @@
       "petId": "pet-turtix"
     },
     "pet-turtix_follow_04": {
-      "x": 576,
-      "y": 4224,
+      "x": 672,
+      "y": 2112,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6162,8 +3187,8 @@
       "petId": "pet-turtix"
     },
     "pet-turtix_follow_05": {
-      "x": 672,
-      "y": 4224,
+      "x": 0,
+      "y": 2208,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6179,8 +3204,8 @@
       "petId": "pet-turtix"
     },
     "pet-turtix_collect_00": {
-      "x": 0,
-      "y": 4320,
+      "x": 96,
+      "y": 2208,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6196,8 +3221,8 @@
       "petId": "pet-turtix"
     },
     "pet-turtix_collect_01": {
-      "x": 96,
-      "y": 4320,
+      "x": 192,
+      "y": 2208,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6213,8 +3238,8 @@
       "petId": "pet-turtix"
     },
     "pet-turtix_collect_02": {
-      "x": 192,
-      "y": 4320,
+      "x": 288,
+      "y": 2208,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6230,8 +3255,8 @@
       "petId": "pet-turtix"
     },
     "pet-foxy_idle_00": {
-      "x": 288,
-      "y": 4320,
+      "x": 384,
+      "y": 2208,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6247,8 +3272,8 @@
       "petId": "pet-foxy"
     },
     "pet-foxy_idle_01": {
-      "x": 384,
-      "y": 4320,
+      "x": 480,
+      "y": 2208,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6264,8 +3289,8 @@
       "petId": "pet-foxy"
     },
     "pet-foxy_idle_02": {
-      "x": 480,
-      "y": 4320,
+      "x": 576,
+      "y": 2208,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6281,8 +3306,8 @@
       "petId": "pet-foxy"
     },
     "pet-foxy_idle_03": {
-      "x": 576,
-      "y": 4320,
+      "x": 672,
+      "y": 2208,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6298,8 +3323,8 @@
       "petId": "pet-foxy"
     },
     "pet-foxy_follow_00": {
-      "x": 672,
-      "y": 4320,
+      "x": 0,
+      "y": 2304,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6315,8 +3340,8 @@
       "petId": "pet-foxy"
     },
     "pet-foxy_follow_01": {
-      "x": 0,
-      "y": 4416,
+      "x": 96,
+      "y": 2304,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6332,8 +3357,8 @@
       "petId": "pet-foxy"
     },
     "pet-foxy_follow_02": {
-      "x": 96,
-      "y": 4416,
+      "x": 192,
+      "y": 2304,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6349,8 +3374,8 @@
       "petId": "pet-foxy"
     },
     "pet-foxy_follow_03": {
-      "x": 192,
-      "y": 4416,
+      "x": 288,
+      "y": 2304,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6366,8 +3391,8 @@
       "petId": "pet-foxy"
     },
     "pet-foxy_follow_04": {
-      "x": 288,
-      "y": 4416,
+      "x": 384,
+      "y": 2304,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6383,8 +3408,8 @@
       "petId": "pet-foxy"
     },
     "pet-foxy_follow_05": {
-      "x": 384,
-      "y": 4416,
+      "x": 480,
+      "y": 2304,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6400,8 +3425,8 @@
       "petId": "pet-foxy"
     },
     "pet-foxy_collect_00": {
-      "x": 480,
-      "y": 4416,
+      "x": 576,
+      "y": 2304,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6417,8 +3442,8 @@
       "petId": "pet-foxy"
     },
     "pet-foxy_collect_01": {
-      "x": 576,
-      "y": 4416,
+      "x": 672,
+      "y": 2304,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6434,8 +3459,8 @@
       "petId": "pet-foxy"
     },
     "pet-foxy_collect_02": {
-      "x": 672,
-      "y": 4416,
+      "x": 0,
+      "y": 2400,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6451,8 +3476,8 @@
       "petId": "pet-foxy"
     },
     "pet-folhinha_idle_00": {
-      "x": 0,
-      "y": 4512,
+      "x": 96,
+      "y": 2400,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6468,8 +3493,8 @@
       "petId": "pet-folhinha"
     },
     "pet-folhinha_idle_01": {
-      "x": 96,
-      "y": 4512,
+      "x": 192,
+      "y": 2400,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6485,8 +3510,8 @@
       "petId": "pet-folhinha"
     },
     "pet-folhinha_idle_02": {
-      "x": 192,
-      "y": 4512,
+      "x": 288,
+      "y": 2400,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6502,8 +3527,8 @@
       "petId": "pet-folhinha"
     },
     "pet-folhinha_idle_03": {
-      "x": 288,
-      "y": 4512,
+      "x": 384,
+      "y": 2400,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6519,8 +3544,8 @@
       "petId": "pet-folhinha"
     },
     "pet-folhinha_follow_00": {
-      "x": 384,
-      "y": 4512,
+      "x": 480,
+      "y": 2400,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6536,8 +3561,8 @@
       "petId": "pet-folhinha"
     },
     "pet-folhinha_follow_01": {
-      "x": 480,
-      "y": 4512,
+      "x": 576,
+      "y": 2400,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6553,8 +3578,8 @@
       "petId": "pet-folhinha"
     },
     "pet-folhinha_follow_02": {
-      "x": 576,
-      "y": 4512,
+      "x": 672,
+      "y": 2400,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6570,8 +3595,8 @@
       "petId": "pet-folhinha"
     },
     "pet-folhinha_follow_03": {
-      "x": 672,
-      "y": 4512,
+      "x": 0,
+      "y": 2496,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6587,8 +3612,8 @@
       "petId": "pet-folhinha"
     },
     "pet-folhinha_follow_04": {
-      "x": 0,
-      "y": 4608,
+      "x": 96,
+      "y": 2496,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6604,8 +3629,8 @@
       "petId": "pet-folhinha"
     },
     "pet-folhinha_follow_05": {
-      "x": 96,
-      "y": 4608,
+      "x": 192,
+      "y": 2496,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6621,8 +3646,8 @@
       "petId": "pet-folhinha"
     },
     "pet-folhinha_collect_00": {
-      "x": 192,
-      "y": 4608,
+      "x": 288,
+      "y": 2496,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6638,8 +3663,8 @@
       "petId": "pet-folhinha"
     },
     "pet-folhinha_collect_01": {
-      "x": 288,
-      "y": 4608,
+      "x": 384,
+      "y": 2496,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6655,8 +3680,8 @@
       "petId": "pet-folhinha"
     },
     "pet-folhinha_collect_02": {
-      "x": 384,
-      "y": 4608,
+      "x": 480,
+      "y": 2496,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6672,8 +3697,8 @@
       "petId": "pet-folhinha"
     },
     "pet-pipoca_idle_00": {
-      "x": 480,
-      "y": 4608,
+      "x": 576,
+      "y": 2496,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6689,8 +3714,8 @@
       "petId": "pet-pipoca"
     },
     "pet-pipoca_idle_01": {
-      "x": 576,
-      "y": 4608,
+      "x": 672,
+      "y": 2496,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6706,8 +3731,8 @@
       "petId": "pet-pipoca"
     },
     "pet-pipoca_idle_02": {
-      "x": 672,
-      "y": 4608,
+      "x": 0,
+      "y": 2592,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6723,8 +3748,8 @@
       "petId": "pet-pipoca"
     },
     "pet-pipoca_idle_03": {
-      "x": 0,
-      "y": 4704,
+      "x": 96,
+      "y": 2592,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6740,8 +3765,8 @@
       "petId": "pet-pipoca"
     },
     "pet-pipoca_follow_00": {
-      "x": 96,
-      "y": 4704,
+      "x": 192,
+      "y": 2592,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6757,8 +3782,8 @@
       "petId": "pet-pipoca"
     },
     "pet-pipoca_follow_01": {
-      "x": 192,
-      "y": 4704,
+      "x": 288,
+      "y": 2592,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6774,8 +3799,8 @@
       "petId": "pet-pipoca"
     },
     "pet-pipoca_follow_02": {
-      "x": 288,
-      "y": 4704,
+      "x": 384,
+      "y": 2592,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6791,8 +3816,8 @@
       "petId": "pet-pipoca"
     },
     "pet-pipoca_follow_03": {
-      "x": 384,
-      "y": 4704,
+      "x": 480,
+      "y": 2592,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6808,8 +3833,8 @@
       "petId": "pet-pipoca"
     },
     "pet-pipoca_follow_04": {
-      "x": 480,
-      "y": 4704,
+      "x": 576,
+      "y": 2592,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6825,8 +3850,8 @@
       "petId": "pet-pipoca"
     },
     "pet-pipoca_follow_05": {
-      "x": 576,
-      "y": 4704,
+      "x": 672,
+      "y": 2592,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6842,8 +3867,8 @@
       "petId": "pet-pipoca"
     },
     "pet-pipoca_collect_00": {
-      "x": 672,
-      "y": 4704,
+      "x": 0,
+      "y": 2688,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6859,8 +3884,8 @@
       "petId": "pet-pipoca"
     },
     "pet-pipoca_collect_01": {
-      "x": 0,
-      "y": 4800,
+      "x": 96,
+      "y": 2688,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6876,8 +3901,8 @@
       "petId": "pet-pipoca"
     },
     "pet-pipoca_collect_02": {
-      "x": 96,
-      "y": 4800,
+      "x": 192,
+      "y": 2688,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6893,8 +3918,8 @@
       "petId": "pet-pipoca"
     },
     "pet-brasa_idle_00": {
-      "x": 192,
-      "y": 4800,
+      "x": 288,
+      "y": 2688,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6910,8 +3935,8 @@
       "petId": "pet-brasa"
     },
     "pet-brasa_idle_01": {
-      "x": 288,
-      "y": 4800,
+      "x": 384,
+      "y": 2688,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6927,8 +3952,8 @@
       "petId": "pet-brasa"
     },
     "pet-brasa_idle_02": {
-      "x": 384,
-      "y": 4800,
+      "x": 480,
+      "y": 2688,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6944,8 +3969,8 @@
       "petId": "pet-brasa"
     },
     "pet-brasa_idle_03": {
-      "x": 480,
-      "y": 4800,
+      "x": 576,
+      "y": 2688,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6961,8 +3986,8 @@
       "petId": "pet-brasa"
     },
     "pet-brasa_follow_00": {
-      "x": 576,
-      "y": 4800,
+      "x": 672,
+      "y": 2688,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6978,8 +4003,8 @@
       "petId": "pet-brasa"
     },
     "pet-brasa_follow_01": {
-      "x": 672,
-      "y": 4800,
+      "x": 0,
+      "y": 2784,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -6995,8 +4020,8 @@
       "petId": "pet-brasa"
     },
     "pet-brasa_follow_02": {
-      "x": 0,
-      "y": 4896,
+      "x": 96,
+      "y": 2784,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -7012,8 +4037,8 @@
       "petId": "pet-brasa"
     },
     "pet-brasa_follow_03": {
-      "x": 96,
-      "y": 4896,
+      "x": 192,
+      "y": 2784,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -7029,8 +4054,8 @@
       "petId": "pet-brasa"
     },
     "pet-brasa_follow_04": {
-      "x": 192,
-      "y": 4896,
+      "x": 288,
+      "y": 2784,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -7046,8 +4071,8 @@
       "petId": "pet-brasa"
     },
     "pet-brasa_follow_05": {
-      "x": 288,
-      "y": 4896,
+      "x": 384,
+      "y": 2784,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -7063,8 +4088,8 @@
       "petId": "pet-brasa"
     },
     "pet-brasa_collect_00": {
-      "x": 384,
-      "y": 4896,
+      "x": 480,
+      "y": 2784,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -7080,8 +4105,8 @@
       "petId": "pet-brasa"
     },
     "pet-brasa_collect_01": {
-      "x": 480,
-      "y": 4896,
+      "x": 576,
+      "y": 2784,
       "w": 96,
       "h": 96,
       "pivot": {
@@ -7097,8 +4122,8 @@
       "petId": "pet-brasa"
     },
     "pet-brasa_collect_02": {
-      "x": 576,
-      "y": 4896,
+      "x": 672,
+      "y": 2784,
       "w": 96,
       "h": 96,
       "pivot": {
