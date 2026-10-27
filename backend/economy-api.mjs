@@ -103,7 +103,7 @@ const server = createServer(async (req, res) => {
     if (url.pathname === '/api/economy/loadout') return await serialize(async () => {
       const next = structuredClone(database); const p = next.players[sid]; const e = p.economy;
       if (body.character !== undefined) { if (!['crisoman', 'crisogirl'].includes(body.character)) throw error('Personagem inválido.'); e.character = body.character; }
-      else if (body.skinId !== undefined) { const item = skins.get(body.skinId); if (!item || !e.owned.includes(item.id) || item.character !== e.character) throw error('Skin bloqueada ou incompatível.'); e.equippedSkin[e.character] = item.id; }
+      else if (body.skinId !== undefined) { const item = skins.get(body.skinId); if (!item || !e.owned.includes(item.id)) throw error('Skin bloqueada ou incompatível.'); e.character = item.character; e.equippedSkin[item.character] = item.id; }
       else if (body.petId !== undefined) { if (body.petId !== null && (!pets.has(body.petId) || !e.owned.includes(body.petId))) throw error('Pet bloqueado.'); e.equippedPet = body.petId; }
       else throw error('Seleção inválida.'); await persist(next); database = next; return reply(res, 200, snapshot(p));
     });
