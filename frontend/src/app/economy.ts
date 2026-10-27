@@ -1,4 +1,5 @@
 import { CATALOG, MATERIALS, RECYCLING, RUN_LIMITS, type CharacterId } from './catalog';
+import { LEVEL_COUNT } from './progress';
 
 export interface EconomyState {
   coins: number;
@@ -106,7 +107,7 @@ export interface RunSettlement {
   collectibles: { id: string; type: 'coin' | 'material'; material?: string }[];
 }
 export function settleRun(state: EconomyState, run: RunSettlement) {
-  if (!run.won || !Number.isInteger(run.level) || run.level < 0 || run.level >= 8 || !validInt(state.coins)
+  if (!run.won || !Number.isInteger(run.level) || run.level < 0 || run.level >= LEVEL_COUNT || !validInt(state.coins)
     || !Number.isFinite(run.time) || run.time < 15 || run.time > RUN_LIMITS.maxSeconds || !Array.isArray(run.collectibles)) {
     return { state, rewardCoins: 0, rewardMaterials: 0, discarded: 0 };
   }

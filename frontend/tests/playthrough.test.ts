@@ -21,8 +21,8 @@ function makeEngine(level: number, done: { won: boolean; lost: boolean }) {
 }
 
 describe('layouts', () => {
-  it('has 8 missions with continuous ground at both mirror seams', () => {
-    expect(layouts).toHaveLength(8);
+  it('has 11 missions with continuous ground at both mirror seams', () => {
+    expect(layouts).toHaveLength(11);
     for (const l of layouts) {
       const g = l.surfaces.filter((s) => s.kind === 'ground');
       expect(g.length, l.id).toBeGreaterThan(0);

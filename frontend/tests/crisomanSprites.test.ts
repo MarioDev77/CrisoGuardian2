@@ -31,7 +31,7 @@ describe('spritesheet normalizado do Crisoman', () => {
     expect(total).toBe(40);
   });
   it('nenhuma pose que a máquina de animação pode emitir está faltando nos metadados', () => {
-    const used = new Set<string>(); const base: AnimInput = { t: 0, onGround: true, vx: 0, vy: 0, climbing: false, climbMoving: false, dead: false, dieT: 0, hurtT: 0, landT: 0, shootT: 9, specialT: 9, interactT: 0, victory: false };
+    const used = new Set<string>(); const base: AnimInput = { t: 0, onGround: true, vx: 0, vy: 0, climbing: false, climbMoving: false, dead: false, dieT: 0, hurtT: 0, landT: 0, collectT: 0, shootT: 9, specialT: 9, interactT: 0, victory: false };
     const rnd = (() => { let s = 7; return () => (s = (s * 16807) % 2147483647) / 2147483647; })();
     const a = new PlayerAnim(); const st = { ...base };
     for (let i = 0; i < 20000; i++) {

@@ -8,3 +8,5 @@ export const CATALOG = [...SKINS, ...PETS];
 export const RECYCLING = catalog.recycling;
 export const RUN_LIMITS = catalog.runLimits;
 export const MATERIALS = catalog.materials as readonly string[];
+
+export const NEW_ISLANDS = catalog.newIslands;

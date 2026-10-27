@@ -1,0 +1,95 @@
+[
+  {
+    "id": "manguezal-09",
+    "name": "Manguezal Vivo",
+    "slug": "manguezal",
+    "palette": {
+      "sky": "#a5e3df",
+      "far": "#4b9a88",
+      "mid": "#257b69",
+      "near": "#164c49",
+      "water": "#2e9d9b",
+      "ground": "#704f38",
+      "accent": "#c3f16c"
+    },
+    "theme": "mangrove",
+    "index": 8,
+    "layers": {
+      "sky": "/assets/islands/manguezal/background/sky.svg",
+      "far": "/assets/islands/manguezal/background/far.svg",
+      "mid": "/assets/islands/manguezal/background/mid.svg",
+      "near": "/assets/islands/manguezal/background/near.svg"
+    },
+    "tiles": {
+      "ground": "/assets/islands/manguezal/tiles/ground.svg",
+      "ledge": "/assets/islands/manguezal/tiles/ledge.svg",
+      "bridge": "/assets/islands/manguezal/tiles/bridge.svg",
+      "block": "/assets/islands/manguezal/tiles/block.svg"
+    },
+    "props": "/assets/islands/manguezal/props.svg",
+    "bin": "/assets/islands/manguezal/bin.svg",
+    "thumbnail": "/assets/islands/manguezal/thumbnail.svg"
+  },
+  {
+    "id": "geleira-10",
+    "name": "Geleira Azul",
+    "slug": "geleira",
+    "palette": {
+      "sky": "#b7e6f2",
+      "far": "#8fc9e0",
+      "mid": "#4c91b5",
+      "near": "#235a77",
+      "water": "#58bed4",
+      "ground": "#526d7d",
+      "accent": "#f2ffff"
+    },
+    "theme": "glacier",
+    "index": 9,
+    "layers": {
+      "sky": "/assets/islands/geleira/background/sky.svg",
+      "far": "/assets/islands/geleira/background/far.svg",
+      "mid": "/assets/islands/geleira/background/mid.svg",
+      "near": "/assets/islands/geleira/background/near.svg"
+    },
+    "tiles": {
+      "ground": "/assets/islands/geleira/tiles/ground.svg",
+      "ledge": "/assets/islands/geleira/tiles/ledge.svg",
+      "bridge": "/assets/islands/geleira/tiles/bridge.svg",
+      "block": "/assets/islands/geleira/tiles/block.svg"
+    },
+    "props": "/assets/islands/geleira/props.svg",
+    "bin": "/assets/islands/geleira/bin.svg",
+    "thumbnail": "/assets/islands/geleira/thumbnail.svg"
+  },
+  {
+    "id": "vulcao-11",
+    "name": "Vulcão Verde",
+    "slug": "vulcao",
+    "palette": {
+      "sky": "#8b88ad",
+      "far": "#625b7c",
+      "mid": "#483b4a",
+      "near": "#292c39",
+      "water": "#558b68",
+      "ground": "#3a353c",
+      "accent": "#b5eb6d"
+    },
+    "theme": "volcano",
+    "index": 10,
+    "layers": {
+      "sky": "/assets/islands/vulcao/background/sky.svg",
+      "far": "/assets/islands/vulcao/background/far.svg",
+      "mid": "/assets/islands/vulcao/background/mid.svg",
+      "near": "/assets/islands/vulcao/background/near.svg"
+    },
+    "tiles": {
+      "ground": "/assets/islands/vulcao/tiles/ground.svg",
+      "ledge": "/assets/islands/vulcao/tiles/ledge.svg",
+      "bridge": "/assets/islands/vulcao/tiles/bridge.svg",
+      "block": "/assets/islands/vulcao/tiles/block.svg"
+    },
+    "props": "/assets/islands/vulcao/props.svg",
+    "bin": "/assets/islands/vulcao/bin.svg",
+    "thumbnail": "/assets/islands/vulcao/thumbnail.svg"
+  }
+]

@@ -25,8 +25,8 @@ function buried(b: Body, s: I['world']['surfaces'][number]): number {
 }
 
 afterEach(() => vi.restoreAllMocks());
-describe('fuzz de colisão (8 fases, entradas aleatórias)', () => {
-  for (let lvl = 0; lvl < 8; lvl++) {
+describe('fuzz de colisão (11 fases, entradas aleatórias)', () => {
+  for (let lvl = 0; lvl < 11; lvl++) {
     it(`fase ${lvl + 1}: herói e inimigos nunca ficam presos em sólidos nem saem do mapa`, () => {
       let worstP = 0, worstE = 0, outside = 0, nan = 0, held = 0, wins = 0;
       for (let seed = 0; seed < 6; seed++) {
@@ -50,4 +50,5 @@ describe('fuzz de colisão (8 fases, entradas aleatórias)', () => {
     }, 15000);
   }
 });
+
 

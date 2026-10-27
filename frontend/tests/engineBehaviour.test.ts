@@ -56,7 +56,7 @@ describe('salto e controles', () => {
 describe('animação x física', () => {
   it('parado em idle; correndo só com velocidade; no ar nunca fica em idle/walk/run; não corre parado', () => {
     const e = make(); const seen: [string, number, boolean][] = []; e.setControl('right', false);
-    run(e, 0.5, () => seen.push([e.anim.state, e.p.vx, e.p.onGround])); expect(seen.every((s) => s[0] === 'idle' || s[0] === 'landing')).toBe(true);
+    run(e, 0.5, () => seen.push([e.anim.state, e.p.vx, e.p.onGround])); expect(seen.every((s) => s[0] === 'idle' || s[0] === 'landing' || s[0] === 'collect')).toBe(true);
     e.setControl('right', true); e.setControl('jump', true); const air: string[] = []; const still: string[] = [];
     run(e, 1.4, () => { if (!e.p.onGround) air.push(e.anim.state); if (e.p.onGround && Math.abs(e.p.vx) < 10) still.push(e.anim.state); });
     expect(air.length).toBeGreaterThan(10); expect(air.some((s) => ['idle', 'walk', 'run'].includes(s))).toBe(false);

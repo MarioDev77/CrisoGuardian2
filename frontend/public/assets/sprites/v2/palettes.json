@@ -1,0 +1,62 @@
+{
+  "skin-crisoman-verde": [
+    "#27a83b",
+    "#6aee67",
+    "#12552b",
+    "#f6c94d"
+  ],
+  "skin-crisoman-urbano": [
+    "#627582",
+    "#b8d0d3",
+    "#344650",
+    "#e9b95d"
+  ],
+  "skin-crisoman-natureza": [
+    "#9c6339",
+    "#dca65e",
+    "#583c2e",
+    "#7ed15d"
+  ],
+  "skin-crisoman-agua": [
+    "#168dc6",
+    "#62d8f1",
+    "#15577f",
+    "#eaffff"
+  ],
+  "skin-crisoman-fogo": [
+    "#d9432c",
+    "#ff9751",
+    "#7d2828",
+    "#ffe06b"
+  ],
+  "skin-crisogirl-rosa": [
+    "#dd368c",
+    "#ff85c4",
+    "#792653",
+    "#f9dc69"
+  ],
+  "skin-crisogirl-urbana": [
+    "#627582",
+    "#b8d0d3",
+    "#344650",
+    "#e9b95d"
+  ],
+  "skin-crisogirl-floresta": [
+    "#239b55",
+    "#7cdb70",
+    "#155e3b",
+    "#f1cd62"
+  ],
+  "skin-crisogirl-agua": [
+    "#168dc6",
+    "#62d8f1",
+    "#15577f",
+    "#fff1b2"
+  ],
+  "skin-crisogirl-fogo": [
+    "#df642d",
+    "#ffb75e",
+    "#853b29",
+    "#ffea73"
+  ]
+}

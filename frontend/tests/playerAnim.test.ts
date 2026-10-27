@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { PlayerAnim, type AnimInput, ATTACK_FIRE_T } from '../src/game/playerAnim';
 
-const base = (): AnimInput => ({ t: 0, onGround: true, vx: 0, vy: 0, climbing: false, climbMoving: false, dead: false, dieT: 0, hurtT: 0, landT: 0, shootT: 9, specialT: 9, interactT: 0, victory: false });
+const base = (): AnimInput => ({ t: 0, onGround: true, vx: 0, vy: 0, climbing: false, climbMoving: false, dead: false, dieT: 0, hurtT: 0, landT: 0, collectT: 0, shootT: 9, specialT: 9, interactT: 0, victory: false });
 /** Roda o controlador por `secs` segundos em passos de `dt`, aplicando `patch` a cada passo. */
 function run(a: PlayerAnim, st: AnimInput, secs: number, dt: number, patch: (s: AnimInput) => void = () => {}) {
   const seen: string[] = [];

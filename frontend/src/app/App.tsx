@@ -58,6 +58,7 @@ export default function App() {
       catch (err) { return { ok: false, message: err instanceof Error ? err.message : 'Falha ao salvar seleção.' }; }
     }}
     onMap={() => setScreen({ name: 'map' })}
+    onSelectLevel={(level) => setScreen({ name: 'lobby', level })}
     onStart={async () => {
       try { const result = await api<{ runId: string }>('/api/run/start', { level: screen.level }); setScreen({ name: 'play', level: screen.level, runId: result.runId }); return { ok: true, message: '' }; }
       catch (err) { return { ok: false, message: err instanceof Error ? err.message : 'Falha ao iniciar a partida.' }; }

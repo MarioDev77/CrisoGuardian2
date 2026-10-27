@@ -1,8 +1,10 @@
 export interface Frame { x: number; y: number; w: number; h: number; ax: number; ay: number }
+interface ActorFrame { x:number; y:number; w:number; h:number; pivot:{x:number;y:number}; animation:string; index:number; character?:string|null; skinId?:string|null; petId?:string|null; fps:number; loop:boolean }
+interface ActorManifest { frames: Record<string,ActorFrame> }
 export interface Src { img: CanvasImageSource; x: number; y: number; w: number; h: number }
 /** Entrada de public/assets/phases/catalog.json (gerada por tools/build_phase_assets.py). */
 export interface CatalogEntry { name: string; src: string; w: number; h: number; lip?: number; modular?: boolean; category: string; role: string; phase: number }
-export interface DrawOpts { scale?: number; flip?: boolean; alpha?: number; rot?: number; anchor?: 'feet' | 'center' }
+export interface DrawOpts { scale?: number; flip?: boolean; alpha?: number; rot?: number; anchor?: 'feet' | 'center'; pixelArt?: boolean }
 
 const BASE = '/assets/game/';
 
@@ -111,6 +113,10 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 /** Holds the sprite atlas, per-phase tile pieces and the 8 scene backdrops cut from the official sprites. */
 export class Assets {
   atlas!: HTMLImageElement;
+  spriteAtlasV2!: HTMLImageElement;
+  actorMeta: ActorManifest = { frames: {} };
+  private actorCycles = new Map<string,string[]>();
+  islandLayers = new Map<number, Record<string,HTMLImageElement>>();
   meta: Record<string, Frame> = {};
   tiles = new Map<string, HTMLImageElement>();
   /** Recuo (fração da altura do tile) entre o topo da imagem e a linha onde o personagem pisa; vem do catálogo de sprites. */
@@ -153,12 +159,22 @@ export class Assets {
   }
 
   private async load(): Promise<void> {
-    const [atlas, meta, tileNames] = await Promise.all([
+    const [atlas, meta, tileNames, actorAtlas, actorMeta, islandCatalog] = await Promise.all([
       loadImage(BASE + 'atlas.png'),
       fetch(BASE + 'atlas.json').then((r) => r.json() as Promise<Record<string, Frame>>),
       fetch(BASE + 'tiles.json').then((r) => r.json() as Promise<string[]>),
+      loadImage('/assets/sprites/v2/actors.svg'),
+      fetch('/assets/sprites/v2/actors.json').then((r) => r.json() as Promise<ActorManifest>),
+      fetch('/assets/islands/catalog.json').then((r) => r.json() as Promise<{index:number;layers:Record<string,string>}[]>),
     ]);
     this.atlas = atlas;
+    this.spriteAtlasV2 = actorAtlas;
+    this.actorMeta = actorMeta;
+    for (const [name, frame] of Object.entries(actorMeta.frames)) {
+      const key = frame.petId ? `${frame.petId}|${frame.animation}` : `${frame.character}|${frame.skinId}|${frame.animation}`;
+      this.actorCycles.set(key, [...(this.actorCycles.get(key) ?? []), name]);
+    }
+    for (const names of this.actorCycles.values()) names.sort((a,b) => actorMeta.frames[a]!.index - actorMeta.frames[b]!.index);
     this.meta = meta;
     // catálogo de sprites por fase (terreno modular, caixas, lixeiras, decoração): public/assets/phases/catalog.json
     const catalog = await fetch('/assets/phases/catalog.json').then((r) => r.json() as Promise<CatalogEntry[]>).catch(() => [] as CatalogEntry[]);
@@ -170,8 +186,19 @@ export class Assets {
       ...tileNames.map(async (n) => this.tiles.set(n, await loadImage(`${BASE}tiles/${n}.png`))),
       ...Array.from({ length: 8 }, (_, i) => i + 1).map(async (i) =>
         this.scenes.set(i, await loadImage(`${BASE}scenes/f${String(i).padStart(2, '0')}.png`))),
-    ]);
+    ]);    await Promise.all(islandCatalog.map(async (island) => {
+      const layers = await Promise.all(['sky','far','mid','near'].map(async (layer) => [layer, await loadImage(island.layers[layer]!)] as const));
+      this.islandLayers.set(island.index, Object.fromEntries(layers));
+    }));
   }
+
+  private cycleFrame(key: string, time: number): string | null {
+    const frames = this.actorCycles.get(key); if (!frames?.length) return null;
+    const meta = this.actorMeta.frames[frames[0]!]!; const step = Math.floor(Math.max(0, time) * meta.fps);
+    return frames[meta.loop ? step % frames.length : Math.min(frames.length - 1, step)]!;
+  }
+  actorFrame(character: string, skinId: string, animation: string, time: number): string | null { return this.cycleFrame(`${character}|${skinId}|${animation}`, time); }
+  petFrame(petId: string, animation: string, time: number): string | null { return this.cycleFrame(`${petId}|${animation}`, time); }
 
   /** Source rectangle of an atlas frame or tile piece, for custom slicing. */
   src(name: string): Src | null {
@@ -197,6 +224,12 @@ export class Assets {
   /** Draws a frame with its anchor (feet / center) at world position x,y. */
   draw(ctx: CanvasRenderingContext2D, name: string, x: number, y: number, o: DrawOpts = {}): void {
     const s = o.scale ?? 1;
+    const actor = this.actorMeta.frames[name];
+    if (actor) {
+      const ax = o.anchor === 'center' ? actor.w / 2 : actor.pivot.x;
+      const ay = o.anchor === 'center' ? actor.h / 2 : actor.pivot.y;
+      this.blit(ctx, this.spriteAtlasV2, actor.x, actor.y, actor.w, actor.h, x, y, actor.w, actor.h, s, o, ax, ay); return;
+    }
     const f = this.meta[name];
     if (!f) {
       const t = this.tiles.get(name);
@@ -213,7 +246,7 @@ export class Assets {
     x: number, y: number, w: number, h: number, s: number, o: DrawOpts, ax: number, ay: number): void {
     ctx.save();
     if (o.alpha !== undefined) ctx.globalAlpha = o.alpha;
-    if (CRISP_SPRITES && s * ctx.getTransform().a >= 1) ctx.imageSmoothingEnabled = false;
+    if ((o.pixelArt ?? CRISP_SPRITES) && s * ctx.getTransform().a >= 1) ctx.imageSmoothingEnabled = false;
     ctx.translate(x, y);
     if (o.rot) ctx.rotate(o.rot);
     if (o.flip) ctx.scale(-1, 1);

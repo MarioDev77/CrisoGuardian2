@@ -29,7 +29,7 @@ export class Engine {
   private keys: Record<Control, boolean> = { left: false, right: false, jump: false, shoot: false, special: false, up: false, down: false };
   private jumpWas = false; private specialWas = false;
   /** Máquina de estados da animação do herói; `interactT` = pose de interação; `shotPending` = tiro aguardando o quadro ativo do golpe. */
-  private anim = new PlayerAnim(); private interactT = 0; private shotPending = false;
+  private anim = new PlayerAnim(); private interactT = 0; private collectT = 0; private petCollectT = 0; private shotPending = false;
   paused = false; private ended = false;
   /** Depuração visual (hitboxes, origem do sprite, estado da animação): só em `npm run dev` (F3 ou ?debug=1). */
   private debug = false; private lastPF = { name: 'p_idle_0', state: 'idle' };
@@ -82,7 +82,7 @@ export class Engine {
       shootT: 9, shootCd: 0, specialCd: 0, hurtT: 0, landT: 0, dieT: 0, animT: 0, climbing: false, dropT: 0, coyote: 0, jumpBuf: 0, specialT: 9,
     };
     this.safe = { x: this.p.x, y: this.p.y, t: 0 };
-    this.anim.reset(); this.interactT = 0; this.shotPending = false;
+    this.anim.reset(); this.interactT = 0; this.collectT = 0; this.petCollectT = 0; this.shotPending = false;
     this.fallCount = 0; this.enemies = []; this.pickups = []; this.bins = []; this.shots = []; this.sludge = []; this.parts = []; this.texts = [];
     this.coins = 0; this.score = 0; this.materials = 0; this.runCollectibles = []; this.sinceBin = 0; this.time = 0; this.ended = false; this.boss = null; this.win = null; this.introT = getSettings().introAnim ? 0 : 99; this.portalSpin = 0;
     for (const s of w.walkers) {
@@ -183,7 +183,7 @@ export class Engine {
     this.portalSpin += dt * 0.8;
     const p = this.p; const w = this.world; this.t += dt; this.time += dt;
     for (const k of ['inv', 'shield', 'speed', 'hurtT', 'landT', 'shootCd', 'specialCd', 'dropT', 'jumpBuf'] as const) p[k] = Math.max(0, p[k] - dt);
-    this.interactT = Math.max(0, this.interactT - dt);
+    this.interactT = Math.max(0, this.interactT - dt); this.collectT = Math.max(0, this.collectT - dt); this.petCollectT = Math.max(0, this.petCollectT - dt);
     p.shootT += dt; p.specialT += dt; p.animT += dt; this.shake = Math.max(0, this.shake - dt); this.specialFx = Math.max(0, this.specialFx - dt);
     this.banner.t = Math.max(0, this.banner.t - dt);
 
@@ -433,7 +433,7 @@ export class Engine {
     const p = this.p;
     for (const k of this.pickups) {
       if (k.taken || !overlap(p, { x: k.x - 6, y: k.y - 6, w: k.w + 12, h: k.h + 12 })) continue;
-      k.taken = true; const cx = k.x + k.w / 2, cy = k.y + k.h / 2;
+      k.taken = true; this.collectT = 0.45; this.petCollectT = 0.6; const cx = k.x + k.w / 2, cy = k.y + k.h / 2;
       if (k.type === 'coin') { this.runCollectibles.push({ id: k.spawnKey ?? `coin:${k.id}`, type: 'coin' }); audio.sfx('coin'); this.coins++; this.cb.onAnnounce?.(`Moeda coletada. Total: ${this.coins}.`); this.score += 10; this.spawnParts(cx, cy, '#ffd84a', 4, 120); }
       else if (k.type === 'waste') { this.runCollectibles.push({ id: k.spawnKey ?? `material:${k.id}`, type: 'material', material: k.value }); audio.sfx('waste'); this.materials++; this.sinceBin++; this.cb.onAnnounce?.(`Resíduo recolhido. ${this.materials} de ${this.totalMaterials}.`); const v = WASTE_VALUE[k.value as keyof typeof WASTE_VALUE] ?? 50; this.score += v; this.float(cx, cy - 10, '+' + v, '#9dffb0'); this.spawnParts(cx, cy, '#9dffb0', 6, 150); }
       else {
@@ -539,16 +539,17 @@ export class Engine {
     const p = this.p; const k = this.keys;
     const f = this.anim.update({
       t: p.animT, onGround: p.onGround, vx: p.vx, vy: p.vy, climbing: p.climbing, climbMoving: k.up || k.down || Math.abs(p.vx) > 20,
-      dead: p.dieT > 0, dieT: p.dieT, hurtT: p.hurtT, landT: p.landT, shootT: p.shootT, specialT: p.specialT, interactT: this.interactT,
+      dead: p.dieT > 0, dieT: p.dieT, hurtT: p.hurtT, landT: p.landT, collectT: this.collectT, shootT: p.shootT, specialT: p.specialT, interactT: this.interactT,
       victory: !!this.win && this.win.phase === 'walk',
     });
     return { name: f.name, state: f.state, alpha: p.inv > 0 && p.dieT <= 0 && Math.floor(p.inv * 14) % 2 ? 0.45 : 1 };
   }
 
   private drawPet(ctx: CanvasRenderingContext2D): void {
-    if (!this.appearance.petId) return; const p=this.p; const pet=this.appearance.petId; const x=p.x+(p.facing>0?-20:46); const y=p.y+54+Math.sin(this.t*4)*5; const colors:Record<string,string>={'pet-turtix':'#60c980','pet-foxy':'#f29a4a','pet-folhinha':'#a5df55','pet-pipoca':'#64d8dc','pet-brasa':'#ff744e'}; const color=colors[pet]??'#8ee99f'; const px=3;
-    ctx.save();ctx.globalAlpha=.96;ctx.fillStyle='#06150d';ctx.fillRect(x+2*px,y+8*px,7*px,2*px);ctx.fillStyle=color;ctx.fillRect(x+2*px,y+3*px,8*px,5*px);ctx.fillRect(x+4*px,y+1*px,5*px,4*px);
-    if(pet==='pet-turtix'){ctx.fillStyle='#277c4b';ctx.fillRect(x+2*px,y+2*px,7*px,4*px);ctx.fillStyle='#a0e69a';ctx.fillRect(x+4*px,y+3*px,2*px,2*px);}else if(pet==='pet-foxy'||pet==='pet-brasa'){ctx.fillStyle=color;ctx.fillRect(x+4*px,y,2*px,3*px);ctx.fillRect(x+8*px,y,2*px,3*px);ctx.fillStyle='#fff2cf';ctx.fillRect(x+5*px,y+3*px,3*px,2*px);}else{ctx.fillStyle=color;ctx.fillRect(x+5*px,y-2*px,2*px,4*px);ctx.fillRect(x+8*px,y-1*px,2*px,3*px);}ctx.fillStyle='#102318';ctx.fillRect(x+7*px,y+3*px,px,px);ctx.fillRect(x+10*px,y+3*px,px,px);ctx.fillStyle=color;ctx.fillRect(x+3*px,y+7*px,2*px,2*px);ctx.fillRect(x+8*px,y+7*px,2*px,2*px);ctx.restore();
+    const pet=this.appearance.petId; if (!pet) return; const p=this.p;
+    const frame=this.assets.petFrame?.(pet,this.petCollectT>0?'collect':Math.abs(p.vx)>35?'follow':'idle',this.t);
+    if (!frame) return; const x=p.x+(p.facing>0?-20:46); const y=p.y+54+Math.sin(this.t*4)*3;
+    this.assets.draw(ctx,frame,x,y,{scale:0.72,anchor:'center',flip:p.facing<0});
   }
 
   private enemyFrame(e: Enemy): string {
@@ -602,12 +603,20 @@ export class Engine {
     const cam = Math.round(this.cam);
     if (this.win && this.win.z !== 1) { const zx = w.goal.x - cam, zy = w.goal.y - 78, z = this.win.z; ctx.translate(zx, zy); ctx.scale(z, z); ctx.translate(-zx, -zy); }
 
-    // backdrop: official scene art, mirrored every second screen
-    const scene = a.scenes.get(this.levelIndex + 1);
-    if (scene) for (let i = 0; i < w.layout.screens; i++) {
-      const x = i * w.screenW - cam; if (x > VIEW_W || x + w.screenW < 0) continue;
-      if (i % 2) { ctx.save(); ctx.translate(x + w.screenW, 0); ctx.scale(-1, 1); ctx.drawImage(scene, 0, 0, w.screenW + 1.5, VIEW_H); ctx.restore(); }
-      else ctx.drawImage(scene, x - 0.5, 0, w.screenW + 1.5, VIEW_H);
+    // New islands use four cached parallax layers; original eight phases keep their painted backdrops.
+    const layers=a.islandLayers?.get(this.levelIndex);
+    if (layers) {
+      for (const [name,rate] of [['sky',0],['far',0.12],['mid',0.3],['near',0.52]] as const) {
+        const img=layers[name]; if (!img) continue; const shift=(cam*rate)%VIEW_W;
+        ctx.drawImage(img,-shift,0,VIEW_W,VIEW_H); if (shift>0) ctx.drawImage(img,VIEW_W-shift,0,VIEW_W,VIEW_H);
+      }
+    } else {
+      const scene = a.scenes.get(this.levelIndex + 1);
+      if (scene) for (let i = 0; i < w.layout.screens; i++) {
+        const x = i * w.screenW - cam; if (x > VIEW_W || x + w.screenW < 0) continue;
+        if (i % 2) { ctx.save(); ctx.translate(x + w.screenW, 0); ctx.scale(-1, 1); ctx.drawImage(scene, 0, 0, w.screenW + 1.5, VIEW_H); ctx.restore(); }
+        else ctx.drawImage(scene, x - 0.5, 0, w.screenW + 1.5, VIEW_H);
+      }
     }
     ctx.translate(-cam, 0);
     const vis = (x: number, wd: number) => x + wd > cam - 80 && x < cam + VIEW_W + 80;
@@ -663,7 +672,7 @@ export class Engine {
     const wn = this.win;
     if (!wn || wn.phase === 'walk') {
       const gy = p.onGround ? p.y + p.h : this.groundBelow(p.x + p.w / 2, p.y + p.h); if (gy !== null && p.dieT <= 0) this.shadow(p.x + p.w / 2, gy, 30, 1, p.onGround ? 0 : gy - (p.y + p.h));
-      this.drawPet(ctx); ctx.save(); const alt=this.appearance.skinId; const filter=this.appearance.character==='crisogirl'?'hue-rotate(205deg) ':''; const palette=alt.includes('urbana')||alt.includes('urbano')?'grayscale(.72) ':alt.includes('natureza')||alt.includes('floresta')?'sepia(.55) saturate(1.25) ':alt.includes('agua')?'hue-rotate(100deg) saturate(1.2) ':alt.includes('fogo')?'hue-rotate(250deg) saturate(1.35) ':''; ctx.filter=filter+palette; a.draw(ctx, pf.name, p.x + p.w / 2, p.y + p.h + 3, { scale: PS, flip: p.facing < 0, alpha: pf.alpha }); ctx.restore();
+      this.drawPet(ctx); const animName:Record<string,string>={idle:'idle',walk:'walk',run:'run',jumpStart:'jump',jumpRise:'jump',jumpApex:'jump',fall:'fall',landing:'jump',collect:'collect',interact:'collect',hurt:'hurt',victory:'celebrate',climb:'walk'}; const v2=a.actorFrame?.(this.appearance.character,this.appearance.skinId,animName[pf.state]??'',this.anim.stateT); a.draw(ctx, v2??pf.name, p.x + p.w / 2, p.y + p.h + 3, { scale: v2 ? 1.06 : PS, flip: p.facing < 0, alpha: pf.alpha });
     } else if (wn.phase === 'suck') {
       // o herói é puxado em espiral para dentro do portal: arco, giro, encolhendo e apagando
       const u = Math.min(1, wn.pt / 0.85), e = Math.pow(u, 2.2); const gx = this.world.goal.x, gyy = this.world.goal.y - 78;

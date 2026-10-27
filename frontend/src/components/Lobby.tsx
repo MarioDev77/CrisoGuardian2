@@ -3,19 +3,20 @@ import { Assets } from '../game/assets';
 import type { EconomyState } from '../app/economy';
 import { CATALOG, MATERIALS, PETS, RECYCLING, SKINS, type CharacterId } from '../app/catalog';
 import type { Progress } from '../app/progress';
+import { levelConfigs } from '../game/levels/levelConfigs';
 import s from './Shop.module.css';
 
-type Mode = 'lobby' | 'shop' | 'recycle';
+type Mode = 'lobby' | 'shop' | 'recycle' | 'islands';
 type ActionResult = { ok: boolean; message: string };
 interface Props {
   level: number; progress: Progress; economy: EconomyState;
   onEconomy: (next: EconomyState) => Promise<ActionResult>;
-  onStart: () => Promise<ActionResult>; onMap: () => void;
+  onStart: () => Promise<ActionResult>; onMap: () => void; onSelectLevel: (level:number) => void;
   onPurchase: (id: string) => Promise<ActionResult>;
   onRecycle: (material: string, batches: number) => Promise<ActionResult>;
 }
 
-export default function Lobby({ level, progress, economy, onEconomy, onStart, onMap, onPurchase, onRecycle }: Props) {
+export default function Lobby({ level, progress, economy, onEconomy, onStart, onMap, onSelectLevel, onPurchase, onRecycle }: Props) {
   const [mode, setMode] = useState<Mode>('lobby');
   const [tab, setTab] = useState<'skins' | 'pets'>('skins');
   const [filter, setFilter] = useState<CharacterId>(economy.character);
@@ -54,7 +55,7 @@ export default function Lobby({ level, progress, economy, onEconomy, onStart, on
 
   return <main className={s.wrap}><div className={s.panel}>
     <header className={s.header}><div><span className={s.eyebrow}>CRISOGUARDIAN · FASE {level + 1} · {progress.unlocked}/{progress.stars.length} liberadas</span>
-      <h1>{mode === 'lobby' ? 'Preparar missão' : mode === 'shop' ? 'Loja do guardião' : 'Centro de reciclagem'}</h1></div><div className={s.balance}>🪙 {economy.coins}</div></header>
+      <h1>{mode === 'lobby' ? 'Preparar missão' : mode === 'shop' ? 'Loja do guardião' : mode === 'recycle' ? 'Centro de reciclagem' : 'Escolha uma ilha'}</h1></div><div className={s.balance}>🪙 {economy.coins}</div></header>
     {mode === 'lobby' && <>
       <section className={s.hero}><div className={s.avatar}><CharacterPreview character={character} skinId={equipped?.id ?? ''} petId={pet?.id ?? null}/><small>{character === 'crisoman' ? 'CRISOMAN' : 'CRISOGIRL'}</small></div>
         <div className={s.heroInfo}><h2>{character === 'crisoman' ? 'Crisoman' : 'Crisogirl'}</h2><p>Skin: <b>{equipped?.name}</b> · Pet: <b>{pet?.name ?? 'nenhum'}</b></p>
@@ -65,9 +66,10 @@ export default function Lobby({ level, progress, economy, onEconomy, onStart, on
         <button key={item.id} disabled={busy} className={item.id === economy.equippedSkin[character] ? s.selected : ''} onClick={() => void equip(item.id)}>{item.name} <i style={{ background: item.palette }}/></button>)}</div></div>
         <div><h3>Seus pets</h3><div className={s.items}><button disabled={busy} className={!pet ? s.selected : ''} onClick={() => void changeLoadout({ ...economy, equippedPet: null }, 'Pet removido.')}>Sem pet</button>
           {PETS.filter((item) => economy.owned.includes(item.id)).map((item) => <button key={item.id} disabled={busy} className={item.id === economy.equippedPet ? s.selected : ''} onClick={() => void equip(item.id)}>{item.name}</button>)}</div></div></section>
-      <footer className={s.actions}><button disabled={busy} onClick={() => void start()}>Jogar fase {level + 1} ▶</button><button className={s.secondary} onClick={() => setMode('shop')}>Loja</button>
+      <footer className={s.actions}><button disabled={busy} onClick={() => void start()}>Jogar fase {level + 1} ▶</button><button className={s.secondary} onClick={() => setMode('islands')}>Escolher ilha</button><button className={s.secondary} onClick={() => setMode('shop')}>Loja</button>
         <button className={s.secondary} onClick={() => setMode('recycle')}>Reciclagem</button><button className={s.ghost} onClick={onMap}>Voltar ao mapa</button></footer>
     </>}
+    {mode === 'islands' && <><section className={s.grid}>{levelConfigs.map((island,index)=><article key={island.id} className={s.card}><div className={s.swatch} style={{'--hero-color':island.palette.accent} as React.CSSProperties}>🏝️</div><h3>{island.name}</h3><p>{island.biome}</p><button disabled={index+1>progress.unlocked} onClick={()=>{onSelectLevel(index);setMode('lobby');}}>{index+1>progress.unlocked?'Bloqueada':index===level?'Selecionada':'Selecionar ilha'}</button></article>)}</section><button className={s.ghost} onClick={()=>setMode('lobby')}>← Voltar ao lobby</button></>}
     {mode === 'shop' && <><div className={s.tabs}><button aria-pressed={tab === 'skins'} onClick={() => setTab('skins')}>Skins</button><button aria-pressed={tab === 'pets'} onClick={() => setTab('pets')}>Pets</button>
       {tab === 'skins' && <select aria-label="Filtrar personagem" value={filter} onChange={(event) => setFilter(event.target.value as CharacterId)}><option value="crisoman">Crisoman</option><option value="crisogirl">Crisogirl</option></select>}</div>
       <section className={s.grid}>{(tab === 'skins' ? SKINS.filter((item) => item.character === filter) : PETS).map((item) => {

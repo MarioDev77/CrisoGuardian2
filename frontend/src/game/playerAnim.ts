@@ -18,7 +18,7 @@ export type PlayerState =
   | 'idle' | 'walk' | 'run'
   | 'jumpStart' | 'jumpRise' | 'jumpApex' | 'fall' | 'landing'
   | 'attackStart' | 'attack' | 'attackRecovery'
-  | 'hurt' | 'death' | 'victory' | 'interact' | 'special' | 'climb';
+  | 'hurt' | 'death' | 'victory' | 'interact' | 'collect' | 'special' | 'climb';
 
 /** Tempos (s) compartilhados com o motor, para pose e efeito acontecerem no mesmo instante. */
 export const HURT_TIME = 0.45;
@@ -38,7 +38,7 @@ export interface AnimInput {
   onGround: boolean; vx: number; vy: number;
   climbing: boolean; climbMoving: boolean;
   dead: boolean; dieT: number;
-  hurtT: number; landT: number;
+  hurtT: number; landT: number; collectT: number;
   shootT: number; specialT: number; interactT: number;
   /** Verdadeiro durante a comemoração ao chegar no portal. */
   victory: boolean;
@@ -95,6 +95,7 @@ export class PlayerAnim {
     if (this.dead || i.dead) { this.dead = true; return 'death'; }
     if (i.hurtT > 0) return 'hurt';
     if (i.specialT < SPECIAL_TIME) return 'special';
+    if (i.collectT > 0) return 'collect';
     if (i.climbing) return 'climb';
 
     if (!i.onGround) {
@@ -132,6 +133,7 @@ export class PlayerAnim {
       case 'attack': return 'p_shoot_1';
       case 'attackRecovery': return 'p_shoot_2';
       case 'interact': return `p_reload_${clamp(Math.floor((1 - i.interactT / INTERACT_TIME) * 4), 0, 3)}`;
+      case 'collect': return `p_reload_${clamp(Math.floor((0.45 - i.collectT) * 9), 0, 3)}`;
       case 'run': return `p_run_${f % 4}`;
       case 'walk': return `p_walk_${f % 5}`;
       default: return `p_idle_${f % 4}`;

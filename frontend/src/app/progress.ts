@@ -1,6 +1,7 @@
 export interface Progress { unlocked: number; stars: number[]; coins: number; best: number[] }
 const KEY = 'crisoverde-rust-progress-v2';
-export const LEVEL_COUNT = 8;
+import { NEW_ISLANDS } from './catalog';
+export const LEVEL_COUNT = 8 + NEW_ISLANDS.length;
 const fresh = (): Progress => ({ unlocked: 1, stars: Array(LEVEL_COUNT).fill(0), coins: 0, best: Array(LEVEL_COUNT).fill(0) });
 export function loadProgress(): Progress {
   try {

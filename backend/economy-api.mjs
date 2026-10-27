@@ -2,18 +2,13 @@ import { createServer } from 'node:http';
 import { createHmac, randomBytes, timingSafeEqual, randomUUID } from 'node:crypto';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
-async function loadCatalog() {
-  // Monorepo/dev: fonte única no frontend. Deploy só da pasta backend/: usa a cópia local.
-  for (const rel of ['../frontend/src/app/catalog-data.json', './catalog-data.json']) {
-    try { return JSON.parse((await readFile(new URL(rel, import.meta.url), 'utf8')).replace(/^\uFEFF/, '')); } catch { /* tenta o próximo */ }
-  }
-  throw new Error('catalog-data.json não encontrado (esperado em ../frontend/src/app/ ou em backend/).');
-}
-const catalog = await loadCatalog();
+import { fileURLToPath } from 'node:url';
+const catalog = JSON.parse((await readFile(new URL('../frontend/src/app/catalog-data.json', import.meta.url), 'utf8')).replace(/^\uFEFF/, ''));
 
-const port = Number(process.env.CRISO_API_PORT ?? process.env.PORT ?? 4174);
-const host = process.env.CRISO_API_HOST ?? (process.env.PORT ? '0.0.0.0' : '127.0.0.1');
-const dataDir = resolve(process.env.CRISO_DATA_DIR ?? 'backend/data');
+const port = Number(process.env.CRISO_API_PORT ?? 4174);
+const backendDir = dirname(fileURLToPath(import.meta.url));
+const dataDir = process.env.CRISO_DATA_DIR ? resolve(process.env.CRISO_DATA_DIR) : join(backendDir, 'data');
+const legacyDataDir = resolve(backendDir, '../frontend/server/data');
 const dataFile = join(dataDir, 'players.signed.json');
 const backupFile = join(dataDir, 'players.backup.signed.json');
 const secretFile = join(dataDir, 'server.key');
@@ -26,10 +21,11 @@ let queue = Promise.resolve();
 const skins = new Map(catalog.skins.map((item) => [item.id, item]));
 const pets = new Map(catalog.pets.map((item) => [item.id, item]));
 const allItems = new Map([...skins, ...pets]);
+const LEVEL_COUNT = 8 + catalog.newIslands.length;
 const materialSet = new Set(catalog.materials);
 
 function freshPlayer() {
-  return { economy: { coins: 0, materials: Object.fromEntries(catalog.materials.map((m) => [m, 0])), owned: ['skin-crisoman-verde', 'skin-crisogirl-rosa'], equippedSkin: { crisoman: 'skin-crisoman-verde', crisogirl: 'skin-crisogirl-rosa' }, equippedPet: null, character: 'crisoman', claimedSpawns: [], transactions: [] }, progress: { unlocked: 1, stars: Array(8).fill(0), best: Array(8).fill(0) }, paidLevels: [] };
+  return { economy: { coins: 0, materials: Object.fromEntries(catalog.materials.map((m) => [m, 0])), owned: ['skin-crisoman-verde', 'skin-crisogirl-rosa'], equippedSkin: { crisoman: 'skin-crisoman-verde', crisogirl: 'skin-crisogirl-rosa' }, equippedPet: null, character: 'crisoman', claimedSpawns: [], transactions: [] }, progress: { unlocked: 1, stars: Array(LEVEL_COUNT).fill(0), best: Array(LEVEL_COUNT).fill(0) }, paidLevels: [] };
 }
 function safeInteger(value, max = Number.MAX_SAFE_INTEGER) { return Number.isSafeInteger(value) && value >= 0 && value <= max; }
 function cleanPlayer(value) {
@@ -43,10 +39,10 @@ function cleanPlayer(value) {
   if (p.economy.owned.includes(e.equippedPet) && pets.has(e.equippedPet)) p.economy.equippedPet = e.equippedPet;
   p.economy.claimedSpawns = Array.isArray(e.claimedSpawns) ? [...new Set(e.claimedSpawns.filter((id) => typeof id === 'string' && id.length <= 140))].slice(-10000) : [];
   p.economy.transactions = Array.isArray(e.transactions) ? e.transactions.filter((t) => t && typeof t.id === 'string' && typeof t.type === 'string' && typeof t.detail === 'string' && safeInteger(t.at) && Number.isSafeInteger(t.coinsDelta)).slice(-200) : [];
-  const pr = value.progress ?? {}; p.progress.unlocked = Number.isInteger(pr.unlocked) ? Math.max(1, Math.min(8, pr.unlocked)) : 1;
-  p.progress.stars = Array.isArray(pr.stars) ? Array.from({ length: 8 }, (_, i) => Number.isInteger(pr.stars[i]) ? Math.max(0, Math.min(3, pr.stars[i])) : 0) : p.progress.stars;
-  p.progress.best = Array.isArray(pr.best) ? Array.from({ length: 8 }, (_, i) => safeInteger(pr.best[i]) ? pr.best[i] : 0) : p.progress.best;
-  p.paidLevels = Array.isArray(value.paidLevels) ? [...new Set(value.paidLevels.filter((n) => Number.isInteger(n) && n >= 0 && n < 8))] : []; return p;
+  const pr = value.progress ?? {}; p.progress.unlocked = Number.isInteger(pr.unlocked) ? Math.max(1, Math.min(LEVEL_COUNT, pr.unlocked)) : 1;
+  p.progress.stars = Array.isArray(pr.stars) ? Array.from({ length: LEVEL_COUNT }, (_, i) => Number.isInteger(pr.stars[i]) ? Math.max(0, Math.min(3, pr.stars[i])) : 0) : p.progress.stars;
+  p.progress.best = Array.isArray(pr.best) ? Array.from({ length: LEVEL_COUNT }, (_, i) => safeInteger(pr.best[i]) ? pr.best[i] : 0) : p.progress.best;
+  p.paidLevels = Array.isArray(value.paidLevels) ? [...new Set(value.paidLevels.filter((n) => Number.isInteger(n) && n >= 0 && n < LEVEL_COUNT))] : []; return p;
 }
 function mac(payload) { return createHmac('sha256', key).update(payload).digest('hex'); }
 function envelope(payload) { return JSON.stringify({ payload, mac: mac(payload) }); }
@@ -59,9 +55,17 @@ async function persist(next) { const previous = await readSigned(dataFile); if (
 async function initialize() {
   await mkdir(dataDir, { recursive: true });
   if (process.env.CRISO_SERVER_SECRET) { if (process.env.CRISO_SERVER_SECRET.length < 32) throw new Error('CRISO_SERVER_SECRET precisa ter pelo menos 32 caracteres.'); key = process.env.CRISO_SERVER_SECRET; }
-  else { try { key = await readFile(secretFile); } catch { key = randomBytes(32); await writeFile(secretFile, key, { mode: 0o600, flag: 'wx' }).catch(async () => { key = await readFile(secretFile); }); } }
-  database = await readSigned(dataFile) ?? await readSigned(backupFile) ?? { players: {} };
-  if (!await readSigned(dataFile)) await atomicWrite(dataFile, envelope(JSON.stringify(database)));
+  else {
+    try { key = await readFile(secretFile); }
+    catch {
+      try { key = await readFile(join(legacyDataDir, 'server.key')); await writeFile(secretFile, key, { mode: 0o600, flag: 'wx' }); }
+      catch { key = randomBytes(32); await writeFile(secretFile, key, { mode: 0o600, flag: 'wx' }).catch(async () => { key = await readFile(secretFile); }); }
+    }
+  }
+  const current = await readSigned(dataFile); const backup = await readSigned(backupFile);
+  const legacy = current || backup ? null : await readSigned(join(legacyDataDir, 'players.signed.json')) ?? await readSigned(join(legacyDataDir, 'players.backup.signed.json'));
+  database = current ?? backup ?? legacy ?? { players: {} };
+  if (!current) await atomicWrite(dataFile, envelope(JSON.stringify(database)));
 }
 function serialize(fn) { const result = queue.then(fn); queue = result.catch(() => {}); return result; }
 function sessionId(req, res) {
@@ -108,7 +112,7 @@ const server = createServer(async (req, res) => {
       e.materials[material] -= amount; e.coins += gain; transaction(e, 'recycle', `${amount} ${material}`, gain); await persist(next); database = next; return reply(res, 200, { ...snapshot(p), message: `Troca concluída: +${gain} moedas.` });
     });
     if (url.pathname === '/api/run/start') {
-      const level = body.level; if (!Number.isInteger(level) || level < 0 || level >= 8) throw error('Fase inválida.'); if (level + 1 > player.progress.unlocked) throw error('Essa fase ainda está bloqueada.', 403);
+      const level = body.level; if (!Number.isInteger(level) || level < 0 || level >= LEVEL_COUNT) throw error('Fase inválida.'); if (level + 1 > player.progress.unlocked) throw error('Essa fase ainda está bloqueada.', 403);
       const runId = randomBytes(24).toString('hex'); activeRuns.set(sid, { id: runId, level, started: performance.now() }); return reply(res, 200, { runId });
     }
     if (url.pathname === '/api/run/settle') return await serialize(async () => {
@@ -131,14 +135,14 @@ const server = createServer(async (req, res) => {
       }
       e.claimedSpawns = [...new Set([...e.claimedSpawns, ...[...seen].map((id) => `${run.level}:${id}`)])].slice(-10000);
       const stars = Number.isInteger(body.stars) ? Math.max(0, Math.min(3, body.stars)) : 1; const score = safeInteger(body.score, 10000000) ? body.score : 0;
-      p.progress.unlocked = Math.min(8, Math.max(p.progress.unlocked, run.level + 2)); p.progress.stars[run.level] = Math.max(p.progress.stars[run.level], stars); p.progress.best[run.level] = Math.max(p.progress.best[run.level], score);
+      p.progress.unlocked = Math.min(LEVEL_COUNT, Math.max(p.progress.unlocked, run.level + 2)); p.progress.stars[run.level] = Math.max(p.progress.stars[run.level], stars); p.progress.best[run.level] = Math.max(p.progress.best[run.level], score);
       await persist(next); database = next; activeRuns.delete(sid); return reply(res, 200, { ...snapshot(p), payout: { coins: paidCoins, materials: paidMaterials, discarded: Math.max(0, coins - paidCoins) + Math.max(0, materialTotal - paidMaterials) } });
     });
     return reply(res, 404, { message: 'Rota não encontrada.' });
   } catch (err) { const status = Number.isInteger(err?.status) ? err.status : 500; if (status === 500) console.error('API CrisoGuardian:', err); return reply(res, status, { message: status === 500 ? 'Falha interna ao salvar a operação.' : err.message }); }
 });
 await initialize();
-server.listen(port, host, () => console.log(`Economia CrisoGuardian API ouvindo em http://${host}:${port}`));
+server.listen(port, process.env.CRISO_API_HOST ?? '127.0.0.1', () => console.log(`Economia CrisoGuardian API ouvindo em http://127.0.0.1:${port}`));
 server.on('error', (err) => { console.error(err); process.exitCode = 1; });
 
 
