@@ -4,7 +4,8 @@ import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 const catalog = JSON.parse((await readFile(new URL('../frontend/src/app/catalog-data.json', import.meta.url), 'utf8')).replace(/^\uFEFF/, ''));
 
-const port = Number(process.env.CRISO_API_PORT ?? 4174);
+const port = Number(process.env.CRISO_API_PORT ?? process.env.PORT ?? 4174);
+const host = process.env.CRISO_API_HOST ?? (process.env.PORT ? '0.0.0.0' : '127.0.0.1');
 const dataDir = resolve(process.env.CRISO_DATA_DIR ?? 'backend/data');
 const dataFile = join(dataDir, 'players.signed.json');
 const backupFile = join(dataDir, 'players.backup.signed.json');
@@ -130,7 +131,7 @@ const server = createServer(async (req, res) => {
   } catch (err) { const status = Number.isInteger(err?.status) ? err.status : 500; if (status === 500) console.error('API CrisoGuardian:', err); return reply(res, status, { message: status === 500 ? 'Falha interna ao salvar a operação.' : err.message }); }
 });
 await initialize();
-server.listen(port, process.env.CRISO_API_HOST ?? '127.0.0.1', () => console.log(`Economia CrisoGuardian API ouvindo em http://127.0.0.1:${port}`));
+server.listen(port, host, () => console.log(`Economia CrisoGuardian API ouvindo em http://${host}:${port}`));
 server.on('error', (err) => { console.error(err); process.exitCode = 1; });
 
 
