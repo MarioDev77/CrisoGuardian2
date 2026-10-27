@@ -46,6 +46,15 @@ describe('janela de configurações', () => {
     click(byLabel('Som ligado')); expect(getSettings().muted).toBe(true); expect(host.textContent).toContain('O som está desligado');
   });
 
+  it('modal mantém a navegação por Tab dentro da janela', () => {
+    open();
+    const dialog = host.querySelector('[role="dialog"]')!;
+    const items = [...dialog.querySelectorAll<HTMLButtonElement>('button:not([disabled])')];
+    const first = items[0]!; const last = items[items.length - 1]!;
+    act(() => { last.focus(); last.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', code: 'Tab', bubbles: true, cancelable: true })); });
+    expect(document.activeElement).toBe(first);
+  });
+
   it('Controles: remapeia pulo, troca com outra ação, recusa Esc e restaura o padrão', () => {
     const onClose = vi.fn(); open({ onClose }); tab('Controles');
     click(byLabel('Pular — tecla principal: Espaço')); expect(host.textContent).toContain('Pressione…');

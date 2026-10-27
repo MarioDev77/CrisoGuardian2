@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>CrisoGuardian — visualizador de sprites (DEV)</title>
+<style>
+ body{margin:0;background:#07160f;color:#d8ffe6;font:13px system-ui;display:flex;height:100vh}
+ aside{width:290px;padding:12px;overflow:auto;background:#0b2418;border-right:1px solid #1f5a3a}
+ main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-width:0}
+ canvas{background:conic-gradient(#2a3a30 25%,#1b2a22 0 50%,#2a3a30 0 75%,#1b2a22 0) 0 0/16px 16px;image-rendering:pixelated;max-width:96%}
+ button,select,input{font:inherit;color:inherit;background:#123a27;border:1px solid #2c7a4f;border-radius:6px;padding:4px 8px}
+ label{display:block;margin:8px 0 2px;opacity:.8} .row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+ .warn{color:#ffb86b} pre{white-space:pre-wrap;background:#06130d;padding:8px;border-radius:6px}
+</style></head><body>
+<aside>
+ <h3 style="margin:0 0 8px">Visualizador de sprites</h3>
+ <label>Personagem / grupo</label><select id="grp" style="width:100%"></select>
+ <label>Animação</label><select id="anim" style="width:100%"></select>
+ <label>FPS: <b id="fpsv"></b></label><input id="fps" type="range" min="1" max="30" style="width:100%">
+ <label>Zoom: <b id="zv"></b>×</label><input id="zoom" type="range" min="1" max="8" value="4" style="width:100%">
+ <label>Fundo</label><select id="bg" style="width:100%"><option value="checker">Transparente (xadrez)</option><option value="dark">Escuro</option><option value="light">Claro</option></select>
+ <div class="row" style="margin-top:10px"><button id="play">⏸ Pausar</button><button id="prev">◀</button><button id="next">▶</button></div>
+ <label><input type="checkbox" id="box" checked> retângulo do quadro</label>
+ <label><input type="checkbox" id="piv" checked> pivô (pés/centro)</label>
+ <label><input type="checkbox" id="flip"> espelhar</label>
+ <p id="state" class="warn"></p>
+ <pre id="info"></pre>
+ <p class="warn" id="warn"></p>
+</aside>
+<main><canvas id="cv"></canvas><div id="cap"></div></main>
+<script type="module">
+const $=id=>document.getElementById(id); const load=u=>fetch(u).then(r=>r.json()); const img=u=>new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=no;i.src=u});
+const A='/assets/sprites/actors/', C='/assets/sprites/crisoman/';
+const [actors,cris,atlas]=await Promise.all([load(A+'actors.json'),load(C+'crisoman.json'),img('/assets/game/atlas.png')]);
+const crisImg=await img(C+'crisoman.png');
+// grupos → { animação → { img, frames:[{x,y,w,h,ax,ay,name}], fps, loop } }
+const G={};
+const pick=(src,fr,names)=>names.map(n=>({...fr[n],name:n}));
+G['Crisoman']=Object.fromEntries(Object.entries(cris.animations).map(([k,v])=>[k,{img:crisImg,frames:pick(0,cris.frames,v.frames),fps:10,loop:true}]));
+for(const [k,v] of Object.entries(actors.enemies)) G['Inimigo: '+k]=Object.fromEntries(Object.entries(v.animations).map(([a,x])=>[a,{img:atlas,frames:pick(0,actors.frames,x.frames),fps:x.fps||4,loop:x.loop}]));
+G['Chefe']=Object.fromEntries(Object.entries(actors.boss.animations).map(([a,x])=>[a,{img:atlas,frames:pick(0,actors.frames,x.frames),fps:x.fps||3,loop:x.loop}]));
+G['Efeitos']=Object.fromEntries(Object.entries(actors.effects).map(([a,x])=>[a,{img:atlas,frames:pick(0,actors.frames,x.frames),fps:x.fps||4,loop:x.loop}]));
+const grp=$('grp'),an=$('anim'),cv=$('cv'),cx=cv.getContext('2d'); let cur,fi=0,playing=true,last=performance.now(),acc=0;
+for(const g of Object.keys(G)) grp.add(new Option(g,g));
+const fillAnim=()=>{an.innerHTML='';for(const a of Object.keys(G[grp.value])) an.add(new Option(`${a} (${G[grp.value][a].frames.length})`,a));setAnim()};
+const setAnim=()=>{cur=G[grp.value][an.value];fi=0;$('fps').value=cur.fps;$('fpsv').textContent=cur.fps;const source=grp.value==='Crisoman'?cris.states?.[an.value]:grp.value==='Chefe'?actors.boss.animations[an.value]:grp.value.startsWith('Inimigo: ')?actors.enemies[grp.value.slice(9)]?.animations[an.value]:null;const status=source?.status?source.status.toUpperCase():source?.note?'NOTA':'';$('state').textContent=[status,source?.note].filter(Boolean).join(' · ')||(cur.frames.length===1?'Pose única cadastrada':'Quadros cadastrados');check()};
+// checagem: quadros cortados (pixels visíveis na borda do retângulo)
+const tmp=document.createElement('canvas'),tx=tmp.getContext('2d',{willReadFrequently:true});
+function check(){const bad=[];for(const f of cur.frames){tmp.width=f.w;tmp.height=f.h;tx.clearRect(0,0,f.w,f.h);tx.drawImage(cur.img,f.x,f.y,f.w,f.h,0,0,f.w,f.h);const d=tx.getImageData(0,0,f.w,f.h).data;let e=0;for(let x=0;x<f.w;x++){e+=d[x*4+3]>8;e+=d[((f.h-1)*f.w+x)*4+3]>8}for(let y=0;y<f.h;y++){e+=d[y*f.w*4+3]>8;e+=d[(y*f.w+f.w-1)*4+3]>8}if(e>0)bad.push(`${f.name}: ${e}px na borda`)}
+ $('warn').textContent=bad.length?'⚠ possíveis cortes → '+bad.join(' · '):'✔ nenhum pixel visível nas bordas dos quadros'}
+function draw(){const f=cur.frames[fi],z=+$('zoom').value,pad=24;cv.width=(f.w+pad*2)*z;cv.height=(f.h+pad*2)*z;cx.imageSmoothingEnabled=false;if($('bg').value!=='checker'){cx.fillStyle=$('bg').value==='dark'?'#101010':'#f4f4f4';cx.fillRect(0,0,cv.width,cv.height)}cx.save();
+ if($('flip').checked){cx.translate(cv.width,0);cx.scale(-1,1)}
+ cx.drawImage(cur.img,f.x,f.y,f.w,f.h,pad*z,pad*z,f.w*z,f.h*z);
+ if($('box').checked){cx.strokeStyle='#ff4040';cx.strokeRect(pad*z+.5,pad*z+.5,f.w*z-1,f.h*z-1)}
+ if($('piv').checked){const px=(pad+f.ax)*z,py=(pad+f.ay)*z;cx.strokeStyle='#00ff66';cx.beginPath();cx.moveTo(px-12,py);cx.lineTo(px+12,py);cx.moveTo(px,py-12);cx.lineTo(px,py+12);cx.stroke()}
+ cx.restore();$('cap').textContent=`${f.name}  ·  quadro ${fi+1}/${cur.frames.length}`;
+ $('info').textContent=`x ${f.x}  y ${f.y}\nw ${f.w}  h ${f.h}\npivô ${f.ax}, ${f.ay}`}
+function tick(n){const dt=(n-last)/1000;last=n;if(playing){acc+=dt;const step=1/+$('fps').value;while(acc>=step){acc-=step;fi=(fi+1)%cur.frames.length}}draw();requestAnimationFrame(tick)}
+grp.onchange=fillAnim;an.onchange=setAnim;$('fps').oninput=e=>$('fpsv').textContent=e.target.value;$('zoom').oninput=e=>$('zv').textContent=e.target.value;$('zv').textContent=4;
+$('play').onclick=()=>{playing=!playing;$('play').textContent=playing?'⏸ Pausar':'▶ Tocar'};
+$('prev').onclick=()=>{playing=false;$('play').textContent='▶ Tocar';fi=(fi-1+cur.frames.length)%cur.frames.length};
+$('next').onclick=()=>{playing=false;$('play').textContent='▶ Tocar';fi=(fi+1)%cur.frames.length};
+fillAnim();requestAnimationFrame(tick);
+</script></body></html>
+

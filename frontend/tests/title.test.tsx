@@ -23,13 +23,22 @@ describe('tela de título', () => {
     render(<TitleScreen onPlay={onPlay} />);
     for (const l of ['Jogar', 'Configurações', 'Tutoriais', 'Sair']) expect(btn(l), l).toBeTruthy();
 
-    click(btn('Jogar')); expect(onPlay).toHaveBeenCalledTimes(1);
+    click(btn('Jogar')); expect(onPlay).not.toHaveBeenCalled(); expect(host.textContent).toContain('Como jogar');
+    click(textBtn('Começar a jogar')); expect(onPlay).toHaveBeenCalledTimes(1);
 
     click(btn('Configurações')); expect(host.textContent).toContain('Dificuldade'); expect(host.textContent).not.toContain('Liberar todas as fases'); expect(host.textContent).not.toContain('Apagar progresso');
     click(textBtn('Fechar')); expect(host.textContent).not.toContain('Dificuldade');
 
     click(btn('Tutoriais')); expect(host.textContent).toContain('Como jogar');
     click(textBtn('Entendi!')); expect(host.textContent).not.toContain('Como jogar');
+  });
+
+  it('mostra orientação na primeira visita e permite pular; próximas partidas iniciam direto', () => {
+    const onPlay = vi.fn(); render(<TitleScreen onPlay={onPlay} />);
+    click(btn('Jogar')); expect(host.textContent).toContain('Como jogar');
+    click(textBtn('Pular tutorial')); expect(onPlay).toHaveBeenCalledTimes(1);
+    expect(localStorage.getItem('crisoguardian-quickstart-v1')).toBe('done');
+    click(btn('Jogar')); expect(onPlay).toHaveBeenCalledTimes(2);
   });
 
   it('Sair pede confirmação e mostra a despedida', () => {
@@ -44,7 +53,8 @@ describe('tela de título', () => {
 
   it('Enter inicia o jogo, mas não com uma janela aberta', () => {
     const onPlay = vi.fn(); render(<TitleScreen onPlay={onPlay} />);
-    act(() => { window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' })); }); expect(onPlay).toHaveBeenCalledTimes(1);
+    act(() => { window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' })); }); expect(onPlay).not.toHaveBeenCalled(); expect(host.textContent).toContain('Como jogar');
+    click(textBtn('Começar a jogar')); expect(onPlay).toHaveBeenCalledTimes(1);
     click(btn('Tutoriais')); act(() => { window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' })); }); expect(onPlay).toHaveBeenCalledTimes(1);
     act(() => { window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape' })); }); expect(host.textContent).not.toContain('Como jogar');
   });
@@ -54,7 +64,7 @@ describe('fluxo do app', () => {
   it('título → mapa → voltar ao título; configurações do mapa funcionam', () => {
     render(<App />);
     expect(btn('Jogar')).toBeTruthy();
-    click(btn('Jogar')); expect(btn('Voltar à tela inicial')).toBeTruthy(); expect(btn('Fase 1')).toBeTruthy();
+    click(btn('Jogar')); expect(host.textContent).toContain('Como jogar'); click(textBtn('Começar a jogar')); expect(btn('Voltar à tela inicial')).toBeTruthy(); expect(btn('Fase 1')).toBeTruthy();
     click(btn('Configurações')); expect(host.textContent).toContain('Dificuldade'); expect(loadProgress().unlocked).toBe(1);
     click(textBtn('Fechar'));
     click(btn('Voltar à tela inicial')); expect(btn('Jogar')).toBeTruthy();

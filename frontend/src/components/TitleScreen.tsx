@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ExitDialog, Modal, SettingsDialog, TutorialDialog } from './Dialogs';
 import s from './Screens.module.css';
 import { useFit } from './useFit';
@@ -20,20 +20,24 @@ interface Props { onPlay: () => void }
 
 export default function TitleScreen({ onPlay }: Props) {
   const [panel, setPanel] = useState<Panel>(null);
+  const [firstVisit, setFirstVisit] = useState(() => { try { return localStorage.getItem('crisoguardian-quickstart-v1') !== 'done'; } catch { return true; } });
+  const [quickStart, setQuickStart] = useState(false);
   // faixa segura 7%–86%: do alto do logo até a base do botão SAIR nunca é cortada (celular com barra do navegador)
   const fit = useFit(W / H, { maxStretch: 1.25, cap: 1.6, safe: [0.07, 0.86], cropTop: 0.25 });
   const close = () => setPanel(null);
+  const start = useCallback(() => { if (firstVisit) setQuickStart(true); else onPlay(); }, [firstVisit, onPlay]);
+  const begin = useCallback(() => { try { localStorage.setItem('crisoguardian-quickstart-v1', 'done'); } catch { /* armazenamento indisponível: a sessão ainda pode começar */ } setFirstVisit(false); setQuickStart(false); onPlay(); }, [onPlay]);
 
   // Enter inicia o jogo (quando nenhuma janela está aberta e o foco não está em outro botão)
   useEffect(() => {
     const k = (e: KeyboardEvent) => {
       if (panel !== null || (e.code !== 'Enter' && e.code !== 'NumpadEnter')) return;
       if (e.target instanceof HTMLButtonElement) return;
-      onPlay();
+      start();
     };
     window.addEventListener('keydown', k);
     return () => window.removeEventListener('keydown', k);
-  }, [panel, onPlay]);
+  }, [panel, start]);
 
   // Navegadores só deixam fechar abas abertas pelo próprio jogo; se não fechar, mostramos a despedida.
   const quit = () => {
@@ -46,7 +50,7 @@ export default function TitleScreen({ onPlay }: Props) {
     <div className={s.title}>
       {fit.bars && <div className={s.backdrop} style={{ backgroundImage: `url('${ART}')` }} aria-hidden="true" />}
       <div className={s.titleStage} style={{ backgroundImage: `url('${ART}')`, left: fit.left, top: fit.top, width: fit.width, height: fit.height }} role="group" aria-label="CrisoGuardian — Protegendo o amanhã">
-        <button className={s.tbtn} style={box(BTN.play)} aria-label="Jogar" onClick={onPlay} />
+        <button className={s.tbtn} style={box(BTN.play)} aria-label="Jogar" onClick={start} />
         <button className={s.tbtn} style={box(BTN.settings)} aria-label="Configurações" onClick={() => setPanel('settings')} />
         <button className={s.tbtn} style={box(BTN.tutorial)} aria-label="Tutoriais" onClick={() => setPanel('tutorial')} />
         <button className={s.tbtn} style={box(BTN.exit)} aria-label="Sair" onClick={() => setPanel('exit')} />
@@ -56,6 +60,7 @@ export default function TitleScreen({ onPlay }: Props) {
 
       {panel === 'settings' && <SettingsDialog onClose={close} />}
       {panel === 'tutorial' && <TutorialDialog onClose={close} />}
+      {quickStart && <TutorialDialog onClose={() => setQuickStart(false)} onStart={begin} onSkip={begin} />}
       {panel === 'exit' && <ExitDialog onConfirm={quit} onClose={close} />}
       {panel === 'bye' && (
         <Modal label="Até logo" onClose={close}>

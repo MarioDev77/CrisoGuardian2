@@ -43,6 +43,8 @@ interface Props { level: number; onExit: () => void; onWin: (level: number, r: L
 
 export default function GameView({ level, onExit, onWin, onNext }: Props) {
   const canvas = useRef<HTMLCanvasElement>(null);
+  const announcements = useRef<HTMLDivElement>(null);
+  const announceFrame = useRef<number | null>(null);
   const engine = useRef<Engine | null>(null);
   const [paused, setPaused] = useState(false);
   const [result, setResult] = useState<{ win: boolean; r: LevelResult; stars: number } | null>(null);
@@ -61,11 +63,18 @@ export default function GameView({ level, onExit, onWin, onNext }: Props) {
       eng = new Engine(canvas.current, a, level, {
         onWin: (r) => { const stars = starsFor(r.materials, r.totalMaterials); setResult({ win: true, r, stars }); onWin(level, r, stars); },
         onLose: (r) => setResult({ win: false, r, stars: 0 }),
+        onAnnounce: (message) => {
+          const region = announcements.current; if (!region) return;
+          region.textContent = '';
+          if (announceFrame.current !== null) cancelAnimationFrame(announceFrame.current);
+          announceFrame.current = requestAnimationFrame(() => { if (announcements.current) announcements.current.textContent = message; });
+        },
       });
       engine.current = eng; eng.start(); setLoading(false);
+      if (announcements.current) announcements.current.textContent = `Fase ${level + 1}: ${name}. ${layouts[level]?.objective ?? ''} Consulte o tutorial ou as configurações para ver os comandos.`;
       if (window.matchMedia?.(PORTRAIT).matches) setPause(true);
     });
-    return () => { dead = true; eng?.destroy(); engine.current = null; };
+    return () => { dead = true; eng?.destroy(); engine.current = null; if (announceFrame.current !== null) cancelAnimationFrame(announceFrame.current); };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [level, run]);
 
@@ -103,7 +112,8 @@ export default function GameView({ level, onExit, onWin, onNext }: Props) {
   const name = layouts[level]?.name ?? '';
   return (
     <div className={s.game}>
-      <canvas ref={canvas} className={s.canvas} />
+      <canvas ref={canvas} className={s.canvas} role="img" aria-label={`Jogo CrisoGuardian: fase ${level + 1}, ${name}. Use os controles do teclado ou os botões de toque. Abra as configurações para consultar os comandos.`} />
+      <div ref={announcements} className={s.srOnly} role="status" aria-live="polite" aria-atomic="true" />
       {portrait && (
         <div className={s.rotateGame} role="alert">
           <i className={s.phoneIcon} aria-hidden="true" />
@@ -114,12 +124,12 @@ export default function GameView({ level, onExit, onWin, onNext }: Props) {
       {loading && <div className={s.loading}>Carregando {name}…</div>}
       {!loading && !result && <button className={s.pauseBtn} onClick={toggle} aria-label="Pausar">{paused ? '▶' : '❚❚'}</button>}
       <div className={s.mobile} data-touch={st.touchMode} data-size={st.touchSize}>
-        <div className={s.pad}><button {...hold('left')}>◀</button><button {...hold('right')}>▶</button><button {...hold('up')}>▲</button><button {...hold('down')}>▼</button></div>
-        <div className={s.pad}><button {...hold('special')}>★</button><button {...hold('shoot')}>●</button><button className={s.jump} {...hold('jump')}>⤒</button></div>
+        <div className={s.pad}><button aria-label="Mover à esquerda" {...hold('left')}>◀</button><button aria-label="Mover à direita" {...hold('right')}>▶</button><button aria-label="Subir escada" {...hold('up')}>▲</button><button aria-label="Descer escada" {...hold('down')}>▼</button></div>
+        <div className={s.pad}><button aria-label="Ativar ataque especial" {...hold('special')}>★</button><button aria-label="Atirar" {...hold('shoot')}>●</button><button className={s.jump} aria-label="Pular" {...hold('jump')}>⤒</button></div>
       </div>
       {paused && !result && (
-        <div className={s.overlay}><div className={`${s.dialog} ${s.dlgPause}`}><h2>Pausado</h2>
-          <button onClick={toggle}>Continuar</button><button className={s.secondary} onClick={restart}>Reiniciar fase</button><button className={s.secondary} onClick={() => setSettingsOpen(true)}>Configurações</button>
+        <div className={s.overlay}><div className={`${s.dialog} ${s.dlgPause}`} role="dialog" aria-modal="true" aria-labelledby="pause-title"><h2 id="pause-title">Pausado</h2>
+          <button onClick={toggle} autoFocus>Continuar</button><button className={s.secondary} onClick={restart}>Reiniciar fase</button><button className={s.secondary} onClick={() => setSettingsOpen(true)}>Configurações</button>
           {fullscreenSupported() && <button className={s.secondary} onClick={() => { void toggleFullscreen(); }}>Tela cheia</button>}
           <button className={s.ghost} onClick={onExit}>Voltar ao mapa</button></div></div>
       )}
@@ -127,10 +137,10 @@ export default function GameView({ level, onExit, onWin, onNext }: Props) {
       {result && (
         <div className={`${s.overlay} ${result.win ? s.overlayWin : ''}`}>
           {result.win && <Confetti />}
-          <div className={`${s.dialog} ${s.pop} ${s.dlgSplit}`}>
+          <div className={`${s.dialog} ${s.pop} ${s.dlgSplit}`} role="dialog" aria-modal="true" aria-labelledby="result-title">
             <div className={s.dlgHead}>
               {result.win && <p className={s.kicker}>Fase {level + 1} · {name}</p>}
-              <h2 className={result.win ? s.winTitle : undefined}>{result.win ? 'Fase concluída!' : 'Você foi derrotado'}</h2>
+              <h2 id="result-title" className={result.win ? s.winTitle : undefined}>{result.win ? 'Fase concluída!' : 'Você foi derrotado'}</h2>
               {result.win && <div className={s.stars}>{[0, 1, 2].map((k) => <span key={k} className={k < result.stars ? `${s.starOn} ${s.starPop}` : s.starOff} style={k < result.stars ? { animationDelay: `${0.45 + k * 0.4}s` } : undefined}>★</span>)}</div>}
             </div>
             <div className={s.dlgBody}>
@@ -142,7 +152,7 @@ export default function GameView({ level, onExit, onWin, onNext }: Props) {
               </div>
               {result.win && level < layouts.length - 1 && <button className={s.nextBtn} onClick={() => onNext(level + 1)} autoFocus>Próxima fase ▶</button>}
               {result.win && level === layouts.length - 1 && <p>Você salvou o Planeta Crisoverde! 🌍</p>}
-              <button className={s.secondary} onClick={() => setRun((n) => n + 1)}>{result.win ? 'Jogar de novo' : 'Tentar de novo'}</button>
+              <button className={s.secondary} autoFocus={!result.win} onClick={() => setRun((n) => n + 1)}>{result.win ? 'Jogar de novo' : 'Tentar de novo'}</button>
               <button className={s.ghost} onClick={onExit}>Voltar ao mapa</button>
             </div>
           </div>

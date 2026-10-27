@@ -13,9 +13,21 @@ export function Modal({ label, onClose, wide, children }: { label: string; onClo
   // o botão com foco automático fica no rodapé: em tela baixa isso rolava a janela até o fim; abre sempre no topo
   useEffect(() => { if (box.current) box.current.scrollTop = 0; }, []);
   useEffect(() => {
-    const k = (e: KeyboardEvent) => { if (e.code === 'Escape') { e.stopPropagation(); onClose(); } };
+    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const root = box.current;
+    const focusables = () => [...(root?.querySelectorAll<HTMLElement>('button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])') ?? [])].filter((el) => el.getAttribute('aria-hidden') !== 'true');
+    (focusables()[0] ?? root)?.focus();
+    const k = (e: KeyboardEvent) => {
+      if (e.code === 'Escape') { e.stopPropagation(); onClose(); return; }
+      if (e.key !== 'Tab') return;
+      const items = focusables();
+      if (!items.length) { e.preventDefault(); root?.focus(); return; }
+      const first = items[0]!; const last = items[items.length - 1]!;
+      if (e.shiftKey && (document.activeElement === first || !root?.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (document.activeElement === last || !root?.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+    };
     window.addEventListener('keydown', k);
-    return () => window.removeEventListener('keydown', k);
+    return () => { window.removeEventListener('keydown', k); previous?.focus(); };
   }, [onClose]);
   return (
     <div className={s.overlay} onClick={onClose}>
@@ -185,7 +197,7 @@ export function SettingsDialog({ onClose, inGame }: { onClose: () => void; inGam
 }
 
 /** Tutorial — descreve exatamente os controles e regras que existem no motor do jogo. */
-export function TutorialDialog({ onClose }: { onClose: () => void }) {
+export function TutorialDialog({ onClose, onStart, onSkip }: { onClose: () => void; onStart?: () => void; onSkip?: () => void }) {
   const st = useSettings();
   const keysOf = (a: Action) => st.keys[a].filter(Boolean).map((c, i) => <kbd key={i}>{keyLabel(c)}</kbd>);
   return (
@@ -221,7 +233,7 @@ export function TutorialDialog({ onClose }: { onClose: () => void }) {
           </ul>
         </section>
       </div>
-      <button onClick={onClose}>Entendi!</button>
+      {onStart ? <><button onClick={onStart} autoFocus>Começar a jogar</button>{onSkip && <button className={s.ghost} onClick={onSkip}>Pular tutorial</button>}</> : <button onClick={onClose}>Entendi!</button>}
     </Modal>
   );
 }

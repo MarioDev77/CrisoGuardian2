@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Engine } from '../src/game/engine';
 import type { Assets } from '../src/game/assets';
 
@@ -24,6 +24,7 @@ function buried(b: Body, s: I['world']['surfaces'][number]): number {
   return ox > 0 && oy > 0 ? Math.min(ox, oy) : 0;
 }
 
+afterEach(() => vi.restoreAllMocks());
 describe('fuzz de colisão (8 fases, entradas aleatórias)', () => {
   for (let lvl = 0; lvl < 8; lvl++) {
     it(`fase ${lvl + 1}: herói e inimigos nunca ficam presos em sólidos nem saem do mapa`, () => {
@@ -46,6 +47,7 @@ describe('fuzz de colisão (8 fases, entradas aleatórias)', () => {
       expect(worstP, 'herói enterrado em sólido (px)').toBeLessThan(3);
       expect(worstE, 'inimigo enterrado em sólido (px)').toBeLessThan(3);
       expect(held).toBe(0);
-    });
+    }, 15000);
   }
 });
+

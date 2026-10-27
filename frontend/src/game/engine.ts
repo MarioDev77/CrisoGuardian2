@@ -2,6 +2,7 @@ import { Assets } from './assets';
 import { buildWorld, VIEW_H, VIEW_W as BASE_VIEW_W, type World, type WSurface } from './level';
 import { audio } from './audio';
 import { PlayerAnim, ATTACK_FIRE_T, INTERACT_TIME } from './playerAnim';
+import { drawDebugWorld, drawDebugPanel, type DebugState } from './debugOverlay';
 import { AI, stepGround, stepFlyer, bump, kill, hurt as hurtAi, initAi, strikeBox, type TickCtx } from './enemyAI';
 import { stepBoss, AIM_LOCK, onDamaged, kill as killBoss, initBoss, bossBody, bossTouch, bossHarmful, PHASES, type BossEvent } from './bossAI';
 import { moveBody, moveX, moveY, settle, sweptBox, nearestAlong, playerHurtbox, type Box } from './collision';
@@ -10,7 +11,7 @@ import { ENEMIES, WASTE_VALUE, type Bin, type Boss, type Enemy, type EnemySpec, 
 
 export type Control = 'left' | 'right' | 'jump' | 'shoot' | 'special' | 'up' | 'down';
 export interface LevelResult { coins: number; score: number; materials: number; totalMaterials: number; hpLeft: number; time: number }
-export interface EngineCallbacks { onWin: (r: LevelResult) => void; onLose: (r: LevelResult) => void }
+export interface EngineCallbacks { onWin: (r: LevelResult) => void; onLose: (r: LevelResult) => void; onAnnounce?: (message: string) => void }
 
 const PW = 40, PH = 92, PS = 1.32;
 const GRAV = 2400, JUMP_V = 980;
@@ -27,6 +28,8 @@ export class Engine {
   /** Máquina de estados da animação do herói; `interactT` = pose de interação; `shotPending` = tiro aguardando o quadro ativo do golpe. */
   private anim = new PlayerAnim(); private interactT = 0; private shotPending = false;
   paused = false; private ended = false;
+  /** Depuração visual (hitboxes, origem do sprite, estado da animação): só em `npm run dev` (F3 ou ?debug=1). */
+  private debug = false; private lastPF = { name: 'p_idle_0', state: 'idle' };
 
   private p!: Player;
   private enemies: Enemy[] = []; private boss: Boss | null = null; private bossBlocked = false;
@@ -51,6 +54,7 @@ export class Engine {
     this.ctx = canvas.getContext('2d')!;
     this.assets.setLevel?.(levelIndex);
     this.reset();
+    if (import.meta.env.DEV) { this.debug = new URLSearchParams(location.search).has('debug'); }
     // teclas lidas das configurações a cada evento: remapear no menu de pausa vale imediatamente
     this.onKey = (e, down) => {
       const a: Action | null = actionForCode(e.code, getSettings().keys); if (!a || a === 'pause') return;
@@ -61,7 +65,7 @@ export class Engine {
     this.resizeObs = new ResizeObserver(() => this.resize()); this.resizeObs.observe(canvas.parentElement ?? canvas);
     this.resize();
   }
-  private kd = (e: KeyboardEvent) => this.onKey(e, true);
+  private kd = (e: KeyboardEvent) => { if (import.meta.env.DEV && e.code === 'F3') { e.preventDefault(); this.debug = !this.debug; return; } this.onKey(e, true); };
   private ku = (e: KeyboardEvent) => this.onKey(e, false);
   /** Solta todas as teclas (ao pausar, trocar de aba ou remapear), para o herói não ficar "preso" andando. */
   releaseAll = (): void => { for (const k of Object.keys(this.keys) as Control[]) this.keys[k] = false; this.jumpWas = false; this.specialWas = false; };
@@ -109,7 +113,7 @@ export class Engine {
   destroy(): void { cancelAnimationFrame(this.raf); window.removeEventListener('keydown', this.kd); window.removeEventListener('keyup', this.ku); this.resizeObs.disconnect(); window.removeEventListener('blur', this.releaseAll); this.unsubSettings(); }
   restart(): void { this.reset(); }
   setControl(c: Control, v: boolean): void { this.keys[c] = v; }
-  private say(text: string, t = 1.6): void { this.banner = { text, t }; }
+  private say(text: string, t = 1.6): void { this.banner = { text, t }; this.cb.onAnnounce?.(text); }
   private resultNow(): LevelResult { return { coins: this.coins, score: this.score, materials: this.materials, totalMaterials: this.totalMaterials, hpLeft: this.p.hp, time: this.time }; }
 
   private resize(): void {
@@ -132,14 +136,14 @@ export class Engine {
 
   private hurtPlayer(fromX: number): void {
     const p = this.p; if (p.inv > 0 || p.shield > 0 || p.dieT > 0) return;
-    p.hp -= 1; p.inv = DIFFICULTY[getSettings().difficulty].invuln; p.hurtT = 0.45; audio.sfx(p.hp <= 0 ? 'lose' : 'hurt'); p.vy = -420; p.vx = (p.x + p.w / 2 < fromX ? -1 : 1) * 280; p.climbing = false;
+    p.hp -= 1; this.cb.onAnnounce?.(p.hp <= 0 ? 'Você ficou sem vidas.' : `Você sofreu dano. ${p.hp} vida${p.hp === 1 ? '' : 's'} restante${p.hp === 1 ? '' : 's'}.`); p.inv = DIFFICULTY[getSettings().difficulty].invuln; p.hurtT = 0.45; audio.sfx(p.hp <= 0 ? 'lose' : 'hurt'); p.vy = -420; p.vx = (p.x + p.w / 2 < fromX ? -1 : 1) * 280; p.climbing = false;
     this.shake = 0.25; this.spawnParts(p.x + p.w / 2, p.y + 40, '#ff6b6b', 10);
     if (p.hp <= 0) { p.dieT = 0.001; p.vx = 0; }
   }
 
   private damageEnemy(e: Enemy, dmg: number): void {
     if (e.dying > 0) return;
-    e.hp -= dmg; e.hurt = 0.18; audio.sfx(e.hp <= 0 ? 'enemyDie' : 'hit'); this.spawnParts(e.x + e.w / 2, e.y + e.h / 2, '#caff7a', 6, 160);
+    e.hp -= dmg; this.cb.onAnnounce?.(e.hp <= 0 ? 'Inimigo derrotado.' : 'Ataque acertou um inimigo.'); e.hurt = 0.18; audio.sfx(e.hp <= 0 ? 'enemyDie' : 'hit'); this.spawnParts(e.x + e.w / 2, e.y + e.h / 2, '#caff7a', 6, 160);
     if (e.hp <= 0) {
       kill(e); e.dying = 0.6; const sp = ENEMIES[e.kind]; this.score += sp.score; this.float(e.x + e.w / 2, e.y - 6, '+' + sp.score, '#ffe35b');
       if (Math.random() < 0.3) this.pickups.push({ id: this.nextId++, type: 'coin', sprite: 'it_moeda', value: 'coin', x: e.x + e.w / 2 - 14, y: e.y - 20, w: 28, h: 28, taken: false, phase: 0 });
@@ -427,13 +431,13 @@ export class Engine {
     for (const k of this.pickups) {
       if (k.taken || !overlap(p, { x: k.x - 6, y: k.y - 6, w: k.w + 12, h: k.h + 12 })) continue;
       k.taken = true; const cx = k.x + k.w / 2, cy = k.y + k.h / 2;
-      if (k.type === 'coin') { audio.sfx('coin'); this.coins++; this.score += 10; this.spawnParts(cx, cy, '#ffd84a', 4, 120); }
-      else if (k.type === 'waste') { audio.sfx('waste'); this.materials++; this.sinceBin++; const v = WASTE_VALUE[k.value as keyof typeof WASTE_VALUE] ?? 50; this.score += v; this.float(cx, cy - 10, '+' + v, '#9dffb0'); this.spawnParts(cx, cy, '#9dffb0', 6, 150); }
+      if (k.type === 'coin') { audio.sfx('coin'); this.coins++; this.cb.onAnnounce?.(`Moeda coletada. Total: ${this.coins}.`); this.score += 10; this.spawnParts(cx, cy, '#ffd84a', 4, 120); }
+      else if (k.type === 'waste') { audio.sfx('waste'); this.materials++; this.sinceBin++; this.cb.onAnnounce?.(`Resíduo recolhido. ${this.materials} de ${this.totalMaterials}.`); const v = WASTE_VALUE[k.value as keyof typeof WASTE_VALUE] ?? 50; this.score += v; this.float(cx, cy - 10, '+' + v, '#9dffb0'); this.spawnParts(cx, cy, '#9dffb0', 6, 150); }
       else {
         this.score += 100; audio.sfx('power');
         if (k.value === 'escudo') { p.shield = 7; this.say('ESCUDO ATIVO!', 1.2); }
         else if (k.value === 'velocidade') { p.speed = 7; this.say('VELOCIDADE!', 1.2); }
-        else if (p.hp < p.maxHp) { p.hp++; this.float(cx, cy, '+1 ♥', '#ff7a8a'); } else this.float(cx, cy, '+100', '#ffe35b');
+        else if (p.hp < p.maxHp) { p.hp++; this.cb.onAnnounce?.(`Vida recuperada. ${p.hp} de ${p.maxHp}.`); this.float(cx, cy, '+1 ♥', '#ff7a8a'); } else this.float(cx, cy, '+100', '#ffe35b');
         this.spawnParts(cx, cy, '#7fe9ff', 10, 180);
       }
     }
@@ -442,6 +446,7 @@ export class Engine {
       b.used = true; b.pulse = 0.8; this.interactT = INTERACT_TIME; audio.sfx('bin'); this.safe = { x: b.x + b.w / 2, y: b.y + b.h - PH, t: 0 };
       const bonus = this.sinceBin * 25; this.score += bonus + 50; this.sinceBin = 0;
       if (p.hp < p.maxHp) p.hp++;
+      this.cb.onAnnounce?.(`Checkpoint ativado. Vida ${p.hp} de ${p.maxHp}; resíduos reciclados: ${this.materials} de ${this.totalMaterials}.`);
       this.float(b.x + b.w / 2, b.y - 10, bonus ? `♻ RECICLADO +${bonus + 50}` : '♻ CHECKPOINT', '#9dffb0'); this.spawnParts(b.x + b.w / 2, b.y + 20, '#7dff9a', 14, 220);
     }
   }
@@ -628,7 +633,8 @@ export class Engine {
       const faceDir = e.chasing && sp.fly ? (this.p.x < e.x ? -1 : 1) : e.dir; const flip = sp.noFlip ? false : sp.nativeLeft ? faceDir > 0 : faceDir < 0;
       const bob = sp.fly ? 0 : Math.abs(Math.sin(e.t * 8)) * 2;
       if (e.dying <= 0) { const gy = sp.fly ? this.groundBelow(e.x + e.w / 2, e.y + e.h) : e.y + e.h; if (gy !== null) this.shadow(e.x + e.w / 2, gy, e.w * 0.55, 0.85, sp.fly ? gy - (e.y + e.h) : 0); }
-      ctx.save(); if (e.hurt > 0) ctx.filter = 'brightness(2.2)'; else if (e.state === 'windup') ctx.filter = 'brightness(1.4) saturate(1.5)'; // brilha na preparação do golpe (aviso) if (e.dying > 0) ctx.globalAlpha = Math.max(0, e.dying / 0.6);
+      ctx.save(); if (e.hurt > 0) ctx.filter = 'brightness(2.2)'; else if (e.state === 'windup') ctx.filter = 'brightness(1.4) saturate(1.5)'; /* brilha na preparação do golpe (aviso) */
+      if (e.dying > 0) ctx.globalAlpha = Math.max(0, e.dying / 0.6);
       if (sp.motion) {
         // sprite estático: pose (inclinação, squash/stretch, deslocamento) calculada por código
         const pose = this.enemyPose(e, sp, faceDir >= 0 ? 1 : -1);
@@ -643,7 +649,7 @@ export class Engine {
     this.drawBoss();
     for (const s of this.sludge) { const g = ctx.createRadialGradient(s.x, s.y, 2, s.x, s.y, 28); g.addColorStop(0, '#d8ff6a'); g.addColorStop(0.6, '#5cc02c'); g.addColorStop(1, '#5cc02c00'); ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(s.x, s.y, 30, 22, 0, 0, 7); ctx.fill(); }
     // player
-    const p = this.p; const pf = this.playerFrame();
+    const p = this.p; const pf = this.playerFrame(); this.lastPF = pf;
     if (p.shield > 0) { ctx.save(); const r = 70 + Math.sin(this.t * 6) * 3; const g = ctx.createRadialGradient(p.x + 20, p.y + 46, 10, p.x + 20, p.y + 46, r); g.addColorStop(0, '#7fffa800'); g.addColorStop(0.8, '#7fffb044'); g.addColorStop(1, '#a8ffd8cc'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x + 20, p.y + 46, r, 0, 7); ctx.fill(); ctx.restore(); }
     const wn = this.win;
     if (!wn || wn.phase === 'walk') {
@@ -665,11 +671,24 @@ export class Engine {
     ctx.textAlign = 'center'; ctx.font = '800 18px system-ui';
     for (const t of this.texts) { ctx.globalAlpha = Math.min(1, t.life * 2); ctx.lineWidth = 4; ctx.strokeStyle = '#04200f'; ctx.strokeText(t.text, t.x, t.y); ctx.fillStyle = t.color; ctx.fillText(t.text, t.x, t.y); }
     ctx.globalAlpha = 1;
+    if (import.meta.env.DEV && this.debug) drawDebugWorld(ctx, this.debugState());
     ctx.restore();
     if (getSettings().lighting) this.drawGrade();
     const hudA = this.win ? Math.max(0, 1 - this.win.t / 0.35) : 1;
     if (hudA > 0) { ctx.globalAlpha = hudA; this.drawHud(); ctx.globalAlpha = 1; }
     this.drawTransition();
+    if (import.meta.env.DEV && this.debug) drawDebugPanel(ctx, this.debugState());
+  }
+
+  /** Dados lidos pelo overlay de depuração (somente leitura; nada aqui altera o jogo). */
+  private debugState(): DebugState {
+    const p = this.p; const b = this.boss;
+    return {
+      p, world: { surfaces: this.world.surfaces, ladders: this.world.ladders },
+      enemies: this.enemies, boss: b && b.active ? b : null, bins: this.bins, shots: this.shots,
+      cam: this.cam, vw: this.vw, frame: this.assets.meta[this.lastPF.name], frameName: this.lastPF.name, ps: PS, feetY: 3,
+      animState: this.lastPF.state, animT: this.anim.stateT, shotPending: this.shotPending, fps: this.fps,
+    };
   }
 
   /** Efeitos da vitória no mundo: faíscas em espiral, raios de luz e ondas de choque do portal. */
