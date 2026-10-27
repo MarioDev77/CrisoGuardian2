@@ -2,7 +2,14 @@ import { createServer } from 'node:http';
 import { createHmac, randomBytes, timingSafeEqual, randomUUID } from 'node:crypto';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
-const catalog = JSON.parse((await readFile(new URL('../frontend/src/app/catalog-data.json', import.meta.url), 'utf8')).replace(/^\uFEFF/, ''));
+async function loadCatalog() {
+  // Monorepo/dev: fonte única no frontend. Deploy só da pasta backend/: usa a cópia local.
+  for (const rel of ['../frontend/src/app/catalog-data.json', './catalog-data.json']) {
+    try { return JSON.parse((await readFile(new URL(rel, import.meta.url), 'utf8')).replace(/^\uFEFF/, '')); } catch { /* tenta o próximo */ }
+  }
+  throw new Error('catalog-data.json não encontrado (esperado em ../frontend/src/app/ ou em backend/).');
+}
+const catalog = await loadCatalog();
 
 const port = Number(process.env.CRISO_API_PORT ?? process.env.PORT ?? 4174);
 const host = process.env.CRISO_API_HOST ?? (process.env.PORT ? '0.0.0.0' : '127.0.0.1');

@@ -1,0 +1,24 @@
+{
+  "skins": [
+    {"id":"skin-crisoman-verde","name":"Guardião Verde","price":0,"rarity":"comum","character":"crisoman","palette":"#59df68"},
+    {"id":"skin-crisoman-urbano","name":"Urbano","price":120,"rarity":"raro","character":"crisoman","palette":"#8f9da6"},
+    {"id":"skin-crisoman-natureza","name":"Natureza","price":260,"rarity":"épico","character":"crisoman","palette":"#a87542"},
+    {"id":"skin-crisoman-agua","name":"Guardião da Água","price":420,"rarity":"épico","character":"crisoman","palette":"#46bdec"},
+    {"id":"skin-crisoman-fogo","name":"Guardião do Fogo","price":700,"rarity":"lendário","character":"crisoman","palette":"#f05a39"},
+    {"id":"skin-crisogirl-rosa","name":"Protetora Rosa","price":0,"rarity":"comum","character":"crisogirl","palette":"#f06bb7"},
+    {"id":"skin-crisogirl-urbana","name":"Urbana","price":120,"rarity":"raro","character":"crisogirl","palette":"#8f9da6"},
+    {"id":"skin-crisogirl-floresta","name":"Floresta","price":260,"rarity":"épico","character":"crisogirl","palette":"#45b76a"},
+    {"id":"skin-crisogirl-agua","name":"Protetora da Água","price":420,"rarity":"épico","character":"crisogirl","palette":"#46bdec"},
+    {"id":"skin-crisogirl-fogo","name":"Protetora do Fogo","price":700,"rarity":"lendário","character":"crisogirl","palette":"#f07834"}
+  ],
+  "pets": [
+    {"id":"pet-turtix","name":"Turtix","price":180,"rarity":"comum","palette":"#60c980"},
+    {"id":"pet-foxy","name":"Foxy","price":300,"rarity":"raro","palette":"#f29a4a"},
+    {"id":"pet-folhinha","name":"Folhinha","price":420,"rarity":"raro","palette":"#a5df55"},
+    {"id":"pet-pipoca","name":"Pipoca","price":600,"rarity":"épico","palette":"#64d8dc"},
+    {"id":"pet-brasa","name":"Brasa","price":850,"rarity":"lendário","palette":"#ff744e"}
+  ],
+  "recycling": {"materialsPerExchange": 10, "coinsPerExchange": 15},
+  "runLimits": {"maxCoins": 60, "maxMaterials": 80, "secondsPerCoin": 8, "secondsPerMaterial": 4, "maxSeconds": 1800},
+  "materials": ["plastico", "papel", "vidro", "metal"]
+}
