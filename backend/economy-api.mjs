@@ -3,9 +3,17 @@ import { createHmac, randomBytes, timingSafeEqual, randomUUID } from 'node:crypt
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-const catalog = JSON.parse((await readFile(new URL('../frontend/src/app/catalog-data.json', import.meta.url), 'utf8')).replace(/^\uFEFF/, ''));
+async function loadCatalog() {
+  // Monorepo/dev: fonte única no frontend. Deploy só da pasta backend/: usa a cópia local.
+  for (const rel of ['../frontend/src/app/catalog-data.json', './catalog-data.json']) {
+    try { return JSON.parse((await readFile(new URL(rel, import.meta.url), 'utf8')).replace(/^\uFEFF/, '')); } catch { /* tenta o próximo */ }
+  }
+  throw new Error('catalog-data.json não encontrado (esperado em ../frontend/src/app/ ou em backend/).');
+}
+const catalog = await loadCatalog();
 
-const port = Number(process.env.CRISO_API_PORT ?? 4174);
+const port = Number(process.env.CRISO_API_PORT ?? process.env.PORT ?? 4174);
+const host = process.env.CRISO_API_HOST ?? (process.env.PORT ? '0.0.0.0' : '127.0.0.1');
 const backendDir = dirname(fileURLToPath(import.meta.url));
 const dataDir = process.env.CRISO_DATA_DIR ? resolve(process.env.CRISO_DATA_DIR) : join(backendDir, 'data');
 const legacyDataDir = resolve(backendDir, '../frontend/server/data');
@@ -142,7 +150,7 @@ const server = createServer(async (req, res) => {
   } catch (err) { const status = Number.isInteger(err?.status) ? err.status : 500; if (status === 500) console.error('API CrisoGuardian:', err); return reply(res, status, { message: status === 500 ? 'Falha interna ao salvar a operação.' : err.message }); }
 });
 await initialize();
-server.listen(port, process.env.CRISO_API_HOST ?? '127.0.0.1', () => console.log(`Economia CrisoGuardian API ouvindo em http://127.0.0.1:${port}`));
+server.listen(port, host, () => console.log(`Economia CrisoGuardian API ouvindo em http://${host}:${port}`));
 server.on('error', (err) => { console.error(err); process.exitCode = 1; });
 
 
