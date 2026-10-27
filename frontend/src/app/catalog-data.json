@@ -6,7 +6,8 @@
       "price": 0,
       "rarity": "comum",
       "character": "crisoman",
-      "palette": "#59df68"
+      "palette": "#59df68",
+      "image": "/assets/cosmetics/skins/Guardiao_Verde_Crizoman.png"
     },
     {
       "id": "skin-crisoman-urbano",
@@ -14,7 +15,8 @@
       "price": 120,
       "rarity": "raro",
       "character": "crisoman",
-      "palette": "#8f9da6"
+      "palette": "#8f9da6",
+      "image": "/assets/cosmetics/skins/Urbano_Crizoman.png"
     },
     {
       "id": "skin-crisoman-natureza",
@@ -22,7 +24,8 @@
       "price": 260,
       "rarity": "épico",
       "character": "crisoman",
-      "palette": "#a87542"
+      "palette": "#a87542",
+      "image": "/assets/cosmetics/skins/Natureza_Crizoman.png"
     },
     {
       "id": "skin-crisoman-agua",
@@ -30,7 +33,8 @@
       "price": 420,
       "rarity": "épico",
       "character": "crisoman",
-      "palette": "#46bdec"
+      "palette": "#46bdec",
+      "image": "/assets/cosmetics/skins/Guardiao_da_Agua_Crizoman.png"
     },
     {
       "id": "skin-crisoman-fogo",
@@ -38,7 +42,8 @@
       "price": 700,
       "rarity": "lendário",
       "character": "crisoman",
-      "palette": "#f05a39"
+      "palette": "#f05a39",
+      "image": "/assets/cosmetics/skins/Guardiao_do_Fogo_Crizoman.png"
     },
     {
       "id": "skin-crisogirl-rosa",
@@ -46,7 +51,8 @@
       "price": 0,
       "rarity": "comum",
       "character": "crisogirl",
-      "palette": "#f06bb7"
+      "palette": "#f06bb7",
+      "image": "/assets/cosmetics/skins/Guardiao_Verde_CrizoGirl.png"
     },
     {
       "id": "skin-crisogirl-urbana",
@@ -54,7 +60,8 @@
       "price": 120,
       "rarity": "raro",
       "character": "crisogirl",
-      "palette": "#8f9da6"
+      "palette": "#8f9da6",
+      "image": "/assets/cosmetics/skins/Urbano_CrizoGirl.png"
     },
     {
       "id": "skin-crisogirl-floresta",
@@ -62,7 +69,8 @@
       "price": 260,
       "rarity": "épico",
       "character": "crisogirl",
-      "palette": "#45b76a"
+      "palette": "#45b76a",
+      "image": "/assets/cosmetics/skins/Natureza_CrizoGirl.png"
     },
     {
       "id": "skin-crisogirl-agua",
@@ -70,7 +78,8 @@
       "price": 420,
       "rarity": "épico",
       "character": "crisogirl",
-      "palette": "#46bdec"
+      "palette": "#46bdec",
+      "image": "/assets/cosmetics/skins/Guardiao_da_Agua_CrizoGirl.png"
     },
     {
       "id": "skin-crisogirl-fogo",
@@ -78,7 +87,8 @@
       "price": 700,
       "rarity": "lendário",
       "character": "crisogirl",
-      "palette": "#f07834"
+      "palette": "#f07834",
+      "image": "/assets/cosmetics/skins/Guardiao_do_Fogo_CrizoGirl.png"
     }
   ],
   "pets": [
@@ -87,35 +97,45 @@
       "name": "Turtix",
       "price": 180,
       "rarity": "comum",
-      "palette": "#60c980"
+      "palette": "#60c980",
+      "image": "/assets/cosmetics/pets/Turtix.png",
+      "icon": "/assets/cosmetics/pets/Turtix_icon.png"
     },
     {
       "id": "pet-foxy",
       "name": "Foxy",
       "price": 300,
       "rarity": "raro",
-      "palette": "#f29a4a"
+      "palette": "#f29a4a",
+      "image": "/assets/cosmetics/pets/Foxy.png",
+      "icon": "/assets/cosmetics/pets/Foxy_icon.png"
     },
     {
       "id": "pet-folhinha",
       "name": "Folhinha",
       "price": 420,
       "rarity": "raro",
-      "palette": "#a5df55"
+      "palette": "#a5df55",
+      "image": "/assets/cosmetics/pets/Folhinha.png",
+      "icon": "/assets/cosmetics/pets/Folhinha_icon.png"
     },
     {
       "id": "pet-pipoca",
       "name": "Pipoca",
       "price": 600,
       "rarity": "épico",
-      "palette": "#64d8dc"
+      "palette": "#64d8dc",
+      "image": "/assets/cosmetics/pets/Pipoca.png",
+      "icon": "/assets/cosmetics/pets/Pipoca_icon.png"
     },
     {
       "id": "pet-brasa",
       "name": "Brasa",
       "price": 850,
       "rarity": "lendário",
-      "palette": "#ff744e"
+      "palette": "#ff744e",
+      "image": "/assets/cosmetics/pets/Brasa.png",
+      "icon": "/assets/cosmetics/pets/Brasa_icon.png"
     }
   ],
   "recycling": {
