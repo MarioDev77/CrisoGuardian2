@@ -18,7 +18,8 @@ export function suitTintFor(skinId: string): SuitTint | null {
   if (/urbano|urbana/.test(skinId)) return { hue: 205, sat: 0.22, light: 1.08 };
   if (/natureza|floresta/.test(skinId)) return { hue: 28, sat: 0.78, light: 0.92 };
   if (/agua/.test(skinId)) return { hue: 205, sat: 1.0, light: 1.06 };
-  if (/fogo/.test(skinId)) return { hue: 11, sat: 1.1, light: 1.0 };
+  if (/fogo/.test(skinId)) return { hue: 24, sat: 1.15, light: 1.0 };
+  if (skinId === 'skin-crisogirl-rosa') return { hue: 358, sat: 1.12, light: 0.98 }; // visual padrão da Crisogirl: uniforme vermelho
   return null;
 }
 function tintSheet(img: HTMLImageElement, tint: SuitTint): CanvasImageSource {

@@ -24,15 +24,22 @@ describe('sprites reais dos heróis', () => {
   }
   it('mapeia estados do jogo para animações existentes', () => {
     const map: Record<string, string> = { idle: 'idle', walk: 'walk', run: 'run', jumpStart: 'jump', jumpRise: 'jump', fall: 'fall', landing: 'land', hurt: 'hurt', attack: 'attack', death: 'death' };
-    for (const [state, anim] of Object.entries(map)) expect(heroPose(state as never, base).anim).toBe(anim);
+    for (const [state, anim] of Object.entries(map)) expect(heroPose(state as never, { ...base, speed: state === 'landing' ? 0 : 200 }).anim).toBe(anim);
   });
   it('morte e dano avançam e terminam no último quadro', () => {
     expect(heroPose('death', { ...base, dieT: 0 }).index).toBe(0);
     expect(heroPose('death', { ...base, dieT: 5 }).index).toBe(3);
     expect(heroPose('hurt', { ...base, hurtT: 0.45 }).index).toBe(0);
   });
+  it('coletar ou aterrissar correndo não agacha o herói', () => {
+    for (const st of ['collect', 'interact', 'landing'] as const) expect(heroPose(st, { ...base, speed: 320 }).anim).toBe('run');
+    expect(heroPose('collect', { ...base, speed: 120 }).anim).toBe('walk');
+    expect(heroPose('landing', { ...base, speed: 0 }).anim).toBe('land'); // parado, aterrissar ainda agacha
+    expect(heroPose('collect', { ...base, speed: 0 }).anim).toBe('idle');
+  });
   it('só o uniforme é recolorido nas skins', () => {
     expect(suitTintFor('skin-crisoman-verde')).toBeNull();
-    expect(suitTintFor('skin-crisogirl-fogo')?.hue).toBe(11);
+    expect(suitTintFor('skin-crisogirl-fogo')?.hue).toBe(24);
+    expect(suitTintFor('skin-crisogirl-rosa')?.hue).toBe(358); // Crisogirl padrão = vermelha
   });
 });
