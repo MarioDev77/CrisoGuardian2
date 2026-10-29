@@ -163,12 +163,12 @@
       "theme": "manguezal",
       "difficulty": 9,
       "palette": {
-        "sky": "#a5e3df",
-        "far": "#4b9a88",
-        "mid": "#257b69",
-        "near": "#164c49",
-        "water": "#2e9d9b",
-        "ground": "#704f38",
+        "sky": "#bff0e6",
+        "far": "#5aa896",
+        "mid": "#2f8068",
+        "near": "#14463f",
+        "water": "#2c9aa0",
+        "ground": "#6a4a34",
         "accent": "#c3f16c"
       }
     },
@@ -179,13 +179,13 @@
       "theme": "geleira",
       "difficulty": 10,
       "palette": {
-        "sky": "#b7e6f2",
-        "far": "#8fc9e0",
-        "mid": "#4c91b5",
-        "near": "#235a77",
+        "sky": "#d8f3ff",
+        "far": "#a9d8ec",
+        "mid": "#6aa9cc",
+        "near": "#2e6a8f",
         "water": "#58bed4",
-        "ground": "#526d7d",
-        "accent": "#f2ffff"
+        "ground": "#6f90a8",
+        "accent": "#bff3ff"
       }
     },
     {
@@ -195,13 +195,93 @@
       "theme": "vulcao",
       "difficulty": 11,
       "palette": {
-        "sky": "#8b88ad",
-        "far": "#625b7c",
-        "mid": "#483b4a",
-        "near": "#292c39",
-        "water": "#558b68",
-        "ground": "#3a353c",
+        "sky": "#3d2a55",
+        "far": "#5b3f63",
+        "mid": "#3d2a40",
+        "near": "#241c2c",
+        "water": "#ff7a2f",
+        "ground": "#3b3340",
         "accent": "#b5eb6d"
+      }
+    },
+    {
+      "id": "fabrica-12",
+      "name": "Fábrica da Reciclagem",
+      "index": 11,
+      "theme": "fabrica",
+      "difficulty": 12,
+      "palette": {
+        "sky": "#cfe3e0",
+        "far": "#7f9a9c",
+        "mid": "#566f78",
+        "near": "#2f434d",
+        "water": "#6fe38a",
+        "ground": "#4a5560",
+        "accent": "#ffcf4a"
+      }
+    },
+    {
+      "id": "copas-13",
+      "name": "Floresta das Copas",
+      "index": 12,
+      "theme": "copas",
+      "difficulty": 13,
+      "palette": {
+        "sky": "#f3ffc9",
+        "far": "#5fae56",
+        "mid": "#2f7d3a",
+        "near": "#14502c",
+        "water": "#3aa86a",
+        "ground": "#6b4a2e",
+        "accent": "#e5ff7a"
+      }
+    },
+    {
+      "id": "oceano-14",
+      "name": "Oceano Cristalino",
+      "index": 13,
+      "theme": "oceano",
+      "difficulty": 14,
+      "palette": {
+        "sky": "#9fe6ff",
+        "far": "#3da3c9",
+        "mid": "#1f7da8",
+        "near": "#0d4f78",
+        "water": "#4fd1e8",
+        "ground": "#b9a679",
+        "accent": "#6cf2d6"
+      }
+    },
+    {
+      "id": "cidade-15",
+      "name": "Cidade do Futuro",
+      "index": 14,
+      "theme": "cidade",
+      "difficulty": 15,
+      "palette": {
+        "sky": "#6fd3e8",
+        "far": "#7fb3c6",
+        "mid": "#4d8aa3",
+        "near": "#2b5a73",
+        "water": "#7cf0a4",
+        "ground": "#52606c",
+        "accent": "#7cf0a4"
+      }
+    },
+    {
+      "id": "guardiao-16",
+      "name": "Guardião do Planeta",
+      "index": 15,
+      "theme": "guardiao",
+      "difficulty": 16,
+      "palette": {
+        "sky": "#171a4a",
+        "far": "#3b3d8f",
+        "mid": "#2a2f78",
+        "near": "#14183f",
+        "water": "#8bf0b4",
+        "ground": "#3a3f7a",
+        "accent": "#9cffb5"
       }
     }
   ]

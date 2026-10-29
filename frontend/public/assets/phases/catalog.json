@@ -44,7 +44,7 @@
     "issues": [],
     "modular": true,
     "capPx": 8,
-    "surfaceInset": 0.0,
+    "surfaceInset": 0,
     "lip": 0.06
   },
   {
@@ -378,7 +378,7 @@
     "issues": [],
     "modular": true,
     "capPx": 10,
-    "surfaceInset": 0.0,
+    "surfaceInset": 0,
     "lip": 0.06
   },
   {
@@ -673,7 +673,7 @@
     "issues": [],
     "modular": true,
     "capPx": 15,
-    "surfaceInset": 0.0,
+    "surfaceInset": 0,
     "lip": 0.06
   },
   {
@@ -940,7 +940,7 @@
     "issues": [],
     "modular": true,
     "capPx": 8,
-    "surfaceInset": 0.0,
+    "surfaceInset": 0,
     "lip": 0.06
   },
   {
@@ -1225,7 +1225,7 @@
     "issues": [],
     "modular": true,
     "capPx": 12,
-    "surfaceInset": 0.0,
+    "surfaceInset": 0,
     "lip": 0.06
   },
   {
@@ -1249,7 +1249,7 @@
     "issues": [],
     "modular": true,
     "capPx": 9,
-    "surfaceInset": 0.0,
+    "surfaceInset": 0,
     "lip": 0.06
   },
   {
@@ -1749,7 +1749,7 @@
     "issues": [],
     "modular": true,
     "capPx": 20,
-    "surfaceInset": 0.0,
+    "surfaceInset": 0,
     "lip": 0.06
   },
   {
@@ -1773,7 +1773,7 @@
     "issues": [],
     "modular": true,
     "capPx": 17,
-    "surfaceInset": 0.0,
+    "surfaceInset": 0,
     "lip": 0.06
   },
   {
@@ -1797,7 +1797,7 @@
     "issues": [],
     "modular": true,
     "capPx": 20,
-    "surfaceInset": 0.0,
+    "surfaceInset": 0,
     "lip": 0.06
   },
   {
@@ -2039,7 +2039,7 @@
     "issues": [],
     "modular": true,
     "capPx": 12,
-    "surfaceInset": 0.0,
+    "surfaceInset": 0,
     "lip": 0.06
   },
   {
@@ -2306,19 +2306,19 @@
     "category": "terrain",
     "role": "ground",
     "src": "/assets/islands/manguezal/tiles/ground.svg",
-    "w": 32,
-    "h": 32,
+    "w": 128,
+    "h": 96,
     "hitbox": {
+      "x": 0,
       "y": 0,
-      "w": 32,
-      "h": 32,
-      "x": 0
+      "w": 128,
+      "h": 96
     },
     "issues": [],
     "modular": true,
-    "capPx": 8,
+    "capPx": 26,
     "surfaceInset": 0,
-    "lip": 0.12
+    "lip": 0.1
   },
   {
     "name": "p09_ledge",
@@ -2326,19 +2326,19 @@
     "category": "terrain",
     "role": "ledge",
     "src": "/assets/islands/manguezal/tiles/ledge.svg",
-    "w": 32,
-    "h": 32,
+    "w": 128,
+    "h": 64,
     "hitbox": {
+      "x": 0,
       "y": 0,
-      "w": 32,
-      "h": 32,
-      "x": 0
+      "w": 128,
+      "h": 64
     },
     "issues": [],
     "modular": true,
-    "capPx": 8,
+    "capPx": 26,
     "surfaceInset": 0,
-    "lip": 0.12
+    "lip": 0.1
   },
   {
     "name": "p09_bridge",
@@ -2346,19 +2346,19 @@
     "category": "terrain",
     "role": "bridge",
     "src": "/assets/islands/manguezal/tiles/bridge.svg",
-    "w": 32,
-    "h": 32,
+    "w": 128,
+    "h": 40,
     "hitbox": {
+      "x": 0,
       "y": 0,
-      "w": 32,
-      "h": 32,
-      "x": 0
+      "w": 128,
+      "h": 40
     },
     "issues": [],
     "modular": true,
-    "capPx": 8,
+    "capPx": 24,
     "surfaceInset": 0,
-    "lip": 0.12
+    "lip": 0.1
   },
   {
     "name": "p09_block",
@@ -2366,19 +2366,39 @@
     "category": "terrain",
     "role": "block",
     "src": "/assets/islands/manguezal/tiles/block.svg",
-    "w": 32,
-    "h": 32,
+    "w": 64,
+    "h": 64,
     "hitbox": {
+      "x": 0,
       "y": 0,
-      "w": 32,
-      "h": 32,
-      "x": 0
+      "w": 64,
+      "h": 64
     },
     "issues": [],
-    "modular": true,
-    "capPx": 8,
+    "modular": false,
+    "capPx": 0,
     "surfaceInset": 0,
-    "lip": 0.12
+    "lip": 0
+  },
+  {
+    "name": "p09_crate",
+    "phase": 9,
+    "category": "props",
+    "role": "crate",
+    "src": "/assets/islands/manguezal/tiles/crate.svg",
+    "w": 64,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
   },
   {
     "name": "p09_prop",
@@ -2387,12 +2407,72 @@
     "role": "decoration",
     "src": "/assets/islands/manguezal/props.svg",
     "w": 96,
-    "h": 128,
+    "h": 192,
     "hitbox": {
+      "x": 0,
       "y": 0,
       "w": 96,
-      "h": 128,
-      "x": 0
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p09_prop2",
+    "phase": 9,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/manguezal/prop2.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p09_prop3",
+    "phase": 9,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/manguezal/prop3.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p09_animal",
+    "phase": 9,
+    "category": "props",
+    "role": "animal",
+    "src": "/assets/islands/manguezal/animal.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
     },
     "issues": [],
     "modular": false,
@@ -2409,10 +2489,10 @@
     "w": 48,
     "h": 64,
     "hitbox": {
+      "x": 0,
       "y": 0,
       "w": 48,
-      "h": 64,
-      "x": 0
+      "h": 64
     },
     "issues": [],
     "modular": false,
@@ -2426,19 +2506,19 @@
     "category": "terrain",
     "role": "ground",
     "src": "/assets/islands/geleira/tiles/ground.svg",
-    "w": 32,
-    "h": 32,
+    "w": 128,
+    "h": 96,
     "hitbox": {
+      "x": 0,
       "y": 0,
-      "w": 32,
-      "h": 32,
-      "x": 0
+      "w": 128,
+      "h": 96
     },
     "issues": [],
     "modular": true,
-    "capPx": 8,
+    "capPx": 26,
     "surfaceInset": 0,
-    "lip": 0.12
+    "lip": 0.1
   },
   {
     "name": "p10_ledge",
@@ -2446,19 +2526,19 @@
     "category": "terrain",
     "role": "ledge",
     "src": "/assets/islands/geleira/tiles/ledge.svg",
-    "w": 32,
-    "h": 32,
+    "w": 128,
+    "h": 64,
     "hitbox": {
+      "x": 0,
       "y": 0,
-      "w": 32,
-      "h": 32,
-      "x": 0
+      "w": 128,
+      "h": 64
     },
     "issues": [],
     "modular": true,
-    "capPx": 8,
+    "capPx": 26,
     "surfaceInset": 0,
-    "lip": 0.12
+    "lip": 0.1
   },
   {
     "name": "p10_bridge",
@@ -2466,19 +2546,19 @@
     "category": "terrain",
     "role": "bridge",
     "src": "/assets/islands/geleira/tiles/bridge.svg",
-    "w": 32,
-    "h": 32,
+    "w": 128,
+    "h": 40,
     "hitbox": {
+      "x": 0,
       "y": 0,
-      "w": 32,
-      "h": 32,
-      "x": 0
+      "w": 128,
+      "h": 40
     },
     "issues": [],
     "modular": true,
-    "capPx": 8,
+    "capPx": 24,
     "surfaceInset": 0,
-    "lip": 0.12
+    "lip": 0.1
   },
   {
     "name": "p10_block",
@@ -2486,19 +2566,39 @@
     "category": "terrain",
     "role": "block",
     "src": "/assets/islands/geleira/tiles/block.svg",
-    "w": 32,
-    "h": 32,
+    "w": 64,
+    "h": 64,
     "hitbox": {
+      "x": 0,
       "y": 0,
-      "w": 32,
-      "h": 32,
-      "x": 0
+      "w": 64,
+      "h": 64
     },
     "issues": [],
-    "modular": true,
-    "capPx": 8,
+    "modular": false,
+    "capPx": 0,
     "surfaceInset": 0,
-    "lip": 0.12
+    "lip": 0
+  },
+  {
+    "name": "p10_crate",
+    "phase": 10,
+    "category": "props",
+    "role": "crate",
+    "src": "/assets/islands/geleira/tiles/crate.svg",
+    "w": 64,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
   },
   {
     "name": "p10_prop",
@@ -2507,12 +2607,72 @@
     "role": "decoration",
     "src": "/assets/islands/geleira/props.svg",
     "w": 96,
-    "h": 128,
+    "h": 192,
     "hitbox": {
+      "x": 0,
       "y": 0,
       "w": 96,
-      "h": 128,
-      "x": 0
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_prop2",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/prop2.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_prop3",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/prop3.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_animal",
+    "phase": 10,
+    "category": "props",
+    "role": "animal",
+    "src": "/assets/islands/geleira/animal.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
     },
     "issues": [],
     "modular": false,
@@ -2529,10 +2689,10 @@
     "w": 48,
     "h": 64,
     "hitbox": {
+      "x": 0,
       "y": 0,
       "w": 48,
-      "h": 64,
-      "x": 0
+      "h": 64
     },
     "issues": [],
     "modular": false,
@@ -2546,19 +2706,19 @@
     "category": "terrain",
     "role": "ground",
     "src": "/assets/islands/vulcao/tiles/ground.svg",
-    "w": 32,
-    "h": 32,
+    "w": 128,
+    "h": 96,
     "hitbox": {
+      "x": 0,
       "y": 0,
-      "w": 32,
-      "h": 32,
-      "x": 0
+      "w": 128,
+      "h": 96
     },
     "issues": [],
     "modular": true,
-    "capPx": 8,
+    "capPx": 26,
     "surfaceInset": 0,
-    "lip": 0.12
+    "lip": 0.1
   },
   {
     "name": "p11_ledge",
@@ -2566,19 +2726,19 @@
     "category": "terrain",
     "role": "ledge",
     "src": "/assets/islands/vulcao/tiles/ledge.svg",
-    "w": 32,
-    "h": 32,
+    "w": 128,
+    "h": 64,
     "hitbox": {
+      "x": 0,
       "y": 0,
-      "w": 32,
-      "h": 32,
-      "x": 0
+      "w": 128,
+      "h": 64
     },
     "issues": [],
     "modular": true,
-    "capPx": 8,
+    "capPx": 26,
     "surfaceInset": 0,
-    "lip": 0.12
+    "lip": 0.1
   },
   {
     "name": "p11_bridge",
@@ -2586,19 +2746,19 @@
     "category": "terrain",
     "role": "bridge",
     "src": "/assets/islands/vulcao/tiles/bridge.svg",
-    "w": 32,
-    "h": 32,
+    "w": 128,
+    "h": 40,
     "hitbox": {
+      "x": 0,
       "y": 0,
-      "w": 32,
-      "h": 32,
-      "x": 0
+      "w": 128,
+      "h": 40
     },
     "issues": [],
     "modular": true,
-    "capPx": 8,
+    "capPx": 24,
     "surfaceInset": 0,
-    "lip": 0.12
+    "lip": 0.1
   },
   {
     "name": "p11_block",
@@ -2606,19 +2766,39 @@
     "category": "terrain",
     "role": "block",
     "src": "/assets/islands/vulcao/tiles/block.svg",
-    "w": 32,
-    "h": 32,
+    "w": 64,
+    "h": 64,
     "hitbox": {
+      "x": 0,
       "y": 0,
-      "w": 32,
-      "h": 32,
-      "x": 0
+      "w": 64,
+      "h": 64
     },
     "issues": [],
-    "modular": true,
-    "capPx": 8,
+    "modular": false,
+    "capPx": 0,
     "surfaceInset": 0,
-    "lip": 0.12
+    "lip": 0
+  },
+  {
+    "name": "p11_crate",
+    "phase": 11,
+    "category": "props",
+    "role": "crate",
+    "src": "/assets/islands/vulcao/tiles/crate.svg",
+    "w": 64,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
   },
   {
     "name": "p11_prop",
@@ -2627,12 +2807,72 @@
     "role": "decoration",
     "src": "/assets/islands/vulcao/props.svg",
     "w": 96,
-    "h": 128,
+    "h": 192,
     "hitbox": {
+      "x": 0,
       "y": 0,
       "w": 96,
-      "h": 128,
-      "x": 0
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_prop2",
+    "phase": 11,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/vulcao/prop2.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_prop3",
+    "phase": 11,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/vulcao/prop3.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_animal",
+    "phase": 11,
+    "category": "props",
+    "role": "animal",
+    "src": "/assets/islands/vulcao/animal.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
     },
     "issues": [],
     "modular": false,
@@ -2649,10 +2889,1010 @@
     "w": 48,
     "h": 64,
     "hitbox": {
+      "x": 0,
       "y": 0,
       "w": 48,
-      "h": 64,
-      "x": 0
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_ground",
+    "phase": 12,
+    "category": "terrain",
+    "role": "ground",
+    "src": "/assets/islands/fabrica/tiles/ground.svg",
+    "w": 128,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 96
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 26,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p12_ledge",
+    "phase": 12,
+    "category": "terrain",
+    "role": "ledge",
+    "src": "/assets/islands/fabrica/tiles/ledge.svg",
+    "w": 128,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 64
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 26,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p12_bridge",
+    "phase": 12,
+    "category": "terrain",
+    "role": "bridge",
+    "src": "/assets/islands/fabrica/tiles/bridge.svg",
+    "w": 128,
+    "h": 40,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 40
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 24,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p12_block",
+    "phase": 12,
+    "category": "terrain",
+    "role": "block",
+    "src": "/assets/islands/fabrica/tiles/block.svg",
+    "w": 64,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_crate",
+    "phase": 12,
+    "category": "props",
+    "role": "crate",
+    "src": "/assets/islands/fabrica/tiles/crate.svg",
+    "w": 64,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_prop",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/props.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_prop2",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/prop2.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_prop3",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/prop3.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_animal",
+    "phase": 12,
+    "category": "props",
+    "role": "animal",
+    "src": "/assets/islands/fabrica/animal.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_bin",
+    "phase": 12,
+    "category": "props",
+    "role": "recycling-bin",
+    "src": "/assets/islands/fabrica/bin.svg",
+    "w": 48,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 48,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_ground",
+    "phase": 13,
+    "category": "terrain",
+    "role": "ground",
+    "src": "/assets/islands/copas/tiles/ground.svg",
+    "w": 128,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 96
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 26,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p13_ledge",
+    "phase": 13,
+    "category": "terrain",
+    "role": "ledge",
+    "src": "/assets/islands/copas/tiles/ledge.svg",
+    "w": 128,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 64
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 26,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p13_bridge",
+    "phase": 13,
+    "category": "terrain",
+    "role": "bridge",
+    "src": "/assets/islands/copas/tiles/bridge.svg",
+    "w": 128,
+    "h": 40,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 40
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 24,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p13_block",
+    "phase": 13,
+    "category": "terrain",
+    "role": "block",
+    "src": "/assets/islands/copas/tiles/block.svg",
+    "w": 64,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_crate",
+    "phase": 13,
+    "category": "props",
+    "role": "crate",
+    "src": "/assets/islands/copas/tiles/crate.svg",
+    "w": 64,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_prop",
+    "phase": 13,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/copas/props.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_prop2",
+    "phase": 13,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/copas/prop2.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_prop3",
+    "phase": 13,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/copas/prop3.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_animal",
+    "phase": 13,
+    "category": "props",
+    "role": "animal",
+    "src": "/assets/islands/copas/animal.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_bin",
+    "phase": 13,
+    "category": "props",
+    "role": "recycling-bin",
+    "src": "/assets/islands/copas/bin.svg",
+    "w": 48,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 48,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_ground",
+    "phase": 14,
+    "category": "terrain",
+    "role": "ground",
+    "src": "/assets/islands/oceano/tiles/ground.svg",
+    "w": 128,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 96
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 26,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p14_ledge",
+    "phase": 14,
+    "category": "terrain",
+    "role": "ledge",
+    "src": "/assets/islands/oceano/tiles/ledge.svg",
+    "w": 128,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 64
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 26,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p14_bridge",
+    "phase": 14,
+    "category": "terrain",
+    "role": "bridge",
+    "src": "/assets/islands/oceano/tiles/bridge.svg",
+    "w": 128,
+    "h": 40,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 40
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 24,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p14_block",
+    "phase": 14,
+    "category": "terrain",
+    "role": "block",
+    "src": "/assets/islands/oceano/tiles/block.svg",
+    "w": 64,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_crate",
+    "phase": 14,
+    "category": "props",
+    "role": "crate",
+    "src": "/assets/islands/oceano/tiles/crate.svg",
+    "w": 64,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_prop",
+    "phase": 14,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/oceano/props.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_prop2",
+    "phase": 14,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/oceano/prop2.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_prop3",
+    "phase": 14,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/oceano/prop3.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_animal",
+    "phase": 14,
+    "category": "props",
+    "role": "animal",
+    "src": "/assets/islands/oceano/animal.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_bin",
+    "phase": 14,
+    "category": "props",
+    "role": "recycling-bin",
+    "src": "/assets/islands/oceano/bin.svg",
+    "w": 48,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 48,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p15_ground",
+    "phase": 15,
+    "category": "terrain",
+    "role": "ground",
+    "src": "/assets/islands/cidade/tiles/ground.svg",
+    "w": 128,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 96
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 26,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p15_ledge",
+    "phase": 15,
+    "category": "terrain",
+    "role": "ledge",
+    "src": "/assets/islands/cidade/tiles/ledge.svg",
+    "w": 128,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 64
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 26,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p15_bridge",
+    "phase": 15,
+    "category": "terrain",
+    "role": "bridge",
+    "src": "/assets/islands/cidade/tiles/bridge.svg",
+    "w": 128,
+    "h": 40,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 40
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 24,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p15_block",
+    "phase": 15,
+    "category": "terrain",
+    "role": "block",
+    "src": "/assets/islands/cidade/tiles/block.svg",
+    "w": 64,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p15_crate",
+    "phase": 15,
+    "category": "props",
+    "role": "crate",
+    "src": "/assets/islands/cidade/tiles/crate.svg",
+    "w": 64,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p15_prop",
+    "phase": 15,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/cidade/props.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p15_prop2",
+    "phase": 15,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/cidade/prop2.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p15_prop3",
+    "phase": 15,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/cidade/prop3.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p15_animal",
+    "phase": 15,
+    "category": "props",
+    "role": "animal",
+    "src": "/assets/islands/cidade/animal.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p15_bin",
+    "phase": 15,
+    "category": "props",
+    "role": "recycling-bin",
+    "src": "/assets/islands/cidade/bin.svg",
+    "w": 48,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 48,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p16_ground",
+    "phase": 16,
+    "category": "terrain",
+    "role": "ground",
+    "src": "/assets/islands/guardiao/tiles/ground.svg",
+    "w": 128,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 96
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 26,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p16_ledge",
+    "phase": 16,
+    "category": "terrain",
+    "role": "ledge",
+    "src": "/assets/islands/guardiao/tiles/ledge.svg",
+    "w": 128,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 64
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 26,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p16_bridge",
+    "phase": 16,
+    "category": "terrain",
+    "role": "bridge",
+    "src": "/assets/islands/guardiao/tiles/bridge.svg",
+    "w": 128,
+    "h": 40,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 40
+    },
+    "issues": [],
+    "modular": true,
+    "capPx": 24,
+    "surfaceInset": 0,
+    "lip": 0.1
+  },
+  {
+    "name": "p16_block",
+    "phase": 16,
+    "category": "terrain",
+    "role": "block",
+    "src": "/assets/islands/guardiao/tiles/block.svg",
+    "w": 64,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p16_crate",
+    "phase": 16,
+    "category": "props",
+    "role": "crate",
+    "src": "/assets/islands/guardiao/tiles/crate.svg",
+    "w": 64,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p16_prop",
+    "phase": 16,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/guardiao/props.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p16_prop2",
+    "phase": 16,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/guardiao/prop2.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p16_prop3",
+    "phase": 16,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/guardiao/prop3.svg",
+    "w": 96,
+    "h": 192,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 192
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p16_animal",
+    "phase": 16,
+    "category": "props",
+    "role": "animal",
+    "src": "/assets/islands/guardiao/animal.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p16_bin",
+    "phase": 16,
+    "category": "props",
+    "role": "recycling-bin",
+    "src": "/assets/islands/guardiao/bin.svg",
+    "w": 48,
+    "h": 64,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 48,
+      "h": 64
     },
     "issues": [],
     "modular": false,

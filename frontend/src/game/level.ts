@@ -34,9 +34,11 @@ export function buildWorld(index: number, assets: Assets): World {
   const decor: WDecor[] = [];
 
   for (let k = 0; k < layout.screens; k++) {
-    const flip = k % 2 === 1;
+    // com `parts`, cada tela é um trecho diferente (A, B, C…) e não é espelhada
+    const part = layout.parts ? layout.parts[k % layout.parts.length]! : layout;
+    const flip = !layout.parts && k % 2 === 1;
     const mx = (x: number, w: number) => k * screenW + (flip ? screenW - (x + w) * s : x * s);
-    for (const sf of layout.surfaces) {
+    for (const sf of part.surfaces) {
       const x = mx(sf.x, sf.w); const w = sf.w * s; const y = sf.y * s;
       if (sf.kind === 'crates') {
         const src = assets.size(sf.tile); const ch = src.h * (w / Math.max(1, src.w)); const rows = sf.rows ?? 1;
@@ -48,8 +50,8 @@ export function buildWorld(index: number, assets: Assets): World {
         surfaces.push({ x, y, w, h: th, kind: sf.kind, tile: sf.tile, rows: 1, solid: false, top: y });
       }
     }
-    for (const l of layout.ladders) ladders.push({ x: mx(l.x, 0) - 22, y: l.top * s, w: 44, h: (l.bottom - l.top) * s });
-    for (const d of layout.decor) decor.push({ x: mx(d.x, 0), y: d.y * s, tile: d.tile, scale: (d.scale ?? 1) * s, hazard: !!d.hazard });
+    for (const l of part.ladders) ladders.push({ x: mx(l.x, 0) - 22, y: l.top * s, w: 44, h: (l.bottom - l.top) * s });
+    for (const d of part.decor) decor.push({ x: mx(d.x, 0), y: d.y * s, tile: d.tile, scale: (d.scale ?? 1) * s, hazard: !!d.hazard });
   }
 
   // merge abutting ground/plat pieces that share height & tile (mirror seams) so no visible join remains

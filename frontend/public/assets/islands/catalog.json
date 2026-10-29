@@ -4,15 +4,15 @@
     "name": "Manguezal Vivo",
     "slug": "manguezal",
     "palette": {
-      "sky": "#a5e3df",
-      "far": "#4b9a88",
-      "mid": "#257b69",
-      "near": "#164c49",
-      "water": "#2e9d9b",
-      "ground": "#704f38",
+      "sky": "#bff0e6",
+      "far": "#5aa896",
+      "mid": "#2f8068",
+      "near": "#14463f",
+      "water": "#2c9aa0",
+      "ground": "#6a4a34",
       "accent": "#c3f16c"
     },
-    "theme": "mangrove",
+    "theme": "manguezal",
     "index": 8,
     "layers": {
       "sky": "/assets/islands/manguezal/background/sky.svg",
@@ -24,9 +24,15 @@
       "ground": "/assets/islands/manguezal/tiles/ground.svg",
       "ledge": "/assets/islands/manguezal/tiles/ledge.svg",
       "bridge": "/assets/islands/manguezal/tiles/bridge.svg",
-      "block": "/assets/islands/manguezal/tiles/block.svg"
+      "block": "/assets/islands/manguezal/tiles/block.svg",
+      "crate": "/assets/islands/manguezal/tiles/crate.svg"
     },
-    "props": "/assets/islands/manguezal/props.svg",
+    "props": [
+      "/assets/islands/manguezal/props.svg",
+      "/assets/islands/manguezal/prop2.svg",
+      "/assets/islands/manguezal/prop3.svg"
+    ],
+    "animal": "/assets/islands/manguezal/animal.svg",
     "bin": "/assets/islands/manguezal/bin.svg",
     "thumbnail": "/assets/islands/manguezal/thumbnail.svg"
   },
@@ -35,15 +41,15 @@
     "name": "Geleira Azul",
     "slug": "geleira",
     "palette": {
-      "sky": "#b7e6f2",
-      "far": "#8fc9e0",
-      "mid": "#4c91b5",
-      "near": "#235a77",
+      "sky": "#d8f3ff",
+      "far": "#a9d8ec",
+      "mid": "#6aa9cc",
+      "near": "#2e6a8f",
       "water": "#58bed4",
-      "ground": "#526d7d",
-      "accent": "#f2ffff"
+      "ground": "#6f90a8",
+      "accent": "#bff3ff"
     },
-    "theme": "glacier",
+    "theme": "geleira",
     "index": 9,
     "layers": {
       "sky": "/assets/islands/geleira/background/sky.svg",
@@ -55,9 +61,15 @@
       "ground": "/assets/islands/geleira/tiles/ground.svg",
       "ledge": "/assets/islands/geleira/tiles/ledge.svg",
       "bridge": "/assets/islands/geleira/tiles/bridge.svg",
-      "block": "/assets/islands/geleira/tiles/block.svg"
+      "block": "/assets/islands/geleira/tiles/block.svg",
+      "crate": "/assets/islands/geleira/tiles/crate.svg"
     },
-    "props": "/assets/islands/geleira/props.svg",
+    "props": [
+      "/assets/islands/geleira/props.svg",
+      "/assets/islands/geleira/prop2.svg",
+      "/assets/islands/geleira/prop3.svg"
+    ],
+    "animal": "/assets/islands/geleira/animal.svg",
     "bin": "/assets/islands/geleira/bin.svg",
     "thumbnail": "/assets/islands/geleira/thumbnail.svg"
   },
@@ -66,15 +78,15 @@
     "name": "Vulcão Verde",
     "slug": "vulcao",
     "palette": {
-      "sky": "#8b88ad",
-      "far": "#625b7c",
-      "mid": "#483b4a",
-      "near": "#292c39",
-      "water": "#558b68",
-      "ground": "#3a353c",
+      "sky": "#3d2a55",
+      "far": "#5b3f63",
+      "mid": "#3d2a40",
+      "near": "#241c2c",
+      "water": "#ff7a2f",
+      "ground": "#3b3340",
       "accent": "#b5eb6d"
     },
-    "theme": "volcano",
+    "theme": "vulcao",
     "index": 10,
     "layers": {
       "sky": "/assets/islands/vulcao/background/sky.svg",
@@ -86,10 +98,201 @@
       "ground": "/assets/islands/vulcao/tiles/ground.svg",
       "ledge": "/assets/islands/vulcao/tiles/ledge.svg",
       "bridge": "/assets/islands/vulcao/tiles/bridge.svg",
-      "block": "/assets/islands/vulcao/tiles/block.svg"
+      "block": "/assets/islands/vulcao/tiles/block.svg",
+      "crate": "/assets/islands/vulcao/tiles/crate.svg"
     },
-    "props": "/assets/islands/vulcao/props.svg",
+    "props": [
+      "/assets/islands/vulcao/props.svg",
+      "/assets/islands/vulcao/prop2.svg",
+      "/assets/islands/vulcao/prop3.svg"
+    ],
+    "animal": "/assets/islands/vulcao/animal.svg",
     "bin": "/assets/islands/vulcao/bin.svg",
     "thumbnail": "/assets/islands/vulcao/thumbnail.svg"
+  },
+  {
+    "id": "fabrica-12",
+    "name": "Fábrica da Reciclagem",
+    "slug": "fabrica",
+    "palette": {
+      "sky": "#cfe3e0",
+      "far": "#7f9a9c",
+      "mid": "#566f78",
+      "near": "#2f434d",
+      "water": "#6fe38a",
+      "ground": "#4a5560",
+      "accent": "#ffcf4a"
+    },
+    "theme": "fabrica",
+    "index": 11,
+    "layers": {
+      "sky": "/assets/islands/fabrica/background/sky.svg",
+      "far": "/assets/islands/fabrica/background/far.svg",
+      "mid": "/assets/islands/fabrica/background/mid.svg",
+      "near": "/assets/islands/fabrica/background/near.svg"
+    },
+    "tiles": {
+      "ground": "/assets/islands/fabrica/tiles/ground.svg",
+      "ledge": "/assets/islands/fabrica/tiles/ledge.svg",
+      "bridge": "/assets/islands/fabrica/tiles/bridge.svg",
+      "block": "/assets/islands/fabrica/tiles/block.svg",
+      "crate": "/assets/islands/fabrica/tiles/crate.svg"
+    },
+    "props": [
+      "/assets/islands/fabrica/props.svg",
+      "/assets/islands/fabrica/prop2.svg",
+      "/assets/islands/fabrica/prop3.svg"
+    ],
+    "animal": "/assets/islands/fabrica/animal.svg",
+    "bin": "/assets/islands/fabrica/bin.svg",
+    "thumbnail": "/assets/islands/fabrica/thumbnail.svg"
+  },
+  {
+    "id": "copas-13",
+    "name": "Floresta das Copas",
+    "slug": "copas",
+    "palette": {
+      "sky": "#f3ffc9",
+      "far": "#5fae56",
+      "mid": "#2f7d3a",
+      "near": "#14502c",
+      "water": "#3aa86a",
+      "ground": "#6b4a2e",
+      "accent": "#e5ff7a"
+    },
+    "theme": "copas",
+    "index": 12,
+    "layers": {
+      "sky": "/assets/islands/copas/background/sky.svg",
+      "far": "/assets/islands/copas/background/far.svg",
+      "mid": "/assets/islands/copas/background/mid.svg",
+      "near": "/assets/islands/copas/background/near.svg"
+    },
+    "tiles": {
+      "ground": "/assets/islands/copas/tiles/ground.svg",
+      "ledge": "/assets/islands/copas/tiles/ledge.svg",
+      "bridge": "/assets/islands/copas/tiles/bridge.svg",
+      "block": "/assets/islands/copas/tiles/block.svg",
+      "crate": "/assets/islands/copas/tiles/crate.svg"
+    },
+    "props": [
+      "/assets/islands/copas/props.svg",
+      "/assets/islands/copas/prop2.svg",
+      "/assets/islands/copas/prop3.svg"
+    ],
+    "animal": "/assets/islands/copas/animal.svg",
+    "bin": "/assets/islands/copas/bin.svg",
+    "thumbnail": "/assets/islands/copas/thumbnail.svg"
+  },
+  {
+    "id": "oceano-14",
+    "name": "Oceano Cristalino",
+    "slug": "oceano",
+    "palette": {
+      "sky": "#9fe6ff",
+      "far": "#3da3c9",
+      "mid": "#1f7da8",
+      "near": "#0d4f78",
+      "water": "#4fd1e8",
+      "ground": "#b9a679",
+      "accent": "#6cf2d6"
+    },
+    "theme": "oceano",
+    "index": 13,
+    "layers": {
+      "sky": "/assets/islands/oceano/background/sky.svg",
+      "far": "/assets/islands/oceano/background/far.svg",
+      "mid": "/assets/islands/oceano/background/mid.svg",
+      "near": "/assets/islands/oceano/background/near.svg"
+    },
+    "tiles": {
+      "ground": "/assets/islands/oceano/tiles/ground.svg",
+      "ledge": "/assets/islands/oceano/tiles/ledge.svg",
+      "bridge": "/assets/islands/oceano/tiles/bridge.svg",
+      "block": "/assets/islands/oceano/tiles/block.svg",
+      "crate": "/assets/islands/oceano/tiles/crate.svg"
+    },
+    "props": [
+      "/assets/islands/oceano/props.svg",
+      "/assets/islands/oceano/prop2.svg",
+      "/assets/islands/oceano/prop3.svg"
+    ],
+    "animal": "/assets/islands/oceano/animal.svg",
+    "bin": "/assets/islands/oceano/bin.svg",
+    "thumbnail": "/assets/islands/oceano/thumbnail.svg"
+  },
+  {
+    "id": "cidade-15",
+    "name": "Cidade do Futuro",
+    "slug": "cidade",
+    "palette": {
+      "sky": "#6fd3e8",
+      "far": "#7fb3c6",
+      "mid": "#4d8aa3",
+      "near": "#2b5a73",
+      "water": "#7cf0a4",
+      "ground": "#52606c",
+      "accent": "#7cf0a4"
+    },
+    "theme": "cidade",
+    "index": 14,
+    "layers": {
+      "sky": "/assets/islands/cidade/background/sky.svg",
+      "far": "/assets/islands/cidade/background/far.svg",
+      "mid": "/assets/islands/cidade/background/mid.svg",
+      "near": "/assets/islands/cidade/background/near.svg"
+    },
+    "tiles": {
+      "ground": "/assets/islands/cidade/tiles/ground.svg",
+      "ledge": "/assets/islands/cidade/tiles/ledge.svg",
+      "bridge": "/assets/islands/cidade/tiles/bridge.svg",
+      "block": "/assets/islands/cidade/tiles/block.svg",
+      "crate": "/assets/islands/cidade/tiles/crate.svg"
+    },
+    "props": [
+      "/assets/islands/cidade/props.svg",
+      "/assets/islands/cidade/prop2.svg",
+      "/assets/islands/cidade/prop3.svg"
+    ],
+    "animal": "/assets/islands/cidade/animal.svg",
+    "bin": "/assets/islands/cidade/bin.svg",
+    "thumbnail": "/assets/islands/cidade/thumbnail.svg"
+  },
+  {
+    "id": "guardiao-16",
+    "name": "Guardião do Planeta",
+    "slug": "guardiao",
+    "palette": {
+      "sky": "#171a4a",
+      "far": "#3b3d8f",
+      "mid": "#2a2f78",
+      "near": "#14183f",
+      "water": "#8bf0b4",
+      "ground": "#3a3f7a",
+      "accent": "#9cffb5"
+    },
+    "theme": "guardiao",
+    "index": 15,
+    "layers": {
+      "sky": "/assets/islands/guardiao/background/sky.svg",
+      "far": "/assets/islands/guardiao/background/far.svg",
+      "mid": "/assets/islands/guardiao/background/mid.svg",
+      "near": "/assets/islands/guardiao/background/near.svg"
+    },
+    "tiles": {
+      "ground": "/assets/islands/guardiao/tiles/ground.svg",
+      "ledge": "/assets/islands/guardiao/tiles/ledge.svg",
+      "bridge": "/assets/islands/guardiao/tiles/bridge.svg",
+      "block": "/assets/islands/guardiao/tiles/block.svg",
+      "crate": "/assets/islands/guardiao/tiles/crate.svg"
+    },
+    "props": [
+      "/assets/islands/guardiao/props.svg",
+      "/assets/islands/guardiao/prop2.svg",
+      "/assets/islands/guardiao/prop3.svg"
+    ],
+    "animal": "/assets/islands/guardiao/animal.svg",
+    "bin": "/assets/islands/guardiao/bin.svg",
+    "thumbnail": "/assets/islands/guardiao/thumbnail.svg"
   }
 ]

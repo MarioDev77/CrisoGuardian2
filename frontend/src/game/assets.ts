@@ -8,6 +8,38 @@ export interface DrawOpts { scale?: number; flip?: boolean; alpha?: number; rot?
 
 const BASE = '/assets/game/';
 
+/** Pasta dos quadros de cada herói em public/assets/characters (gerada por tools/build_hero_sprites.py). */
+export const HERO_FOLDER: Record<string, string> = { crisoman: 'crisomer', crisogirl: 'quisogril' };
+interface HeroManifest { image: string; cell: { w: number; h: number }; pivot: { x: number; y: number }; displayScale: number; animations: Record<string, { fps: number; loop: boolean; frames: string[] }>; frames: Record<string, { x: number; y: number; w: number; h: number }> }
+interface HeroSheet { meta: HeroManifest; img: HTMLImageElement; variants: Map<string, CanvasImageSource> }
+/** Recolor só do uniforme (pixels verdes); pele, cabelo e fones pretos ficam intactos. hue = ângulo absoluto alvo. */
+interface SuitTint { hue?: number; sat: number; light: number }
+export function suitTintFor(skinId: string): SuitTint | null {
+  if (/urbano|urbana/.test(skinId)) return { hue: 205, sat: 0.22, light: 1.08 };
+  if (/natureza|floresta/.test(skinId)) return { hue: 28, sat: 0.78, light: 0.92 };
+  if (/agua/.test(skinId)) return { hue: 205, sat: 1.0, light: 1.06 };
+  if (/fogo/.test(skinId)) return { hue: 11, sat: 1.1, light: 1.0 };
+  return null;
+}
+function tintSheet(img: HTMLImageElement, tint: SuitTint): CanvasImageSource {
+  if (typeof document === 'undefined') return img;
+  const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+  const g = c.getContext('2d'); if (!g) return img;
+  g.drawImage(img, 0, 0); const im = g.getImageData(0, 0, c.width, c.height); const d = im.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const a = d[i + 3]!; if (!a) continue; const r = d[i]! / 255, gg = d[i + 1]! / 255, b = d[i + 2]! / 255;
+    if (!(gg > r * 1.12 && gg > b * 1.12 && gg > 0.16)) continue;
+    const mx = Math.max(r, gg, b), mn = Math.min(r, gg, b), l = (mx + mn) / 2, dd = mx - mn;
+    let sat = dd === 0 ? 0 : dd / (1 - Math.abs(2 * l - 1)); let h = 120;
+    if (dd !== 0) { h = mx === r ? ((gg - b) / dd) % 6 : mx === gg ? (b - r) / dd + 2 : (r - gg) / dd + 4; h *= 60; if (h < 0) h += 360; }
+    if (tint.hue !== undefined) h = tint.hue; sat = Math.min(1, sat * tint.sat); const nl = Math.min(0.96, l * tint.light);
+    const cc = (1 - Math.abs(2 * nl - 1)) * sat, x = cc * (1 - Math.abs(((h / 60) % 2) - 1)), m = nl - cc / 2; let rr = 0, g2 = 0, bb = 0;
+    if (h < 60) { rr = cc; g2 = x; } else if (h < 120) { rr = x; g2 = cc; } else if (h < 180) { g2 = cc; bb = x; } else if (h < 240) { g2 = x; bb = cc; } else if (h < 300) { rr = x; bb = cc; } else { rr = cc; bb = x; }
+    d[i] = Math.round((rr + m) * 255); d[i + 1] = Math.round((g2 + m) * 255); d[i + 2] = Math.round((bb + m) * 255);
+  }
+  g.putImageData(im, 0, 0); return c;
+}
+
 type RGB = [number, number, number];
 /** Paleta extraída do cenário da fase: usada para integrar sprites, sombras e iluminação ao fundo. */
 export interface Look { ambient: RGB; haze: RGB; shadow: RGB; light: RGB }
@@ -116,6 +148,7 @@ export class Assets {
   spriteAtlasV2!: HTMLImageElement;
   actorMeta: ActorManifest = { frames: {} };
   private actorCycles = new Map<string,string[]>();
+  heroes = new Map<string, HeroSheet>();
   islandLayers = new Map<number, Record<string,HTMLImageElement>>();
   meta: Record<string, Frame> = {};
   tiles = new Map<string, HTMLImageElement>();
@@ -182,6 +215,12 @@ export class Assets {
       try { this.tiles.set(e.name, await loadImage(e.src)); if (e.lip !== undefined) this.lips.set(e.name, e.lip); }
       catch { /* sprite ausente: o jogo segue sem ele */ }
     }));
+    await Promise.all(Object.entries(HERO_FOLDER).map(async ([id, folder]) => {
+      try {
+        const meta = await fetch(`/assets/characters/${folder}/sprites.json`).then((r) => r.json() as Promise<HeroManifest>);
+        this.heroes.set(id, { meta, img: await loadImage(meta.image), variants: new Map() });
+      } catch { /* sem sprites novos: o motor volta ao atlas original */ }
+    }));
     await Promise.all([
       ...tileNames.map(async (n) => this.tiles.set(n, await loadImage(`${BASE}tiles/${n}.png`))),
       ...Array.from({ length: 8 }, (_, i) => i + 1).map(async (i) =>
@@ -198,6 +237,19 @@ export class Assets {
     return frames[meta.loop ? step % frames.length : Math.min(frames.length - 1, step)]!;
   }
   actorFrame(character: string, skinId: string, animation: string, time: number): string | null { return this.cycleFrame(`${character}|${skinId}|${animation}`, time); }
+  hasHero(character: string): boolean { return this.heroes.has(character); }
+  heroFrameCount(character: string, anim: string): number { return this.heroes.get(character)?.meta.animations[anim]?.frames.length ?? 0; }
+  heroScale(character: string): number { return this.heroes.get(character)?.meta.displayScale ?? 1; }
+  /** Desenha um quadro do herói (pés no ponto x,y). `index` é recortado/enrolado conforme a animação seja em laço ou não. */
+  drawHero(ctx: CanvasRenderingContext2D, character: string, skinId: string, anim: string, index: number, x: number, y: number, o: DrawOpts = {}): boolean {
+    const hero = this.heroes.get(character); const an = hero?.meta.animations[anim]; if (!hero || !an) return false;
+    const n = an.frames.length; const i = an.loop ? ((Math.floor(index) % n) + n) % n : Math.max(0, Math.min(n - 1, Math.floor(index)));
+    const f = hero.meta.frames[an.frames[i]!]!; const tint = suitTintFor(skinId);
+    let src: CanvasImageSource = hero.img;
+    if (tint) { const key = skinId.replace(/^skin-(crisoman|crisogirl)-/, ''); let v = hero.variants.get(key); if (!v) { v = tintSheet(hero.img, tint); hero.variants.set(key, v); } src = v; }
+    const sc = (o.scale ?? 1) * hero.meta.displayScale; const ax = o.anchor === 'center' ? hero.meta.cell.w / 2 : hero.meta.pivot.x; const ay = o.anchor === 'center' ? hero.meta.cell.h / 2 : hero.meta.pivot.y;
+    this.blit(ctx, src, f.x, f.y, f.w, f.h, x, y, f.w, f.h, sc, o, ax, ay); return true;
+  }
   petFrame(petId: string, animation: string, time: number): string | null { return this.cycleFrame(`${petId}|${animation}`, time); }
 
   /** Source rectangle of an atlas frame or tile piece, for custom slicing. */

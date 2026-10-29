@@ -1,7 +1,7 @@
 import { Assets } from './assets';
 import { buildWorld, VIEW_H, VIEW_W as BASE_VIEW_W, type World, type WSurface } from './level';
 import { audio } from './audio';
-import { PlayerAnim, ATTACK_FIRE_T, INTERACT_TIME } from './playerAnim';
+import { PlayerAnim, ATTACK_FIRE_T, INTERACT_TIME, heroPose, type PlayerState } from './playerAnim';
 import { drawDebugWorld, drawDebugPanel, type DebugState } from './debugOverlay';
 import { AI, stepGround, stepFlyer, bump, kill, hurt as hurtAi, initAi, strikeBox, type TickCtx } from './enemyAI';
 import { stepBoss, AIM_LOCK, onDamaged, kill as killBoss, initBoss, bossBody, bossTouch, bossHarmful, PHASES, type BossEvent } from './bossAI';
@@ -15,6 +15,8 @@ export interface LevelResult { coins: number; score: number; materials: number; 
 export interface EngineCallbacks { onWin: (r: LevelResult) => void; onLose: (r: LevelResult) => void; onAnnounce?: (message: string) => void }
 
 const PW = 40, PH = 92, PS = 1.32;
+/** Os quadros novos já saem normalizados (≈100 px de altura em tela); 1 = tamanho calibrado. */
+const HERO_SCALE = 1;
 const GRAV = 2400, JUMP_V = 980;
 
 /** Crisoman uses the original shipped art; only Crisogirl uses the newly drawn atlas. */
@@ -684,14 +686,25 @@ export class Engine {
     const wn = this.win;
     if (!wn || wn.phase === 'walk') {
       const gy = p.onGround ? p.y + p.h : this.groundBelow(p.x + p.w / 2, p.y + p.h); if (gy !== null && p.dieT <= 0) this.shadow(p.x + p.w / 2, gy, 30, 1, p.onGround ? 0 : gy - (p.y + p.h));
-      this.drawPet(ctx); const animName:Record<string,string>={idle:'idle',walk:'walk',run:'run',jumpStart:'jump',jumpRise:'jump',jumpApex:'jump',fall:'fall',landing:'jump',collect:'collect',interact:'collect',hurt:'hurt',victory:'celebrate',climb:'walk',attackStart:'collect',attack:'collect',attackRecovery:'collect',special:'celebrate',death:'hurt'}; const girlFrame=this.appearance.character==='crisogirl'?a.actorFrame?.(this.appearance.character,this.appearance.skinId,animName[pf.state]??'',this.anim.stateT):null; const sprite=playerSpriteName(this.appearance.character,pf.name,girlFrame); ctx.save(); if(this.appearance.character==='crisoman')ctx.filter=legacySkinFilter(this.appearance.skinId); a.draw(ctx,sprite,p.x+p.w/2,p.y+p.h+3,{scale:girlFrame?1.06:PS,flip:p.facing<0,alpha:pf.alpha}); ctx.restore();
+      this.drawPet(ctx);
+      const hp = heroPose(pf.state as PlayerState, { stateT: this.anim.stateT, hurtT: p.hurtT, landT: p.landT, dieT: p.dieT, vy: p.vy, speed: Math.abs(p.vx) });
+      ctx.save();
+      if (!(a.drawHero?.(ctx, this.appearance.character, this.appearance.skinId, hp.anim, hp.index, p.x + p.w / 2, p.y + p.h + 3, { scale: HERO_SCALE, flip: p.facing < 0, alpha: pf.alpha }) ?? false)) {
+        // sem os sprites novos (arquivo ausente): volta ao atlas original
+        if (this.appearance.character === 'crisoman') ctx.filter = legacySkinFilter(this.appearance.skinId);
+        a.draw(ctx, pf.name, p.x + p.w / 2, p.y + p.h + 3, { scale: PS, flip: p.facing < 0, alpha: pf.alpha });
+      }
+      ctx.restore();
     } else if (wn.phase === 'suck') {
       // o herói é puxado em espiral para dentro do portal: arco, giro, encolhendo e apagando
       const u = Math.min(1, wn.pt / 0.85), e = Math.pow(u, 2.2); const gx = this.world.goal.x, gyy = this.world.goal.y - 78;
       const x = wn.sx + (gx - wn.sx) * e, y = wn.sy + (gyy - wn.sy) * e - Math.sin(u * Math.PI) * 46;
       this.drawPet(ctx); ctx.save(); ctx.translate(x, y); ctx.rotate(e * Math.PI * 5);
-      const girlPortal=this.appearance.character==='crisogirl'?a.actorFrame?.(this.appearance.character,this.appearance.skinId,'jump',wn.pt):null; const portalSprite=playerSpriteName(this.appearance.character,'p_jump_3',girlPortal); if(this.appearance.character==='crisoman')ctx.filter=legacySkinFilter(this.appearance.skinId);
-      a.draw(ctx,portalSprite,0,0,{scale:(girlPortal?1.06:PS)*(1-0.92*e),flip:p.facing<0,anchor:'center',alpha:1-0.55*e*e*e});
+      const sk = 1 - 0.92 * e; ctx.globalAlpha = 1 - 0.55 * e * e * e;
+      if (!(a.drawHero?.(ctx, this.appearance.character, this.appearance.skinId, 'jump', 1, 0, 0, { scale: HERO_SCALE * sk, flip: p.facing < 0, anchor: 'center' }) ?? false)) {
+        if (this.appearance.character === 'crisoman') ctx.filter = legacySkinFilter(this.appearance.skinId);
+        a.draw(ctx, 'p_jump_3', 0, 0, { scale: PS * sk, flip: p.facing < 0, anchor: 'center', alpha: 1 - 0.55 * e * e * e });
+      }
       ctx.restore();
     }
     if (wn) this.drawWinFx(wn);

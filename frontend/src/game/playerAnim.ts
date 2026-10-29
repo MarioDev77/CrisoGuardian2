@@ -140,3 +140,26 @@ export class PlayerAnim {
     }
   }
 }
+
+
+/** Entrada para escolher o quadro dos sprites novos (assets/characters/<herói>/<animação>). */
+export interface HeroPoseInput { stateT: number; hurtT: number; landT: number; dieT: number; vy: number; speed: number }
+/** Animação e índice de quadro dos heróis. O índice de animações em laço é "bruto" (o assets enrola com módulo). */
+export function heroPose(state: PlayerState, i: HeroPoseInput): { anim: string; index: number } {
+  switch (state) {
+    case 'death': return { anim: 'death', index: clamp(Math.floor(i.dieT * 5), 0, 3) };
+    case 'hurt': return { anim: 'hurt', index: clamp(Math.floor((HURT_TIME - i.hurtT) * 7), 0, 2) };
+    case 'special': return { anim: 'attack', index: 1 };
+    case 'attackStart': return { anim: 'attack', index: 0 };
+    case 'attack': return { anim: 'attack', index: 1 };
+    case 'attackRecovery': return { anim: 'attack', index: 2 };
+    case 'jumpStart': return { anim: 'jump', index: 0 };
+    case 'jumpRise': case 'jumpApex': case 'victory': return { anim: 'jump', index: 1 };
+    case 'fall': return { anim: 'fall', index: Math.floor(i.stateT * 8) };
+    case 'landing': return { anim: 'land', index: i.landT > LAND_TIME / 2 ? 0 : 1 };
+    case 'collect': case 'interact': return { anim: 'land', index: 0 };
+    case 'run': return { anim: 'run', index: Math.floor(i.stateT * clamp(11 + (i.speed - 250) / 60, 11, 16)) };
+    case 'walk': case 'climb': return { anim: 'walk', index: Math.floor(i.stateT * clamp(6 + i.speed / 45, 7, 11)) };
+    default: return { anim: 'idle', index: Math.floor(i.stateT * 5) };
+  }
+}

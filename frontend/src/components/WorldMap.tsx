@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { LEVEL_COUNT, type Progress } from '../app/progress';
-import { NEW_ISLANDS } from '../app/catalog';
 import { SettingsDialog } from './Dialogs';
 import s from './Screens.module.css';
 import { useFit } from './useFit';
@@ -16,9 +15,9 @@ const px = (v: number) => `${(v / W) * 100}cqw`;
 const L = (x: number) => `${(x / W) * 100}%`;
 const T = (y: number) => `${(y / H) * 100}%`;
 
-interface Props { progress: Progress; statusMessage?:string; onPlay: (level: number) => void; onOpenLobby:()=>void; onOpenShop:()=>void; onOpenRecycle:()=>void; onBack: () => void }
+interface Props { progress: Progress; statusMessage?:string; onOpenMap2?: () => void; map2Fresh?: boolean; onPlay: (level: number) => void; onOpenLobby:()=>void; onOpenShop:()=>void; onOpenRecycle:()=>void; onBack: () => void }
 
-export default function WorldMap({ progress, statusMessage, onPlay, onOpenLobby, onOpenShop, onOpenRecycle, onBack }: Props) {
+export default function WorldMap({ progress, statusMessage, onOpenMap2, map2Fresh, onPlay, onOpenLobby, onOpenShop, onOpenRecycle, onBack }: Props) {
   // o mapa inteiro é "seguro" (HUD no topo, botão de fases na base): estica até 1.5x e, se não couber, mostra inteiro com fundo desfocado nas laterais
   const fit = useFit(W / H, { maxStretch: 1.25, cap: 1.5, safe: [0, 0.96], cropTop: 0.5 });
   const [shake, setShake] = useState(-1);
@@ -58,7 +57,8 @@ export default function WorldMap({ progress, statusMessage, onPlay, onOpenLobby,
         <button aria-label="Configurações" className={s.hit} style={{ left: L(1628), top: T(48), width: px(70), height: px(70) }} onClick={() => setSettings(true)} />
         <button aria-label="Voltar à tela inicial" className={s.hit} style={{ left: L(1717), top: T(48), width: px(70), height: px(70) }} onClick={onBack} />
         <button aria-label="Jogar próxima fase liberada" className={s.hit} style={{ left: L(1602), top: T(805), width: px(300), height: px(86) }} onClick={() => onPlay(Math.min(progress.unlocked, LEVEL_COUNT) - 1)} />
-        {NEW_ISLANDS.filter(island=>island.index+1<=progress.unlocked).length>0&&<nav className={s.newIslandNav} aria-label="Novas ilhas liberadas">{NEW_ISLANDS.filter(island=>island.index+1<=progress.unlocked).map(island=><button key={island.id} onClick={()=>onPlay(island.index)}>{island.name}</button>)}</nav>}
+        {/* Mapa 2: abre ao concluir a fase 8 (unlocked >= 9) */}
+        {onOpenMap2 && <button type="button" className={`${s.map2Btn} ${progress.unlocked >= 9 ? '' : s.map2Locked} ${map2Fresh ? s.map2Fresh : ''}`} disabled={progress.unlocked < 9} onClick={onOpenMap2} aria-label={progress.unlocked >= 9 ? 'Abrir Mapa 2, fases 9 a 16' : 'Mapa 2 bloqueado: conclua a fase 8'}>{progress.unlocked >= 9 ? <>{map2Fresh ? '🎉 Mapa 2 desbloqueado! ' : ''}Mapa 2 · Fases 9–16 →</> : <>🔒 Mapa 2 · conclua a fase 8</>}</button>}
       </div>
       {settings && <SettingsDialog onClose={() => setSettings(false)} />}
     </div>

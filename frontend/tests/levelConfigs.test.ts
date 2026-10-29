@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest';
 import { levelConfigs } from '../src/game/levels/levelConfigs';
 import { generateLevel } from '../src/game/procedural/LevelGenerator';
 
-describe('eleven level configurations', () => {
-  it('defines all eleven missions with unique ids', () => {
-    expect(levelConfigs).toHaveLength(11);
-    expect(new Set(levelConfigs.map(level => level.id)).size).toBe(11);
+describe('sixteen level configurations', () => {
+  it('defines all sixteen missions with unique ids', () => {
+    expect(levelConfigs).toHaveLength(16);
+    expect(new Set(levelConfigs.map(level => level.id)).size).toBe(16);
   });
   it('generates reproducible levels for every biome', () => {
     for (const config of levelConfigs) {

@@ -17,8 +17,8 @@ describe('visual overhaul assets',()=>{
   expect(existsSync(resolve(root,'sprites/crisoman/crisoman.png'))).toBe(true);
   expect(existsSync(resolve(root,'sprites/crisoman/frames/idle/idle_00.png'))).toBe(true);
  });
- it('has three new island backgrounds and tiled assets wired to playable phases',()=>{
-  expect(levelConfigs).toHaveLength(11);
+ it('has eight new island backgrounds and tiled assets wired to playable phases',()=>{
+  expect(levelConfigs).toHaveLength(16);
   const phases=JSON.parse(readFileSync(resolve(root,'phases/catalog.json'),'utf8')) as {phase:number;src:string;name:string}[];
   for(const island of catalog.newIslands){const levelIndex=island.index;const phaseIndex=levelIndex+1;expect(levelConfigs[levelIndex]?.id).toBe(island.id);for(const role of ['ground','ledge','bridge','prop','bin']){const asset=phases.find(x=>x.phase===phaseIndex&&x.name===`p${String(phaseIndex).padStart(2,'0')}_${role}`);expect(asset,`${island.id} ${role}`).toBeTruthy();expect(existsSync(resolve(root,asset!.src.replace('/assets/','')))).toBe(true);}}
  });

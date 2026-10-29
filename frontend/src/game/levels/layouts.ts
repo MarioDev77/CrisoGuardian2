@@ -11,6 +11,7 @@ export type EnemyKind = 'rat' | 'mutant' | 'armor' | 'bat' | 'roach' | 'fly' | '
   | 'fish' | 'robot' | 'yeti' | 'crab' | 'lizard' | 'drone' | 'alien';
 export type Material = 'papel' | 'plastico' | 'metal' | 'vidro' | 'fruta' | 'restos' | 'folhas' | 'bateria' | 'tinta' | 'eletronico';
 
+export interface LayoutPart { surfaces: Surface[]; ladders: Ladder[]; decor: Decor[] }
 export interface Layout {
   id: string;
   name: string;
@@ -26,10 +27,13 @@ export interface Layout {
   materials: Material[];
   bin: string;
   boss?: boolean;
+  /** Trechos A, B, C… do cenário contínuo (um por tela, sem espelhar). Se existir, substitui surfaces/ladders/decor. */
+  parts?: LayoutPart[];
   /** Painted pieces drawn above ground to hide transitions, optional */
   accent: string;
 }
 
+import { islandLayouts } from './islandLayouts';
 export const SCENE_W = 357;
 
 export const layouts: Layout[] = [
@@ -156,19 +160,5 @@ export const layouts: Layout[] = [
     decor: [],
     walkers: ['mutant', 'armor', 'alien'], flyers: ['cloud', 'bat'], materials: ['plastico', 'metal', 'vidro', 'eletronico', 'bateria', 'tinta'], bin: 'p08_bin',
   },
-  {
-    id:'manguezal-09', name:'Manguezal Vivo', biome:'Manguezal e raízes filtrantes', objective:'Atravesse os canais entre raízes e recupere os materiais do mangue.', sceneH:238, screens:5, accent:'#c3f16c',
-    surfaces:[{x:0,y:220,w:357,kind:'ground',tile:'p09_ground'},{x:32,y:177,w:68,kind:'plat',tile:'p09_ledge'},{x:132,y:152,w:72,kind:'bridge',tile:'p09_bridge'},{x:246,y:174,w:80,kind:'plat',tile:'p09_ledge'}], ladders:[],
-    decor:[{x:66,y:220,tile:'p09_prop',scale:1.1},{x:276,y:220,tile:'p09_prop',scale:.8}], walkers:['crab','roach'], flyers:['fly','fish'], materials:['plastico','papel','vidro','metal'], bin:'p09_bin',
-  },
-  {
-    id:'geleira-10', name:'Geleira Azul', biome:'Geleiras e água doce', objective:'Cruze as placas de gelo e proteja a nascente congelada.', sceneH:238, screens:5, accent:'#f2ffff',
-    surfaces:[{x:0,y:220,w:357,kind:'ground',tile:'p10_ground'},{x:18,y:170,w:74,kind:'plat',tile:'p10_ledge'},{x:132,y:142,w:70,kind:'bridge',tile:'p10_bridge'},{x:260,y:166,w:80,kind:'plat',tile:'p10_ledge'}], ladders:[],
-    decor:[{x:93,y:220,tile:'p10_prop',scale:1},{x:224,y:220,tile:'p10_prop',scale:.85}], walkers:['yeti','rat'], flyers:['bat','fly'], materials:['plastico','papel','vidro','metal'], bin:'p10_bin',
-  },
-  {
-    id:'vulcao-11', name:'Vulcão Verde', biome:'Vulcão de energia limpa', objective:'Desvie das rochas quentes e estabilize o portal de energia renovável.', sceneH:238, screens:5, accent:'#b5eb6d', boss:true,
-    surfaces:[{x:0,y:220,w:357,kind:'ground',tile:'p11_ground'},{x:12,y:176,w:65,kind:'plat',tile:'p11_ledge'},{x:106,y:144,w:70,kind:'bridge',tile:'p11_bridge'},{x:217,y:166,w:68,kind:'plat',tile:'p11_ledge'},{x:296,y:180,w:61,kind:'plat',tile:'p11_ledge'}], ladders:[],
-    decor:[{x:52,y:220,tile:'p11_prop',scale:1},{x:256,y:220,tile:'p11_prop',scale:.9}], walkers:['robot','mutant','alien'], flyers:['cloud','drone'], materials:['plastico','papel','vidro','metal'], bin:'p11_bin',
-  },
+  ...islandLayouts,
 ];

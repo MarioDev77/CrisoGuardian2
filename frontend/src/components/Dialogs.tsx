@@ -208,7 +208,7 @@ export function TutorialDialog({ onClose, onStart, onSkip }: { onClose: () => vo
           <h3>Objetivo</h3>
           <ul>
             <li>Atravesse cada fase <b>reciclando os resíduos</b>, coletando moedas e derrotando os bichos do lixo.</li>
-            <li>Chegue ao <b>portal de reciclagem</b> no fim da fase. Na última fase, derrote o <b>Monstro do Lixão</b> antes.</li>
+            <li>Chegue ao <b>portal de reciclagem</b> no fim da fase. Nas fases com chefe (8, 11 e 16), derrote o <b>chefe</b> antes.</li>
           </ul>
         </section>
         <section>

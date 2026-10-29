@@ -21,10 +21,10 @@ function makeEngine(level: number, done: { won: boolean; lost: boolean }) {
 }
 
 describe('layouts', () => {
-  it('has 11 missions with continuous ground at both mirror seams', () => {
-    expect(layouts).toHaveLength(11);
+  it('has 16 missions with continuous ground at both mirror seams', () => {
+    expect(layouts).toHaveLength(16);
     for (const l of layouts) {
-      const g = l.surfaces.filter((s) => s.kind === 'ground');
+      const g = (l.parts ? l.parts.flatMap((q) => q.surfaces) : l.surfaces).filter((s) => s.kind === 'ground');
       expect(g.length, l.id).toBeGreaterThan(0);
       if (!['river-02', 'beach-05'].includes(l.id)) expect(g.some((s) => s.x === 0) && g.some((s) => s.x + s.w >= 357), l.id).toBe(true);
     }

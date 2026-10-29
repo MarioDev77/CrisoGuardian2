@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { audio } from '../game/audio';
 import TitleScreen from '../components/TitleScreen';
 import WorldMap from '../components/WorldMap';
+import WorldMap2 from '../components/WorldMap2';
 import GameView from '../components/GameView';
 import Lobby from '../components/Lobby';
 import Shop from '../components/Shop';
@@ -12,7 +13,7 @@ import { CATALOG } from './catalog';
 import { api, getServerSnapshot, type ServerSnapshot } from './api';
 import { LEVEL_COUNT, loadProgress, type Progress } from './progress';
 
-type Screen = { name: 'title' } | { name: 'map' } | { name: 'lobby' } | { name: 'shop' } | { name: 'recycle' } | { name: 'play'; level: number; runId: string };
+type Screen = { name: 'title' } | { name: 'map' } | { name: 'map2' } | { name: 'lobby' } | { name: 'shop' } | { name: 'recycle' } | { name: 'play'; level: number; runId: string };
 type ApiSnapshot = ServerSnapshot & { message?: string; payout?: { coins: number; materials: number; discarded: number } };
 
 export default function App() {
@@ -22,6 +23,8 @@ export default function App() {
   const economyRef = useRef(economy);
   const [serverReady, setServerReady] = useState(false);
   const [serverError, setServerError] = useState('');
+  /** true logo após concluir a fase 8 pela primeira vez: destaca o Mapa 2 recém-liberado. */
+  const [map2Fresh, setMap2Fresh] = useState(false);
 
   const applySnapshot = (snapshot: ServerSnapshot) => {
     economyRef.current = snapshot.economy;
@@ -54,7 +57,8 @@ export default function App() {
   </div>;
 
   if (screen.name === 'title') return <TitleScreen onPlay={() => { void enterGameMode(); setScreen({ name: 'map' }); }} />;
-  if (screen.name === 'map') return <WorldMap progress={{ ...progress, coins: economy.coins }} statusMessage={serverError} onPlay={(level) => { void startLevel(level); }} onOpenLobby={() => setScreen({name:'lobby'})} onOpenShop={() => setScreen({name:'shop'})} onOpenRecycle={() => setScreen({name:'recycle'})} onBack={() => setScreen({ name: 'title' })} />;
+  if (screen.name === 'map') return <WorldMap progress={{ ...progress, coins: economy.coins }} statusMessage={serverError} map2Fresh={map2Fresh} onOpenMap2={() => { setMap2Fresh(false); setScreen({ name: 'map2' }); }} onPlay={(level) => { void startLevel(level); }} onOpenLobby={() => setScreen({name:'lobby'})} onOpenShop={() => setScreen({name:'shop'})} onOpenRecycle={() => setScreen({name:'recycle'})} onBack={() => setScreen({ name: 'title' })} />;
+  if (screen.name === 'map2') return <WorldMap2 progress={{ ...progress, coins: economy.coins }} justUnlocked={map2Fresh} onPlay={(level) => { void startLevel(level); }} onBack={() => setScreen({ name: 'map' })} onOpenLobby={() => setScreen({ name: 'lobby' })} onOpenShop={() => setScreen({ name: 'shop' })} onOpenRecycle={() => setScreen({ name: 'recycle' })} />;
   if (screen.name === 'lobby') return <Lobby economy={economy} progress={progress} onMap={() => setScreen({name:'map'})} onPlay={() => { void startLevel(Math.min(progress.unlocked, LEVEL_COUNT) - 1); }} onNavigate={navigateHub} onEconomy={async(next)=>{
     const current=economyRef.current;
     const body=next.character!==current.character?{character:next.character}:next.equippedPet!==current.equippedPet?{petId:next.equippedPet}:next.equippedSkin.crisoman!==current.equippedSkin.crisoman?{skinId:next.equippedSkin.crisoman}:next.equippedSkin.crisogirl!==current.equippedSkin.crisogirl?{skinId:next.equippedSkin.crisogirl}:null;
@@ -64,9 +68,11 @@ export default function App() {
   if (screen.name === 'recycle') return <Recycling economy={economy} unlocked={progress.unlocked} onMap={()=>setScreen({name:'map'})} onNavigate={navigateHub} onRecycle={async(material,batches)=>{try{const result=await api<ApiSnapshot>('/api/economy/recycle',{material,batches});applySnapshot(result);return {ok:true,message:result.message??'Troca concluída.'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao reciclar.'}}}} />;
   return <GameView key={`${screen.level}-${screen.runId}`} level={screen.level} runId={screen.runId}
     character={economy.character} skinId={economy.equippedSkin[economy.character]} petId={economy.equippedPet}
-    onExit={() => setScreen({ name: 'map' })}
+    onExit={() => setScreen(screen.level >= 8 ? { name: 'map2' } : { name: 'map' })}
     onWin={async (level, result, stars, runId) => {
       const settled = await api<ApiSnapshot>('/api/run/settle', { runId, level, won: true, collectibles: result.collectibles, stars, score: result.score });
+      // concluir a fase 8 pela primeira vez libera o Mapa 2
+      if (level === 7 && progress.unlocked < 9 && settled.progress.unlocked >= 9) setMap2Fresh(true);
       applySnapshot(settled);
       return settled.payout ?? { coins: 0, materials: 0, discarded: 0 };
     }}
