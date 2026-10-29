@@ -36,6 +36,23 @@ export const ENEMIES: Record<EnemyKind, EnemySpec> = {
   lizard: { w: 64, h: 40, hp: 3, speed: 110, scale: 0.62, fly: false, score: 170, frames: ['p06_lizard'], motion: 'slither', nativeLeft: true },
   drone: { w: 56, h: 42, hp: 3, speed: 115, scale: 0.8, fly: true, score: 190, frames: ['p07_drone'], motion: 'hover', noFlip: true },
   alien: { w: 50, h: 54, hp: 4, speed: 80, scale: 0.85, fly: false, score: 210, frames: ['p08_alien'], motion: 'hop', noFlip: true },
+  // inimigos exclusivos das ilhas 9 a 16 (SVG em public/assets/islands/*/enemy_*.svg, animados por código)
+  fiddler: { w: 58, h: 44, hp: 3, speed: 95, scale: 0.78, fly: false, score: 150, frames: ['p09_walker'], motion: 'scuttle', noFlip: true },
+  dragonfly: { w: 56, h: 38, hp: 2, speed: 125, scale: 0.8, fly: true, score: 160, frames: ['p09_flyer'], motion: 'hover' },
+  penguin: { w: 50, h: 62, hp: 4, speed: 60, scale: 0.78, fly: false, score: 220, frames: ['p10_walker'], motion: 'stomp', noFlip: true },
+  snowowl: { w: 56, h: 52, hp: 3, speed: 100, scale: 0.78, fly: true, score: 200, frames: ['p10_flyer'], motion: 'hover', noFlip: true },
+  salamander: { w: 66, h: 40, hp: 3, speed: 115, scale: 0.8, fly: false, score: 190, frames: ['p11_walker'], motion: 'slither' },
+  ember: { w: 48, h: 56, hp: 3, speed: 110, scale: 0.74, fly: true, score: 210, frames: ['p11_flyer'], motion: 'hover', noFlip: true },
+  sweeper: { w: 62, h: 50, hp: 5, speed: 70, scale: 0.8, fly: false, score: 230, frames: ['p12_walker'], motion: 'stomp' },
+  cogdrone: { w: 52, h: 52, hp: 3, speed: 120, scale: 0.76, fly: true, score: 210, frames: ['p12_flyer'], motion: 'hover', noFlip: true },
+  monkey: { w: 52, h: 56, hp: 3, speed: 100, scale: 0.76, fly: false, score: 190, frames: ['p13_walker'], motion: 'hop' },
+  toucan: { w: 60, h: 46, hp: 2, speed: 125, scale: 0.8, fly: true, score: 180, frames: ['p13_flyer'], motion: 'swim' },
+  urchin: { w: 56, h: 56, hp: 4, speed: 60, scale: 0.78, fly: false, score: 210, frames: ['p14_walker'], motion: 'hop', noFlip: true },
+  jelly: { w: 52, h: 58, hp: 3, speed: 70, scale: 0.78, fly: true, score: 200, frames: ['p14_flyer'], motion: 'swim', noFlip: true },
+  sentinel: { w: 50, h: 70, hp: 6, speed: 65, scale: 0.8, fly: false, score: 260, frames: ['p15_walker'], motion: 'stomp' },
+  orbdrone: { w: 56, h: 52, hp: 3, speed: 125, scale: 0.78, fly: true, score: 230, frames: ['p15_flyer'], motion: 'hover', noFlip: true },
+  golem: { w: 62, h: 66, hp: 7, speed: 55, scale: 0.82, fly: false, score: 300, frames: ['p16_walker'], motion: 'stomp', noFlip: true },
+  wisp: { w: 52, h: 58, hp: 4, speed: 105, scale: 0.78, fly: true, score: 260, frames: ['p16_flyer'], motion: 'swim', noFlip: true },
 };
 
 export interface Enemy extends Body {
@@ -60,7 +77,7 @@ export interface Pickup extends Rect {
 
 export interface Bin extends Rect { id: number; sprite: string; used: boolean; pulse: number }
 export interface Shot { x: number; y: number; vx: number; life: number }
-export interface Sludge { x: number; y: number; vx: number; life: number }
+export interface Sludge { x: number; y: number; vx: number; life: number; /** quadro do projétil do Grande Lixo (0–3 lixo girando, 4 bola de lodo) */ fx?: number }
 export interface Particle { x: number; y: number; vx: number; vy: number; life: number; max: number; color: string; size: number }
 export interface FloatText { x: number; y: number; life: number; text: string; color: string }
 

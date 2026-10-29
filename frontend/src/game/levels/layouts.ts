@@ -8,7 +8,9 @@ export interface Surface { x: number; y: number; w: number; kind: SurfaceKind; t
 export interface Ladder { x: number; top: number; bottom: number }
 export interface Decor { x: number; y: number; tile: string; scale?: number; hazard?: boolean }
 export type EnemyKind = 'rat' | 'mutant' | 'armor' | 'bat' | 'roach' | 'fly' | 'spider' | 'cloud'
-  | 'fish' | 'robot' | 'yeti' | 'crab' | 'lizard' | 'drone' | 'alien';
+  | 'fish' | 'robot' | 'yeti' | 'crab' | 'lizard' | 'drone' | 'alien'
+  // inimigos exclusivos das ilhas 9 a 16
+  | 'fiddler' | 'dragonfly' | 'penguin' | 'snowowl' | 'salamander' | 'ember' | 'sweeper' | 'cogdrone' | 'monkey' | 'toucan' | 'urchin' | 'jelly' | 'sentinel' | 'orbdrone' | 'golem' | 'wisp';
 export type Material = 'papel' | 'plastico' | 'metal' | 'vidro' | 'fruta' | 'restos' | 'folhas' | 'bateria' | 'tinta' | 'eletronico';
 
 export interface LayoutPart { surfaces: Surface[]; ladders: Ladder[]; decor: Decor[] }

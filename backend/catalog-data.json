@@ -6,7 +6,8 @@
       "price": 0,
       "rarity": "comum",
       "character": "crisoman",
-      "palette": "#59df68"
+      "palette": "#59df68",
+      "image": "/assets/cosmetics/skins/Guardiao_Verde_Crizoman.png"
     },
     {
       "id": "skin-crisoman-urbano",
@@ -14,7 +15,8 @@
       "price": 120,
       "rarity": "raro",
       "character": "crisoman",
-      "palette": "#8f9da6"
+      "palette": "#8f9da6",
+      "image": "/assets/cosmetics/skins/Urbano_Crizoman.png"
     },
     {
       "id": "skin-crisoman-natureza",
@@ -22,7 +24,8 @@
       "price": 260,
       "rarity": "épico",
       "character": "crisoman",
-      "palette": "#a87542"
+      "palette": "#a87542",
+      "image": "/assets/cosmetics/skins/Natureza_Crizoman.png"
     },
     {
       "id": "skin-crisoman-agua",
@@ -30,7 +33,8 @@
       "price": 420,
       "rarity": "épico",
       "character": "crisoman",
-      "palette": "#46bdec"
+      "palette": "#46bdec",
+      "image": "/assets/cosmetics/skins/Guardiao_da_Agua_Crizoman.png"
     },
     {
       "id": "skin-crisoman-fogo",
@@ -38,7 +42,8 @@
       "price": 700,
       "rarity": "lendário",
       "character": "crisoman",
-      "palette": "#f05a39"
+      "palette": "#f05a39",
+      "image": "/assets/cosmetics/skins/Guardiao_do_Fogo_Crizoman.png"
     },
     {
       "id": "skin-crisogirl-rosa",
@@ -46,7 +51,8 @@
       "price": 0,
       "rarity": "comum",
       "character": "crisogirl",
-      "palette": "#f06bb7"
+      "palette": "#f06bb7",
+      "image": "/assets/cosmetics/skins/Guardiao_Verde_CrizoGirl.png"
     },
     {
       "id": "skin-crisogirl-urbana",
@@ -54,7 +60,8 @@
       "price": 120,
       "rarity": "raro",
       "character": "crisogirl",
-      "palette": "#8f9da6"
+      "palette": "#8f9da6",
+      "image": "/assets/cosmetics/skins/Urbano_CrizoGirl.png"
     },
     {
       "id": "skin-crisogirl-floresta",
@@ -62,7 +69,8 @@
       "price": 260,
       "rarity": "épico",
       "character": "crisogirl",
-      "palette": "#45b76a"
+      "palette": "#45b76a",
+      "image": "/assets/cosmetics/skins/Natureza_CrizoGirl.png"
     },
     {
       "id": "skin-crisogirl-agua",
@@ -70,7 +78,8 @@
       "price": 420,
       "rarity": "épico",
       "character": "crisogirl",
-      "palette": "#46bdec"
+      "palette": "#46bdec",
+      "image": "/assets/cosmetics/skins/Guardiao_da_Agua_CrizoGirl.png"
     },
     {
       "id": "skin-crisogirl-fogo",
@@ -78,7 +87,8 @@
       "price": 700,
       "rarity": "lendário",
       "character": "crisogirl",
-      "palette": "#f07834"
+      "palette": "#f07834",
+      "image": "/assets/cosmetics/skins/Guardiao_do_Fogo_CrizoGirl.png"
     }
   ],
   "pets": [
@@ -87,35 +97,45 @@
       "name": "Turtix",
       "price": 180,
       "rarity": "comum",
-      "palette": "#60c980"
+      "palette": "#60c980",
+      "image": "/assets/cosmetics/pets/Turtix.png",
+      "icon": "/assets/cosmetics/pets/Turtix_icon.png"
     },
     {
       "id": "pet-foxy",
       "name": "Foxy",
       "price": 300,
       "rarity": "raro",
-      "palette": "#f29a4a"
+      "palette": "#f29a4a",
+      "image": "/assets/cosmetics/pets/Foxy.png",
+      "icon": "/assets/cosmetics/pets/Foxy_icon.png"
     },
     {
       "id": "pet-folhinha",
       "name": "Folhinha",
       "price": 420,
       "rarity": "raro",
-      "palette": "#a5df55"
+      "palette": "#a5df55",
+      "image": "/assets/cosmetics/pets/Folhinha.png",
+      "icon": "/assets/cosmetics/pets/Folhinha_icon.png"
     },
     {
       "id": "pet-pipoca",
       "name": "Pipoca",
       "price": 600,
       "rarity": "épico",
-      "palette": "#64d8dc"
+      "palette": "#64d8dc",
+      "image": "/assets/cosmetics/pets/Pipoca.png",
+      "icon": "/assets/cosmetics/pets/Pipoca_icon.png"
     },
     {
       "id": "pet-brasa",
       "name": "Brasa",
       "price": 850,
       "rarity": "lendário",
-      "palette": "#ff744e"
+      "palette": "#ff744e",
+      "image": "/assets/cosmetics/pets/Brasa.png",
+      "icon": "/assets/cosmetics/pets/Brasa_icon.png"
     }
   ],
   "recycling": {
@@ -143,12 +163,12 @@
       "theme": "manguezal",
       "difficulty": 9,
       "palette": {
-        "sky": "#a5e3df",
-        "far": "#4b9a88",
-        "mid": "#257b69",
-        "near": "#164c49",
-        "water": "#2e9d9b",
-        "ground": "#704f38",
+        "sky": "#bff0e6",
+        "far": "#5aa896",
+        "mid": "#2f8068",
+        "near": "#14463f",
+        "water": "#2c9aa0",
+        "ground": "#6a4a34",
         "accent": "#c3f16c"
       }
     },
@@ -159,13 +179,13 @@
       "theme": "geleira",
       "difficulty": 10,
       "palette": {
-        "sky": "#b7e6f2",
-        "far": "#8fc9e0",
-        "mid": "#4c91b5",
-        "near": "#235a77",
+        "sky": "#d8f3ff",
+        "far": "#a9d8ec",
+        "mid": "#6aa9cc",
+        "near": "#2e6a8f",
         "water": "#58bed4",
-        "ground": "#526d7d",
-        "accent": "#f2ffff"
+        "ground": "#6f90a8",
+        "accent": "#bff3ff"
       }
     },
     {
@@ -175,14 +195,204 @@
       "theme": "vulcao",
       "difficulty": 11,
       "palette": {
-        "sky": "#8b88ad",
-        "far": "#625b7c",
-        "mid": "#483b4a",
-        "near": "#292c39",
-        "water": "#558b68",
-        "ground": "#3a353c",
+        "sky": "#3d2a55",
+        "far": "#5b3f63",
+        "mid": "#3d2a40",
+        "near": "#241c2c",
+        "water": "#ff7a2f",
+        "ground": "#3b3340",
         "accent": "#b5eb6d"
       }
+    },
+    {
+      "id": "fabrica-12",
+      "name": "Fábrica da Reciclagem",
+      "index": 11,
+      "theme": "fabrica",
+      "difficulty": 12,
+      "palette": {
+        "sky": "#cfe3e0",
+        "far": "#7f9a9c",
+        "mid": "#566f78",
+        "near": "#2f434d",
+        "water": "#6fe38a",
+        "ground": "#4a5560",
+        "accent": "#ffcf4a"
+      }
+    },
+    {
+      "id": "copas-13",
+      "name": "Floresta das Copas",
+      "index": 12,
+      "theme": "copas",
+      "difficulty": 13,
+      "palette": {
+        "sky": "#f3ffc9",
+        "far": "#5fae56",
+        "mid": "#2f7d3a",
+        "near": "#14502c",
+        "water": "#3aa86a",
+        "ground": "#6b4a2e",
+        "accent": "#e5ff7a"
+      }
+    },
+    {
+      "id": "oceano-14",
+      "name": "Oceano Cristalino",
+      "index": 13,
+      "theme": "oceano",
+      "difficulty": 14,
+      "palette": {
+        "sky": "#9fe6ff",
+        "far": "#3da3c9",
+        "mid": "#1f7da8",
+        "near": "#0d4f78",
+        "water": "#4fd1e8",
+        "ground": "#b9a679",
+        "accent": "#6cf2d6"
+      }
+    },
+    {
+      "id": "cidade-15",
+      "name": "Cidade do Futuro",
+      "index": 14,
+      "theme": "cidade",
+      "difficulty": 15,
+      "palette": {
+        "sky": "#6fd3e8",
+        "far": "#7fb3c6",
+        "mid": "#4d8aa3",
+        "near": "#2b5a73",
+        "water": "#7cf0a4",
+        "ground": "#52606c",
+        "accent": "#7cf0a4"
+      }
+    },
+    {
+      "id": "guardiao-16",
+      "name": "Guardião do Planeta",
+      "index": 15,
+      "theme": "guardiao",
+      "difficulty": 16,
+      "palette": {
+        "sky": "#171a4a",
+        "far": "#3b3d8f",
+        "mid": "#2a2f78",
+        "near": "#14183f",
+        "water": "#8bf0b4",
+        "ground": "#3a3f7a",
+        "accent": "#9cffb5"
+      }
+    }
+  ],
+  "achievements": [
+    {
+      "id": "first_steps",
+      "name": "Primeiros passos",
+      "desc": "Conclua sua primeira fase.",
+      "icon": "🌱"
+    },
+    {
+      "id": "five_levels",
+      "name": "Explorador",
+      "desc": "Conclua 5 fases.",
+      "icon": "🧭"
+    },
+    {
+      "id": "map1_done",
+      "name": "Guardião do Mapa 1",
+      "desc": "Conclua as fases 1 a 8.",
+      "icon": "🗺️"
+    },
+    {
+      "id": "boss_lixao",
+      "name": "Domador do Lixão",
+      "desc": "Derrote o chefe da fase 8.",
+      "icon": "👾"
+    },
+    {
+      "id": "volcano_boss",
+      "name": "Coração do Vulcão",
+      "desc": "Conclua o Vulcão Verde (fase 11).",
+      "icon": "🌋"
+    },
+    {
+      "id": "map2_done",
+      "name": "Guardião do Mapa 2",
+      "desc": "Conclua as fases 9 a 16.",
+      "icon": "🏝️"
+    },
+    {
+      "id": "planet_guardian",
+      "name": "Guardião do Planeta",
+      "desc": "Conclua a fase 16.",
+      "icon": "🌍"
+    },
+    {
+      "id": "three_stars",
+      "name": "Perfeito!",
+      "desc": "Ganhe 3 estrelas em uma fase.",
+      "icon": "⭐"
+    },
+    {
+      "id": "stars_10",
+      "name": "Colecionador de estrelas",
+      "desc": "Some 10 estrelas.",
+      "icon": "✨"
+    },
+    {
+      "id": "stars_30",
+      "name": "Constelação",
+      "desc": "Some 30 estrelas.",
+      "icon": "🌟"
+    },
+    {
+      "id": "all_stars",
+      "name": "Céu completo",
+      "desc": "Ganhe 3 estrelas em todas as 16 fases.",
+      "icon": "🏆"
+    },
+    {
+      "id": "coins_500",
+      "name": "Cofrinho",
+      "desc": "Ganhe 500 moedas em fases.",
+      "icon": "🪙"
+    },
+    {
+      "id": "coins_5000",
+      "name": "Tesouro",
+      "desc": "Ganhe 5.000 moedas em fases.",
+      "icon": "💰"
+    },
+    {
+      "id": "materials_100",
+      "name": "Catador dedicado",
+      "desc": "Colete 100 materiais recicláveis.",
+      "icon": "♻️"
+    },
+    {
+      "id": "recycler_5",
+      "name": "Mestre da reciclagem",
+      "desc": "Faça 5 trocas na Reciclagem.",
+      "icon": "🔄"
+    },
+    {
+      "id": "shopper",
+      "name": "Primeira compra",
+      "desc": "Compre um item na Loja.",
+      "icon": "🛍️"
+    },
+    {
+      "id": "collector",
+      "name": "Colecionador",
+      "desc": "Tenha 8 itens (skins e pets).",
+      "icon": "🎽"
+    },
+    {
+      "id": "registered",
+      "name": "Guardião registrado",
+      "desc": "Crie sua conta.",
+      "icon": "👤"
     }
   ]
 }

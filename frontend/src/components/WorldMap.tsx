@@ -15,9 +15,9 @@ const px = (v: number) => `${(v / W) * 100}cqw`;
 const L = (x: number) => `${(x / W) * 100}%`;
 const T = (y: number) => `${(y / H) * 100}%`;
 
-interface Props { progress: Progress; statusMessage?:string; onOpenMap2?: () => void; map2Fresh?: boolean; onPlay: (level: number) => void; onOpenLobby:()=>void; onOpenShop:()=>void; onOpenRecycle:()=>void; onBack: () => void }
+interface Props { progress: Progress; statusMessage?:string; onOpenMap2?: () => void; onOpenProfile?: () => void; map2Fresh?: boolean; onPlay: (level: number) => void; onOpenLobby:()=>void; onOpenShop:()=>void; onOpenRecycle:()=>void; onBack: () => void }
 
-export default function WorldMap({ progress, statusMessage, onOpenMap2, map2Fresh, onPlay, onOpenLobby, onOpenShop, onOpenRecycle, onBack }: Props) {
+export default function WorldMap({ progress, statusMessage, onOpenMap2, onOpenProfile, map2Fresh, onPlay, onOpenLobby, onOpenShop, onOpenRecycle, onBack }: Props) {
   // o mapa inteiro é "seguro" (HUD no topo, botão de fases na base): estica até 1.5x e, se não couber, mostra inteiro com fundo desfocado nas laterais
   const fit = useFit(W / H, { maxStretch: 1.25, cap: 1.5, safe: [0, 0.96], cropTop: 0.5 });
   const [shake, setShake] = useState(-1);
@@ -35,7 +35,7 @@ export default function WorldMap({ progress, statusMessage, onOpenMap2, map2Fres
           <img src="/assets/title/crisoguardian-logo.webp" alt="CrisoGuardian" />
           <span>PROTEGENDO O AMANHÃ</span>
         </div>
-        <nav className={s.mapNav} aria-label="Menu principal"><button onClick={onOpenLobby}>Lobby</button><button onClick={onOpenShop}>Loja</button><button onClick={onOpenRecycle}>Reciclagem</button></nav>
+        <nav className={s.mapNav} aria-label="Menu principal"><button onClick={onOpenLobby}>Lobby</button>{onOpenProfile && <button onClick={onOpenProfile}>Perfil</button>}<button onClick={onOpenShop}>Loja</button><button onClick={onOpenRecycle}>Reciclagem</button></nav>
         {statusMessage&&<div className={s.mapNotice} role="status">{statusMessage}</div>}
         {/* live values over the painted HUD */}
         <div className={s.hudPill} style={{ left: L(684), top: T(33), width: px(108), height: px(36) }}>NÍVEL {progress.unlocked}</div>

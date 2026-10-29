@@ -1,723 +1,915 @@
 {
- "version": 1,
- "image": "../../game/atlas.png",
- "atlas": "../../game/atlas.json",
- "atlas_size": {
-  "w": 1024,
-  "h": 534
- },
- "convention": "x,y,w,h = retângulo no atlas.png; ax,ay = pivô (pés/centro) em pixels do quadro. Inimigos e chefe usam o pivô como ponto de apoio no chão; efeitos usam o centro.",
- "frames": {
-  "rat_idle": {
-   "x": 433,
-   "y": 328,
-   "w": 73,
-   "h": 58,
-   "ax": 36,
-   "ay": 58
+  "version": 1,
+  "image": "../../game/atlas.png",
+  "atlas": "../../game/atlas.json",
+  "atlas_size": {
+    "w": 1024,
+    "h": 534
   },
-  "rat_walk": {
-   "x": 164,
-   "y": 328,
-   "w": 70,
-   "h": 59,
-   "ax": 35,
-   "ay": 59
-  },
-  "rat_run": {
-   "x": 144,
-   "y": 396,
-   "w": 85,
-   "h": 53,
-   "ax": 42,
-   "ay": 53
-  },
-  "rat_attack": {
-   "x": 447,
-   "y": 396,
-   "w": 83,
-   "h": 51,
-   "ax": 41,
-   "ay": 51
-  },
-  "rat_die": {
-   "x": 863,
-   "y": 396,
-   "w": 73,
-   "h": 48,
-   "ax": 36,
-   "ay": 48
-  },
-  "rat_mutant": {
-   "x": 732,
-   "y": 328,
-   "w": 60,
-   "h": 57,
-   "ax": 30,
-   "ay": 57
-  },
-  "rat_armor": {
-   "x": 100,
-   "y": 328,
-   "w": 60,
-   "h": 60,
-   "ax": 30,
-   "ay": 60
-  },
-  "rat_bat": {
-   "x": 2,
-   "y": 328,
-   "w": 94,
-   "h": 64,
-   "ax": 47,
-   "ay": 64
-  },
-  "roach_0": {
-   "x": 233,
-   "y": 396,
-   "w": 73,
-   "h": 53,
-   "ax": 36,
-   "ay": 53
-  },
-  "roach_1": {
-   "x": 310,
-   "y": 396,
-   "w": 69,
-   "h": 53,
-   "ax": 34,
-   "ay": 53
-  },
-  "roach_2": {
-   "x": 938,
-   "y": 328,
-   "w": 61,
-   "h": 55,
-   "ax": 30,
-   "ay": 55
-  },
-  "fly_0": {
-   "x": 587,
-   "y": 454,
-   "w": 56,
-   "h": 41,
-   "ax": 28,
-   "ay": 20
-  },
-  "fly_1": {
-   "x": 296,
-   "y": 454,
-   "w": 42,
-   "h": 44,
-   "ax": 21,
-   "ay": 22
-  },
-  "fly_2": {
-   "x": 436,
-   "y": 454,
-   "w": 49,
-   "h": 42,
-   "ax": 24,
-   "ay": 21
-  },
-  "fly_4": {
-   "x": 647,
-   "y": 454,
-   "w": 42,
-   "h": 41,
-   "ax": 21,
-   "ay": 20
-  },
-  "spider_0": {
-   "x": 845,
-   "y": 328,
-   "w": 89,
-   "h": 56,
-   "ax": 44,
-   "ay": 56
-  },
-  "spider_1": {
-   "x": 238,
-   "y": 328,
-   "w": 82,
-   "h": 59,
-   "ax": 41,
-   "ay": 59
-  },
-  "spider_2": {
-   "x": 53,
-   "y": 396,
-   "w": 87,
-   "h": 54,
-   "ax": 43,
-   "ay": 54
-  },
-  "cloud_0": {
-   "x": 784,
-   "y": 251,
-   "w": 73,
-   "h": 64,
-   "ax": 36,
-   "ay": 32
-  },
-  "cloud_1": {
-   "x": 534,
-   "y": 396,
-   "w": 76,
-   "h": 50,
-   "ax": 38,
-   "ay": 25
-  },
-  "cloud_2": {
-   "x": 861,
-   "y": 251,
-   "w": 78,
-   "h": 64,
-   "ax": 39,
-   "ay": 32
-  },
-  "boss_idle": {
-   "x": 368,
-   "y": 2,
-   "w": 74,
-   "h": 93,
-   "ax": 37,
-   "ay": 93
-  },
-  "boss_atk1": {
-   "x": 214,
-   "y": 2,
-   "w": 72,
-   "h": 99,
-   "ax": 36,
-   "ay": 99
-  },
-  "boss_atk2": {
-   "x": 142,
-   "y": 2,
-   "w": 68,
-   "h": 101,
-   "ax": 34,
-   "ay": 101
-  },
-  "boss_hurt": {
-   "x": 495,
-   "y": 2,
-   "w": 58,
-   "h": 82,
-   "ax": 29,
-   "ay": 82
-  },
-  "boss_die": {
-   "x": 290,
-   "y": 2,
-   "w": 74,
-   "h": 94,
-   "ax": 37,
-   "ay": 94
-  },
-  "fx_shot": {
-   "x": 36,
-   "y": 505,
-   "w": 60,
-   "h": 24,
-   "ax": 30,
-   "ay": 12
-  },
-  "fx_special_ring": {
-   "x": 641,
-   "y": 2,
-   "w": 76,
-   "h": 79,
-   "ax": 38,
-   "ay": 39
-  },
-  "fx_special_burst": {
-   "x": 557,
-   "y": 2,
-   "w": 80,
-   "h": 79,
-   "ax": 40,
-   "ay": 39
-  }
- },
- "enemies": {
-  "rat": {
-   "body": {
-    "w": 60,
-    "h": 46,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 2,
-   "flying": false,
-   "native_facing": "right",
-   "animations": {
-    "idle": {
-     "frames": [
-      "rat_idle"
-     ],
-     "loop": true,
-     "fps": 0,
-     "note": "preparação/recuperação do golpe reutilizam esta pose"
+  "convention": "x,y,w,h = retângulo no atlas.png; ax,ay = pivô (pés/centro) em pixels do quadro. Inimigos e chefe usam o pivô como ponto de apoio no chão; efeitos usam o centro.",
+  "frames": {
+    "rat_idle": {
+      "x": 433,
+      "y": 328,
+      "w": 73,
+      "h": 58,
+      "ax": 36,
+      "ay": 58
     },
-    "walk": {
-     "frames": [
-      "rat_walk",
-      "rat_idle"
-     ],
-     "loop": true,
-     "fps": 4
+    "rat_walk": {
+      "x": 164,
+      "y": 328,
+      "w": 70,
+      "h": 59,
+      "ax": 35,
+      "ay": 59
     },
-    "chase": {
-     "frames": [
-      "rat_walk",
-      "rat_run"
-     ],
-     "loop": true,
-     "fps": 10
+    "rat_run": {
+      "x": 144,
+      "y": 396,
+      "w": 85,
+      "h": 53,
+      "ax": 42,
+      "ay": 53
     },
-    "attack": {
-     "frames": [
-      "rat_attack"
-     ],
-     "loop": false,
-     "fps": 0,
-     "note": "ativa no estado strike (enemyAI.ts)"
+    "rat_attack": {
+      "x": 447,
+      "y": 396,
+      "w": 83,
+      "h": 51,
+      "ax": 41,
+      "ay": 51
     },
-    "die": {
-     "frames": [
-      "rat_die"
-     ],
-     "loop": false,
-     "fps": 0,
-     "duration": 0.6,
-     "note": "desvanece em 0,6 s (engine.ts: e.dying)"
+    "rat_die": {
+      "x": 863,
+      "y": 396,
+      "w": 73,
+      "h": 48,
+      "ax": 36,
+      "ay": 48
+    },
+    "rat_mutant": {
+      "x": 732,
+      "y": 328,
+      "w": 60,
+      "h": 57,
+      "ax": 30,
+      "ay": 57
+    },
+    "rat_armor": {
+      "x": 100,
+      "y": 328,
+      "w": 60,
+      "h": 60,
+      "ax": 30,
+      "ay": 60
+    },
+    "rat_bat": {
+      "x": 2,
+      "y": 328,
+      "w": 94,
+      "h": 64,
+      "ax": 47,
+      "ay": 64
+    },
+    "roach_0": {
+      "x": 233,
+      "y": 396,
+      "w": 73,
+      "h": 53,
+      "ax": 36,
+      "ay": 53
+    },
+    "roach_1": {
+      "x": 310,
+      "y": 396,
+      "w": 69,
+      "h": 53,
+      "ax": 34,
+      "ay": 53
+    },
+    "roach_2": {
+      "x": 938,
+      "y": 328,
+      "w": 61,
+      "h": 55,
+      "ax": 30,
+      "ay": 55
+    },
+    "fly_0": {
+      "x": 587,
+      "y": 454,
+      "w": 56,
+      "h": 41,
+      "ax": 28,
+      "ay": 20
+    },
+    "fly_1": {
+      "x": 296,
+      "y": 454,
+      "w": 42,
+      "h": 44,
+      "ax": 21,
+      "ay": 22
+    },
+    "fly_2": {
+      "x": 436,
+      "y": 454,
+      "w": 49,
+      "h": 42,
+      "ax": 24,
+      "ay": 21
+    },
+    "fly_4": {
+      "x": 647,
+      "y": 454,
+      "w": 42,
+      "h": 41,
+      "ax": 21,
+      "ay": 20
+    },
+    "spider_0": {
+      "x": 845,
+      "y": 328,
+      "w": 89,
+      "h": 56,
+      "ax": 44,
+      "ay": 56
+    },
+    "spider_1": {
+      "x": 238,
+      "y": 328,
+      "w": 82,
+      "h": 59,
+      "ax": 41,
+      "ay": 59
+    },
+    "spider_2": {
+      "x": 53,
+      "y": 396,
+      "w": 87,
+      "h": 54,
+      "ax": 43,
+      "ay": 54
+    },
+    "cloud_0": {
+      "x": 784,
+      "y": 251,
+      "w": 73,
+      "h": 64,
+      "ax": 36,
+      "ay": 32
+    },
+    "cloud_1": {
+      "x": 534,
+      "y": 396,
+      "w": 76,
+      "h": 50,
+      "ax": 38,
+      "ay": 25
+    },
+    "cloud_2": {
+      "x": 861,
+      "y": 251,
+      "w": 78,
+      "h": 64,
+      "ax": 39,
+      "ay": 32
+    },
+    "boss_idle": {
+      "x": 368,
+      "y": 2,
+      "w": 74,
+      "h": 93,
+      "ax": 37,
+      "ay": 93
+    },
+    "boss_atk1": {
+      "x": 214,
+      "y": 2,
+      "w": 72,
+      "h": 99,
+      "ax": 36,
+      "ay": 99
+    },
+    "boss_atk2": {
+      "x": 142,
+      "y": 2,
+      "w": 68,
+      "h": 101,
+      "ax": 34,
+      "ay": 101
+    },
+    "boss_hurt": {
+      "x": 495,
+      "y": 2,
+      "w": 58,
+      "h": 82,
+      "ax": 29,
+      "ay": 82
+    },
+    "boss_die": {
+      "x": 290,
+      "y": 2,
+      "w": 74,
+      "h": 94,
+      "ax": 37,
+      "ay": 94
+    },
+    "fx_shot": {
+      "x": 36,
+      "y": 505,
+      "w": 60,
+      "h": 24,
+      "ax": 30,
+      "ay": 12
+    },
+    "fx_special_ring": {
+      "x": 641,
+      "y": 2,
+      "w": 76,
+      "h": 79,
+      "ax": 38,
+      "ay": 39
+    },
+    "fx_special_burst": {
+      "x": 557,
+      "y": 2,
+      "w": 80,
+      "h": 79,
+      "ax": 40,
+      "ay": 39
     }
-   },
-   "engine_effects": {
-    "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
-    "windup": "brilho 140 % (aviso do golpe)"
-   }
   },
-  "mutant": {
-   "body": {
-    "w": 56,
-    "h": 46,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 3,
-   "flying": false,
-   "native_facing": "right",
-   "animations": {
-    "walk": {
-     "frames": [
-      "rat_mutant"
-     ],
-     "loop": true,
-     "fps": 6
+  "enemies": {
+    "rat": {
+      "body": {
+        "w": 60,
+        "h": 46,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 2,
+      "flying": false,
+      "native_facing": "right",
+      "animations": {
+        "idle": {
+          "frames": [
+            "rat_idle"
+          ],
+          "loop": true,
+          "fps": 0,
+          "note": "preparação/recuperação do golpe reutilizam esta pose"
+        },
+        "walk": {
+          "frames": [
+            "rat_walk",
+            "rat_idle"
+          ],
+          "loop": true,
+          "fps": 4
+        },
+        "chase": {
+          "frames": [
+            "rat_walk",
+            "rat_run"
+          ],
+          "loop": true,
+          "fps": 10
+        },
+        "attack": {
+          "frames": [
+            "rat_attack"
+          ],
+          "loop": false,
+          "fps": 0,
+          "note": "ativa no estado strike (enemyAI.ts)"
+        },
+        "die": {
+          "frames": [
+            "rat_die"
+          ],
+          "loop": false,
+          "fps": 0,
+          "duration": 0.6,
+          "note": "desvanece em 0,6 s (engine.ts: e.dying)"
+        }
+      },
+      "engine_effects": {
+        "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
+        "windup": "brilho 140 % (aviso do golpe)"
+      }
     },
-    "die": {
-     "frames": [
-      "rat_die"
-     ],
-     "loop": false,
-     "fps": 0,
-     "duration": 0.6,
-     "note": "desvanece em 0,6 s (engine.ts: e.dying)"
-    }
-   },
-   "engine_effects": {
-    "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
-    "windup": "brilho 140 % (aviso do golpe)"
-   }
-  },
-  "armor": {
-   "body": {
-    "w": 58,
-    "h": 50,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 5,
-   "flying": false,
-   "native_facing": "right",
-   "animations": {
-    "walk": {
-     "frames": [
-      "rat_armor"
-     ],
-     "loop": true,
-     "fps": 6
-    }
-   },
-   "engine_effects": {
-    "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
-    "windup": "brilho 140 % (aviso do golpe)"
-   }
-  },
-  "bat": {
-   "body": {
-    "w": 66,
-    "h": 44,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 2,
-   "flying": true,
-   "native_facing": "right",
-   "animations": {
-    "walk": {
-     "frames": [
-      "rat_bat"
-     ],
-     "loop": true,
-     "fps": 6
-    }
-   },
-   "engine_effects": {
-    "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
-    "windup": "brilho 140 % (aviso do golpe)"
-   }
-  },
-  "roach": {
-   "body": {
-    "w": 62,
-    "h": 34,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 2,
-   "flying": false,
-   "native_facing": "right",
-   "animations": {
-    "walk": {
-     "frames": [
-      "roach_0",
-      "roach_1"
-     ],
-     "loop": true,
-     "fps": 6
+    "mutant": {
+      "body": {
+        "w": 56,
+        "h": 46,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": false,
+      "native_facing": "right",
+      "animations": {
+        "walk": {
+          "frames": [
+            "rat_mutant"
+          ],
+          "loop": true,
+          "fps": 6
+        },
+        "die": {
+          "frames": [
+            "rat_die"
+          ],
+          "loop": false,
+          "fps": 0,
+          "duration": 0.6,
+          "note": "desvanece em 0,6 s (engine.ts: e.dying)"
+        }
+      },
+      "engine_effects": {
+        "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
+        "windup": "brilho 140 % (aviso do golpe)"
+      }
     },
-    "die": {
-     "frames": [
-      "roach_2"
-     ],
-     "loop": false,
-     "fps": 0,
-     "duration": 0.6,
-     "note": "desvanece em 0,6 s (engine.ts: e.dying)"
-    }
-   },
-   "engine_effects": {
-    "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
-    "windup": "brilho 140 % (aviso do golpe)"
-   }
-  },
-  "fly": {
-   "body": {
-    "w": 44,
-    "h": 38,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 1,
-   "flying": true,
-   "native_facing": "right",
-   "animations": {
-    "walk": {
-     "frames": [
-      "fly_0",
-      "fly_1"
-     ],
-     "loop": true,
-     "fps": 18
+    "armor": {
+      "body": {
+        "w": 58,
+        "h": 50,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 5,
+      "flying": false,
+      "native_facing": "right",
+      "animations": {
+        "walk": {
+          "frames": [
+            "rat_armor"
+          ],
+          "loop": true,
+          "fps": 6
+        }
+      },
+      "engine_effects": {
+        "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
+        "windup": "brilho 140 % (aviso do golpe)"
+      }
     },
-    "chase": {
-     "frames": [
-      "fly_0",
-      "fly_2"
-     ],
-     "loop": true,
-     "fps": 14
+    "bat": {
+      "body": {
+        "w": 66,
+        "h": 44,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 2,
+      "flying": true,
+      "native_facing": "right",
+      "animations": {
+        "walk": {
+          "frames": [
+            "rat_bat"
+          ],
+          "loop": true,
+          "fps": 6
+        }
+      },
+      "engine_effects": {
+        "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
+        "windup": "brilho 140 % (aviso do golpe)"
+      }
     },
-    "die": {
-     "frames": [
-      "fly_4"
-     ],
-     "loop": false,
-     "fps": 0,
-     "duration": 0.6,
-     "note": "desvanece em 0,6 s (engine.ts: e.dying)"
-    }
-   },
-   "engine_effects": {
-    "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
-    "windup": "brilho 140 % (aviso do golpe)"
-   }
-  },
-  "spider": {
-   "body": {
-    "w": 74,
-    "h": 44,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 3,
-   "flying": false,
-   "native_facing": "left",
-   "animations": {
-    "walk": {
-     "frames": [
-      "spider_0",
-      "spider_1"
-     ],
-     "loop": true,
-     "fps": 6
+    "roach": {
+      "body": {
+        "w": 62,
+        "h": 34,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 2,
+      "flying": false,
+      "native_facing": "right",
+      "animations": {
+        "walk": {
+          "frames": [
+            "roach_0",
+            "roach_1"
+          ],
+          "loop": true,
+          "fps": 6
+        },
+        "die": {
+          "frames": [
+            "roach_2"
+          ],
+          "loop": false,
+          "fps": 0,
+          "duration": 0.6,
+          "note": "desvanece em 0,6 s (engine.ts: e.dying)"
+        }
+      },
+      "engine_effects": {
+        "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
+        "windup": "brilho 140 % (aviso do golpe)"
+      }
     },
-    "die": {
-     "frames": [
-      "spider_2"
-     ],
-     "loop": false,
-     "fps": 0,
-     "duration": 0.6,
-     "note": "desvanece em 0,6 s (engine.ts: e.dying)"
-    }
-   },
-   "engine_effects": {
-    "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
-    "windup": "brilho 140 % (aviso do golpe)"
-   }
-  },
-  "cloud": {
-   "body": {
-    "w": 64,
-    "h": 52,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 3,
-   "flying": true,
-   "native_facing": "right",
-   "animations": {
-    "walk": {
-     "frames": [
-      "cloud_0",
-      "cloud_1"
-     ],
-     "loop": true,
-     "fps": 6
+    "fly": {
+      "body": {
+        "w": 44,
+        "h": 38,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 1,
+      "flying": true,
+      "native_facing": "right",
+      "animations": {
+        "walk": {
+          "frames": [
+            "fly_0",
+            "fly_1"
+          ],
+          "loop": true,
+          "fps": 18
+        },
+        "chase": {
+          "frames": [
+            "fly_0",
+            "fly_2"
+          ],
+          "loop": true,
+          "fps": 14
+        },
+        "die": {
+          "frames": [
+            "fly_4"
+          ],
+          "loop": false,
+          "fps": 0,
+          "duration": 0.6,
+          "note": "desvanece em 0,6 s (engine.ts: e.dying)"
+        }
+      },
+      "engine_effects": {
+        "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
+        "windup": "brilho 140 % (aviso do golpe)"
+      }
     },
-    "die": {
-     "frames": [
-      "cloud_2"
-     ],
-     "loop": false,
-     "fps": 0,
-     "duration": 0.6,
-     "note": "desvanece em 0,6 s (engine.ts: e.dying)"
+    "spider": {
+      "body": {
+        "w": 74,
+        "h": 44,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": false,
+      "native_facing": "left",
+      "animations": {
+        "walk": {
+          "frames": [
+            "spider_0",
+            "spider_1"
+          ],
+          "loop": true,
+          "fps": 6
+        },
+        "die": {
+          "frames": [
+            "spider_2"
+          ],
+          "loop": false,
+          "fps": 0,
+          "duration": 0.6,
+          "note": "desvanece em 0,6 s (engine.ts: e.dying)"
+        }
+      },
+      "engine_effects": {
+        "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
+        "windup": "brilho 140 % (aviso do golpe)"
+      }
+    },
+    "cloud": {
+      "body": {
+        "w": 64,
+        "h": 52,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": true,
+      "native_facing": "right",
+      "animations": {
+        "walk": {
+          "frames": [
+            "cloud_0",
+            "cloud_1"
+          ],
+          "loop": true,
+          "fps": 6
+        },
+        "die": {
+          "frames": [
+            "cloud_2"
+          ],
+          "loop": false,
+          "fps": 0,
+          "duration": 0.6,
+          "note": "desvanece em 0,6 s (engine.ts: e.dying)"
+        }
+      },
+      "engine_effects": {
+        "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
+        "windup": "brilho 140 % (aviso do golpe)"
+      }
     }
-   },
-   "engine_effects": {
-    "hurt": "quadro atual com brilho 220 % e squash (e.hurt)",
-    "windup": "brilho 140 % (aviso do golpe)"
-   }
-  }
- },
- "enemies_procedural": {
-  "fish": {
-   "sprite": "p02_fish",
-   "motion": "swim",
-   "body": {
-    "w": 62,
-    "h": 50,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 2,
-   "flying": true,
-   "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
   },
-  "robot": {
-   "sprite": "p03_robot",
-   "motion": "stomp",
-   "body": {
-    "w": 46,
-    "h": 62,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 4,
-   "flying": false,
-   "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+  "enemies_procedural": {
+    "fish": {
+      "sprite": "p02_fish",
+      "motion": "swim",
+      "body": {
+        "w": 62,
+        "h": 50,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 2,
+      "flying": true,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "robot": {
+      "sprite": "p03_robot",
+      "motion": "stomp",
+      "body": {
+        "w": 46,
+        "h": 62,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 4,
+      "flying": false,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "yeti": {
+      "sprite": "p04_yeti",
+      "motion": "sway",
+      "body": {
+        "w": 58,
+        "h": 60,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 5,
+      "flying": false,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "crab": {
+      "sprite": "p05_crab",
+      "motion": "scuttle",
+      "body": {
+        "w": 58,
+        "h": 42,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 2,
+      "flying": false,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "lizard": {
+      "sprite": "p06_lizard",
+      "motion": "slither",
+      "body": {
+        "w": 64,
+        "h": 40,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": false,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "drone": {
+      "sprite": "p07_drone",
+      "motion": "hover",
+      "body": {
+        "w": 56,
+        "h": 42,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": true,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "alien": {
+      "sprite": "p08_alien",
+      "motion": "hop",
+      "body": {
+        "w": 50,
+        "h": 54,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 4,
+      "flying": false,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "penguin": {
+      "sprite": "p10_walker",
+      "motion": "stomp",
+      "body": {
+        "w": 50,
+        "h": 62,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 4,
+      "flying": false,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "snowowl": {
+      "sprite": "p10_flyer",
+      "motion": "hover",
+      "body": {
+        "w": 56,
+        "h": 52,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": true,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "salamander": {
+      "sprite": "p11_walker",
+      "motion": "slither",
+      "body": {
+        "w": 66,
+        "h": 40,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": false,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "ember": {
+      "sprite": "p11_flyer",
+      "motion": "hover",
+      "body": {
+        "w": 48,
+        "h": 56,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": true,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "sweeper": {
+      "sprite": "p12_walker",
+      "motion": "stomp",
+      "body": {
+        "w": 62,
+        "h": 50,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 5,
+      "flying": false,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "cogdrone": {
+      "sprite": "p12_flyer",
+      "motion": "hover",
+      "body": {
+        "w": 52,
+        "h": 52,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": true,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "monkey": {
+      "sprite": "p13_walker",
+      "motion": "hop",
+      "body": {
+        "w": 52,
+        "h": 56,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": false,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "toucan": {
+      "sprite": "p13_flyer",
+      "motion": "swim",
+      "body": {
+        "w": 60,
+        "h": 46,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 2,
+      "flying": true,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "urchin": {
+      "sprite": "p14_walker",
+      "motion": "hop",
+      "body": {
+        "w": 56,
+        "h": 56,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 4,
+      "flying": false,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "jelly": {
+      "sprite": "p14_flyer",
+      "motion": "swim",
+      "body": {
+        "w": 52,
+        "h": 58,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": true,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "sentinel": {
+      "sprite": "p15_walker",
+      "motion": "stomp",
+      "body": {
+        "w": 50,
+        "h": 70,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 6,
+      "flying": false,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "orbdrone": {
+      "sprite": "p15_flyer",
+      "motion": "hover",
+      "body": {
+        "w": 56,
+        "h": 52,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": true,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "golem": {
+      "sprite": "p16_walker",
+      "motion": "stomp",
+      "body": {
+        "w": 62,
+        "h": 66,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 7,
+      "flying": false,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "wisp": {
+      "sprite": "p16_flyer",
+      "motion": "swim",
+      "body": {
+        "w": 52,
+        "h": 58,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 4,
+      "flying": true,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "fiddler": {
+      "sprite": "p09_walker",
+      "motion": "scuttle",
+      "body": {
+        "w": 58,
+        "h": 44,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": false,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "dragonfly": {
+      "sprite": "p09_flyer",
+      "motion": "hover",
+      "body": {
+        "w": 56,
+        "h": 38,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 2,
+      "flying": true,
+      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    }
   },
-  "yeti": {
-   "sprite": "p04_yeti",
-   "motion": "sway",
-   "body": {
-    "w": 58,
-    "h": 60,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 5,
-   "flying": false,
-   "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+  "boss": {
+    "body": {
+      "w": 120,
+      "h": 180,
+      "note": "hitbox física (engine.ts: this.boss)"
+    },
+    "phases": 3,
+    "animations": {
+      "idle": {
+        "frames": [
+          "boss_idle",
+          "boss_atk1"
+        ],
+        "loop": true,
+        "fps": 3
+      },
+      "windup": {
+        "frames": [
+          "boss_atk1"
+        ],
+        "loop": true,
+        "fps": 0
+      },
+      "windup_leap": {
+        "frames": [
+          "boss_idle"
+        ],
+        "loop": true,
+        "fps": 0
+      },
+      "charge": {
+        "frames": [
+          "boss_atk1"
+        ],
+        "loop": true,
+        "fps": 0
+      },
+      "spit": {
+        "frames": [
+          "boss_atk1"
+        ],
+        "loop": true,
+        "fps": 0
+      },
+      "leap": {
+        "frames": [
+          "boss_atk2"
+        ],
+        "loop": true,
+        "fps": 0
+      },
+      "recover": {
+        "frames": [
+          "boss_idle"
+        ],
+        "loop": true,
+        "fps": 0
+      },
+      "hurt": {
+        "frames": [
+          "boss_hurt"
+        ],
+        "loop": true,
+        "fps": 0
+      },
+      "phase": {
+        "frames": [
+          "boss_hurt"
+        ],
+        "loop": true,
+        "fps": 0
+      },
+      "dead": {
+        "frames": [
+          "boss_die"
+        ],
+        "loop": false,
+        "fps": 0
+      }
+    },
+    "telegraph": "engine.ts drawBoss: aviso de mira/linha no windup; fase 3 com aura vermelha pulsante"
   },
-  "crab": {
-   "sprite": "p05_crab",
-   "motion": "scuttle",
-   "body": {
-    "w": 58,
-    "h": 42,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 2,
-   "flying": false,
-   "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+  "effects": {
+    "shot": {
+      "frames": [
+        "fx_shot"
+      ],
+      "loop": true,
+      "fps": 0,
+      "note": "projétil do Crisoman; scale 0,7"
+    },
+    "special_ring": {
+      "frames": [
+        "fx_special_ring"
+      ],
+      "loop": false,
+      "fps": 0,
+      "duration": 0.7,
+      "note": "anel que se expande (scale 0,8 → 4,2) e some"
+    },
+    "special_burst": {
+      "frames": [
+        "fx_special_burst"
+      ],
+      "loop": false,
+      "fps": 0,
+      "duration": 0.7,
+      "note": "explosão de energia verde (scale 0,6 → 2,6)"
+    }
   },
-  "lizard": {
-   "sprite": "p06_lizard",
-   "motion": "slither",
-   "body": {
-    "w": 64,
-    "h": 40,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 3,
-   "flying": false,
-   "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
-  },
-  "drone": {
-   "sprite": "p07_drone",
-   "motion": "hover",
-   "body": {
-    "w": 56,
-    "h": 42,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 3,
-   "flying": true,
-   "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
-  },
-  "alien": {
-   "sprite": "p08_alien",
-   "motion": "hop",
-   "body": {
-    "w": 50,
-    "h": 54,
-    "note": "hitbox física; independente do tamanho do sprite"
-   },
-   "hp": 4,
-   "flying": false,
-   "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
-  }
- },
- "boss": {
-  "body": {
-   "w": 120,
-   "h": 180,
-   "note": "hitbox física (engine.ts: this.boss)"
-  },
-  "phases": 3,
-  "animations": {
-   "idle": {
-    "frames": [
-     "boss_idle",
-     "boss_atk1"
-    ],
-    "loop": true,
-    "fps": 3
-   },
-   "windup": {
-    "frames": [
-     "boss_atk1"
-    ],
-    "loop": true,
-    "fps": 0
-   },
-   "windup_leap": {
-    "frames": [
-     "boss_idle"
-    ],
-    "loop": true,
-    "fps": 0
-   },
-   "charge": {
-    "frames": [
-     "boss_atk1"
-    ],
-    "loop": true,
-    "fps": 0
-   },
-   "spit": {
-    "frames": [
-     "boss_atk1"
-    ],
-    "loop": true,
-    "fps": 0
-   },
-   "leap": {
-    "frames": [
-     "boss_atk2"
-    ],
-    "loop": true,
-    "fps": 0
-   },
-   "recover": {
-    "frames": [
-     "boss_idle"
-    ],
-    "loop": true,
-    "fps": 0
-   },
-   "hurt": {
-    "frames": [
-     "boss_hurt"
-    ],
-    "loop": true,
-    "fps": 0
-   },
-   "phase": {
-    "frames": [
-     "boss_hurt"
-    ],
-    "loop": true,
-    "fps": 0
-   },
-   "dead": {
-    "frames": [
-     "boss_die"
-    ],
-    "loop": false,
-    "fps": 0
-   }
-  },
-  "telegraph": "engine.ts drawBoss: aviso de mira/linha no windup; fase 3 com aura vermelha pulsante"
- },
- "effects": {
-  "shot": {
-   "frames": [
-    "fx_shot"
-   ],
-   "loop": true,
-   "fps": 0,
-   "note": "projétil do Crisoman; scale 0,7"
-  },
-  "special_ring": {
-   "frames": [
-    "fx_special_ring"
-   ],
-   "loop": false,
-   "fps": 0,
-   "duration": 0.7,
-   "note": "anel que se expande (scale 0,8 → 4,2) e some"
-  },
-  "special_burst": {
-   "frames": [
-    "fx_special_burst"
-   ],
-   "loop": false,
-   "fps": 0,
-   "duration": 0.7,
-   "note": "explosão de energia verde (scale 0,6 → 2,6)"
-  }
- },
- "particles": "faíscas, poeira e partículas são desenhadas por código (engine.ts parts); sem sprites",
- "missing": [
-  "inimigos: sem quadros de dano dedicados (usam brilho/squash por código); rato é o único com quadro de ataque e perseguição próprios",
-  "chefe: sem animação multi-quadro (1 pose por estado); sem sprite de projétil/ataque especial próprio",
-  "efeitos: sem poeira, coleta, cura ou explosões em quadros; as partículas são por código"
- ]
+  "particles": "faíscas, poeira e partículas são desenhadas por código (engine.ts parts); sem sprites",
+  "missing": [
+    "inimigos: sem quadros de dano dedicados (usam brilho/squash por código); rato é o único com quadro de ataque e perseguição próprios",
+    "chefe: sem animação multi-quadro (1 pose por estado); sem sprite de projétil/ataque especial próprio",
+    "efeitos: sem poeira, coleta, cura ou explosões em quadros; as partículas são por código"
+  ]
 }

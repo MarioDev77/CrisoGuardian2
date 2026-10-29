@@ -1,5 +1,6 @@
 import { createServer } from 'node:http';
-import { createHmac, randomBytes, timingSafeEqual, randomUUID } from 'node:crypto';
+import { createHmac, createHash, scrypt, randomBytes, timingSafeEqual, randomUUID } from 'node:crypto';
+import { promisify } from 'node:util';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,6 +12,7 @@ async function loadCatalog() {
   throw new Error('catalog-data.json não encontrado (esperado em ../frontend/src/app/ ou em backend/).');
 }
 const catalog = await loadCatalog();
+const scryptAsync = promisify(scrypt);
 
 const port = Number(process.env.CRISO_API_PORT ?? process.env.PORT ?? 4174);
 const host = process.env.CRISO_API_HOST ?? (process.env.PORT ? '0.0.0.0' : '127.0.0.1');
@@ -24,7 +26,7 @@ const maxBody = 64 * 1024;
 const activeRuns = new Map();
 const requestWindow = new Map();
 let key;
-let database = { players: {} };
+let database = { players: {}, accounts: {}, sessions: {} };
 let queue = Promise.resolve();
 const skins = new Map(catalog.skins.map((item) => [item.id, item]));
 const pets = new Map(catalog.pets.map((item) => [item.id, item]));
@@ -32,8 +34,22 @@ const allItems = new Map([...skins, ...pets]);
 const LEVEL_COUNT = 8 + catalog.newIslands.length;
 const materialSet = new Set(catalog.materials);
 
+const ACHIEVEMENTS = catalog.achievements ?? [];
+const starSum = (p) => p.progress.stars.reduce((a, b) => a + b, 0);
+const cleared = (p, i) => p.progress.stars[i] > 0;
+const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
+/** Regras de conquista: avaliadas SEMPRE no servidor, a partir dos dados já validados (o cliente não consegue forjar). */
+const RULES = {
+  first_steps: (p) => p.progress.stars.some((x) => x > 0), five_levels: (p) => p.progress.stars.filter((x) => x > 0).length >= 5,
+  map1_done: (p) => range(0, 7).every((i) => cleared(p, i)), boss_lixao: (p) => cleared(p, 7), volcano_boss: (p) => cleared(p, 10),
+  map2_done: (p) => range(8, 15).every((i) => cleared(p, i)), planet_guardian: (p) => cleared(p, 15),
+  three_stars: (p) => p.progress.stars.some((x) => x >= 3), stars_10: (p) => starSum(p) >= 10, stars_30: (p) => starSum(p) >= 30, all_stars: (p) => starSum(p) >= LEVEL_COUNT * 3,
+  coins_500: (p) => p.stats.coinsEarned >= 500, coins_5000: (p) => p.stats.coinsEarned >= 5000, materials_100: (p) => p.stats.materialsCollected >= 100,
+  recycler_5: (p) => p.stats.recycles >= 5, shopper: (p) => p.stats.purchases >= 1, collector: (p) => p.economy.owned.length >= 8, registered: (p) => p.registered === true,
+};
+function unlockAchievements(p) { const fresh = []; for (const a of ACHIEVEMENTS) { if (p.achievements[a.id]) continue; if (RULES[a.id]?.(p)) { p.achievements[a.id] = Date.now(); fresh.push(a.id); } } return fresh; }
 function freshPlayer() {
-  return { economy: { coins: 0, materials: Object.fromEntries(catalog.materials.map((m) => [m, 0])), owned: ['skin-crisoman-verde', 'skin-crisogirl-rosa'], equippedSkin: { crisoman: 'skin-crisoman-verde', crisogirl: 'skin-crisogirl-rosa' }, equippedPet: null, character: 'crisoman', claimedSpawns: [], transactions: [] }, progress: { unlocked: 1, stars: Array(LEVEL_COUNT).fill(0), best: Array(LEVEL_COUNT).fill(0) }, paidLevels: [] };
+  return { economy: { coins: 0, materials: Object.fromEntries(catalog.materials.map((m) => [m, 0])), owned: ['skin-crisoman-verde', 'skin-crisogirl-rosa'], equippedSkin: { crisoman: 'skin-crisoman-verde', crisogirl: 'skin-crisogirl-rosa' }, equippedPet: null, character: 'crisoman', claimedSpawns: [], transactions: [] }, progress: { unlocked: 1, stars: Array(LEVEL_COUNT).fill(0), best: Array(LEVEL_COUNT).fill(0) }, paidLevels: [], achievements: {}, stats: { coinsEarned: 0, materialsCollected: 0, recycles: 0, purchases: 0 }, registered: false };
 }
 function safeInteger(value, max = Number.MAX_SAFE_INTEGER) { return Number.isSafeInteger(value) && value >= 0 && value <= max; }
 function cleanPlayer(value) {
@@ -50,7 +66,11 @@ function cleanPlayer(value) {
   const pr = value.progress ?? {}; p.progress.unlocked = Number.isInteger(pr.unlocked) ? Math.max(1, Math.min(LEVEL_COUNT, pr.unlocked)) : 1;
   p.progress.stars = Array.isArray(pr.stars) ? Array.from({ length: LEVEL_COUNT }, (_, i) => Number.isInteger(pr.stars[i]) ? Math.max(0, Math.min(3, pr.stars[i])) : 0) : p.progress.stars;
   p.progress.best = Array.isArray(pr.best) ? Array.from({ length: LEVEL_COUNT }, (_, i) => safeInteger(pr.best[i]) ? pr.best[i] : 0) : p.progress.best;
-  p.paidLevels = Array.isArray(value.paidLevels) ? [...new Set(value.paidLevels.filter((n) => Number.isInteger(n) && n >= 0 && n < LEVEL_COUNT))] : []; return p;
+  p.paidLevels = Array.isArray(value.paidLevels) ? [...new Set(value.paidLevels.filter((n) => Number.isInteger(n) && n >= 0 && n < LEVEL_COUNT))] : [];
+  const known = new Set(ACHIEVEMENTS.map((a) => a.id));
+  if (value.achievements && typeof value.achievements === 'object') for (const [id, at] of Object.entries(value.achievements)) if (known.has(id) && safeInteger(at)) p.achievements[id] = at;
+  for (const k of Object.keys(p.stats)) p.stats[k] = safeInteger(value.stats?.[k]) ? value.stats[k] : 0;
+  p.registered = value.registered === true; return p;
 }
 function mac(payload) { return createHmac('sha256', key).update(payload).digest('hex'); }
 function envelope(payload) { return JSON.stringify({ payload, mac: mac(payload) }); }
@@ -73,6 +93,7 @@ async function initialize() {
   const current = await readSigned(dataFile); const backup = await readSigned(backupFile);
   const legacy = current || backup ? null : await readSigned(join(legacyDataDir, 'players.signed.json')) ?? await readSigned(join(legacyDataDir, 'players.backup.signed.json'));
   database = current ?? backup ?? legacy ?? { players: {} };
+  database.accounts ??= {}; database.sessions ??= {};
   if (!current) await atomicWrite(dataFile, envelope(JSON.stringify(database)));
 }
 function serialize(fn) { const result = queue.then(fn); queue = result.catch(() => {}); return result; }
@@ -84,40 +105,112 @@ function sessionId(req, res) {
 function reply(res, status, data) { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' }); res.end(JSON.stringify(data)); }
 async function readBody(req) { let raw = ''; for await (const chunk of req) { raw += chunk; if (raw.length > maxBody) throw Object.assign(new Error('Requisição grande demais.'), { status: 413 }); } try { return raw ? JSON.parse(raw) : {}; } catch { throw Object.assign(new Error('JSON inválido.'), { status: 400 }); } }
 function rateLimit(sid, path) { const now = Date.now(), k = `${sid}:${path}`, old = requestWindow.get(k) ?? [], recent = old.filter((at) => now - at < 60000); const limit = path.endsWith('/loadout') || path === '/api/run/start' ? 300 : path === '/api/economy' ? 600 : 60; if (recent.length >= limit) return false; recent.push(now); requestWindow.set(k, recent); return true; }
-function snapshot(player) { return { economy: player.economy, progress: player.progress }; }
+function snapshot(player, acct = null) { return { economy: player.economy, progress: player.progress, achievements: player.achievements, stats: player.stats, account: acct ? { username: acct.username } : null }; }
 function transaction(e, type, detail, delta) { e.transactions = [...e.transactions, { id: randomUUID(), type, at: Date.now(), detail, coinsDelta: delta }].slice(-200); }
-async function ensurePlayer(sid) { if (database.players[sid]) return database.players[sid]; return await serialize(async () => { if (!database.players[sid]) { const next = structuredClone(database); next.players[sid] = freshPlayer(); await persist(next); database = next; } return database.players[sid]; }); }
+async function ensurePlayer(key) { if (database.players[key]) return database.players[key]; return await serialize(async () => { if (!database.players[key]) { const next = structuredClone(database); next.players[key] = freshPlayer(); await persist(next); database = next; } return database.players[key]; }); }
 function error(message, status = 400) { return Object.assign(new Error(message), { status }); }
 
+
+// ------------------------------------------------------------------ contas (cadastro básico e seguro)
+const SESSION_MS = 30 * 24 * 3600 * 1000;
+const sidHash = (sid) => createHash('sha256').update(sid).digest('hex');
+function accountForSid(sid) { const s = database.sessions[sidHash(sid)]; if (!s || s.exp < Date.now()) return null; return database.accounts[s.account] ?? null; }
+const WEAK = new Set(['12345678', '123456789', '1234567890', 'password', 'senha123', 'senha1234', 'qwertyui', '11111111', 'abcd1234', 'crisoguardian']);
+const authHits = new Map(); const failures = new Map();
+function clientIp(req) { const fwd = process.env.CRISO_TRUST_PROXY === '1' ? String(req.headers['x-forwarded-for'] ?? '').split(',')[0]?.trim() : ''; return fwd || req.socket.remoteAddress || 'ip'; }
+function authRate(ip) { const now = Date.now(), recent = (authHits.get(ip) ?? []).filter((at) => now - at < 60000); if (recent.length >= 10) return false; recent.push(now); authHits.set(ip, recent); return true; }
+async function derive(password, salt) { return await scryptAsync(password, salt, 64, { N: 16384, r: 8, p: 1, maxmem: 64 * 1024 * 1024 }); }
+const DUMMY_SALT = randomBytes(16);
+function setSessionCookie(req, res, sid) { const secure = req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : ''; res.setHeader('Set-Cookie', `criso_sid=${sid}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${SESSION_MS / 1000}${secure}`); }
+function validateCredentials(username, password) {
+  if (typeof username !== 'string' || !/^[A-Za-z0-9_]{3,20}$/.test(username)) throw error('Nome de usuário: 3 a 20 letras, números ou _.');
+  if (typeof password !== 'string' || password.length < 8 || password.length > 128) throw error('A senha precisa ter de 8 a 128 caracteres.');
+  if (password.toLowerCase() === username.toLowerCase() || WEAK.has(password.toLowerCase())) throw error('Escolha uma senha mais difícil de adivinhar.');
+}
+async function verifyPassword(acct, password) {
+  const key = await derive(password, acct ? Buffer.from(acct.salt, 'hex') : DUMMY_SALT);   // sempre calcula: não revela se o usuário existe
+  return !!acct && timingSafeEqual(key, Buffer.from(acct.hash, 'hex'));
+}
+function newSession(next, req, res, accountKey, oldSid) {
+  const now = Date.now(); for (const [h, v] of Object.entries(next.sessions)) if (v.exp < now) delete next.sessions[h];
+  if (oldSid) delete next.sessions[sidHash(oldSid)];
+  const sid = randomBytes(32).toString('hex'); if (accountKey) next.sessions[sidHash(sid)] = { account: accountKey, exp: now + SESSION_MS };
+  setSessionCookie(req, res, sid); return sid;
+}
+async function handleAuth(req, res, url, sid, body) {
+  if (req.method !== 'POST') throw error('Método não permitido.', 405);
+  if (!authRate(clientIp(req))) throw error('Muitas tentativas. Aguarde um minuto.', 429);
+  const action = url.pathname.slice('/api/auth/'.length);
+  if (action === 'register') {
+    const { username, password } = body; validateCredentials(username, password); const ukey = username.toLowerCase();
+    if (database.accounts[ukey]) throw error('Esse nome já está em uso.', 409);
+    const salt = randomBytes(16); const hash = (await derive(password, salt)).toString('hex');
+    return await serialize(async () => {
+      if (database.accounts[ukey]) throw error('Esse nome já está em uso.', 409);
+      const next = structuredClone(database); const id = randomBytes(8).toString('hex');
+      next.accounts[ukey] = { id, username, salt: salt.toString('hex'), hash, createdAt: Date.now() };
+      const guest = next.players[sid]; const player = cleanPlayer(guest ?? freshPlayer()); player.registered = true;   // o progresso de convidado vai junto
+      const fresh = unlockAchievements(player); next.players[`acc_${id}`] = player; delete next.players[sid];
+      newSession(next, req, res, ukey, sid); await persist(next); database = next;
+      return reply(res, 200, { ...snapshot(player, next.accounts[ukey]), newAchievements: fresh });
+    });
+  }
+  if (action === 'login') {
+    const { username, password } = body; const ukey = typeof username === 'string' ? username.toLowerCase() : ''; if (typeof password !== 'string' || password.length > 128) throw error('Usuário ou senha inválidos.', 401);
+    const f = failures.get(ukey); if (f && f.until > Date.now()) throw error('Conta bloqueada por alguns minutos após várias tentativas erradas.', 429);
+    const acct = database.accounts[ukey]; const ok = await verifyPassword(acct, password);
+    if (!ok) { const n = (f?.n ?? 0) + 1; failures.set(ukey, n >= 5 ? { n: 0, until: Date.now() + 5 * 60000 } : { n, until: 0 }); throw error('Usuário ou senha inválidos.', 401); }
+    failures.delete(ukey);
+    return await serialize(async () => {
+      const next = structuredClone(database); newSession(next, req, res, ukey, sid); await persist(next); database = next;
+      const player = next.players[`acc_${acct.id}`] ?? freshPlayer(); return reply(res, 200, snapshot(player, acct));
+    });
+  }
+  if (action === 'logout') return await serialize(async () => {
+    const next = structuredClone(database); const nsid = newSession(next, req, res, null, sid); next.players[nsid] = freshPlayer(); await persist(next); database = next; return reply(res, 200, snapshot(next.players[nsid]));
+  });
+  if (action === 'delete') {
+    const acct = accountForSid(sid); if (!acct) throw error('Você não está conectado.', 401);
+    if (typeof body.password !== 'string' || !(await verifyPassword(acct, body.password))) throw error('Senha incorreta.', 401);
+    return await serialize(async () => {
+      const next = structuredClone(database); const ukey = acct.username.toLowerCase(); delete next.accounts[ukey]; delete next.players[`acc_${acct.id}`];
+      for (const [h, v] of Object.entries(next.sessions)) if (v.account === ukey) delete next.sessions[h];
+      const nsid = newSession(next, req, res, null, null); next.players[nsid] = freshPlayer(); await persist(next); database = next; return reply(res, 200, snapshot(next.players[nsid]));
+    });
+  }
+  throw error('Rota não encontrada.', 404);
+}
+
 const server = createServer(async (req, res) => {
-  const sid = sessionId(req, res); const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
+  const sid = sessionId(req, res); const acct = accountForSid(sid); const pk = acct ? `acc_${acct.id}` : sid; const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
   try {
     if (!url.pathname.startsWith('/api/')) return reply(res, 404, { message: 'Rota não encontrada.' });
     if (!rateLimit(sid, url.pathname)) return reply(res, 429, { message: 'Muitas tentativas. Aguarde um minuto.' });
-    if (req.method === 'GET' && url.pathname === '/api/economy') return reply(res, 200, snapshot(await ensurePlayer(sid)));
+    if (req.method === 'GET' && url.pathname === '/api/economy') return reply(res, 200, snapshot(await ensurePlayer(pk), acct));
     const body = await readBody(req);
+    if (url.pathname.startsWith('/api/auth/')) return await handleAuth(req, res, url, sid, body);
     if (process.env.CRISO_TEST_MODE === '1' && req.method === 'POST' && url.pathname === '/api/test/seed') {
-      return await serialize(async () => { const next = structuredClone(database); const p = freshPlayer(); if (body.economy) p.economy = cleanPlayer({ economy: body.economy }).economy; if (body.progress) p.progress = cleanPlayer({ progress: body.progress }).progress; next.players[sid] = p; await persist(next); database = next; return reply(res, 200, snapshot(p)); });
+      return await serialize(async () => { const next = structuredClone(database); const p = freshPlayer(); if (body.economy) p.economy = cleanPlayer({ economy: body.economy }).economy; if (body.progress) p.progress = cleanPlayer({ progress: body.progress }).progress; next.players[pk] = p; await persist(next); database = next; return reply(res, 200, snapshot(p, acct)); });
     }
-    const player = await ensurePlayer(sid); if (req.method !== 'POST') return reply(res, 405, { message: 'Método não permitido.' });
+    const player = await ensurePlayer(pk); if (req.method !== 'POST') return reply(res, 405, { message: 'Método não permitido.' });
     if (url.pathname === '/api/economy/loadout') return await serialize(async () => {
-      const next = structuredClone(database); const p = next.players[sid]; const e = p.economy;
+      const next = structuredClone(database); const p = next.players[pk]; const e = p.economy;
       if (body.character !== undefined) { if (!['crisoman', 'crisogirl'].includes(body.character)) throw error('Personagem inválido.'); e.character = body.character; }
       else if (body.skinId !== undefined) { const item = skins.get(body.skinId); if (!item || !e.owned.includes(item.id)) throw error('Skin bloqueada ou incompatível.'); e.character = item.character; e.equippedSkin[item.character] = item.id; }
       else if (body.petId !== undefined) { if (body.petId !== null && (!pets.has(body.petId) || !e.owned.includes(body.petId))) throw error('Pet bloqueado.'); e.equippedPet = body.petId; }
-      else throw error('Seleção inválida.'); await persist(next); database = next; return reply(res, 200, snapshot(p));
+      else throw error('Seleção inválida.'); await persist(next); database = next; return reply(res, 200, snapshot(p, acct));
     });
     if (url.pathname === '/api/economy/purchase') return await serialize(async () => {
-      const next = structuredClone(database); const p = next.players[sid]; const e = p.economy; const item = allItems.get(body.itemId);
+      const next = structuredClone(database); const p = next.players[pk]; const e = p.economy; const item = allItems.get(body.itemId);
       if (!item) throw error('Item inválido.'); if (e.owned.includes(item.id)) throw error('Você já possui este item.'); if (!safeInteger(e.coins) || e.coins < item.price) throw error('Saldo insuficiente.');
-      e.coins -= item.price; e.owned.push(item.id); transaction(e, 'purchase', item.id, -item.price); await persist(next); database = next; return reply(res, 200, { ...snapshot(p), message: `${item.name} comprado!` });
+      e.coins -= item.price; e.owned.push(item.id); p.stats.purchases += 1; transaction(e, 'purchase', item.id, -item.price); const newAchievements = unlockAchievements(p); await persist(next); database = next; return reply(res, 200, { ...snapshot(p, acct), message: `${item.name} comprado!`, newAchievements });
     });
     if (url.pathname === '/api/economy/recycle') return await serialize(async () => {
-      const next = structuredClone(database); const p = next.players[sid]; const e = p.economy; const { material, batches } = body;
+      const next = structuredClone(database); const p = next.players[pk]; const e = p.economy; const { material, batches } = body;
       if (typeof material !== 'string' || !materialSet.has(material) || !safeInteger(batches, 100000) || batches < 1) throw error('Troca inválida.');
       const amount = batches * catalog.recycling.materialsPerExchange, gain = batches * catalog.recycling.coinsPerExchange;
       if (!Number.isSafeInteger(amount) || !Number.isSafeInteger(gain) || e.materials[material] < amount) throw error('Materiais insuficientes.'); if (!safeInteger(e.coins) || e.coins + gain > Number.MAX_SAFE_INTEGER) throw error('Saldo excederia o limite.');
-      e.materials[material] -= amount; e.coins += gain; transaction(e, 'recycle', `${amount} ${material}`, gain); await persist(next); database = next; return reply(res, 200, { ...snapshot(p), message: `Troca concluída: +${gain} moedas.` });
+      e.materials[material] -= amount; e.coins += gain; p.stats.recycles += batches; transaction(e, 'recycle', `${amount} ${material}`, gain); const newAchievements = unlockAchievements(p); await persist(next); database = next; return reply(res, 200, { ...snapshot(p, acct), message: `Troca concluída: +${gain} moedas.`, newAchievements });
     });
     if (url.pathname === '/api/run/start') {
       const level = body.level; if (!Number.isInteger(level) || level < 0 || level >= LEVEL_COUNT) throw error('Fase inválida.'); if (level + 1 > player.progress.unlocked) throw error('Essa fase ainda está bloqueada.', 403);
@@ -126,7 +219,7 @@ const server = createServer(async (req, res) => {
     if (url.pathname === '/api/run/settle') return await serialize(async () => {
       const run = activeRuns.get(sid); if (!run || body.runId !== run.id || body.level !== run.level) throw error('Partida inválida, expirada ou já finalizada.', 409); if (body.won !== true) throw error('Somente uma vitória pode entregar recompensas.');
       const elapsed = (performance.now() - run.started) / 1000; 
-      const next = structuredClone(database); const p = next.players[sid]; const e = p.economy; const seen = new Set(), fresh = []; let coins = 0; const mats = new Map();
+      const next = structuredClone(database); const p = next.players[pk]; const e = p.economy; const seen = new Set(), fresh = []; let coins = 0; const mats = new Map();
       const list = Array.isArray(body.collectibles) ? body.collectibles.slice(0, 500) : [];
       for (const item of list) {
         if (!item || typeof item.id !== 'string' || item.id.trim().length === 0 || item.id.length > 120 || seen.has(item.id) || !/^(coin|material|enemy-coin):[A-Za-z0-9:._-]+$/.test(item.id)) continue;
@@ -144,7 +237,8 @@ const server = createServer(async (req, res) => {
       e.claimedSpawns = [...new Set([...e.claimedSpawns, ...[...seen].map((id) => `${run.level}:${id}`)])].slice(-10000);
       const stars = Number.isInteger(body.stars) ? Math.max(0, Math.min(3, body.stars)) : 1; const score = safeInteger(body.score, 10000000) ? body.score : 0;
       p.progress.unlocked = Math.min(LEVEL_COUNT, Math.max(p.progress.unlocked, run.level + 2)); p.progress.stars[run.level] = Math.max(p.progress.stars[run.level], stars); p.progress.best[run.level] = Math.max(p.progress.best[run.level], score);
-      await persist(next); database = next; activeRuns.delete(sid); return reply(res, 200, { ...snapshot(p), payout: { coins: paidCoins, materials: paidMaterials, discarded: Math.max(0, coins - paidCoins) + Math.max(0, materialTotal - paidMaterials) } });
+      p.stats.coinsEarned += paidCoins; p.stats.materialsCollected += paidMaterials; const newAchievements = unlockAchievements(p);
+      await persist(next); database = next; activeRuns.delete(sid); return reply(res, 200, { ...snapshot(p, acct), newAchievements, payout: { coins: paidCoins, materials: paidMaterials, discarded: Math.max(0, coins - paidCoins) + Math.max(0, materialTotal - paidMaterials) } });
     });
     return reply(res, 404, { message: 'Rota não encontrada.' });
   } catch (err) { const status = Number.isInteger(err?.status) ? err.status : 500; if (status === 500) console.error('API CrisoGuardian:', err); return reply(res, status, { message: status === 500 ? 'Falha interna ao salvar a operação.' : err.message }); }

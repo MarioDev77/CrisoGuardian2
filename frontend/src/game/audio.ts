@@ -5,11 +5,24 @@ import { getSettings, subscribeSettings } from '../app/settings';
  * Respeita volume geral / música / efeitos / mudo das configurações, ao vivo.
  * Sem AudioContext (testes, navegadores antigos) tudo vira no-op.
  */
-export type Sfx = 'jump' | 'shoot' | 'coin' | 'waste' | 'hurt' | 'hit' | 'enemyDie' | 'special' | 'bin' | 'power' | 'win' | 'lose' | 'bossHit' | 'bossRoar' | 'slam' | 'land' | 'click';
+export type Sfx = 'jump' | 'shoot' | 'coin' | 'waste' | 'hurt' | 'hit' | 'enemyDie' | 'special' | 'bin' | 'power' | 'win' | 'lose' | 'bossHit' | 'bossRoar' | 'slam' | 'land' | 'click' | 'achievement';
 export type Track = 'menu' | number;
 
 type Ctx = AudioContext;
 const midi = (n: number) => 440 * Math.pow(2, (n - 69) / 12);
+
+/** Personalidade musical das ilhas 9–16 (tom, andamento, harmonia e timbre). */
+interface Biome { root: number; bpm: number; prog: number[]; chord: number[]; lead: OscillatorType; bass: OscillatorType; leadVol: number; hat: 0 | 1 | 2; bell?: boolean; pulse?: boolean }
+const BIOMES: Biome[] = [
+  { root: 62, bpm: 92, prog: [0, -2, -5, -7], chord: [0, 3, 7, 10, 7, 3], lead: 'triangle', bass: 'sine', leadVol: 0.15, hat: 2 },                          // 9 manguezal: suave, orgânico
+  { root: 69, bpm: 80, prog: [0, 5, 3, 7], chord: [0, 4, 7, 11, 14, 11], lead: 'sine', bass: 'sine', leadVol: 0.16, hat: 0, bell: true },                // 10 geleira: sinos cristalinos
+  { root: 64, bpm: 128, prog: [0, 1, 0, -2], chord: [0, 3, 7, 12, 7, 3], lead: 'sawtooth', bass: 'sawtooth', leadVol: 0.085, hat: 1 },                  // 11 vulcão: grave e pesado (frígio)
+  { root: 67, bpm: 116, prog: [0, 0, -5, -2], chord: [0, 7, 0, 12, 7, 0], lead: 'square', bass: 'square', leadVol: 0.075, hat: 1, pulse: true },         // 12 fábrica: mecânico
+  { root: 60, bpm: 106, prog: [0, 4, 5, 7], chord: [0, 4, 7, 11, 7, 4], lead: 'triangle', bass: 'triangle', leadVol: 0.16, hat: 2 },                    // 13 copas: leve e saltitante
+  { root: 66, bpm: 74, prog: [0, -3, -7, -5], chord: [0, 7, 12, 16, 12, 7], lead: 'sine', bass: 'sine', leadVol: 0.17, hat: 0 },                        // 14 oceano: calmo e amplo
+  { root: 71, bpm: 124, prog: [0, -4, -7, -2], chord: [0, 3, 7, 10, 12, 10], lead: 'sawtooth', bass: 'square', leadVol: 0.07, hat: 1, pulse: true },    // 15 cidade: synthwave
+  { root: 62, bpm: 136, prog: [0, -4, -2, -7], chord: [0, 3, 7, 12, 15, 12], lead: 'sawtooth', bass: 'sawtooth', leadVol: 0.095, hat: 1, pulse: true }, // 16 final: épico
+];
 
 class AudioManager {
   private ctx: Ctx | null = null;
@@ -90,6 +103,7 @@ class AudioManager {
       case 'bossRoar': this.tone('sawtooth', 90, 45, 0.9, 0.28); this.tone('square', 130, 60, 0.8, 0.12); this.hiss(0.7, 0.2, 300, 0, 0.6); break;
       case 'slam': this.tone('sine', 110, 38, 0.4, 0.4); this.hiss(0.3, 0.3, 200, 0, 0.5); break;
       case 'click': this.tone('square', 700, 700, 0.04, 0.09); break;
+      case 'achievement': [659, 784, 988, 1319].forEach((f, i) => this.tone('triangle', f, f, i === 3 ? 0.5 : 0.12, 0.22, i * 0.1)); this.tone('sine', 1976, 1976, 0.6, 0.08, 0.4); break;
     }
   }
 
@@ -110,17 +124,21 @@ class AudioManager {
   private schedule(): void {
     const c = this.ctx; if (!c || this.playing === null) return; const s = getSettings(); if (s.muted || s.music <= 0) { this.nextT = c.currentTime + 0.1; return; }
     const lvl = this.playing === 'menu' ? -1 : this.playing;
-    const roots = [57, 55, 52, 50, 53, 56, 54, 52]; const root = lvl < 0 ? 57 : roots[lvl % roots.length]!;
-    const bpm = lvl < 0 ? 84 : 100 + lvl * 6; const sp = 60 / bpm / 2;               // colcheias
-    const prog = [0, -4, -7, -5];                                                      // Am - F - C - G (graus em semitons)
-    const chord = [0, 3, 7, 12, 7, 3];                                                 // arpejo menor
+    const biome = lvl >= 8 ? BIOMES[(lvl - 8) % BIOMES.length]! : null;                 // ilhas 9–16 têm identidade musical própria
+    const roots = [57, 55, 52, 50, 53, 56, 54, 52]; const root = biome ? biome.root : lvl < 0 ? 57 : roots[lvl % roots.length]!;
+    const bpm = biome ? biome.bpm : lvl < 0 ? 84 : 100 + lvl * 6; const sp = 60 / bpm / 2;               // colcheias
+    const prog = biome ? biome.prog : [0, -4, -7, -5];                                 // graus em semitons
+    const chord = biome ? biome.chord : [0, 3, 7, 12, 7, 3];
+    const leadWave: OscillatorType = biome ? biome.lead : lvl < 0 ? 'sine' : 'triangle'; const leadVol = biome ? biome.leadVol : lvl < 0 ? 0.2 : 0.16;
+    const hat = biome ? biome.hat : lvl >= 0 ? 2 : 0;                                   // 0 sem chimbal, 1 a cada passo, 2 a cada 2
     const lookahead = 0.4;
     while (this.nextT < c.currentTime + lookahead) {
-      const bar = Math.floor(this.step / 12) % prog.length; const i = this.step % 12; const base = root + prog[bar]!; const at = Math.max(0, this.nextT - c.currentTime);
-      const note = base + chord[i % chord.length]! + (i % 12 >= 6 && lvl >= 0 ? 12 : 0);
-      this.tone(lvl < 0 ? 'sine' : 'triangle', midi(note + 12), midi(note + 12), sp * 1.6, lvl < 0 ? 0.2 : 0.16, at, this.musicBus);
-      if (i % 3 === 0) this.tone('sine', midi(base - 12), midi(base - 12), sp * 2.6, 0.32, at, this.musicBus);
-      if (lvl >= 0 && i % 2 === 0) { // chimbal leve
+      const bar = Math.floor(this.step / 12) % prog.length; const i = this.step % 12; const base = root + prog[bar]! - (biome ? 12 : 0); const at = Math.max(0, this.nextT - c.currentTime);
+      const note = base + chord[i % chord.length]! + (i % 12 >= 6 && lvl >= 0 ? 12 : 0) + (biome?.bell ? 12 : 0);
+      this.tone(leadWave, midi(note + 12), midi(note + 12), sp * (biome?.bell ? 2.8 : 1.6), leadVol, at, this.musicBus);
+      if (i % 3 === 0) this.tone(biome ? biome.bass : 'sine', midi(base - 12), midi(base - 12), sp * 2.6, biome && biome.bass !== 'sine' ? 0.2 : 0.32, at, this.musicBus);
+      if (biome?.pulse && i % 6 === 3) this.tone('square', midi(base), midi(base), sp * 0.8, 0.06, at, this.musicBus);          // pulso extra (fábrica/cidade/final)
+      if (hat && lvl >= 0 && i % hat === 0) { // chimbal leve
         const src = c.createBufferSource(); src.buffer = this.noise(); const f = c.createBiquadFilter(); const g = c.createGain(); f.type = 'highpass'; f.frequency.value = 7000;
         const t = this.nextT; g.gain.setValueAtTime(i % 6 === 0 ? 0.1 : 0.05, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05); src.connect(f); f.connect(g); g.connect(this.musicBus); src.start(t); src.stop(t + 0.06);
       }

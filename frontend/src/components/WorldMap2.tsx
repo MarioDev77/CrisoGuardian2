@@ -5,10 +5,10 @@ import m from './Map2.module.css';
 /** Posição de cada ilha no caminho (percentual do painel) — zigue-zague para a trilha parecer uma jornada. */
 const SPOTS: [number, number][] = [[9, 68], [21, 32], [33, 70], [45, 30], [57, 70], [69, 32], [81, 68], [92, 30]];
 
-interface Props { progress: Progress; onPlay: (level: number) => void; onBack: () => void; onOpenLobby: () => void; onOpenShop: () => void; onOpenRecycle: () => void; justUnlocked?: boolean }
+interface Props { progress: Progress; onPlay: (level: number) => void; onBack: () => void; onOpenLobby: () => void; onOpenShop: () => void; onOpenRecycle: () => void; onOpenProfile?: () => void; justUnlocked?: boolean }
 
 /** Mapa 2 — fases 9 a 16. Libera quando a fase 8 é concluída (progress.unlocked >= 9). */
-export default function WorldMap2({ progress, onPlay, onBack, onOpenLobby, onOpenShop, onOpenRecycle, justUnlocked }: Props) {
+export default function WorldMap2({ progress, onPlay, onBack, onOpenLobby, onOpenShop, onOpenRecycle, onOpenProfile, justUnlocked }: Props) {
   const slugOf = (id: string) => id.replace(/-\d+$/, '');
   const stars = NEW_ISLANDS.reduce((sum, it) => sum + (progress.stars[it.index] ?? 0), 0);
   const done = NEW_ISLANDS.filter((it) => (progress.stars[it.index] ?? 0) > 0).length;
@@ -29,7 +29,7 @@ export default function WorldMap2({ progress, onPlay, onBack, onOpenLobby, onOpe
       <div className={m.title}><span>MAPA 2 · FASES 9 A 16</span><h1>Ilhas do Amanhã</h1></div>
       <div className={m.stats}><span title="Fases concluídas">🏝 {done}/{NEW_ISLANDS.length}</span><span title="Estrelas">⭐ {stars}/{NEW_ISLANDS.length * 3}</span><span title="Moedas">🪙 {progress.coins.toLocaleString('pt-BR')}</span></div>
     </header>
-    <nav className={m.nav} aria-label="Menu principal"><button onClick={onOpenLobby}>Lobby</button><button onClick={onOpenShop}>Loja</button><button onClick={onOpenRecycle}>Reciclagem</button></nav>
+    <nav className={m.nav} aria-label="Menu principal"><button onClick={onOpenLobby}>Lobby</button><button onClick={onOpenShop}>Loja</button><button onClick={onOpenRecycle}>Reciclagem</button>{onOpenProfile && <button onClick={onOpenProfile}>Perfil</button>}</nav>
     {justUnlocked && <p className={m.banner} role="status">🎉 Mapa 2 desbloqueado! Oito novas fases esperam por você.</p>}
 
     <section className={m.board} aria-label="Mapa das fases 9 a 16">

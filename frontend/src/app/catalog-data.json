@@ -284,5 +284,115 @@
         "accent": "#9cffb5"
       }
     }
+  ],
+  "achievements": [
+    {
+      "id": "first_steps",
+      "name": "Primeiros passos",
+      "desc": "Conclua sua primeira fase.",
+      "icon": "🌱"
+    },
+    {
+      "id": "five_levels",
+      "name": "Explorador",
+      "desc": "Conclua 5 fases.",
+      "icon": "🧭"
+    },
+    {
+      "id": "map1_done",
+      "name": "Guardião do Mapa 1",
+      "desc": "Conclua as fases 1 a 8.",
+      "icon": "🗺️"
+    },
+    {
+      "id": "boss_lixao",
+      "name": "Domador do Lixão",
+      "desc": "Derrote o chefe da fase 8.",
+      "icon": "👾"
+    },
+    {
+      "id": "volcano_boss",
+      "name": "Coração do Vulcão",
+      "desc": "Conclua o Vulcão Verde (fase 11).",
+      "icon": "🌋"
+    },
+    {
+      "id": "map2_done",
+      "name": "Guardião do Mapa 2",
+      "desc": "Conclua as fases 9 a 16.",
+      "icon": "🏝️"
+    },
+    {
+      "id": "planet_guardian",
+      "name": "Guardião do Planeta",
+      "desc": "Conclua a fase 16.",
+      "icon": "🌍"
+    },
+    {
+      "id": "three_stars",
+      "name": "Perfeito!",
+      "desc": "Ganhe 3 estrelas em uma fase.",
+      "icon": "⭐"
+    },
+    {
+      "id": "stars_10",
+      "name": "Colecionador de estrelas",
+      "desc": "Some 10 estrelas.",
+      "icon": "✨"
+    },
+    {
+      "id": "stars_30",
+      "name": "Constelação",
+      "desc": "Some 30 estrelas.",
+      "icon": "🌟"
+    },
+    {
+      "id": "all_stars",
+      "name": "Céu completo",
+      "desc": "Ganhe 3 estrelas em todas as 16 fases.",
+      "icon": "🏆"
+    },
+    {
+      "id": "coins_500",
+      "name": "Cofrinho",
+      "desc": "Ganhe 500 moedas em fases.",
+      "icon": "🪙"
+    },
+    {
+      "id": "coins_5000",
+      "name": "Tesouro",
+      "desc": "Ganhe 5.000 moedas em fases.",
+      "icon": "💰"
+    },
+    {
+      "id": "materials_100",
+      "name": "Catador dedicado",
+      "desc": "Colete 100 materiais recicláveis.",
+      "icon": "♻️"
+    },
+    {
+      "id": "recycler_5",
+      "name": "Mestre da reciclagem",
+      "desc": "Faça 5 trocas na Reciclagem.",
+      "icon": "🔄"
+    },
+    {
+      "id": "shopper",
+      "name": "Primeira compra",
+      "desc": "Compre um item na Loja.",
+      "icon": "🛍️"
+    },
+    {
+      "id": "collector",
+      "name": "Colecionador",
+      "desc": "Tenha 8 itens (skins e pets).",
+      "icon": "🎽"
+    },
+    {
+      "id": "registered",
+      "name": "Guardião registrado",
+      "desc": "Crie sua conta.",
+      "icon": "👤"
+    }
   ]
 }

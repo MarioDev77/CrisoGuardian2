@@ -79,7 +79,12 @@ export const AI: Record<EnemyKind, AiProfile> = {
     attack: { range: 24, dy: 80, windup: 0.3, strike: 0.2, recover: 0.5, cooldown: 0.9, lunge: 260, reach: 20 } },
   // voadores: sem ataque próprio (o contato machuca), só perseguem
   bat: flyer(), fly: flyer(), cloud: flyer(), fish: flyer(), drone: flyer(),
+  // inimigos das ilhas 9–16: reaproveitam o comportamento do arquétipo mais parecido
+  fiddler: undefined as never, penguin: undefined as never, salamander: undefined as never, sweeper: undefined as never, monkey: undefined as never, urchin: undefined as never, sentinel: undefined as never, golem: undefined as never,
+  dragonfly: flyer(), snowowl: flyer(), ember: flyer(), cogdrone: flyer(), toucan: flyer(), jelly: flyer(), orbdrone: flyer(), wisp: flyer(),
 };
+const ALIAS: Partial<Record<EnemyKind, EnemyKind>> = { fiddler: 'crab', penguin: 'yeti', salamander: 'lizard', sweeper: 'robot', monkey: 'alien', urchin: 'mutant', sentinel: 'robot', golem: 'armor' };
+for (const [kind, base] of Object.entries(ALIAS) as [EnemyKind, EnemyKind][]) AI[kind] = { ...AI[base] };
 
 /** Campos que a IA lê e escreve (compatível com `Enemy`). */
 export interface AiEnemy {

@@ -1,6 +1,7 @@
 import { Assets } from './assets';
 import { buildWorld, VIEW_H, VIEW_W as BASE_VIEW_W, type World, type WSurface } from './level';
 import { audio } from './audio';
+import { grandeLixoPose, projectileFrame, GRANDE_LIXO_LEVEL } from './bossAnim';
 import { PlayerAnim, ATTACK_FIRE_T, INTERACT_TIME, heroPose, type PlayerState } from './playerAnim';
 import { drawDebugWorld, drawDebugPanel, type DebugState } from './debugOverlay';
 import { AI, stepGround, stepFlyer, bump, kill, hurt as hurtAi, initAi, strikeBox, type TickCtx } from './enemyAI';
@@ -54,7 +55,7 @@ export class Engine {
   private shots: Shot[] = []; private sludge: Sludge[] = []; private parts: Particle[] = []; private texts: FloatText[] = [];
   private coins = 0; private score = 0; private materials = 0; private totalMaterials = 0; private sinceBin = 0; private runCollectibles: LevelResult['collectibles'] = [];
   private cam = 0; private safe = { x: 0, y: 0, t: 0 };
-  private specialFx = 0; private shake = 0; private banner = { text: '', t: 0 };
+  private specialFx = 0; private shake = 0; private hitStop = 0; private dustT = 0; private banner = { text: '', t: 0 };
   private nextId = 1; private time = 0; private fallCount = 0;
   /** Sequência de vitória (andar até o portal → sucção → explosão → íris) e abertura de fase. */
   private win: { t: number; phase: 'walk' | 'suck' | 'burst' | 'iris'; hop: boolean; pt: number; sx: number; sy: number; z: number; glow: number; armed: boolean; sparks: { a: number; r: number; w: number; s: number; c: number }[] } | null = null;
@@ -122,11 +123,12 @@ export class Engine {
       this.bins.push({ id: this.nextId++, sprite: w.layout.bin, x: b.x - sz.w * sc / 2, y: b.y - sz.h * sc, w: sz.w * sc, h: sz.h * sc, used: false, pulse: 0 });
     }
     if (w.bossAt) {
-      this.boss = { x: w.bossAt.x - 60, y: w.bossAt.y - 180, w: 120, h: 180, vx: 0, vy: 0, onGround: true, hp: Math.round(28 * df.bossHp), maxHp: Math.round(28 * df.bossHp), dir: -1, ...initBoss(Math.random), hurt: 0, dying: 0, active: false };
+      const bw = this.levelIndex === GRANDE_LIXO_LEVEL ? 150 : 120, bh = this.levelIndex === GRANDE_LIXO_LEVEL ? 215 : 180; // o Grande Lixo é maior (≈250 px em tela)
+      this.boss = { x: w.bossAt.x - bw / 2, y: w.bossAt.y - bh, w: bw, h: bh, vx: 0, vy: 0, onGround: true, hp: Math.round(28 * df.bossHp), maxHp: Math.round(28 * df.bossHp), dir: -1, ...initBoss(Math.random), hurt: 0, dying: 0, active: false };
     }
   }
 
-  start(): void { this.last = performance.now(); const loop = (n: number) => { const raw = (n - this.last) / 1000; const dt = Math.min(0.033, raw); this.last = n; this.fpsT += raw; this.fpsFrames++; if (this.fpsT >= 0.5) { this.fps = Math.round(this.fpsFrames / this.fpsT); this.fpsT = 0; this.fpsFrames = 0; } if (!this.paused) this.update(dt); this.render(); this.raf = requestAnimationFrame(loop); }; this.raf = requestAnimationFrame(loop); }
+  start(): void { this.last = performance.now(); const loop = (n: number) => { const raw = (n - this.last) / 1000; const dt = Math.min(0.033, raw); this.last = n; this.fpsT += raw; this.fpsFrames++; if (this.fpsT >= 0.5) { this.fps = Math.round(this.fpsFrames / this.fpsT); this.fpsT = 0; this.fpsFrames = 0; } if (!this.paused) { if (this.hitStop > 0) this.hitStop -= raw; else this.update(dt); } this.render(); this.raf = requestAnimationFrame(loop); }; this.raf = requestAnimationFrame(loop); }
   destroy(): void { cancelAnimationFrame(this.raf); window.removeEventListener('keydown', this.kd); window.removeEventListener('keyup', this.ku); this.resizeObs.disconnect(); window.removeEventListener('blur', this.releaseAll); this.unsubSettings(); }
   restart(): void { this.reset(); }
   setControl(c: Control, v: boolean): void { this.keys[c] = v; }
@@ -146,6 +148,8 @@ export class Engine {
   /** Movimento com colisão (subpassos + rede de segurança): ver collision.ts. */
   private move(b: Body, dt: number, drop = false): void { moveBody(b, dt, this.world.surfaces, { drop, minX: 0, maxX: this.world.width }); }
 
+  /** Pausa curtíssima no impacto (sensação de peso). Respeita a opção de tremor de tela. */
+  private freeze(s: number): void { if (getSettings().screenShake) this.hitStop = Math.max(this.hitStop, s); }
   private spawnParts(x: number, y: number, color: string, n = 8, speed = 220): void {
     for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, v = (0.4 + Math.random()) * speed; this.parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 80, life: 0.5 + Math.random() * 0.4, max: 0.9, color, size: 3 + Math.random() * 4 }); }
   }
@@ -154,13 +158,13 @@ export class Engine {
   private hurtPlayer(fromX: number): void {
     const p = this.p; if (p.inv > 0 || p.shield > 0 || p.dieT > 0) return;
     p.hp -= 1; this.cb.onAnnounce?.(p.hp <= 0 ? 'Você ficou sem vidas.' : `Você sofreu dano. ${p.hp} vida${p.hp === 1 ? '' : 's'} restante${p.hp === 1 ? '' : 's'}.`); p.inv = DIFFICULTY[getSettings().difficulty].invuln; p.hurtT = 0.45; audio.sfx(p.hp <= 0 ? 'lose' : 'hurt'); p.vy = -420; p.vx = (p.x + p.w / 2 < fromX ? -1 : 1) * 280; p.climbing = false;
-    this.shake = 0.25; this.spawnParts(p.x + p.w / 2, p.y + 40, '#ff6b6b', 10);
+    this.shake = 0.25; this.freeze(0.1); this.spawnParts(p.x + p.w / 2, p.y + 40, '#ff6b6b', 10);
     if (p.hp <= 0) { p.dieT = 0.001; p.vx = 0; }
   }
 
   private damageEnemy(e: Enemy, dmg: number): void {
     if (e.dying > 0) return;
-    e.hp -= dmg; this.cb.onAnnounce?.(e.hp <= 0 ? 'Inimigo derrotado.' : 'Ataque acertou um inimigo.'); e.hurt = 0.18; audio.sfx(e.hp <= 0 ? 'enemyDie' : 'hit'); this.spawnParts(e.x + e.w / 2, e.y + e.h / 2, '#caff7a', 6, 160);
+    e.hp -= dmg; this.cb.onAnnounce?.(e.hp <= 0 ? 'Inimigo derrotado.' : 'Ataque acertou um inimigo.'); e.hurt = 0.18; audio.sfx(e.hp <= 0 ? 'enemyDie' : 'hit'); this.freeze(e.hp <= 0 ? 0.08 : 0.045); if (e.hp <= 0) this.shake = Math.max(this.shake, 0.12); this.spawnParts(e.x + e.w / 2, e.y + e.h / 2, '#caff7a', 6, 160);
     if (e.hp <= 0) {
       kill(e); e.dying = 0.6; const sp = ENEMIES[e.kind]; this.score += sp.score; this.float(e.x + e.w / 2, e.y - 6, '+' + sp.score, '#ffe35b');
       if (Math.random() < 0.3) this.pickups.push({ id: this.nextId++, type: 'coin', sprite: 'it_moeda', value: 'coin', x: e.x + e.w / 2 - 14, y: e.y - 20, w: 28, h: 28, taken: false, phase: 0, spawnKey: `enemy-coin:${e.kind}:${Math.round(e.x)}:${Math.round(e.y)}` });
@@ -175,15 +179,15 @@ export class Engine {
     const b = this.boss; if (!b || b.state === 'dead') return;
     if (b.state === 'phase') { this.spawnParts(b.x + b.w / 2, b.y + 80, '#ffffff', 3, 120); return; }
     if ((src === 'stomp' || src === 'shield') && b.hurt > 0) return;
-    b.hp -= d; b.hurt = 0.16; audio.sfx('bossHit'); this.spawnParts(b.x + b.w / 2, b.y + 80, '#b6ff6a', 6, 200);
+    b.hp -= d; b.hurt = 0.16; audio.sfx('bossHit'); this.freeze(0.06); this.spawnParts(b.x + b.w / 2, b.y + 80, '#b6ff6a', 6, 200);
     if (b.hp <= 0) { killBoss(b); b.dying = 1.6; this.sludge = []; audio.sfx('enemyDie'); audio.sfx('win'); this.score += 2000; this.float(b.x + b.w / 2, b.y - 10, '+2000', '#ffe35b'); this.say('MONSTRO DERROTADO! ALCANCE O PORTAL', 3); this.shake = 0.6; }
     else this.applyBossEvents(onDamaged(b));
   }
 
   private applyBossEvents(events: BossEvent[]): void {
     for (const ev of events) {
-      if (ev.type === 'slam') { this.shake = 0.5; audio.sfx('slam'); for (const v of ev.vx) this.sludge.push({ x: ev.x, y: ev.y, vx: v, life: 2.2 }); }
-      else if (ev.type === 'spit') { audio.sfx('hit'); this.sludge.push({ x: ev.x, y: ev.y, vx: ev.vx, life: 2.4 }); }
+      if (ev.type === 'slam') { this.shake = 0.5; audio.sfx('slam'); for (const v of ev.vx) this.sludge.push({ x: ev.x, y: ev.y, vx: v, life: 2.2, fx: 4 }); }
+      else if (ev.type === 'spit') { audio.sfx('hit'); this.sludge.push({ x: ev.x, y: ev.y, vx: ev.vx, life: 2.4, fx: projectileFrame(ev.x * 7 + this.t * 100) }); }
       else if (ev.type === 'roar') { this.shake = 0.6; audio.sfx('bossRoar'); }
       else this.say(ev.text, 2.2);
     }
@@ -228,13 +232,14 @@ export class Engine {
       if (dir !== 0) p.facing = dir as 1 | -1;
       if (p.onGround) p.coyote = 0.1; else p.coyote -= dt;
       if (wantJump && !this.jumpWas) p.jumpBuf = 0.12;
-      if (p.jumpBuf > 0 && p.coyote > 0) { p.vy = -JUMP_V; p.onGround = false; p.coyote = 0; p.jumpBuf = 0; audio.sfx('jump'); }
+      if (p.jumpBuf > 0 && p.coyote > 0) { p.vy = -JUMP_V; p.onGround = false; p.coyote = 0; p.jumpBuf = 0; audio.sfx('jump'); this.spawnParts(p.x + p.w / 2, p.y + p.h, '#e8f7d8', 4, 110); }
       if (!wantJump && p.vy < -300) p.vy += GRAV * 1.3 * dt; // variable jump height
       if (this.keys.down && p.onGround) p.dropT = 0.25;
       p.vy += GRAV * dt; p.vy = Math.min(p.vy, 1400);
       const wasAir = !p.onGround; const vyBefore = p.vy;
       this.move(p, dt, p.dropT > 0);
-      if (wasAir && p.onGround && vyBefore > 560) { p.landT = 0.2; audio.sfx('land'); this.spawnParts(p.x + p.w / 2, p.y + p.h, '#e8f7d8', 5, 120); }
+      if (wasAir && p.onGround && vyBefore > 560) { p.landT = 0.2; audio.sfx('land'); this.spawnParts(p.x + p.w / 2, p.y + p.h, '#e8f7d8', 7, 150); this.shake = Math.max(this.shake, vyBefore > 900 ? 0.14 : 0); }
+      this.dustT -= dt; if (p.onGround && Math.abs(p.vx) > 280 && this.dustT <= 0) { this.dustT = 0.11; this.spawnParts(p.x + p.w / 2 - p.facing * 14, p.y + p.h - 2, '#e8f7d8', 1, 60); }
     }
     this.jumpWas = wantJump;
     p.x = Math.max(0, Math.min(w.width - p.w, p.x));
@@ -280,7 +285,7 @@ export class Engine {
     // --- goal
     const gs = this.goalRect();
     if (overlap(p, gs)) {
-      if (this.boss && this.boss.state !== 'dead') { if (this.banner.t <= 0) this.say('DERROTE O MONSTRO DO LIXÃO!', 1.6); }
+      if (this.boss && this.boss.state !== 'dead') { if (this.banner.t <= 0) this.say(this.levelIndex === GRANDE_LIXO_LEVEL ? 'DERROTE O GRANDE LIXO!' : 'DERROTE O MONSTRO DO LIXÃO!', 1.6); }
       else this.startWin();
     }
     // --- camera
@@ -402,7 +407,7 @@ export class Engine {
     const b = this.boss; if (!b) return; const p = this.p;
     if (b.state === 'dead') { b.dying -= dt; return; }
     b.hurt = Math.max(0, b.hurt - dt);
-    if (!b.active) { if (p.x > b.x - 780) { b.active = true; audio.sfx('bossRoar'); this.say('MONSTRO DO LIXÃO!', 2); } else return; }
+    if (!b.active) { if (p.x > b.x - 780) { b.active = true; audio.sfx('bossRoar'); this.say(this.levelIndex === GRANDE_LIXO_LEVEL ? 'O GRANDE LIXO!' : 'MONSTRO DO LIXÃO!', 2); } else return; }
     const dx = p.x + p.w / 2 - (b.x + b.w / 2);
     this.applyBossEvents(stepBoss(b, { dt, dx, playerAlive: p.dieT <= 0, blocked: this.bossBlocked, rand: Math.random }));
     b.vy += GRAV * dt;
@@ -448,8 +453,8 @@ export class Engine {
     for (const k of this.pickups) {
       if (k.taken || !overlap(p, { x: k.x - 6, y: k.y - 6, w: k.w + 12, h: k.h + 12 })) continue;
       k.taken = true; this.collectT = 0.45; this.petCollectT = 0.6; const cx = k.x + k.w / 2, cy = k.y + k.h / 2;
-      if (k.type === 'coin') { this.runCollectibles.push({ id: k.spawnKey ?? `coin:${k.id}`, type: 'coin' }); audio.sfx('coin'); this.coins++; this.cb.onAnnounce?.(`Moeda coletada. Total: ${this.coins}.`); this.score += 10; this.spawnParts(cx, cy, '#ffd84a', 4, 120); }
-      else if (k.type === 'waste') { this.runCollectibles.push({ id: k.spawnKey ?? `material:${k.id}`, type: 'material', material: k.value }); audio.sfx('waste'); this.materials++; this.sinceBin++; this.cb.onAnnounce?.(`Resíduo recolhido. ${this.materials} de ${this.totalMaterials}.`); const v = WASTE_VALUE[k.value as keyof typeof WASTE_VALUE] ?? 50; this.score += v; this.float(cx, cy - 10, '+' + v, '#9dffb0'); this.spawnParts(cx, cy, '#9dffb0', 6, 150); }
+      if (k.type === 'coin') { this.runCollectibles.push({ id: k.spawnKey ?? `coin:${k.id}`, type: 'coin' }); audio.sfx('coin'); this.spawnParts(k.x + k.w / 2, k.y + k.h / 2, '#ffe35b', 6, 150); this.coins++; this.cb.onAnnounce?.(`Moeda coletada. Total: ${this.coins}.`); this.score += 10; this.spawnParts(cx, cy, '#ffd84a', 4, 120); }
+      else if (k.type === 'waste') { this.runCollectibles.push({ id: k.spawnKey ?? `material:${k.id}`, type: 'material', material: k.value }); audio.sfx('waste'); this.spawnParts(k.x + k.w / 2, k.y + k.h / 2, '#7dff9a', 6, 150); this.materials++; this.sinceBin++; this.cb.onAnnounce?.(`Resíduo recolhido. ${this.materials} de ${this.totalMaterials}.`); const v = WASTE_VALUE[k.value as keyof typeof WASTE_VALUE] ?? 50; this.score += v; this.float(cx, cy - 10, '+' + v, '#9dffb0'); this.spawnParts(cx, cy, '#9dffb0', 6, 150); }
       else {
         this.score += 100; audio.sfx('power');
         if (k.value === 'escudo') { p.shield = 7; this.say('ESCUDO ATIVO!', 1.2); }
@@ -679,7 +684,14 @@ export class Engine {
       if (e.dying <= 0 && e.hp < e.maxHp) { ctx.fillStyle = '#0008'; ctx.fillRect(e.x, e.y - 10, e.w, 5); ctx.fillStyle = '#ff6b6b'; ctx.fillRect(e.x, e.y - 10, e.w * Math.max(0, e.hp / e.maxHp), 5); }
     }
     this.drawBoss();
-    for (const s of this.sludge) { const g = ctx.createRadialGradient(s.x, s.y, 2, s.x, s.y, 28); g.addColorStop(0, '#d8ff6a'); g.addColorStop(0.6, '#5cc02c'); g.addColorStop(1, '#5cc02c00'); ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(s.x, s.y, 30, 22, 0, 0, 7); ctx.fill(); }
+    for (const s of this.sludge) {
+      // fase 16: o Grande Lixo arremessa lixeira, garrafa, lata e saco (girando) e bolas de lodo pelo chão
+      if (this.levelIndex === GRANDE_LIXO_LEVEL && s.fx !== undefined && this.assets.drawHero) {
+        ctx.save(); ctx.translate(s.x, s.y); if (s.fx < 4) ctx.rotate(this.t * 9 * (s.vx >= 0 ? 1 : -1));
+        const drawn = this.assets.drawHero(ctx, 'grande_lixo', '', 'proj', s.fx, 0, 0, { anchor: 'center', scale: s.fx === 4 ? 0.5 : 0.36, flip: s.fx === 4 && s.vx < 0 }); ctx.restore(); if (drawn) continue;
+      }
+      const g = ctx.createRadialGradient(s.x, s.y, 2, s.x, s.y, 28); g.addColorStop(0, '#d8ff6a'); g.addColorStop(0.6, '#5cc02c'); g.addColorStop(1, '#5cc02c00'); ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(s.x, s.y, 30, 22, 0, 0, 7); ctx.fill();
+    }
     // player
     const p = this.p; const pf = this.playerFrame(); this.lastPF = pf;
     if (p.shield > 0) { ctx.save(); const r = 70 + Math.sin(this.t * 6) * 3; const g = ctx.createRadialGradient(p.x + 20, p.y + 46, 10, p.x + 20, p.y + 46, r); g.addColorStop(0, '#7fffa800'); g.addColorStop(0.8, '#7fffb044'); g.addColorStop(1, '#a8ffd8cc'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x + 20, p.y + 46, r, 0, 7); ctx.fill(); ctx.restore(); }
@@ -865,7 +877,8 @@ export class Engine {
     if (f.length) ctx.filter = f.join(' ');
     if (b.phase === 3 && st !== 'dead') { ctx.save(); ctx.globalAlpha = 0.18 + 0.1 * Math.sin(t * 8); ctx.fillStyle = '#ff4a2a'; ctx.beginPath(); ctx.ellipse(cx, gy - 80, 110, 130, 0, 0, 7); ctx.fill(); ctx.restore(); } // aura de fúria
     ctx.translate(cx + ox, gy + 6); ctx.scale(sx, sy);
-    a.draw(ctx, name, 0, 0, { scale: 2.1, flip: b.dir > 0 ? false : true });
+    const gl = this.levelIndex === GRANDE_LIXO_LEVEL ? grandeLixoPose({ state: st, stateT: b.stateT, atk: b.atk, hurt: b.hurt, dying: b.dying, vx: b.vx, t, windup: wind }) : null;
+    if (!(gl && (a.drawHero?.(ctx, 'grande_lixo', '', gl.anim, gl.index, 0, 0, { flip: b.dir > 0 ? false : true }) ?? false))) a.draw(ctx, name, 0, 0, { scale: 2.1, flip: b.dir > 0 ? false : true });
     ctx.restore();
   }
 

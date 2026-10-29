@@ -2481,6 +2481,46 @@
     "lip": 0
   },
   {
+    "name": "p09_walker",
+    "phase": 9,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/manguezal/enemy_walker.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p09_flyer",
+    "phase": 9,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/manguezal/enemy_flyer.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
     "name": "p09_bin",
     "phase": 9,
     "category": "props",
@@ -2666,6 +2706,46 @@
     "category": "props",
     "role": "animal",
     "src": "/assets/islands/geleira/animal.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_walker",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/enemy_walker.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_flyer",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/enemy_flyer.svg",
     "w": 96,
     "h": 96,
     "hitbox": {
@@ -2881,6 +2961,46 @@
     "lip": 0
   },
   {
+    "name": "p11_walker",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/enemy_walker.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_flyer",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/enemy_flyer.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
     "name": "p11_bin",
     "phase": 11,
     "category": "props",
@@ -3066,6 +3186,46 @@
     "category": "props",
     "role": "animal",
     "src": "/assets/islands/fabrica/animal.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_walker",
+    "phase": 12,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/fabrica/enemy_walker.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_flyer",
+    "phase": 12,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/fabrica/enemy_flyer.svg",
     "w": 96,
     "h": 96,
     "hitbox": {
@@ -3281,6 +3441,46 @@
     "lip": 0
   },
   {
+    "name": "p13_walker",
+    "phase": 13,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/copas/enemy_walker.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_flyer",
+    "phase": 13,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/copas/enemy_flyer.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
     "name": "p13_bin",
     "phase": 13,
     "category": "props",
@@ -3466,6 +3666,46 @@
     "category": "props",
     "role": "animal",
     "src": "/assets/islands/oceano/animal.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_walker",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/enemy_walker.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_flyer",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/enemy_flyer.svg",
     "w": 96,
     "h": 96,
     "hitbox": {
@@ -3681,6 +3921,46 @@
     "lip": 0
   },
   {
+    "name": "p15_walker",
+    "phase": 15,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/cidade/enemy_walker.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p15_flyer",
+    "phase": 15,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/cidade/enemy_flyer.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
     "name": "p15_bin",
     "phase": 15,
     "category": "props",
@@ -3866,6 +4146,46 @@
     "category": "props",
     "role": "animal",
     "src": "/assets/islands/guardiao/animal.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p16_walker",
+    "phase": 16,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/guardiao/enemy_walker.svg",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p16_flyer",
+    "phase": 16,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/guardiao/enemy_flyer.svg",
     "w": 96,
     "h": 96,
     "hitbox": {

@@ -1,7 +1,7 @@
 import type { EconomyState } from '../app/economy';
 import s from './Hub.module.css';
 
-export type HubSection = 'lobby' | 'shop' | 'recycle';
+export type HubSection = 'lobby' | 'shop' | 'recycle' | 'profile';
 
 export default function HubHeader({ active, economy, unlocked, onNavigate, onMap }: {
   active: HubSection;
@@ -19,6 +19,7 @@ export default function HubHeader({ active, economy, unlocked, onNavigate, onMap
       <button type="button" aria-current={active === 'lobby' ? 'page' : undefined} onClick={() => onNavigate('lobby')}><Icon kind="home"/>Lobby</button>
       <button type="button" aria-current={active === 'shop' ? 'page' : undefined} onClick={() => onNavigate('shop')}><Icon kind="shop"/>Loja</button>
       <button type="button" aria-current={active === 'recycle' ? 'page' : undefined} onClick={() => onNavigate('recycle')}><Icon kind="recycle"/>Reciclagem</button>
+      <button type="button" aria-current={active === 'profile' ? 'page' : undefined} onClick={() => onNavigate('profile')}>🏅 Perfil</button>
     </nav>
     <div className={s.account}>
       <div className={s.level}><span>FASE LIBERADA</span><b>{String(unlocked).padStart(2, '0')}</b></div>

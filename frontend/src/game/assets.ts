@@ -10,6 +10,8 @@ const BASE = '/assets/game/';
 
 /** Pasta dos quadros de cada herói em public/assets/characters (gerada por tools/build_hero_sprites.py). */
 export const HERO_FOLDER: Record<string, string> = { crisoman: 'crisomer', crisogirl: 'quisogril' };
+/** Além dos heróis: o chefão da fase 16 usa o mesmo formato de quadros (sprites.json + spritesheet). */
+export const SPRITE_SETS: Record<string, string> = { ...HERO_FOLDER, grande_lixo: 'grande_lixo' };
 interface HeroManifest { image: string; cell: { w: number; h: number }; pivot: { x: number; y: number }; displayScale: number; animations: Record<string, { fps: number; loop: boolean; frames: string[] }>; frames: Record<string, { x: number; y: number; w: number; h: number }> }
 interface HeroSheet { meta: HeroManifest; img: HTMLImageElement; variants: Map<string, CanvasImageSource> }
 /** Recolor só do uniforme (pixels verdes); pele, cabelo e fones pretos ficam intactos. hue = ângulo absoluto alvo. */
@@ -216,7 +218,7 @@ export class Assets {
       try { this.tiles.set(e.name, await loadImage(e.src)); if (e.lip !== undefined) this.lips.set(e.name, e.lip); }
       catch { /* sprite ausente: o jogo segue sem ele */ }
     }));
-    await Promise.all(Object.entries(HERO_FOLDER).map(async ([id, folder]) => {
+    await Promise.all(Object.entries(SPRITE_SETS).map(async ([id, folder]) => {
       try {
         const meta = await fetch(`/assets/characters/${folder}/sprites.json`).then((r) => r.json() as Promise<HeroManifest>);
         this.heroes.set(id, { meta, img: await loadImage(meta.image), variants: new Map() });
