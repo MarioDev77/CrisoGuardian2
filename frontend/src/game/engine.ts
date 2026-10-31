@@ -560,7 +560,7 @@ export class Engine {
     const f = this.anim.update({
       t: p.animT, onGround: p.onGround, vx: p.vx, vy: p.vy, climbing: p.climbing, climbMoving: k.up || k.down || Math.abs(p.vx) > 20,
       dead: p.dieT > 0, dieT: p.dieT, hurtT: p.hurtT, landT: p.landT, collectT: this.collectT, shootT: p.shootT, specialT: p.specialT, interactT: this.interactT,
-      victory: !!this.win && this.win.phase === 'walk',
+      victory: !!this.win && this.win.phase === 'walk', crouch: k.down && !p.climbing,
     });
     return { name: f.name, state: f.state, alpha: p.inv > 0 && p.dieT <= 0 && Math.floor(p.inv * 14) % 2 ? 0.45 : 1 };
   }
@@ -700,7 +700,9 @@ export class Engine {
     if (!wn || wn.phase === 'walk') {
       const gy = p.onGround ? p.y + p.h : this.groundBelow(p.x + p.w / 2, p.y + p.h); if (gy !== null && p.dieT <= 0) this.shadow(p.x + p.w / 2, gy, 30, 1, p.onGround ? 0 : gy - (p.y + p.h));
       this.drawPet(ctx);
-      const hp = heroPose(pf.state as PlayerState, { stateT: this.anim.stateT, hurtT: p.hurtT, landT: p.landT, dieT: p.dieT, vy: p.vy, speed: Math.abs(p.vx) });
+      let hp = heroPose(pf.state as PlayerState, { stateT: this.anim.stateT, hurtT: p.hurtT, landT: p.landT, dieT: p.dieT, vy: p.vy, speed: Math.abs(p.vx) });
+      // heróis sem a animação de agachar (ex.: Crisogirl) usam a pose de pouso
+      if (hp.anim === 'crouch' && !(a.heroFrameCount?.(this.appearance.character, 'crouch') ?? 0)) hp = { anim: 'land', index: 1 };
       ctx.save();
       if (!(a.drawHero?.(ctx, this.appearance.character, this.appearance.skinId, hp.anim, hp.index, p.x + p.w / 2, p.y + p.h + 3, { scale: HERO_SCALE, flip: p.facing < 0, alpha: pf.alpha }) ?? false)) {
         // sem os sprites novos (arquivo ausente): volta ao atlas original

@@ -18,18 +18,18 @@ export type PlayerState =
   | 'idle' | 'walk' | 'run'
   | 'jumpStart' | 'jumpRise' | 'jumpApex' | 'fall' | 'landing'
   | 'attackStart' | 'attack' | 'attackRecovery'
-  | 'hurt' | 'death' | 'victory' | 'interact' | 'collect' | 'special' | 'climb';
+  | 'hurt' | 'death' | 'victory' | 'interact' | 'collect' | 'special' | 'climb' | 'crouch';
 
 /** Tempos (s) compartilhados com o motor, para pose e efeito acontecerem no mesmo instante. */
 export const HURT_TIME = 0.45;
 export const LAND_TIME = 0.2;
 export const JUMP_START_TIME = 0.07;
-export const ATTACK_START_END = 0.05;   // fim da mira (quadro 0)
+export const ATTACK_START_END = 0.06;   // fim da mira (quadro 0)
 /** Instante em que o tiro realmente sai (primeiro quadro "ativo" do golpe). */
 export const ATTACK_FIRE_T = ATTACK_START_END;
-export const ATTACK_ACTIVE_END = 0.11;  // fim do clarão de saída (quadro 1)
+export const ATTACK_ACTIVE_END = 0.12;  // fim do clarão de saída (quadro 1)
 /** Dentro da recuperação: até aqui o quadro é a rajada (2), depois o brilho se dissipando (3). */
-export const ATTACK_BLAST_END = 0.18;
+export const ATTACK_BLAST_END = 0.19;
 export const ATTACK_TOTAL = 0.28;       // fim da recuperação
 export const SPECIAL_TIME = 0.4;
 export const INTERACT_TIME = 0.45;
@@ -44,6 +44,8 @@ export interface AnimInput {
   shootT: number; specialT: number; interactT: number;
   /** Verdadeiro durante a comemoração ao chegar no portal. */
   victory: boolean;
+  /** Seta para baixo segurada (opcional): no chão e parado, o herói agacha. */
+  crouch?: boolean;
 }
 
 export interface AnimOutput { state: PlayerState; name: string }
@@ -111,6 +113,7 @@ export class PlayerAnim {
     if (i.shootT < ATTACK_TOTAL) return i.shootT < ATTACK_START_END ? 'attackStart' : i.shootT < ATTACK_ACTIVE_END ? 'attack' : 'attackRecovery';
     if (i.landT > 0 && !(LAND_TIME - i.landT > 0.07 && sp > 20)) return 'landing';
     if (i.interactT > 0 && sp < 60) return 'interact';
+    if (i.crouch && sp < 25) return 'crouch';
 
     const was = this.state;
     const moving = was === 'walk' || was === 'run' ? sp > 12 : sp > 25;
@@ -131,6 +134,7 @@ export class PlayerAnim {
       case 'fall': return this.stateT < 0.1 ? 'p_fall_0' : i.vy >= 650 ? 'p_fall_2' : f % 2 ? 'p_fall_3' : 'p_fall_1';
       case 'victory': return i.vy < -300 ? 'p_jump_1' : i.vy < 0 ? 'p_jump_3' : i.vy < 200 ? 'p_jump_4' : 'p_fall_0';
       case 'landing': return `p_land_${clamp(Math.floor((LAND_TIME - i.landT) * 15), 0, 2)}`;
+      case 'crouch': return 'p_land_1';
       case 'attackStart': return 'p_shoot_0';
       case 'attack': return 'p_shoot_1';
       case 'attackRecovery': return 'p_shoot_2';
@@ -159,7 +163,11 @@ export function heroPose(state: PlayerState, i: HeroPoseInput): { anim: string; 
     case 'attack': return { anim: 'attack', index: 1 };
     case 'attackRecovery': return { anim: 'attack', index: ATTACK_ACTIVE_END + i.stateT < ATTACK_BLAST_END ? 2 : 3 };
     case 'jumpStart': return { anim: 'jump', index: 0 };
-    case 'jumpRise': case 'jumpApex': case 'victory': return { anim: 'jump', index: 1 };
+    // subida: impulso forte (1) e depois a subida mais lenta (2); no ápice o quadro 3; vitória no ar usa a subida
+    case 'jumpRise': return { anim: 'jump', index: i.vy < -520 ? 1 : 2 };
+    case 'jumpApex': return { anim: 'jump', index: 3 };
+    case 'victory': return { anim: 'jump', index: 2 };
+    case 'crouch': return { anim: 'crouch', index: clamp(Math.floor(i.stateT * 14), 0, 2) };
     case 'fall': return { anim: 'fall', index: Math.floor(i.stateT * 8) };
     // a pose agachada só vale com o herói quase parado; correndo, segue o ciclo de corrida
     case 'landing': return i.speed > 60 ? moving() : { anim: 'land', index: i.landT > LAND_TIME / 2 ? 0 : 1 };

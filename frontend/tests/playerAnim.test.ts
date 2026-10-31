@@ -96,3 +96,22 @@ describe('quadros do tiro do herói', () => {
     expect(ATTACK_FIRE_T).toBeGreaterThan(0);
   });
 });
+
+describe('agachar e quadros do Crisoman (corrida, pulo, pouso)', () => {
+  it('segurar para baixo parado no chão agacha; andando ou atirando não', () => {
+    const a = new PlayerAnim(); const st = base(); st.crouch = true; st.t += 1 / 60;
+    expect(a.update({ ...st }).state).toBe('crouch');
+    const b = new PlayerAnim(); const s2 = { ...base(), crouch: true, vx: 200, t: 1 / 60 };
+    expect(b.update(s2).state).not.toBe('crouch');
+    const c = new PlayerAnim(); const s3 = { ...base(), crouch: true, shootT: 0, t: 1 / 60 };
+    expect(c.update(s3).state).toBe('attackStart');
+  });
+  it('o atlas do Crisoman tem as animações novas e todos os quadros dentro da imagem', async () => {
+    const { readFileSync } = await import('node:fs'); const { join } = await import('node:path');
+    const dir = join(__dirname, '../public/assets/characters/crisomer');
+    const m = JSON.parse(readFileSync(join(dir, 'sprites.json'), 'utf8')) as { animations: Record<string, { frames: string[] }>; frames: Record<string, { x: number; y: number; w: number; h: number }> };
+    const png = readFileSync(join(dir, 'spritesheet.png')); const W = png.readUInt32BE(16), H = png.readUInt32BE(20);
+    expect(m.animations.run!.frames.length).toBe(6); expect(m.animations.jump!.frames.length).toBe(4); expect(m.animations.crouch!.frames.length).toBe(3);
+    for (const an of Object.values(m.animations)) for (const n of an.frames) { const f = m.frames[n]!; expect(f, n).toBeDefined(); expect(f.x + f.w).toBeLessThanOrEqual(W); expect(f.y + f.h).toBeLessThanOrEqual(H); }
+  });
+});
