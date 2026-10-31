@@ -24,10 +24,12 @@ export type PlayerState =
 export const HURT_TIME = 0.45;
 export const LAND_TIME = 0.2;
 export const JUMP_START_TIME = 0.07;
-export const ATTACK_START_END = 0.06;   // fim da preparação do ataque
+export const ATTACK_START_END = 0.05;   // fim da mira (quadro 0)
 /** Instante em que o tiro realmente sai (primeiro quadro "ativo" do golpe). */
 export const ATTACK_FIRE_T = ATTACK_START_END;
-export const ATTACK_ACTIVE_END = 0.12;  // fim do golpe ativo
+export const ATTACK_ACTIVE_END = 0.11;  // fim do clarão de saída (quadro 1)
+/** Dentro da recuperação: até aqui o quadro é a rajada (2), depois o brilho se dissipando (3). */
+export const ATTACK_BLAST_END = 0.18;
 export const ATTACK_TOTAL = 0.28;       // fim da recuperação
 export const SPECIAL_TIME = 0.4;
 export const INTERACT_TIME = 0.45;
@@ -155,7 +157,7 @@ export function heroPose(state: PlayerState, i: HeroPoseInput): { anim: string; 
     case 'special': return { anim: 'attack', index: 1 };
     case 'attackStart': return { anim: 'attack', index: 0 };
     case 'attack': return { anim: 'attack', index: 1 };
-    case 'attackRecovery': return { anim: 'attack', index: 2 };
+    case 'attackRecovery': return { anim: 'attack', index: ATTACK_ACTIVE_END + i.stateT < ATTACK_BLAST_END ? 2 : 3 };
     case 'jumpStart': return { anim: 'jump', index: 0 };
     case 'jumpRise': case 'jumpApex': case 'victory': return { anim: 'jump', index: 1 };
     case 'fall': return { anim: 'fall', index: Math.floor(i.stateT * 8) };

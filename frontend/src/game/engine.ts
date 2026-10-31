@@ -252,7 +252,7 @@ export class Engine {
     // o tiro sai no quadro ativo do golpe (não no primeiro instante), alinhado com a pose e o som
     if (this.shotPending && p.shootT >= ATTACK_FIRE_T) {
       this.shotPending = false; audio.sfx('shoot');
-      this.shots.push({ x: p.x + p.w / 2 + p.facing * 36, y: p.y + 40, vx: p.facing * 780, life: 1.1 });
+      this.shots.push({ x: p.x + p.w / 2 + p.facing * 40, y: p.y + 50, vx: p.facing * 780, life: 1.1 });
     }
     if (this.keys.special && !this.specialWas && p.specialCd <= 0) {
       p.specialCd = DIFFICULTY[getSettings().difficulty].specialCd; p.specialT = 0; this.specialFx = 0.7; this.shake = 0.3; audio.sfx('special');

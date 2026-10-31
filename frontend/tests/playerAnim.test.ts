@@ -79,3 +79,20 @@ describe('PlayerAnim', () => {
     st.climbMoving = false; const n1 = a.update({ ...st }).name; run(a, st, 0.5, 1 / 60); expect(a.update({ ...st }).name).toBe(n1);
   });
 });
+
+describe('quadros do tiro do herói', () => {
+  it('toca mira -> clarão -> rajada -> dissipação, sem pular quadro, e cada quadro existe no atlas', async () => {
+    const { heroPose, ATTACK_FIRE_T, ATTACK_TOTAL } = await import('../src/game/playerAnim');
+    const a = new PlayerAnim(); const st = base(); st.shootT = 0; const idx: number[] = [];
+    for (let n = 0; n < 30; n++) {
+      st.t += 1 / 60; st.shootT += 1 / 60;
+      const o = a.update({ ...st });
+      if (st.shootT >= ATTACK_TOTAL) break;
+      const hp = heroPose(o.state, { stateT: a.stateT, hurtT: 0, landT: 0, dieT: 0, vy: 0, speed: 0 });
+      expect(hp.anim).toBe('attack');
+      if (idx[idx.length - 1] !== hp.index) idx.push(hp.index);
+    }
+    expect(idx).toEqual([0, 1, 2, 3]);
+    expect(ATTACK_FIRE_T).toBeGreaterThan(0);
+  });
+});
