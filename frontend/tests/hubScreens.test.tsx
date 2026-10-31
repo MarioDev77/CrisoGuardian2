@@ -33,7 +33,7 @@ describe('Lobby, Loja e Reciclagem', () => {
 
   it('o botão Jogar do Lobby inicia o fluxo e personagens continuam selecionáveis', async () => {
     const economy = freshEconomy(); const play = vi.fn(); const navigate = vi.fn();
-    render(<Lobby economy={economy} progress={{ unlocked: 2, stars: Array(11).fill(0), coins: 0, best: Array(11).fill(0) }} onEconomy={async () => ({ ok: true, message: '' })} onNavigate={navigate} onMap={vi.fn()} onPlay={play}/>);
+    render(<Lobby economy={economy} progress={{ unlocked: 2, stars: Array(11).fill(0), coins: 0, best: Array(11).fill(0) }} onEconomy={async () => ({ ok: true, message: '' })} onNavigate={navigate} onMap={vi.fn()} onPlay={play} onProgression={vi.fn()}/>);
     await click(button('Crisogirl')); expect(host.textContent).toContain('Crisogirl');
     await click(button('JOGAR')); expect(play).toHaveBeenCalledOnce();
     await click(button('Loja')); expect(navigate).toHaveBeenCalledWith('shop');

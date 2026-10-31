@@ -1,0 +1,170 @@
+diff -ru -x node_modules -x dist -x _auditoria -x README.md -x 'progression*.test.*' ORIGINAL_SNAPSHOT/backend/economy-api.mjs NOVO/backend/economy-api.mjs
+--- ORIGINAL_SNAPSHOT/backend/economy-api.mjs	2026-10-31 01:22:12.641080059 +0000
++++ NOVO/backend/economy-api.mjs	2026-10-31 01:28:41.133278918 +0000
+@@ -72,14 +72,21 @@
+   for (const k of Object.keys(p.stats)) p.stats[k] = safeInteger(value.stats?.[k]) ? value.stats[k] : 0;
+   const prog = value.progression ?? {}; const defaults = freshProgression();
+   for (const skill of Object.keys(defaults.skills)) { const n = prog.skills?.[skill]; p.progression.skills[skill] = Number.isInteger(n) ? Math.max(0, Math.min(3, n)) : 0; }
+-  if (prog.pets && typeof prog.pets === 'object') for (const [id, v] of Object.entries(prog.pets)) if (pets.has(id) && v && safeInteger(v.xp, 1000000) && Number.isInteger(v.level)) p.progression.pets[id] = { xp: v.xp, level: Math.max(1, Math.min(10, v.level)) };
++  if (prog.pets && typeof prog.pets === 'object') for (const [id, v] of Object.entries(prog.pets)) if (pets.has(id) && v && safeInteger(v.xp, 1000000) && Number.isInteger(v.level)) { const level = Math.max(1, Math.min(10, v.level)); p.progression.pets[id] = { xp: level >= 10 ? 0 : Math.min(v.xp, level * 100 - 1), level }; }
+   if (prog.daily && typeof prog.daily === 'object') { const d = prog.daily; if (typeof d.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d.date)) p.progression.daily = { date: d.date, counts: { wins: safeInteger(d.counts?.wins, 100000) ? d.counts.wins : 0, materials: safeInteger(d.counts?.materials, 100000) ? d.counts.materials : 0, recycles: safeInteger(d.counts?.recycles, 100000) ? d.counts.recycles : 0 }, claimed: Array.isArray(d.claimed) ? [...new Set(d.claimed.filter((x) => DAILY_TASKS.some((t) => t.id === x)))] : [] }; }
+   p.registered = value.registered === true; refreshDaily(p); return p;
+ }
++/** Contas e sessões precisam sobreviver a reinícios e ao backup (antes eram descartadas ao recarregar o arquivo assinado). */
++function cleanAuth(data) {
++  const hex = (v) => typeof v === 'string' && /^[a-f0-9]+$/i.test(v); const accounts = {}, sessions = {};
++  if (data.accounts && typeof data.accounts === 'object') for (const [k, a] of Object.entries(data.accounts)) if (a && typeof a.id === 'string' && typeof a.username === 'string' && hex(a.salt) && hex(a.hash)) accounts[k] = { id: a.id, username: a.username, salt: a.salt, hash: a.hash, createdAt: Number.isSafeInteger(a.createdAt) ? a.createdAt : 0 };
++  if (data.sessions && typeof data.sessions === 'object') for (const [h, v] of Object.entries(data.sessions)) if (/^[a-f0-9]{64}$/i.test(h) && v && typeof v.account === 'string' && accounts[v.account] && Number.isSafeInteger(v.exp)) sessions[h] = { account: v.account, exp: v.exp };
++  return { accounts, sessions };
++}
+ function mac(payload) { return createHmac('sha256', key).update(payload).digest('hex'); }
+ function envelope(payload) { return JSON.stringify({ payload, mac: mac(payload) }); }
+ function verifyEnvelope(raw) {
+-  try { const parsed = JSON.parse(raw); if (typeof parsed.payload !== 'string' || typeof parsed.mac !== 'string' || !/^[a-f0-9]{64}$/i.test(parsed.mac)) return null; const a = Buffer.from(mac(parsed.payload), 'hex'), b = Buffer.from(parsed.mac, 'hex'); if (a.length !== b.length || !timingSafeEqual(a, b)) return null; const data = JSON.parse(parsed.payload); if (!data || typeof data.players !== 'object') return null; return { players: Object.fromEntries(Object.entries(data.players).map(([id, player]) => [id, cleanPlayer(player)])) }; } catch { return null; }
++  try { const parsed = JSON.parse(raw); if (typeof parsed.payload !== 'string' || typeof parsed.mac !== 'string' || !/^[a-f0-9]{64}$/i.test(parsed.mac)) return null; const a = Buffer.from(mac(parsed.payload), 'hex'), b = Buffer.from(parsed.mac, 'hex'); if (a.length !== b.length || !timingSafeEqual(a, b)) return null; const data = JSON.parse(parsed.payload); if (!data || typeof data.players !== 'object') return null; return { players: Object.fromEntries(Object.entries(data.players).map(([id, player]) => [id, cleanPlayer(player)])), ...cleanAuth(data) }; } catch { return null; }
+ }
+ async function atomicWrite(path, content) { await mkdir(dirname(path), { recursive: true }); const temp = `${path}.${randomUUID()}.tmp`; await writeFile(temp, content, { mode: 0o600 }); await rename(temp, path); }
+ async function readSigned(path) { try { return verifyEnvelope(await readFile(path, 'utf8')); } catch { return null; } }
+@@ -109,14 +116,19 @@
+ function reply(res, status, data) { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' }); res.end(JSON.stringify(data)); }
+ async function readBody(req) { let raw = ''; for await (const chunk of req) { raw += chunk; if (raw.length > maxBody) throw Object.assign(new Error('Requisição grande demais.'), { status: 413 }); } try { return raw ? JSON.parse(raw) : {}; } catch { throw Object.assign(new Error('JSON inválido.'), { status: 400 }); } }
+ function rateLimit(sid, path) { const now = Date.now(), k = `${sid}:${path}`, old = requestWindow.get(k) ?? [], recent = old.filter((at) => now - at < 60000); const limit = path.endsWith('/loadout') || path === '/api/run/start' ? 300 : path === '/api/economy' ? 600 : 60; if (recent.length >= limit) return false; recent.push(now); requestWindow.set(k, recent); return true; }
+-function snapshot(player, acct = null) { refreshDaily(player); return { economy: player.economy, progress: player.progress, progression: player.progression, achievements: player.achievements, stats: player.stats, account: acct ? { username: acct.username } : null }; }
++function snapshot(player, acct = null) { refreshDaily(player); return { economy: player.economy, progress: player.progress, progression: { ...player.progression, daily: { ...player.progression.daily, resetsAt: nextResetAt() } }, achievements: player.achievements, stats: player.stats, account: acct ? { username: acct.username } : null }; }
+ const DAILY_TASKS = [{ id: 'win', title: 'Vença 1 fase', target: 1, reward: 80, kind: 'wins' }, { id: 'materials', title: 'Colete 5 materiais', target: 5, reward: 100, kind: 'materials' }, { id: 'recycle', title: 'Recicle 1 lote', target: 1, reward: 60, kind: 'recycles' }];
+ const todayKey = () => new Date().toISOString().slice(0, 10);
++const nextResetAt = () => { const d = new Date(); return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1); };
+ function freshProgression() { return { skills: { jump: 0, speed: 0, defense: 0, magnet: 0 }, pets: {}, daily: { date: todayKey(), counts: { wins: 0, materials: 0, recycles: 0 }, claimed: [] } }; }
+ function refreshDaily(player) { const d = player.progression.daily; if (d.date !== todayKey()) player.progression.daily = { date: todayKey(), counts: { wins: 0, materials: 0, recycles: 0 }, claimed: [] }; }
+ function addPetXp(player, amount = 25) { const id = player.economy.equippedPet; if (!id || !player.economy.owned.includes(id)) return; const pet = player.progression.pets[id] ?? { xp: 0, level: 1 }; pet.xp += amount; while (pet.level < 10 && pet.xp >= pet.level * 100) { pet.xp -= pet.level * 100; pet.level++; } if (pet.level >= 10) pet.xp = 0; player.progression.pets[id] = pet; }
+ function transaction(e, type, detail, delta) { e.transactions = [...e.transactions, { id: randomUUID(), type, at: Date.now(), detail, coinsDelta: delta }].slice(-200); }
+-async function ensurePlayer(key) { if (database.players[key]) return database.players[key]; return await serialize(async () => { if (!database.players[key]) { const next = structuredClone(database); next.players[key] = freshPlayer(); await persist(next); database = next; } return database.players[key]; }); }
++const profileHits = new Map();
++/** Limita a criação de perfis novos (convidados) por IP: sem isso, requisições sem cookie enchiam o arquivo de dados. */
++function profileRate(ip) { const now = Date.now(), recent = (profileHits.get(ip) ?? []).filter((at) => now - at < 60000); if (recent.length >= 30) return false; recent.push(now); profileHits.set(ip, recent); return true; }
++setInterval(() => { const now = Date.now(); for (const m of [requestWindow, authHits, profileHits]) for (const [k, v] of m) if (!v.some((at) => now - at < 60000)) m.delete(k); for (const [k, r] of activeRuns) if (now - (performance.timeOrigin + r.started) > 7200000) activeRuns.delete(k); }, 60000).unref();
++async function ensurePlayer(key, req) { if (database.players[key]) return database.players[key]; if (req && !profileRate(clientIp(req))) throw error('Muitas tentativas. Aguarde um minuto.', 429); return await serialize(async () => { if (!database.players[key]) { const next = structuredClone(database); next.players[key] = freshPlayer(); await persist(next); database = next; } return database.players[key]; }); }
+ function error(message, status = 400) { return Object.assign(new Error(message), { status }); }
+ 
+ 
+@@ -195,13 +207,16 @@
+   try {
+     if (!url.pathname.startsWith('/api/')) return reply(res, 404, { message: 'Rota não encontrada.' });
+     if (!rateLimit(sid, url.pathname)) return reply(res, 429, { message: 'Muitas tentativas. Aguarde um minuto.' });
+-    if (req.method === 'GET' && url.pathname === '/api/economy') return reply(res, 200, snapshot(await ensurePlayer(pk), acct));
++    if (req.method === 'GET' && url.pathname === '/api/economy') return reply(res, 200, snapshot(database.players[pk] ?? freshPlayer(), acct));   // visita sem perfil: não grava nada em disco
+     const body = await readBody(req);
+     if (url.pathname.startsWith('/api/auth/')) return await handleAuth(req, res, url, sid, body);
+     if (process.env.CRISO_TEST_MODE === '1' && req.method === 'POST' && url.pathname === '/api/test/seed') {
+       return await serialize(async () => { const next = structuredClone(database); const p = freshPlayer(); if (body.economy) p.economy = cleanPlayer({ economy: body.economy }).economy; if (body.progress) p.progress = cleanPlayer({ progress: body.progress }).progress; if (body.progression) p.progression = cleanPlayer({ progression: body.progression }).progression; next.players[pk] = p; await persist(next); database = next; return reply(res, 200, snapshot(p, acct)); });
+     }
+-    const player = await ensurePlayer(pk); if (req.method !== 'POST') return reply(res, 405, { message: 'Método não permitido.' });
++    if (process.env.CRISO_TEST_MODE === '1' && req.method === 'POST' && url.pathname === '/api/test/age-run') {   // só em testes: simula o tempo decorrido de uma partida
++      const run = activeRuns.get(sid); if (!run || !Number.isFinite(body.seconds)) throw error('Sem partida ativa.', 404); run.started -= body.seconds * 1000; return reply(res, 200, { ok: true });
++    }
++    const player = await ensurePlayer(pk, req); if (req.method !== 'POST') return reply(res, 405, { message: 'Método não permitido.' });
+     if (url.pathname === '/api/economy/loadout') return await serialize(async () => {
+       const next = structuredClone(database); const p = next.players[pk]; const e = p.economy;
+       if (body.character !== undefined) { if (!['crisoman', 'crisogirl'].includes(body.character)) throw error('Personagem inválido.'); e.character = body.character; }
+@@ -213,6 +228,7 @@
+       const skill = body.skill; const costs = [100, 200, 350]; const valid = ['jump', 'speed', 'defense', 'magnet'];
+       if (!valid.includes(skill)) throw error('Habilidade inválida.');
+       const next = structuredClone(database); const p = next.players[pk]; const level = p.progression.skills[skill];
++      if (body.expectedLevel !== undefined && body.expectedLevel !== level) throw error('O nível da habilidade mudou. Atualize a tela e tente de novo.', 409);
+       if (level >= 3) throw error('Essa habilidade já está no nível máximo.');
+       const cost = costs[level]; if (p.economy.coins < cost) throw error('Moedas insuficientes.');
+       p.economy.coins -= cost; p.progression.skills[skill]++; transaction(p.economy, 'purchase', `habilidade:${skill}:${level + 1}`, -cost);
+@@ -246,11 +262,11 @@
+     if (url.pathname === '/api/run/settle') return await serialize(async () => {
+       const run = activeRuns.get(sid); if (!run || body.runId !== run.id || body.level !== run.level) throw error('Partida inválida, expirada ou já finalizada.', 409); if (body.won !== true) throw error('Somente uma vitória pode entregar recompensas.');
+       const elapsed = (performance.now() - run.started) / 1000; 
+-      const next = structuredClone(database); const p = next.players[pk]; const e = p.economy; const seen = new Set(), fresh = []; let coins = 0; const mats = new Map();
++      const next = structuredClone(database); const p = next.players[pk]; const e = p.economy; const seen = new Set(), fresh = []; let coins = 0, runMaterials = 0; const mats = new Map();
+       const list = Array.isArray(body.collectibles) ? body.collectibles.slice(0, 500) : [];
+       for (const item of list) {
+         if (!item || typeof item.id !== 'string' || item.id.trim().length === 0 || item.id.length > 120 || seen.has(item.id) || !/^(coin|material|enemy-coin):[A-Za-z0-9:._-]+$/.test(item.id)) continue;
+-        seen.add(item.id); if (e.claimedSpawns.includes(`${run.level}:${item.id}`)) continue;
++        seen.add(item.id); if (item.type === 'material' && typeof item.material === 'string' && materialSet.has(item.material)) runMaterials++; if (e.claimedSpawns.includes(`${run.level}:${item.id}`)) continue;
+         if (item.type === 'coin') coins++; else if (item.type === 'material' && typeof item.material === 'string' && materialSet.has(item.material)) mats.set(item.material, (mats.get(item.material) ?? 0) + 1); fresh.push(item);
+       }
+       const materialTotal = [...mats.values()].reduce((sum, n) => sum + n, 0), paidBefore = p.paidLevels.includes(run.level), timeAllowed = elapsed <= catalog.runLimits.maxSeconds;
+@@ -264,7 +280,9 @@
+       e.claimedSpawns = [...new Set([...e.claimedSpawns, ...[...seen].map((id) => `${run.level}:${id}`)])].slice(-10000);
+       const stars = Number.isInteger(body.stars) ? Math.max(0, Math.min(3, body.stars)) : 1; const score = safeInteger(body.score, 10000000) ? body.score : 0;
+       p.progress.unlocked = Math.min(LEVEL_COUNT, Math.max(p.progress.unlocked, run.level + 2)); p.progress.stars[run.level] = Math.max(p.progress.stars[run.level], stars); p.progress.best[run.level] = Math.max(p.progress.best[run.level], score);
+-      p.stats.coinsEarned += paidCoins; p.stats.materialsCollected += paidMaterials; refreshDaily(p); p.progression.daily.counts.wins += 1; p.progression.daily.counts.materials += paidMaterials; addPetXp(p, 25); const newAchievements = unlockAchievements(p);
++      p.stats.coinsEarned += paidCoins; p.stats.materialsCollected += paidMaterials; refreshDaily(p);
++      // vitória "válida" (>= 15 s, mesma regra das recompensas) alimenta missões e XP do pet; vitórias instantâneas só avançam o mapa
++      if (elapsed >= 15) { const d = p.progression.daily; d.counts.wins += 1; if (timeAllowed) d.counts.materials += Math.min(runMaterials, catalog.runLimits.maxMaterials, Math.floor(elapsed / catalog.runLimits.secondsPerMaterial)); addPetXp(p, 25); } const newAchievements = unlockAchievements(p);
+       await persist(next); database = next; activeRuns.delete(sid); return reply(res, 200, { ...snapshot(p, acct), newAchievements, payout: { coins: paidCoins, materials: paidMaterials, discarded: Math.max(0, coins - paidCoins) + Math.max(0, materialTotal - paidMaterials) } });
+     });
+     return reply(res, 404, { message: 'Rota não encontrada.' });
+diff -ru -x node_modules -x dist -x _auditoria -x README.md -x 'progression*.test.*' ORIGINAL_SNAPSHOT/frontend/src/app/App.tsx NOVO/frontend/src/app/App.tsx
+--- ORIGINAL_SNAPSHOT/frontend/src/app/App.tsx	2026-10-31 01:22:12.643862293 +0000
++++ NOVO/frontend/src/app/App.tsx	2026-10-31 01:25:00.620812302 +0000
+@@ -88,12 +88,12 @@
+   if (screen.name === 'map') return chrome(<WorldMap progress={{ ...progress, coins: economy.coins }} statusMessage={serverError} map2Fresh={map2Fresh} onOpenProfile={() => setScreen({ name: 'profile' })} onOpenMap2={() => { setMap2Fresh(false); setScreen({ name: 'map2' }); }} onPlay={(level) => { void startLevel(level); }} onOpenLobby={() => setScreen({name:'lobby'})} onOpenShop={() => setScreen({name:'shop'})} onOpenRecycle={() => setScreen({name:'recycle'})} onBack={() => setScreen({ name: 'title' })} />);
+   if (screen.name === 'map2') return chrome(<WorldMap2 progress={{ ...progress, coins: economy.coins }} justUnlocked={map2Fresh} onPlay={(level) => { void startLevel(level); }} onBack={() => setScreen({ name: 'map' })} onOpenLobby={() => setScreen({ name: 'lobby' })} onOpenShop={() => setScreen({ name: 'shop' })} onOpenRecycle={() => setScreen({ name: 'recycle' })} onOpenProfile={() => setScreen({ name: 'profile' })} />);
+   if (screen.name === 'profile') return chrome(<Profile username={account} progress={{ ...progress, coins: economy.coins }} achievements={achievements} stats={stats} onBack={() => setScreen({ name: 'map' })} onOpenAccount={() => setAccountOpen(true)} />, false);
+-  if (screen.name === 'lobby') return chrome(<Lobby economy={economy} progress={progress} onMap={() => setScreen({name:'map'})} onPlay={() => { void startLevel(Math.min(progress.unlocked, LEVEL_COUNT) - 1); }} onProgression={() => setScreen({name:'progression'})} onNavigate={navigateHub} onEconomy={async(next)=>{
++  if (screen.name === 'lobby') return chrome(<Lobby economy={economy} progress={progress} onMap={() => setScreen({name:'map'})} onPlay={() => { void startLevel(Math.min(progress.unlocked, LEVEL_COUNT) - 1); }} onProgression={() => { void reloadState(); setScreen({name:'progression'}); }} onNavigate={navigateHub} onEconomy={async(next)=>{
+     const current=economyRef.current;
+     const body=next.character!==current.character?{character:next.character}:next.equippedPet!==current.equippedPet?{petId:next.equippedPet}:next.equippedSkin.crisoman!==current.equippedSkin.crisoman?{skinId:next.equippedSkin.crisoman}:next.equippedSkin.crisogirl!==current.equippedSkin.crisogirl?{skinId:next.equippedSkin.crisogirl}:null;
+     if(!body)return {ok:true,message:''};try{applySnapshot(await api<ApiSnapshot>('/api/economy/loadout',body));return {ok:true,message:'Seleção salva.'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao salvar a seleção.'}}
+   }} />);
+-  if (screen.name === 'progression') return chrome(<Progression economy={economy} progress={progress} progression={serverProgression} onNavigate={navigateHub} onMap={() => setScreen({name:'map'})} onUpgrade={async(skill)=>{try{const result=await api<ServerSnapshot>('/api/progression/upgrade',{skill});applySnapshot(result);return {ok:true,message:'Habilidade aprimorada!'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao melhorar habilidade.'}}}} onClaim={async(taskId)=>{try{const result=await api<ServerSnapshot>('/api/daily/claim',{taskId});applySnapshot(result);return {ok:true,message:'Recompensa resgatada!'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao resgatar missão.'}}}} />, true);
++  if (screen.name === 'progression') return chrome(<Progression economy={economy} progress={progress} progression={serverProgression} onNavigate={navigateHub} onMap={() => setScreen({name:'map'})} onUpgrade={async(skill,expectedLevel)=>{try{const result=await api<ServerSnapshot>('/api/progression/upgrade',{skill,expectedLevel});applySnapshot(result);return {ok:true,message:'Habilidade aprimorada!'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao melhorar habilidade.'}}}} onClaim={async(taskId)=>{try{const result=await api<ServerSnapshot>('/api/daily/claim',{taskId});applySnapshot(result);return {ok:true,message:'Recompensa resgatada!'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao resgatar missão.'}}}} />, true);
+   if (screen.name === 'shop') return chrome(<Shop economy={economy} unlocked={progress.unlocked} onMap={()=>setScreen({name:'map'})} onNavigate={navigateHub} onPurchase={async(id)=>{try{const result=await api<ApiSnapshot>('/api/economy/purchase',{itemId:id});applySnapshot(result);return {ok:true,message:result.message??'Compra concluída.'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao comprar.'}}}} onEquip={async(id)=>{try{const item=id?CATALOG.find((entry)=>entry.id===id):undefined;const body=id===null?{petId:null}:item?.character?{skinId:id}:item?{petId:id}:null;if(!body)return {ok:false,message:'Item inválido.'};const result=await api<ApiSnapshot>('/api/economy/loadout',body);applySnapshot(result);return {ok:true,message:'Equipamento atualizado.'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao equipar.'}}}} />);
+   if (screen.name === 'recycle') return chrome(<Recycling economy={economy} unlocked={progress.unlocked} onMap={()=>setScreen({name:'map'})} onNavigate={navigateHub} onRecycle={async(material,batches)=>{try{const result=await api<ApiSnapshot>('/api/economy/recycle',{material,batches});applySnapshot(result);return {ok:true,message:result.message??'Troca concluída.'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao reciclar.'}}}} />);
+   return chrome(<GameView key={`${screen.level}-${screen.runId}`} level={screen.level} runId={screen.runId}
+diff -ru -x node_modules -x dist -x _auditoria -x README.md -x 'progression*.test.*' ORIGINAL_SNAPSHOT/frontend/src/app/api.ts NOVO/frontend/src/app/api.ts
+--- ORIGINAL_SNAPSHOT/frontend/src/app/api.ts	2026-10-31 01:22:12.643812574 +0000
++++ NOVO/frontend/src/app/api.ts	2026-10-31 01:25:00.620452650 +0000
+@@ -1,5 +1,5 @@
+ export interface PlayerStats { coinsEarned: number; materialsCollected: number; recycles: number; purchases: number }
+-export interface ProgressionState { skills: Record<'jump'|'speed'|'defense'|'magnet', number>; pets: Record<string, { xp:number; level:number }>; daily: { date:string; counts:{ wins:number; materials:number; recycles:number }; claimed:string[] } }
++export interface ProgressionState { skills: Record<'jump'|'speed'|'defense'|'magnet', number>; pets: Record<string, { xp:number; level:number }>; daily: { date:string; resetsAt?:number; counts:{ wins:number; materials:number; recycles:number }; claimed:string[] } }
+ export interface ServerSnapshot { progression: ProgressionState; economy: import('./economy').EconomyState; progress: import('./progress').Progress; achievements?: Record<string, number>; stats?: PlayerStats; account?: { username: string } | null; newAchievements?: string[] }
+ export class ApiError extends Error { constructor(message:string,readonly status:number){super(message);} }
+ export async function api<T>(path:string,body?:unknown):Promise<T>{const response=await fetch(path,{method:body===undefined?'GET':'POST',credentials:'same-origin',cache:'no-store',headers:body===undefined?undefined:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});let result:any={};try{result=await response.json();}catch{}if(!response.ok)throw new ApiError(typeof result.message==='string'?result.message:'O servidor não conseguiu concluir a operação.',response.status);return result as T;}
+Only in ORIGINAL_SNAPSHOT/frontend/src/app: write-test.tmp
+diff -ru -x node_modules -x dist -x _auditoria -x README.md -x 'progression*.test.*' ORIGINAL_SNAPSHOT/frontend/src/components/Progression.tsx NOVO/frontend/src/components/Progression.tsx
+--- ORIGINAL_SNAPSHOT/frontend/src/components/Progression.tsx	2026-10-31 01:22:12.644056153 +0000
++++ NOVO/frontend/src/components/Progression.tsx	2026-10-31 01:25:00.620658002 +0000
+@@ -7,7 +7,7 @@
+ import type { HubSection } from './HubHeader';
+ import s from './Hub.module.css';
+ 
+-type Props = { economy: EconomyState; progress: Progress; progression: ProgressionState; onUpgrade:(skill:string)=>Promise<{ok:boolean;message:string}>; onClaim:(id:string)=>Promise<{ok:boolean;message:string}>; onNavigate:(section:HubSection)=>void; onMap:()=>void };
++type Props = { economy: EconomyState; progress: Progress; progression: ProgressionState; onUpgrade:(skill:string,expectedLevel:number)=>Promise<{ok:boolean;message:string}>; onClaim:(id:string)=>Promise<{ok:boolean;message:string}>; onNavigate:(section:HubSection)=>void; onMap:()=>void };
+ const skills = [
+   { id:'jump', name:'Salto aprimorado', icon:'🪽', desc:'Melhora a capacidade de salto.' },
+   { id:'speed', name:'Velocidade', icon:'⚡', desc:'Aumenta a agilidade do guardião.' },
+@@ -27,12 +27,12 @@
+   return <main className={s.screen}><div className={s.shell}><HubHeader active="lobby" economy={economy} unlocked={progress.unlocked} onNavigate={onNavigate} onMap={onMap}/>
+     <div className={s.titleRow}><div><span className={s.kicker}>CENTRO DE EVOLUÇÃO</span><h1>Habilidades & missões</h1><p>Fortaleça seu guardião, cuide dos companheiros e conquiste recompensas diárias.</p></div></div>
+     <section className={s.panel} style={{padding:20,marginBottom:16}}><div className={s.cardHead}><div><h3>Árvore de habilidades</h3><p>Cada habilidade pode chegar ao nível 3. Os custos são 100, 200 e 350 moedas.</p></div><b style={{color:'#ffe57b'}}>🪙 {economy.coins.toLocaleString('pt-BR')}</b></div>
+-      <div className={s.gearGrid}>{skills.map(skill=>{const level=progression.skills[skill.id as keyof ProgressionState['skills']]??0;const cost=[100,200,350][level];return <article key={skill.id} className={s.gearCard} style={{cursor:'default',textAlign:'left',padding:14}}><div style={{fontSize:30}}>{skill.icon}</div><b>{skill.name}</b><small>{skill.desc}</small><div className={s.bar} style={{margin:'8px 0'}}><i style={{width:`${level/3*100}%`}}/></div><small>Nível {level}/3</small><button className={s.recycleButton} disabled={busy!==''||level>=3||economy.coins<cost} onClick={()=>void action(skill.id,()=>onUpgrade(skill.id))}>{level>=3?'NÍVEL MÁXIMO':`Melhorar · ${cost} moedas`}</button></article>})}</div>
++      <div className={s.gearGrid}>{skills.map(skill=>{const level=progression.skills[skill.id as keyof ProgressionState['skills']]??0;const cost=[100,200,350][level];return <article key={skill.id} className={s.gearCard} style={{cursor:'default',textAlign:'left',padding:14}}><div style={{fontSize:30}}>{skill.icon}</div><b>{skill.name}</b><small>{skill.desc}</small><div className={s.bar} style={{margin:'8px 0'}}><i style={{width:`${level/3*100}%`}}/></div><small>Nível {level}/3</small><button className={s.recycleButton} disabled={busy!==''||level>=3||economy.coins<cost} onClick={()=>void action(skill.id,()=>onUpgrade(skill.id,level))}>{level>=3?'NÍVEL MÁXIMO':`Melhorar · ${cost} moedas`}</button></article>})}</div>
+     </section>
+     <section className={s.panel} style={{padding:20,marginBottom:16}}><div className={s.cardHead}><div><h3>Evolução dos pets</h3><p>Seu pet equipado recebe 25 XP por vitória. Cada nível amplia um pouco sua aura de coleta.</p></div></div>
+-      {ownedPets.length===0?<p>Você ainda não possui pets. Visite a Loja para desbloquear seu primeiro companheiro.</p>:<div className={s.gearGrid}>{ownedPets.map(pet=>{const data=petProgress[pet.id]??{xp:0,level:1};const needed=data.level*100;return <article className={s.gearCard} key={pet.id} style={{cursor:'default',padding:14}}><img src={pet.icon??pet.image} alt={pet.name} style={{height:90,objectFit:'contain'}}/><b>{pet.name}</b><small>{economy.equippedPet===pet.id?'EQUIPADO':'Companheiro'}</small><div className={s.bar} style={{width:'100%'}}><i style={{width:`${Math.min(100,data.xp/needed*100)}%`}}/></div><small>Nível {data.level}/10 · {data.xp}/{needed} XP</small></article>})}</div>}
++      {ownedPets.length===0?<p>Você ainda não possui pets. Visite a Loja para desbloquear seu primeiro companheiro.</p>:<div className={s.gearGrid}>{ownedPets.map(pet=>{const data=petProgress[pet.id]??{xp:0,level:1};const needed=data.level*100;return <article className={s.gearCard} key={pet.id} style={{cursor:'default',padding:14}}><img src={pet.icon??pet.image} alt={pet.name} style={{height:90,objectFit:'contain'}}/><b>{pet.name}</b><small>{economy.equippedPet===pet.id?'EQUIPADO':'Companheiro'}</small><div className={s.bar} style={{width:'100%'}}><i style={{width:`${data.level>=10?100:Math.min(100,data.xp/needed*100)}%`}}/></div><small>{data.level>=10?'Nível 10/10 · NÍVEL MÁXIMO':`Nível ${data.level}/10 · ${data.xp}/${needed} XP`}</small></article>})}</div>}
+     </section>
+-    <section className={s.panel} style={{padding:20}}><div className={s.cardHead}><div><h3>Missões diárias</h3><p>As missões reiniciam diariamente. Conclua os objetivos e resgate suas moedas.</p></div><span className={s.chip}>📅 {progression.daily.date}</span></div>
++    <section className={s.panel} style={{padding:20}}><div className={s.cardHead}><div><h3>Missões diárias</h3><p>As missões reiniciam diariamente. Conclua os objetivos e resgate suas moedas.</p></div><span className={s.chip}>📅 {progression.daily.date}{progression.daily.resetsAt?` · renova às ${new Date(progression.daily.resetsAt).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`:''}</span></div>
+       <div className={s.recycleGrid}>{tasks.map(task=>{const count=progression.daily.counts[task.kind];const done=count>=task.target;const claimed=progression.daily.claimed.includes(task.id);return <article className={s.recycleCard} key={task.id}><div className={s.materialIcon}>🎯</div><div className={s.recycleInfo}><h3>{task.title}</h3><p>{Math.min(count,task.target)}/{task.target} · Recompensa: {task.reward} moedas</p><div className={s.bar} style={{marginTop:8}}><i style={{width:`${Math.min(100,count/task.target*100)}%`}}/></div></div><button className={s.recycleButton} disabled={!done||claimed||busy!==''} onClick={()=>void action(task.id,()=>onClaim(task.id))}>{claimed?'RESGATADA':done?'RESGATAR':'EM ANDAMENTO'}</button></article>})}</div>
+     </section><p className={s.toast} role="status" aria-live="polite">{notice}</p>
+   </div></main>;
+diff -ru -x node_modules -x dist -x _auditoria -x README.md -x 'progression*.test.*' ORIGINAL_SNAPSHOT/frontend/tests/hubScreens.test.tsx NOVO/frontend/tests/hubScreens.test.tsx
+--- ORIGINAL_SNAPSHOT/frontend/tests/hubScreens.test.tsx	2026-10-31 01:22:12.644670499 +0000
++++ NOVO/frontend/tests/hubScreens.test.tsx	2026-10-31 01:25:00.620224224 +0000
+@@ -33,7 +33,7 @@
+ 
+   it('o botão Jogar do Lobby inicia o fluxo e personagens continuam selecionáveis', async () => {
+     const economy = freshEconomy(); const play = vi.fn(); const navigate = vi.fn();
+-    render(<Lobby economy={economy} progress={{ unlocked: 2, stars: Array(11).fill(0), coins: 0, best: Array(11).fill(0) }} onEconomy={async () => ({ ok: true, message: '' })} onNavigate={navigate} onMap={vi.fn()} onPlay={play}/>);
++    render(<Lobby economy={economy} progress={{ unlocked: 2, stars: Array(11).fill(0), coins: 0, best: Array(11).fill(0) }} onEconomy={async () => ({ ok: true, message: '' })} onNavigate={navigate} onMap={vi.fn()} onPlay={play} onProgression={vi.fn()}/>);
+     await click(button('Crisogirl')); expect(host.textContent).toContain('Crisogirl');
+     await click(button('JOGAR')); expect(play).toHaveBeenCalledOnce();
+     await click(button('Loja')); expect(navigate).toHaveBeenCalledWith('shop');

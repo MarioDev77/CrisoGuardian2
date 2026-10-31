@@ -7,9 +7,9 @@ import { MaterialIcon } from './MaterialIcon';
 import s from './Hub.module.css';
 
 type ActionResult = { ok: boolean; message: string };
-type Props = { economy: EconomyState; progress: Progress; onEconomy: (next: EconomyState) => Promise<ActionResult>; onNavigate: (section: HubSection) => void; onMap: () => void; onPlay: () => void };
+type Props = { economy: EconomyState; progress: Progress; onEconomy: (next: EconomyState) => Promise<ActionResult>; onNavigate: (section: HubSection) => void; onMap: () => void; onPlay: () => void; onProgression: () => void };
 
-export default function Lobby({ economy, progress, onEconomy, onNavigate, onMap, onPlay }: Props) {
+export default function Lobby({ economy, progress, onEconomy, onNavigate, onMap, onPlay, onProgression }: Props) {
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState('');
   const character = economy.character;
@@ -70,7 +70,7 @@ export default function Lobby({ economy, progress, onEconomy, onNavigate, onMap,
         </section>
         <section className={`${s.panel} ${s.sideCard}`}><span className={s.eyebrow}>MATERIAIS GUARDADOS</span><h3>Inventário reciclável <small>· {materials} itens</small></h3>
           <div className={s.materialGrid}>{Object.entries(economy.materials).map(([mat, amount]) => <div className={s.materialStat} key={mat}><span className={s.materialIcon}><MaterialIcon material={mat}/></span><span><b>{amount}</b><small>{mat}</small></span></div>)}</div>
-          <div className={s.shortcuts}><button type="button" className={s.shortcut} onClick={() => onNavigate('recycle')}><span className={s.materialIcon}><MaterialIcon material="reciclagem"/></span><span><b>Reciclar materiais</b><small>Ver inventário e trocas</small></span></button></div>
+          <div className={s.shortcuts}><button type="button" className={s.shortcut} onClick={onProgression}><span className={s.materialIcon}>✦</span><span><b>Habilidades e missões</b><small>Melhorias e evolução dos pets</small></span></button><button type="button" className={s.shortcut} onClick={() => onNavigate('recycle')}><span className={s.materialIcon}><MaterialIcon material="reciclagem"/></span><span><b>Reciclar materiais</b><small>Ver inventário e trocas</small></span></button></div>
         </section>
       </aside>
     </div>

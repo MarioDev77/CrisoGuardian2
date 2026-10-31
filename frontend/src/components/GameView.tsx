@@ -39,9 +39,9 @@ function Confetti() {
   );
 }
 
-interface Props { level: number; runId: string; character: 'crisoman'|'crisogirl'; skinId: string; petId: string|null; onExit: () => void; onWin: (level: number, r: LevelResult, stars: number, runId: string) => Promise<{ coins: number; materials: number; discarded?: number }>; onNext: (level: number) => void }
+interface Props { level: number; runId: string; character: 'crisoman'|'crisogirl'; skinId: string; petId: string|null; skills: {jump:number;speed:number;defense:number;magnet:number}; petLevel:number; onExit: () => void; onWin: (level: number, r: LevelResult, stars: number, runId: string) => Promise<{ coins: number; materials: number; discarded?: number }>; onNext: (level: number) => void }
 
-export default function GameView({ level, runId, character, skinId, petId, onExit, onWin, onNext }: Props) {
+export default function GameView({ level, runId, character, skinId, petId, skills, petLevel, onExit, onWin, onNext }: Props) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const announcements = useRef<HTMLDivElement>(null);
   const announceFrame = useRef<number | null>(null);
@@ -69,14 +69,14 @@ export default function GameView({ level, runId, character, skinId, petId, onExi
           if (announceFrame.current !== null) cancelAnimationFrame(announceFrame.current);
           announceFrame.current = requestAnimationFrame(() => { if (announcements.current) announcements.current.textContent = message; });
         },
-      }, { character, skinId, petId });
+      }, { character, skinId, petId, skills, petLevel });
       engine.current = eng; eng.start(); setLoading(false);
       if (announcements.current) announcements.current.textContent = `Fase ${level + 1}: ${name}. ${layouts[level]?.objective ?? ''} Consulte o tutorial ou as configurações para ver os comandos.`;
       if (window.matchMedia?.(PORTRAIT).matches) setPause(true);
     });
     return () => { dead = true; eng?.destroy(); engine.current = null; if (announceFrame.current !== null) cancelAnimationFrame(announceFrame.current); };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [level, run, runId, character, skinId, petId]);
+  }, [level, run, runId, character, skinId, petId, skills.jump, skills.speed, skills.defense, skills.magnet]);
 
   // pausa: Esc (fixo) ou a tecla "Pausar" configurada; ignorada com a janela de configurações aberta (Esc fecha a janela)
   useEffect(() => {

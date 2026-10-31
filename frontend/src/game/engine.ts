@@ -35,7 +35,7 @@ function legacySkinFilter(skinId: string): string {
 const overlap = (a: Rect, b: Rect) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 const sfRect = (s: WSurface): Rect => ({ x: s.x, y: s.top, w: s.w, h: s.h });
 
-export interface PlayerAppearance { character: CharacterId; skinId: string; petId: string | null }
+export interface PlayerAppearance { character: CharacterId; skinId: string; petId: string | null; skills?: { jump:number; speed:number; defense:number; magnet:number }; petLevel?:number }
 
 export class Engine {
   private ctx: CanvasRenderingContext2D;
@@ -93,7 +93,7 @@ export class Engine {
   private reset(): void {
     const w = buildWorld(this.levelIndex, this.assets); this.world = w; const df = DIFFICULTY[getSettings().difficulty];
     this.p = {
-      x: w.start.x, y: w.start.y - PH, w: PW, h: PH, vx: 0, vy: 0, onGround: true, hp: df.hp, maxHp: df.hp, facing: 1, inv: 0, shield: 0, speed: 0,
+      x: w.start.x, y: w.start.y - PH, w: PW, h: PH, vx: 0, vy: 0, onGround: true, hp: df.hp + (this.appearance.skills?.defense ?? 0), maxHp: df.hp + (this.appearance.skills?.defense ?? 0), facing: 1, inv: 0, shield: 0, speed: 0,
       shootT: 9, shootCd: 0, specialCd: 0, hurtT: 0, landT: 0, dieT: 0, animT: 0, climbing: false, dropT: 0, coyote: 0, jumpBuf: 0, specialT: 9,
     };
     this.safe = { x: this.p.x, y: this.p.y, t: 0 };
@@ -223,16 +223,16 @@ export class Engine {
       p.vy = 0; p.vx = dir * 110; moveX(p, p.vx * dt, w.surfaces); p.x = Math.max(ladder.x - 10, Math.min(ladder.x + ladder.w - p.w + 10, p.x)); settle(p, w.surfaces, false);
       const cdy = ((this.keys.down ? 1 : 0) - (this.keys.up ? 1 : 0)) * 190 * dt; p.onGround = false; moveY(p, cdy, w.surfaces, true); if (p.onGround && cdy > 0) p.climbing = false; // sólidos ao lado da escada bloqueiam
       p.y = Math.min(p.y, ladder.y + ladder.h - p.h); if (p.y + p.h < ladder.y + 6) { p.y = ladder.y - p.h; p.climbing = false; p.onGround = true; }
-      if (wantJump && !this.jumpWas) { p.climbing = false; p.vy = -JUMP_V * 0.75; p.vx = dir * 240; audio.sfx('jump'); }
+      if (wantJump && !this.jumpWas) { p.climbing = false; p.vy = -JUMP_V * (1 + (this.appearance.skills?.jump ?? 0) * 0.06) * 0.75; p.vx = dir * 240; audio.sfx('jump'); }
       if (this.keys.down && p.y + p.h >= ladder.y + ladder.h - 2) p.climbing = false;
     } else {
-      const maxV = p.speed > 0 ? 440 : 320;
+      const maxV = (p.speed > 0 ? 440 : 320) * (1 + (this.appearance.skills?.speed ?? 0) * 0.06);
       const target = dir * maxV; const acc = p.onGround ? 3200 : 2000;
       if (p.hurtT > 0.25) { /* knockback phase */ } else if (dir !== 0) { p.vx += Math.sign(target - p.vx) * acc * dt; if (Math.abs(p.vx - target) < acc * dt) p.vx = target; } else { const f = (p.onGround ? 3000 : 700) * dt; p.vx = Math.abs(p.vx) <= f ? 0 : p.vx - Math.sign(p.vx) * f; }
       if (dir !== 0) p.facing = dir as 1 | -1;
       if (p.onGround) p.coyote = 0.1; else p.coyote -= dt;
       if (wantJump && !this.jumpWas) p.jumpBuf = 0.12;
-      if (p.jumpBuf > 0 && p.coyote > 0) { p.vy = -JUMP_V; p.onGround = false; p.coyote = 0; p.jumpBuf = 0; audio.sfx('jump'); this.spawnParts(p.x + p.w / 2, p.y + p.h, '#e8f7d8', 4, 110); }
+      if (p.jumpBuf > 0 && p.coyote > 0) { p.vy = -JUMP_V * (1 + (this.appearance.skills?.jump ?? 0) * 0.06); p.onGround = false; p.coyote = 0; p.jumpBuf = 0; audio.sfx('jump'); this.spawnParts(p.x + p.w / 2, p.y + p.h, '#e8f7d8', 4, 110); }
       if (!wantJump && p.vy < -300) p.vy += GRAV * 1.3 * dt; // variable jump height
       if (this.keys.down && p.onGround) p.dropT = 0.25;
       p.vy += GRAV * dt; p.vy = Math.min(p.vy, 1400);
@@ -451,7 +451,8 @@ export class Engine {
   private updatePickups(): void {
     const p = this.p;
     for (const k of this.pickups) {
-      if (k.taken || !overlap(p, { x: k.x - 6, y: k.y - 6, w: k.w + 12, h: k.h + 12 })) continue;
+      const magnet = (this.appearance.skills?.magnet ?? 0) * 8 + (this.appearance.petLevel ?? 0) * 2;
+      if (k.taken || !overlap(p, { x: k.x - 6 - magnet, y: k.y - 6 - magnet, w: k.w + 12 + magnet * 2, h: k.h + 12 + magnet * 2 })) continue;
       k.taken = true; this.collectT = 0.45; this.petCollectT = 0.6; const cx = k.x + k.w / 2, cy = k.y + k.h / 2;
       if (k.type === 'coin') { this.runCollectibles.push({ id: k.spawnKey ?? `coin:${k.id}`, type: 'coin' }); audio.sfx('coin'); this.spawnParts(k.x + k.w / 2, k.y + k.h / 2, '#ffe35b', 6, 150); this.coins++; this.cb.onAnnounce?.(`Moeda coletada. Total: ${this.coins}.`); this.score += 10; this.spawnParts(cx, cy, '#ffd84a', 4, 120); }
       else if (k.type === 'waste') { this.runCollectibles.push({ id: k.spawnKey ?? `material:${k.id}`, type: 'material', material: k.value }); audio.sfx('waste'); this.spawnParts(k.x + k.w / 2, k.y + k.h / 2, '#7dff9a', 6, 150); this.materials++; this.sinceBin++; this.cb.onAnnounce?.(`Resíduo recolhido. ${this.materials} de ${this.totalMaterials}.`); const v = WASTE_VALUE[k.value as keyof typeof WASTE_VALUE] ?? 50; this.score += v; this.float(cx, cy - 10, '+' + v, '#9dffb0'); this.spawnParts(cx, cy, '#9dffb0', 6, 150); }

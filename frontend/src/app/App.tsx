@@ -7,6 +7,7 @@ import GameView from '../components/GameView';
 import Lobby from '../components/Lobby';
 import Shop from '../components/Shop';
 import Recycling from '../components/Recycling';
+import Progression from '../components/Progression';
 import { enterGameMode } from './pwa';
 import { freshEconomy, type EconomyState } from './economy';
 import { CATALOG } from './catalog';
@@ -14,7 +15,7 @@ import { api, getServerSnapshot, type ServerSnapshot, type PlayerStats } from '.
 import { AccountChip, AccountDialog, AchievementToasts, Profile } from '../components/Account';
 import { LEVEL_COUNT, loadProgress, type Progress } from './progress';
 
-type Screen = { name: 'title' } | { name: 'map' } | { name: 'map2' } | { name: 'profile' } | { name: 'lobby' } | { name: 'shop' } | { name: 'recycle' } | { name: 'play'; level: number; runId: string };
+type Screen = { name: 'title' } | { name: 'map' } | { name: 'map2' } | { name: 'profile' } | { name: 'lobby' } | { name: 'shop' } | { name: 'recycle' } | { name: 'progression' } | { name: 'play'; level: number; runId: string };
 type ApiSnapshot = ServerSnapshot & { message?: string; payout?: { coins: number; materials: number; discarded: number } };
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
   const [account, setAccount] = useState<string | null>(null);
   const [achievements, setAchievements] = useState<Record<string, number>>({});
   const [stats, setStats] = useState<PlayerStats | null>(null);
+  const [serverProgression, setServerProgression] = useState<ServerSnapshot['progression']>(() => ({ skills:{jump:0,speed:0,defense:0,magnet:0}, pets:{}, daily:{date:new Date().toISOString().slice(0,10),counts:{wins:0,materials:0,recycles:0},claimed:[]} }));
   const [accountOpen, setAccountOpen] = useState(false);
   const [toastIds, setToastIds] = useState<string[]>([]);
 
@@ -39,6 +41,7 @@ export default function App() {
     setAccount(snapshot.account?.username ?? null);
     setAchievements(snapshot.achievements ?? {});
     setStats(snapshot.stats ?? null);
+    if (snapshot.progression) setServerProgression(snapshot.progression);
     if (snapshot.newAchievements?.length) { setToastIds(snapshot.newAchievements); audio.sfx('achievement'); }
     setServerError('');
     setServerReady(true);
@@ -85,15 +88,16 @@ export default function App() {
   if (screen.name === 'map') return chrome(<WorldMap progress={{ ...progress, coins: economy.coins }} statusMessage={serverError} map2Fresh={map2Fresh} onOpenProfile={() => setScreen({ name: 'profile' })} onOpenMap2={() => { setMap2Fresh(false); setScreen({ name: 'map2' }); }} onPlay={(level) => { void startLevel(level); }} onOpenLobby={() => setScreen({name:'lobby'})} onOpenShop={() => setScreen({name:'shop'})} onOpenRecycle={() => setScreen({name:'recycle'})} onBack={() => setScreen({ name: 'title' })} />);
   if (screen.name === 'map2') return chrome(<WorldMap2 progress={{ ...progress, coins: economy.coins }} justUnlocked={map2Fresh} onPlay={(level) => { void startLevel(level); }} onBack={() => setScreen({ name: 'map' })} onOpenLobby={() => setScreen({ name: 'lobby' })} onOpenShop={() => setScreen({ name: 'shop' })} onOpenRecycle={() => setScreen({ name: 'recycle' })} onOpenProfile={() => setScreen({ name: 'profile' })} />);
   if (screen.name === 'profile') return chrome(<Profile username={account} progress={{ ...progress, coins: economy.coins }} achievements={achievements} stats={stats} onBack={() => setScreen({ name: 'map' })} onOpenAccount={() => setAccountOpen(true)} />, false);
-  if (screen.name === 'lobby') return chrome(<Lobby economy={economy} progress={progress} onMap={() => setScreen({name:'map'})} onPlay={() => { void startLevel(Math.min(progress.unlocked, LEVEL_COUNT) - 1); }} onNavigate={navigateHub} onEconomy={async(next)=>{
+  if (screen.name === 'lobby') return chrome(<Lobby economy={economy} progress={progress} onMap={() => setScreen({name:'map'})} onPlay={() => { void startLevel(Math.min(progress.unlocked, LEVEL_COUNT) - 1); }} onProgression={() => { void reloadState(); setScreen({name:'progression'}); }} onNavigate={navigateHub} onEconomy={async(next)=>{
     const current=economyRef.current;
     const body=next.character!==current.character?{character:next.character}:next.equippedPet!==current.equippedPet?{petId:next.equippedPet}:next.equippedSkin.crisoman!==current.equippedSkin.crisoman?{skinId:next.equippedSkin.crisoman}:next.equippedSkin.crisogirl!==current.equippedSkin.crisogirl?{skinId:next.equippedSkin.crisogirl}:null;
     if(!body)return {ok:true,message:''};try{applySnapshot(await api<ApiSnapshot>('/api/economy/loadout',body));return {ok:true,message:'Seleção salva.'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao salvar a seleção.'}}
   }} />);
+  if (screen.name === 'progression') return chrome(<Progression economy={economy} progress={progress} progression={serverProgression} onNavigate={navigateHub} onMap={() => setScreen({name:'map'})} onUpgrade={async(skill,expectedLevel)=>{try{const result=await api<ServerSnapshot>('/api/progression/upgrade',{skill,expectedLevel});applySnapshot(result);return {ok:true,message:'Habilidade aprimorada!'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao melhorar habilidade.'}}}} onClaim={async(taskId)=>{try{const result=await api<ServerSnapshot>('/api/daily/claim',{taskId});applySnapshot(result);return {ok:true,message:'Recompensa resgatada!'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao resgatar missão.'}}}} />, true);
   if (screen.name === 'shop') return chrome(<Shop economy={economy} unlocked={progress.unlocked} onMap={()=>setScreen({name:'map'})} onNavigate={navigateHub} onPurchase={async(id)=>{try{const result=await api<ApiSnapshot>('/api/economy/purchase',{itemId:id});applySnapshot(result);return {ok:true,message:result.message??'Compra concluída.'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao comprar.'}}}} onEquip={async(id)=>{try{const item=id?CATALOG.find((entry)=>entry.id===id):undefined;const body=id===null?{petId:null}:item?.character?{skinId:id}:item?{petId:id}:null;if(!body)return {ok:false,message:'Item inválido.'};const result=await api<ApiSnapshot>('/api/economy/loadout',body);applySnapshot(result);return {ok:true,message:'Equipamento atualizado.'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao equipar.'}}}} />);
   if (screen.name === 'recycle') return chrome(<Recycling economy={economy} unlocked={progress.unlocked} onMap={()=>setScreen({name:'map'})} onNavigate={navigateHub} onRecycle={async(material,batches)=>{try{const result=await api<ApiSnapshot>('/api/economy/recycle',{material,batches});applySnapshot(result);return {ok:true,message:result.message??'Troca concluída.'}}catch(err){return {ok:false,message:err instanceof Error?err.message:'Falha ao reciclar.'}}}} />);
   return chrome(<GameView key={`${screen.level}-${screen.runId}`} level={screen.level} runId={screen.runId}
-    character={economy.character} skinId={economy.equippedSkin[economy.character]} petId={economy.equippedPet}
+    character={economy.character} skinId={economy.equippedSkin[economy.character]} petId={economy.equippedPet} skills={serverProgression.skills} petLevel={economy.equippedPet ? (serverProgression.pets[economy.equippedPet]?.level ?? 1) : 0}
     onExit={() => setScreen(screen.level >= 8 ? { name: 'map2' } : { name: 'map' })}
     onWin={async (level, result, stars, runId) => {
       const settled = await api<ApiSnapshot>('/api/run/settle', { runId, level, won: true, collectibles: result.collectibles, stars, score: result.score });

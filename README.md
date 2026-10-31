@@ -53,3 +53,22 @@ O atlas de personagens fica em `frontend/public/assets/sprites/v2/`. Ele é gera
 
 - `python3 tools/build_hero_sprites.py` — sprites dos heróis a partir da folha de poses.
 - `node tools/build_island_kits.mjs` — cenários, tiles, props, animais, **inimigos das ilhas 9–16** e layouts em partes A–D.
+
+
+## Progressão: habilidades, pets e missões diárias
+
+- No Lobby, abra **Habilidades e missões** para acessar a nova central de progressão.
+- **Árvore de habilidades:** salto, velocidade, defesa e coleta magnética, com três níveis e custos de 100, 200 e 350 moedas. Os efeitos são aplicados ao iniciar uma fase.
+- **Pets:** o pet equipado recebe 25 XP por vitória; sobe de nível até o nível 10 e amplia a aura de coleta.
+- **Missões diárias:** vencer uma fase, coletar cinco materiais e reciclar um lote. Cada recompensa pode ser resgatada uma vez por dia. O ciclo diário usa a data UTC do servidor.
+- O progresso dessas funções é salvo no arquivo assinado do backend e as compras/resgates são validados no servidor.
+
+### Regras de progressão (revisadas na auditoria)
+
+- **Habilidades:** o cliente envia `{ skill, expectedLevel }`; se o nível já mudou (clique duplo), o servidor responde `409` e não cobra de novo. Custos 100/200/350 e teto no nível 3 são validados só no servidor.
+- **XP do pet e missões** só contam em vitória válida (≥ 15 s, a mesma regra das recompensas). Vitórias instantâneas continuam avançando o mapa, mas não dão XP nem progresso de missão.
+- **"Coletar 5 materiais"** acompanha os materiais coletados na partida, inclusive em fases já pagas (replays), limitado por `runLimits` (tempo/8 s…); o pagamento de materiais continua sendo só na primeira vez.
+- **Renovação diária:** data UTC do servidor (meia-noite UTC = 21h em Brasília). O snapshot traz `progression.daily.resetsAt` e a tela mostra o horário local de renovação.
+- **Persistência:** contas e sessões agora são mantidas ao recarregar o arquivo assinado (antes eram descartadas a cada reinício do servidor).
+- **Abuso:** visitas sem cookie não gravam perfis; criação de perfis novos por POST limitada a 30/min por IP (atrás de proxy, defina `CRISO_TRUST_PROXY=1`).
+- **Testes:** `tests/progressionApi.test.ts` (integração real com o backend), `progressionEngine.test.ts` (efeitos no motor), `progressionUi.test.tsx`. Em `CRISO_TEST_MODE=1` existe `/api/test/age-run` para simular o tempo da partida; nunca ative em produção.
