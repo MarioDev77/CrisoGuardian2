@@ -17,7 +17,14 @@ const scryptAsync = promisify(scrypt);
 const port = Number(process.env.CRISO_API_PORT ?? process.env.PORT ?? 4174);
 const host = process.env.CRISO_API_HOST ?? (process.env.PORT ? '0.0.0.0' : '127.0.0.1');
 const backendDir = dirname(fileURLToPath(import.meta.url));
-const dataDir = process.env.CRISO_DATA_DIR ? resolve(process.env.CRISO_DATA_DIR) : join(backendDir, 'data');
+// Pasta dos dados: CRISO_DATA_DIR > volume do Railway (RAILWAY_VOLUME_MOUNT_PATH) > backend/data (só serve em desenvolvimento:
+// em hospedagem sem volume o disco é apagado a cada deploy/reinício e as contas somem).
+const volumeDir = process.env.CRISO_DATA_DIR || process.env.RAILWAY_VOLUME_MOUNT_PATH || '';
+const dataDir = volumeDir ? resolve(volumeDir) : join(backendDir, 'data');
+const hosted = !!(process.env.RAILWAY_ENVIRONMENT || process.env.RAILWAY_PROJECT_ID || process.env.NODE_ENV === 'production');
+const storageWarnings = [];
+if (hosted && !volumeDir) storageWarnings.push('SEM VOLUME: os dados estão em disco temporário e serão apagados no próximo deploy/reinício. Crie um Volume no Railway e defina CRISO_DATA_DIR (ex.: /data).');
+if (hosted && !process.env.CRISO_SERVER_SECRET) storageWarnings.push('CRISO_SERVER_SECRET não definido: a chave de assinatura fica em arquivo e, se o disco for apagado, os dados salvos deixam de ser válidos.');
 const legacyDataDir = resolve(backendDir, '../frontend/server/data');
 const dataFile = join(dataDir, 'players.signed.json');
 const backupFile = join(dataDir, 'players.backup.signed.json');
@@ -105,6 +112,17 @@ async function initialize() {
   const legacy = current || backup ? null : await readSigned(join(legacyDataDir, 'players.signed.json')) ?? await readSigned(join(legacyDataDir, 'players.backup.signed.json'));
   database = current ?? backup ?? legacy ?? { players: {} };
   database.accounts ??= {}; database.sessions ??= {};
+  // Arquivo existe mas não valida (chave diferente da usada ao gravar): NÃO sobrescreve em silêncio. Guarda uma cópia
+  // para recuperação (basta restaurar a CRISO_SERVER_SECRET antiga) e avisa alto no log.
+  if (!current && !backup) {
+    try {
+      const raw = await readFile(dataFile, 'utf8');
+      const keep = join(dataDir, `players.unverified.${Date.now()}.json`);
+      await writeFile(keep, raw, { mode: 0o600 });
+      storageWarnings.push(`Os dados salvos não puderam ser validados (a chave de assinatura mudou?). Cópia preservada em ${keep}; começando vazio.`);
+    } catch { /* primeiro start: não havia arquivo */ }
+  }
+  for (const w of storageWarnings) console.warn('[CrisoGuardian] AVISO:', w);
   if (!current) await atomicWrite(dataFile, envelope(JSON.stringify(database)));
 }
 function serialize(fn) { const result = queue.then(fn); queue = result.catch(() => {}); return result; }
@@ -203,6 +221,8 @@ async function handleAuth(req, res, url, sid, body) {
 }
 
 const server = createServer(async (req, res) => {
+  // diagnóstico de persistência (não cria cookie nem expõe dados): confira em /api/health depois do deploy
+  if (req.method === 'GET' && (req.url ?? '').split('?')[0] === '/api/health') return reply(res, 200, { ok: true, storage: { persistent: !hosted || !!volumeDir, volume: !!volumeDir, secretFromEnv: !!process.env.CRISO_SERVER_SECRET }, accounts: Object.keys(database.accounts).length, warnings: storageWarnings });
   const sid = sessionId(req, res); const acct = accountForSid(sid); const pk = acct ? `acc_${acct.id}` : sid; const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
   try {
     if (!url.pathname.startsWith('/api/')) return reply(res, 404, { message: 'Rota não encontrada.' });
