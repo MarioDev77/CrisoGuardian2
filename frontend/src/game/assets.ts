@@ -265,27 +265,28 @@ export class Assets {
   /** Posição (mundo) do centro do vórtice do portal cujo chão está em (x, groundY). */
   portalCenter(x: number, groundY: number): { x: number; y: number; rx: number; ry: number } {
     const P = this.portal; if (!P) return { x, y: groundY - PORTAL_CY, rx: 60, ry: 22 };
-    const f = P.frames['ring_0']!; const rx0 = x - f.w * PORTAL_SCALE / 2, ry0 = groundY + 4 - f.h * PORTAL_SCALE;
+    const f = P.frames['ring_0']; if (!f) return { x, y: groundY - PORTAL_CY, rx: 60, ry: 22 }; const rx0 = x - f.w * PORTAL_SCALE / 2, ry0 = groundY + 4 - f.h * PORTAL_SCALE;
     return { x: rx0 + P.hole.x * PORTAL_SCALE, y: ry0 + P.hole.y * PORTAL_SCALE, rx: P.hole.w * PORTAL_SCALE / 2, ry: P.hole.h * PORTAL_SCALE / 2 };
   }
   /** Desenha o portal: anel de pedra, vórtice animado dentro do buraco, feixe de luz e símbolo de reciclagem flutuando. */
   drawPortal(ctx: CanvasRenderingContext2D, x: number, groundY: number, t: number, open: boolean, glow: number): void {
-    const P = this.portal; if (!P) return; const F = P.frames; const S = PORTAL_SCALE; const img = P.img;
-    const ring = F['ring_0']!; const c = this.portalCenter(x, groundY);
+    const P = this.portal; if (!P) return; if (!Number.isFinite(t)) t = 0; const F = P.frames; const S = PORTAL_SCALE;
+    const idx = (tt: number, fps: number, n: number): number => ((Math.floor(tt * fps) % n) + n) % n; const img = P.img;
+    const ring = F['ring_0']; if (!ring) return; const c = this.portalCenter(x, groundY);
     const put = (n: string, cx: number, cy: number, sx: number, sy: number, alpha: number, add: boolean, bottom = false): void => {
       const f = F[n]; if (!f) return; ctx.save(); ctx.globalAlpha = Math.max(0, Math.min(1, alpha)); if (add) ctx.globalCompositeOperation = 'lighter';
       ctx.drawImage(img, f.x, f.y, f.w, f.h, cx - f.w * sx / 2, bottom ? cy - f.h * sy : cy - f.h * sy / 2, f.w * sx, f.h * sy); ctx.restore();
     };
     put('ring_0', x, groundY + 4 - ring.h * S / 2, S, S, 1, false);
     ctx.save(); ctx.beginPath(); ctx.ellipse(c.x, c.y, c.rx * 1.04, c.ry * 1.08, 0, 0, 7); ctx.clip();
-    const vi = open ? Math.floor(t * 10) % 6 : 0; const vs = 1 + 0.12 * glow;
-    put(`vortex_${vi}`, c.x, c.y, (c.rx * 2.5 / F[`vortex_${vi}`]!.w) * vs, (c.ry * 2.6 / F[`vortex_${vi}`]!.h) * vs, open ? 1 : 0.55, false);
+    const vi = open ? idx(t, 10, 6) : 0; const vs = 1 + 0.12 * glow; const vf = F[`vortex_${vi}`];
+    if (vf) put(`vortex_${vi}`, c.x, c.y, (c.rx * 2.5 / vf.w) * vs, (c.ry * 2.6 / vf.h) * vs, open ? 1 : 0.55, false);
     ctx.restore();
     if (!open) return;
     const burst = glow > 0.55;
-    const bn = burst ? `burst_${Math.floor(t * 14) % 3}` : `beam_${Math.floor(t * 9) % 4}`;
+    const bn = burst ? `burst_${idx(t, 14, 3)}` : `beam_${idx(t, 9, 4)}`;
     put(bn, c.x, c.y + c.ry * 0.5, S * 1.25 * (1 + 0.5 * glow), S * 1.25 * (1 + 0.8 * glow), 0.85 + 0.15 * glow, true, true);
-    const sn = `symbol_${Math.floor(t * 6) % 4}`; const sc = 0.5 * (1 + 0.35 * glow);
+    const sn = `symbol_${idx(t, 6, 4)}`; const sc = 0.5 * (1 + 0.35 * glow);
     put(sn, c.x, c.y - 132 - 26 * glow + Math.sin(t * 2.2) * 7, sc, sc, 0.97, false);
   }
   petFrame(petId: string, animation: string, time: number): string | null { return this.cycleFrame(`${petId}|${animation}`, time); }
