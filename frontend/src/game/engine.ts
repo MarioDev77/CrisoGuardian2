@@ -1,4 +1,4 @@
-import { Assets } from './assets';
+import { Assets, PORTAL_CY } from './assets';
 import { buildWorld, VIEW_H, VIEW_W as BASE_VIEW_W, type World, type WSurface } from './level';
 import { audio } from './audio';
 import { grandeLixoPose, projectileFrame, GRANDE_LIXO_LEVEL } from './bossAnim';
@@ -304,7 +304,7 @@ export class Engine {
   }
 
   private updateWin(dt: number): void {
-    const w = this.win!; const p = this.p; const g = this.world.goal; const cx = g.x, cy = g.y - 78;
+    const w = this.win!; const p = this.p; const g = this.world.goal; const cx = g.x, cy = g.y - PORTAL_CY;
     w.t += dt; w.pt += dt; this.t += dt; this.shake = Math.max(0, this.shake - dt); this.banner.t = 0;
     p.animT += dt; p.inv = 0; p.hurtT = 0; p.landT = Math.max(0, p.landT - dt); p.shootT += dt; p.shield = Math.max(0, p.shield - dt);
     const held = this.keys.jump || this.keys.shoot; if (!held) w.armed = true;
@@ -614,7 +614,7 @@ export class Engine {
     const sh = this.shake > 0 && getSettings().screenShake ? (Math.random() - 0.5) * 12 * Math.min(1, this.shake * 3) : 0;
     ctx.translate(sh, sh * 0.6);
     const cam = Math.round(this.cam);
-    if (this.win && this.win.z !== 1) { const zx = w.goal.x - cam, zy = w.goal.y - 78, z = this.win.z; ctx.translate(zx, zy); ctx.scale(z, z); ctx.translate(-zx, -zy); }
+    if (this.win && this.win.z !== 1) { const zx = w.goal.x - cam, zy = w.goal.y - PORTAL_CY, z = this.win.z; ctx.translate(zx, zy); ctx.scale(z, z); ctx.translate(-zx, -zy); }
 
     // New islands use four cached parallax layers; original eight phases keep their painted backdrops.
     const layers=a.islandLayers?.get(this.levelIndex);
@@ -701,7 +701,7 @@ export class Engine {
       ctx.restore();
     } else if (wn.phase === 'suck') {
       // o herói é puxado em espiral para dentro do portal: arco, giro, encolhendo e apagando
-      const u = Math.min(1, wn.pt / 0.85), e = Math.pow(u, 2.2); const gx = this.world.goal.x, gyy = this.world.goal.y - 78;
+      const u = Math.min(1, wn.pt / 0.85), e = Math.pow(u, 2.2); const gx = this.world.goal.x, gyy = this.world.goal.y - PORTAL_CY;
       const x = wn.sx + (gx - wn.sx) * e, y = wn.sy + (gyy - wn.sy) * e - Math.sin(u * Math.PI) * 46;
       this.drawPet(ctx); ctx.save(); ctx.translate(x, y); ctx.rotate(e * Math.PI * 5);
       const sk = 1 - 0.92 * e; ctx.globalAlpha = 1 - 0.55 * e * e * e;
@@ -738,7 +738,7 @@ export class Engine {
 
   /** Efeitos da vitória no mundo: faíscas em espiral, raios de luz e ondas de choque do portal. */
   private drawWinFx(w: NonNullable<Engine['win']>): void {
-    const ctx = this.ctx; const g = this.world.goal; const cx = g.x, cy = g.y - 78;
+    const ctx = this.ctx; const g = this.world.goal; const cx = g.x, cy = g.y - PORTAL_CY;
     ctx.save(); ctx.globalCompositeOperation = 'lighter';
     const cols = ['#b6ff6a', '#eafff0', '#7dffaa'];
     for (const s of w.sparks) {
@@ -789,7 +789,7 @@ export class Engine {
         ctx.font = '800 24px system-ui'; ctx.lineWidth = 6; ctx.strokeText(`♻ ${this.materials}/${this.totalMaterials} resíduos reciclados`, 0, 50); ctx.fillStyle = '#d4ffd9'; ctx.fillText(`♻ ${this.materials}/${this.totalMaterials} resíduos reciclados`, 0, 50);
         ctx.restore();
       }
-      if (w.phase === 'iris') { const u = Math.min(1, w.pt / 0.6); hole(g.x - cam, g.y - 78, Math.hypot(VIEW_W, VIEW_H) * (1 - u * u), 1 - u); }
+      if (w.phase === 'iris') { const u = Math.min(1, w.pt / 0.6); hole(g.x - cam, g.y - PORTAL_CY, Math.hypot(VIEW_W, VIEW_H) * (1 - u * u), 1 - u); }
     } else if (this.introT < 2.8) {
       const t = this.introT;
       if (t < 0.9) { const u = easeOut(t / 0.9); hole(p.x + p.w / 2 - cam, p.y + p.h / 2, Math.hypot(VIEW_W, VIEW_H) * u, 1 - t / 0.9); }
@@ -812,13 +812,8 @@ export class Engine {
   private drawGoal(): void {
     const ctx = this.ctx; const g = this.world.goal; const a = this.assets; const open = !this.boss || this.boss.state === 'dead';
     if (this.world.index === 7) a.draw(ctx, 'f08_pad', g.x, g.y + 6, { scale: this.world.scale * 0.7 });
-    const cx = g.x, cy = g.y - 78; const gl = this.win?.glow ?? 0; const pul = Math.sin(this.t * 3) * 6 + gl * 26;
-    ctx.save(); ctx.globalAlpha = open ? 1 : 0.35;
-    const gr = ctx.createRadialGradient(cx, cy, 6, cx, cy, 78 + pul); gr.addColorStop(0, '#eafff0'); gr.addColorStop(0.35, '#7dffaa'); gr.addColorStop(0.75, '#22c966aa'); gr.addColorStop(1, '#22c96600');
-    ctx.fillStyle = gr; ctx.beginPath(); ctx.ellipse(cx, cy, 52 + pul / 2, 80 + pul, 0, 0, 7); ctx.fill();
-    ctx.lineWidth = 5; ctx.strokeStyle = '#d9ffe5'; ctx.beginPath(); ctx.ellipse(cx, cy, 44, 72, 0, 0, 7); ctx.stroke();
-    ctx.translate(cx, cy); ctx.rotate(this.portalSpin); a.draw(ctx, 'ui_recycle', 0, 0, { scale: 1.5 * (1 + 0.25 * gl), anchor: 'center' });
-    ctx.restore();
+    const { x: cx, y: cy } = a.portalCenter?.(g.x, g.y) ?? { x: g.x, y: g.y - PORTAL_CY }; const gl = this.win?.glow ?? 0;
+    a.drawPortal?.(ctx, g.x, g.y, this.t, open, gl);
     ctx.save(); ctx.globalCompositeOperation = 'lighter';
     if (open) for (let i = 0; i < 9; i++) {   // vaga-lumes orbitando o portal
       const ang = this.t * (0.7 + i * 0.09) + i * 0.7, rr = 62 + 12 * Math.sin(this.t * 1.7 + i), px = cx + Math.cos(ang) * rr * 0.75, py = cy + Math.sin(ang) * rr * 1.15;
