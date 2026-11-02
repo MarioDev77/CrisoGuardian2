@@ -14,8 +14,8 @@ describe('visual overhaul assets',()=>{
   for(const pet of catalog.pets) for(const anim of ['idle','follow','collect']) expect(keys.has(`${pet.id}_${anim}_00`),`${pet.id} ${anim}`).toBe(true);
   expect(existsSync(resolve(root,'sprites/v2/actors.svg'))).toBe(true);
   expect(Object.keys(manifest.frames).some(k=>k.startsWith('crisoman_'))).toBe(false);
-  expect(existsSync(resolve(root,'sprites/crisoman/crisoman.png'))).toBe(true);
-  expect(existsSync(resolve(root,'sprites/crisoman/frames/idle/idle_00.png'))).toBe(true);
+  expect(existsSync(resolve(root,'characters/crisomer/spritesheet.png'))).toBe(true);
+  expect(existsSync(resolve(root,'characters/quisogril/idle/idle_00.png'))).toBe(true);
  });
  it('has eight new island backgrounds and tiled assets wired to playable phases',()=>{
   expect(levelConfigs).toHaveLength(16);

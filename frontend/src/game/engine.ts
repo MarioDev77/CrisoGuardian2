@@ -24,13 +24,6 @@ const GRAV = 2400, JUMP_V = 980;
 export function playerSpriteName(character: CharacterId, legacyName: string, girlFrame: string | null | undefined): string {
   return character === 'crisogirl' && girlFrame ? girlFrame : legacyName;
 }
-function legacySkinFilter(skinId: string): string {
-  if (skinId.includes('urbana') || skinId.includes('urbano')) return 'grayscale(.72)';
-  if (skinId.includes('natureza') || skinId.includes('floresta')) return 'sepia(.55) saturate(1.25)';
-  if (skinId.includes('agua')) return 'hue-rotate(100deg) saturate(1.2)';
-  if (skinId.includes('fogo')) return 'hue-rotate(250deg) saturate(1.35)';
-  return 'none';
-}
 
 const overlap = (a: Rect, b: Rect) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 const sfRect = (s: WSurface): Rect => ({ x: s.x, y: s.top, w: s.w, h: s.h });
@@ -704,11 +697,7 @@ export class Engine {
       // heróis sem a animação de agachar (ex.: Crisogirl) usam a pose de pouso
       if (hp.anim === 'crouch' && !(a.heroFrameCount?.(this.appearance.character, 'crouch') ?? 0)) hp = { anim: 'land', index: 1 };
       ctx.save();
-      if (!(a.drawHero?.(ctx, this.appearance.character, this.appearance.skinId, hp.anim, hp.index, p.x + p.w / 2, p.y + p.h + 3, { scale: HERO_SCALE, flip: p.facing < 0, alpha: pf.alpha }) ?? false)) {
-        // sem os sprites novos (arquivo ausente): volta ao atlas original
-        if (this.appearance.character === 'crisoman') ctx.filter = legacySkinFilter(this.appearance.skinId);
-        a.draw(ctx, pf.name, p.x + p.w / 2, p.y + p.h + 3, { scale: PS, flip: p.facing < 0, alpha: pf.alpha });
-      }
+      a.drawHero?.(ctx, this.appearance.character, this.appearance.skinId, hp.anim, hp.index, p.x + p.w / 2, p.y + p.h + 3, { scale: HERO_SCALE, flip: p.facing < 0, alpha: pf.alpha });
       ctx.restore();
     } else if (wn.phase === 'suck') {
       // o herói é puxado em espiral para dentro do portal: arco, giro, encolhendo e apagando
@@ -716,10 +705,7 @@ export class Engine {
       const x = wn.sx + (gx - wn.sx) * e, y = wn.sy + (gyy - wn.sy) * e - Math.sin(u * Math.PI) * 46;
       this.drawPet(ctx); ctx.save(); ctx.translate(x, y); ctx.rotate(e * Math.PI * 5);
       const sk = 1 - 0.92 * e; ctx.globalAlpha = 1 - 0.55 * e * e * e;
-      if (!(a.drawHero?.(ctx, this.appearance.character, this.appearance.skinId, 'jump', 1, 0, 0, { scale: HERO_SCALE * sk, flip: p.facing < 0, anchor: 'center' }) ?? false)) {
-        if (this.appearance.character === 'crisoman') ctx.filter = legacySkinFilter(this.appearance.skinId);
-        a.draw(ctx, 'p_jump_3', 0, 0, { scale: PS * sk, flip: p.facing < 0, anchor: 'center', alpha: 1 - 0.55 * e * e * e });
-      }
+      a.drawHero?.(ctx, this.appearance.character, this.appearance.skinId, 'jump', 1, 0, 0, { scale: HERO_SCALE * sk, flip: p.facing < 0, anchor: 'center' });
       ctx.restore();
     }
     if (wn) this.drawWinFx(wn);
