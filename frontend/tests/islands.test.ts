@@ -27,7 +27,8 @@ describe('Mapa 2 (fases 9 a 16)', () => {
       const w = buildWorld(i, fakeAssets);
       expect(w.start.y).toBeLessThan(600); expect(w.goal.y).toBeLessThan(600); expect(w.waste.length).toBeGreaterThan(5);
       expect(w.bossAt !== null).toBe(!!L.boss);
-      for (const t of ['ground', 'ledge', 'bridge', 'bin', 'prop', 'animal']) expect(fs.existsSync(`public/assets/islands/${NEW_ISLANDS[i - 8]!.id.replace(/-\d+$/, '')}/${t === 'ground' || t === 'ledge' || t === 'bridge' ? `tiles/${t}.svg` : t === 'prop' ? 'props.svg' : `${t}.svg`}`)).toBe(true);
+      const slug = NEW_ISLANDS[i - 8]!.id.replace(/-\d+$/, '');
+      for (const f of ['tiles/ground.png', 'tiles/ledge.png', 'tiles/bridge.png', 'background/far.webp', 'background/sky.webp', 'bin.svg', 'thumbnail.jpg']) expect(fs.existsSync(`public/assets/islands/${slug}/${f}`), f).toBe(true);
     });
   }
 });

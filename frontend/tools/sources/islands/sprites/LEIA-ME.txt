@@ -1,0 +1,9 @@
+ASSETS RECORTADOS — SPRITES PNG
+
+- Cada arquivo PNG mantém transparência (canal alfa).
+- Os sprites foram separados por componentes visíveis e organizados por bioma.
+- Pastas: floresta, deserto, gelo, lava, submarino e sci_fi.
+- Os nomes numerados são identificadores neutros; consulte indice_assets.csv para ver a folha de origem e a posição original de cada recorte.
+
+Observação:
+Quando dois desenhos se encostam ou se sobrepõem na folha original, a segmentação automática pode mantê-los no mesmo PNG. Recomenda-se revisar esses casos antes de usar em produção.

@@ -620,8 +620,10 @@ export class Engine {
     const layers=a.islandLayers?.get(this.levelIndex);
     if (layers) {
       for (const [name,rate] of [['sky',0],['far',0.12],['mid',0.3],['near',0.52]] as const) {
-        const img=layers[name]; if (!img) continue; const shift=(cam*rate)%VIEW_W;
-        ctx.drawImage(img,-shift,0,VIEW_W,VIEW_H); if (shift>0) ctx.drawImage(img,VIEW_W-shift,0,VIEW_W,VIEW_H);
+        const img=layers[name]; if (!img) continue;
+        // a camada mantém a proporção da arte (altura = tela) e se repete na horizontal; as artes são espelhadas para fechar sem emenda
+        const iw=Math.max(1,img.width*VIEW_H/Math.max(1,img.height)); const shift=((cam*rate)%iw+iw)%iw;
+        for (let x=-shift; x<VIEW_W; x+=iw) ctx.drawImage(img,x,0,iw+0.5,VIEW_H);
       }
     } else {
       const scene = a.scenes.get(this.levelIndex + 1);

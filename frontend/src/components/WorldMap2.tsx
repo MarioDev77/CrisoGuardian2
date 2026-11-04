@@ -42,7 +42,7 @@ export default function WorldMap2({ progress, onPlay, onBack, onOpenLobby, onOpe
         return <button type="button" key={it.id} className={`${m.node} ${m[st]}`} style={{ ['--x' as string]: `${x}%`, ['--y' as string]: `${y}%`, ['--c' as string]: it.palette.accent }}
           disabled={locked} aria-label={`Fase ${it.index + 1}: ${it.name}${locked ? ' (bloqueada)' : s ? ` (concluída, ${s} estrelas)` : ''}`} onClick={() => onPlay(it.index)}>
           <span className={m.disc}>
-            <img src={`/assets/islands/${slugOf(it.id)}/thumbnail.svg`} alt="" loading="lazy"/>
+            <img src={`/assets/islands/${slugOf(it.id)}/thumbnail.jpg`} alt="" loading="lazy"/>
             <i className={m.num}>{it.index + 1}</i>
             {locked && <i className={m.lock} aria-hidden="true">🔒</i>}
             {st === 'done' && <i className={m.check} aria-hidden="true">✓</i>}
