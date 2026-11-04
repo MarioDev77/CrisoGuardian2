@@ -12,7 +12,7 @@ import { enterGameMode } from './pwa';
 import { freshEconomy, type EconomyState } from './economy';
 import { CATALOG } from './catalog';
 import { api, getServerSnapshot, type ServerSnapshot, type PlayerStats } from './api';
-import { AccountChip, AccountDialog, AchievementToasts, Profile } from '../components/Account';
+import { AccountChip, AccountCreatedBadge, AccountDialog, AchievementToasts, Profile } from '../components/Account';
 import { LEVEL_COUNT, loadProgress, type Progress } from './progress';
 
 type Screen = { name: 'title' } | { name: 'map' } | { name: 'map2' } | { name: 'profile' } | { name: 'lobby' } | { name: 'shop' } | { name: 'recycle' } | { name: 'progression' } | { name: 'play'; level: number; runId: string };
@@ -33,6 +33,7 @@ export default function App() {
   const [serverProgression, setServerProgression] = useState<ServerSnapshot['progression']>(() => ({ skills:{jump:0,speed:0,defense:0,magnet:0}, pets:{}, daily:{date:new Date().toISOString().slice(0,10),counts:{wins:0,materials:0,recycles:0},claimed:[]} }));
   const [accountOpen, setAccountOpen] = useState(false);
   const [toastIds, setToastIds] = useState<string[]>([]);
+  const [createdBadge, setCreatedBadge] = useState(false);
 
   const applySnapshot = (snapshot: ServerSnapshot) => {
     economyRef.current = snapshot.economy;
@@ -73,9 +74,10 @@ export default function App() {
 
   const chrome = (view: JSX.Element, chip = true) => <>
     {view}
-    {chip && <AccountChip username={account} onOpen={() => setAccountOpen(true)} />}
+    {chip && !createdBadge && <AccountChip username={account} onOpen={() => setAccountOpen(true)} />}
+    <AccountCreatedBadge show={createdBadge} onDone={() => setCreatedBadge(false)} />
     {accountOpen && <AccountDialog username={account} onClose={() => setAccountOpen(false)}
-      onRegister={(u, p) => authCall('/api/auth/register', { username: u, password: p })} onLogin={(u, p) => authCall('/api/auth/login', { username: u, password: p })}
+      onRegister={async (u, p) => { const msg = await authCall('/api/auth/register', { username: u, password: p }); if (!msg) setCreatedBadge(true); return msg; }} onLogin={(u, p) => authCall('/api/auth/login', { username: u, password: p })}
       onLogout={async () => { await authCall('/api/auth/logout', {}); }} onDelete={(p) => authCall('/api/auth/delete', { password: p })} onProfile={() => setScreen({ name: 'profile' })} />}
     <AchievementToasts ids={toastIds} onDone={() => setToastIds([])} />
   </>;

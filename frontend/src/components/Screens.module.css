@@ -1,6 +1,7 @@
 /* ---- tela de título (arte CrisoGuardian + botões clicáveis sobre a arte) ---- */
 .title{position:absolute;inset:0;overflow:hidden;display:grid;place-items:center;background:#06170f}
 .titleStage{position:absolute;container-type:inline-size;background-size:100% 100%;background-color:#0a2a1c;user-select:none;-webkit-user-select:none}
+.ver{position:absolute;left:92.9%;top:94.2%;transform:translateY(-50%);color:#c4ccd2;font:600 1.1cqw ui-monospace,'Courier New',monospace;letter-spacing:.03em;white-space:nowrap;pointer-events:none;text-shadow:0 .1cqw .2cqw #000}
 .tbtn{position:absolute;margin:0;padding:0;border:0;background:transparent;cursor:pointer;border-radius:.9cqw;-webkit-tap-highlight-color:transparent;transition:background .12s,box-shadow .12s,transform .08s}
 .tbtn::after{content:'';position:absolute;inset:-.3cqw -.6cqw}
 .tbtn:hover{background:rgba(200,255,170,.13);box-shadow:0 0 1.8cqw #a8ff8f88,inset 0 0 1cqw #d6ffc055}

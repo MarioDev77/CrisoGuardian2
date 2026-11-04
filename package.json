@@ -3,8 +3,13 @@
   "private": true,
   "version": "2.0.0",
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "node backend/economy-api.mjs"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
   }
 }

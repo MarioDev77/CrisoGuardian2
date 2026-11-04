@@ -23,8 +23,12 @@ const volumeDir = process.env.CRISO_DATA_DIR || process.env.RAILWAY_VOLUME_MOUNT
 const dataDir = volumeDir ? resolve(volumeDir) : join(backendDir, 'data');
 const hosted = !!(process.env.RAILWAY_ENVIRONMENT || process.env.RAILWAY_PROJECT_ID || process.env.NODE_ENV === 'production');
 const storageWarnings = [];
-if (hosted && !volumeDir) storageWarnings.push('SEM VOLUME: os dados estão em disco temporário e serão apagados no próximo deploy/reinício. Crie um Volume no Railway e defina CRISO_DATA_DIR (ex.: /data).');
-if (hosted && !process.env.CRISO_SERVER_SECRET) storageWarnings.push('CRISO_SERVER_SECRET não definido: a chave de assinatura fica em arquivo e, se o disco for apagado, os dados salvos deixam de ser válidos.');
+// Postgres (DATABASE_URL): contas, sessões e progresso ficam em tabelas e sobrevivem a qualquer deploy.
+const databaseUrl = (process.env.DATABASE_URL || '').trim();
+if (hosted && !databaseUrl) throw new Error('DATABASE_URL não definido: sem o Postgres as contas dos jogadores são apagadas a cada deploy. No Railway: adicione um banco Postgres ao projeto e, nas Variables do serviço da API, crie DATABASE_URL com o valor ${{Postgres.DATABASE_URL}}.');
+let pool = null;
+if (!databaseUrl && hosted && !volumeDir) storageWarnings.push('SEM VOLUME: os dados estão em disco temporário e serão apagados no próximo deploy/reinício. Crie um Volume no Railway e defina CRISO_DATA_DIR (ex.: /data).');
+if (!databaseUrl && hosted && !process.env.CRISO_SERVER_SECRET) storageWarnings.push('CRISO_SERVER_SECRET não definido: a chave de assinatura fica em arquivo e, se o disco for apagado, os dados salvos deixam de ser válidos.');
 const legacyDataDir = resolve(backendDir, '../frontend/server/data');
 const dataFile = join(dataDir, 'players.signed.json');
 const backupFile = join(dataDir, 'players.backup.signed.json');
@@ -97,8 +101,79 @@ function verifyEnvelope(raw) {
 }
 async function atomicWrite(path, content) { await mkdir(dirname(path), { recursive: true }); const temp = `${path}.${randomUUID()}.tmp`; await writeFile(temp, content, { mode: 0o600 }); await rename(temp, path); }
 async function readSigned(path) { try { return verifyEnvelope(await readFile(path, 'utf8')); } catch { return null; } }
-async function persist(next) { const previous = await readSigned(dataFile); if (previous) await atomicWrite(backupFile, envelope(JSON.stringify(previous))); await atomicWrite(dataFile, envelope(JSON.stringify(next))); }
+async function persist(next) {
+  if (pool) return await persistPostgres(next);   // grava só o que mudou, numa transação
+  const previous = await readSigned(dataFile); if (previous) await atomicWrite(backupFile, envelope(JSON.stringify(previous))); await atomicWrite(dataFile, envelope(JSON.stringify(next)));
+}
+// ------------------------------------------------------------------ Postgres (contas, sessões e progresso dos jogadores)
+const PG_SCHEMA = `
+CREATE TABLE IF NOT EXISTS criso_accounts (
+  ukey       TEXT PRIMARY KEY,
+  id         TEXT NOT NULL UNIQUE,
+  username   TEXT NOT NULL,
+  salt       TEXT NOT NULL,
+  hash       TEXT NOT NULL,
+  created_at BIGINT NOT NULL DEFAULT 0
+);
+CREATE TABLE IF NOT EXISTS criso_players (
+  id         TEXT PRIMARY KEY,
+  data       JSONB NOT NULL,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE TABLE IF NOT EXISTS criso_sessions (
+  hash        TEXT PRIMARY KEY,
+  account_ukey TEXT NOT NULL REFERENCES criso_accounts(ukey) ON DELETE CASCADE,
+  exp         BIGINT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS criso_sessions_account_idx ON criso_sessions (account_ukey);
+`;
+async function connectPostgres() {
+  const { default: pg } = await import('pg');
+  const internal = /(@|\/\/)(localhost|127\.0\.0\.1|[^/:@]*\.railway\.internal)(:|\/|$)/.test(databaseUrl);
+  const ssl = process.env.PGSSL === 'disable' || internal ? false : { rejectUnauthorized: false };
+  pool = new pg.Pool({ connectionString: databaseUrl, ssl, max: 5, connectionTimeoutMillis: 10000 });
+  pool.on('error', (e) => console.error('[CrisoGuardian] Erro no pool do Postgres:', e.message));
+  for (let attempt = 1; ; attempt++) {
+    try { await pool.query(PG_SCHEMA); return; }
+    catch (err) { if (attempt >= 6) throw err; console.warn(`[CrisoGuardian] Postgres indisponível (tentativa ${attempt}/6): ${err.message}`); await new Promise((r) => setTimeout(r, 3000 * attempt)); }
+  }
+}
+async function loadPostgres() {
+  const [acc, ply, ses] = await Promise.all([
+    pool.query('SELECT ukey, id, username, salt, hash, created_at FROM criso_accounts'),
+    pool.query('SELECT id, data FROM criso_players'),
+    pool.query('SELECT hash, account_ukey, exp FROM criso_sessions'),
+  ]);
+  const accounts = {}, sessions = {}, players = {};
+  for (const r of acc.rows) accounts[r.ukey] = { id: r.id, username: r.username, salt: r.salt, hash: r.hash, createdAt: Number(r.created_at) };
+  for (const r of ses.rows) sessions[r.hash] = { account: r.account_ukey, exp: Number(r.exp) };
+  for (const r of ply.rows) players[r.id] = cleanPlayer(r.data);   // revalida e completa campos novos (ex.: fases 9-16)
+  return { players, ...cleanAuth({ accounts, sessions }) };
+}
+async function persistPostgres(next) {
+  const prev = database; const same = (a, b) => JSON.stringify(a) === JSON.stringify(b); const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    for (const h of Object.keys(prev.sessions)) if (!next.sessions[h]) await client.query('DELETE FROM criso_sessions WHERE hash = $1', [h]);
+    for (const id of Object.keys(prev.players)) if (!next.players[id]) await client.query('DELETE FROM criso_players WHERE id = $1', [id]);
+    for (const k of Object.keys(prev.accounts)) if (!next.accounts[k]) await client.query('DELETE FROM criso_accounts WHERE ukey = $1', [k]);
+    for (const [k, a] of Object.entries(next.accounts)) if (!same(prev.accounts[k], a)) await client.query(
+      'INSERT INTO criso_accounts (ukey, id, username, salt, hash, created_at) VALUES ($1,$2,$3,$4,$5,$6) ON CONFLICT (ukey) DO UPDATE SET id = EXCLUDED.id, username = EXCLUDED.username, salt = EXCLUDED.salt, hash = EXCLUDED.hash',
+      [k, a.id, a.username, a.salt, a.hash, a.createdAt ?? 0]);
+    for (const [id, p] of Object.entries(next.players)) if (!same(prev.players[id], p)) await client.query(
+      'INSERT INTO criso_players (id, data, updated_at) VALUES ($1, $2::jsonb, now()) ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data, updated_at = now()', [id, JSON.stringify(p)]);
+    for (const [h, v] of Object.entries(next.sessions)) if (!same(prev.sessions[h], v)) await client.query(
+      'INSERT INTO criso_sessions (hash, account_ukey, exp) VALUES ($1,$2,$3) ON CONFLICT (hash) DO UPDATE SET account_ukey = EXCLUDED.account_ukey, exp = EXCLUDED.exp', [h, v.account, v.exp]);
+    await client.query('COMMIT');
+  } catch (err) { await client.query('ROLLBACK').catch(() => {}); throw err; }
+  finally { client.release(); }
+}
 async function initialize() {
+  if (databaseUrl) {
+    await connectPostgres(); database = await loadPostgres();
+    console.log(`[CrisoGuardian] Postgres conectado: ${Object.keys(database.accounts).length} conta(s), ${Object.keys(database.players).length} perfil(is).`);
+    return;
+  }
   await mkdir(dataDir, { recursive: true });
   if (process.env.CRISO_SERVER_SECRET) { if (process.env.CRISO_SERVER_SECRET.length < 32) throw new Error('CRISO_SERVER_SECRET precisa ter pelo menos 32 caracteres.'); key = process.env.CRISO_SERVER_SECRET; }
   else {
@@ -222,7 +297,7 @@ async function handleAuth(req, res, url, sid, body) {
 
 const server = createServer(async (req, res) => {
   // diagnóstico de persistência (não cria cookie nem expõe dados): confira em /api/health depois do deploy
-  if (req.method === 'GET' && (req.url ?? '').split('?')[0] === '/api/health') return reply(res, 200, { ok: true, storage: { persistent: !hosted || !!volumeDir, volume: !!volumeDir, secretFromEnv: !!process.env.CRISO_SERVER_SECRET }, accounts: Object.keys(database.accounts).length, warnings: storageWarnings });
+  if (req.method === 'GET' && (req.url ?? '').split('?')[0] === '/api/health') return reply(res, 200, { ok: true, storage: { engine: pool ? 'postgres' : 'arquivo', persistent: !!pool || !hosted || !!volumeDir, volume: !!volumeDir, secretFromEnv: !!process.env.CRISO_SERVER_SECRET }, accounts: Object.keys(database.accounts).length, warnings: storageWarnings });
   const sid = sessionId(req, res); const acct = accountForSid(sid); const pk = acct ? `acc_${acct.id}` : sid; const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
   try {
     if (!url.pathname.startsWith('/api/')) return reply(res, 404, { message: 'Rota não encontrada.' });

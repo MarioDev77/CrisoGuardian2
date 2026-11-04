@@ -3,6 +3,7 @@ import { ExitDialog, Modal, SettingsDialog, TutorialDialog } from './Dialogs';
 import s from './Screens.module.css';
 import { useFit } from './useFit';
 import InstallButton from './InstallButton';
+import { APP_VERSION } from '../app/version';
 
 const ART = '/assets/title/crisoguardian-title.webp';
 /** Botões pintados na arte (1536x1024): posição e tamanho em pixels da imagem original. */
@@ -54,6 +55,7 @@ export default function TitleScreen({ onPlay }: Props) {
         <button className={s.tbtn} style={box(BTN.settings)} aria-label="Configurações" onClick={() => setPanel('settings')} />
         <button className={s.tbtn} style={box(BTN.tutorial)} aria-label="Tutoriais" onClick={() => setPanel('tutorial')} />
         <button className={s.tbtn} style={box(BTN.exit)} aria-label="Sair" onClick={() => setPanel('exit')} />
+        <span className={s.ver} aria-label={`Versão ${APP_VERSION}`}>v{APP_VERSION}</span>
       </div>
       <div className={s.rotate}><i className={s.phoneIcon} aria-hidden="true" /> Gire o celular para jogar na horizontal</div>
       <InstallButton />

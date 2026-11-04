@@ -2,7 +2,8 @@
 import { act, type ReactElement } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { AccountDialog, Profile } from '../src/components/Account';
+import { AccountChip, AccountCreatedBadge, AccountDialog, Profile } from '../src/components/Account';
+import { APP_VERSION } from '../src/app/version';
 import { ACHIEVEMENTS } from '../src/app/catalog-ach';
 
 (globalThis as unknown as { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
@@ -39,4 +40,17 @@ describe('cadastro e perfil', () => {
     expect(h.querySelectorAll('ol li')).toHaveLength(16); expect(h.querySelectorAll('ul li')).toHaveLength(ACHIEVEMENTS.length);
     expect(h.querySelectorAll('ul li[data-got="true"]')).toHaveLength(1); expect(h.textContent).toContain('2/16');
   });
+  it('convidado não vê o aviso "Convidado · salvar progresso"; conectado vê só o nome', async () => {
+    const guest = await mount(<AccountChip username={null} onOpen={() => {}} />);
+    expect(guest.textContent).toBe(''); expect(guest.querySelector('button')).toBeNull();
+    const logged = await mount(<AccountChip username="maria" onOpen={() => {}} />);
+    expect(logged.textContent).toContain('maria'); expect(logged.textContent).not.toMatch(/convidado|salvar progresso/i);
+  });
+  it('mostra "Conta criada com sucesso" só enquanto ativo e some sozinho', async () => {
+    vi.useFakeTimers(); const onDone = vi.fn();
+    const off = await mount(<AccountCreatedBadge show={false} onDone={onDone} />); expect(off.textContent).toBe('');
+    const on = await mount(<AccountCreatedBadge show onDone={onDone} />); expect(on.textContent).toContain('Conta criada com sucesso');
+    await act(async () => { vi.advanceTimersByTime(5000); }); expect(onDone).toHaveBeenCalledTimes(1); vi.useRealTimers();
+  });
+  it('a versão do jogo é 1.1.3.0', () => { expect(APP_VERSION).toBe('1.1.3.0'); });
 });

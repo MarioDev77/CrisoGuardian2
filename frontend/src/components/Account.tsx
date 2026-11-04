@@ -5,11 +5,21 @@ import type { PlayerStats } from '../app/api';
 import type { Progress } from '../app/progress';
 import a from './Account.module.css';
 
-/** Botão fixo de conta (rodapé central): mostra o jogador conectado ou convida a salvar o progresso. */
+/** Botão fixo de conta (rodapé central): aparece só com o jogador conectado. Convidado não vê nada aqui:
+ *  quem quiser criar conta ou entrar usa "Salvar progresso" no Perfil. */
 export function AccountChip({ username, onOpen }: { username: string | null; onOpen: () => void }) {
-  return <button type="button" className={a.chip} onClick={onOpen} aria-label={username ? `Conta de ${username}` : 'Entrar ou criar conta para salvar o progresso'}>
-    <span aria-hidden="true">{username ? '👤' : '💾'}</span>{username ? <b>{username}</b> : <>Convidado · <b>salvar progresso</b></>}
+  if (!username) return null;
+  return <button type="button" className={a.chip} onClick={onOpen} aria-label={`Conta de ${username}`}>
+    <span aria-hidden="true">👤</span><b>{username}</b>
   </button>;
+}
+
+/** Aviso "Conta criada com sucesso", mostrado só logo depois do cadastro e some sozinho. */
+export function AccountCreatedBadge({ show, onDone }: { show: boolean; onDone: () => void }) {
+  const done = useRef(onDone); done.current = onDone;
+  useEffect(() => { if (!show) return; const t = setTimeout(() => done.current(), 4500); return () => clearTimeout(t); }, [show]);
+  if (!show) return null;
+  return <div className={a.created} role="status" aria-live="polite"><span aria-hidden="true">✅</span><b>Conta criada com sucesso</b></div>;
 }
 
 function strength(pw: string): { n: number; label: string } {

@@ -27,7 +27,7 @@ Acesse o endereço que o Vite mostrar. O site encaminha `/api` para a API local.
 
 ## Build e hospedagem
 
-Dentro de `frontend/`, `npm run build` gera `frontend/dist/`. A hospedagem precisa rodar `backend/economy-api.mjs` e encaminhar `/api` para o backend na mesma origem. Configure `CRISO_SERVER_SECRET` com pelo menos 32 caracteres e `CRISO_DATA_DIR` para armazenamento persistente. Em produção use HTTPS e encaminhe `X-Forwarded-Proto: https`. O armazenamento atual é um JSON assinado para uma única instância; multi-instância requer banco transacional.
+Dentro de `frontend/`, `npm run build` gera `frontend/dist/`. A hospedagem precisa rodar `backend/economy-api.mjs` e encaminhar `/api` para o backend na mesma origem. Contas, sessões e progresso dos jogadores ficam no **Postgres** (tabelas `criso_accounts`, `criso_players` e `criso_sessions`, criadas sozinhas na primeira inicialização): defina `DATABASE_URL` no serviço da API (no Railway: `${{Postgres.DATABASE_URL}}`). Em produção a API não sobe sem `DATABASE_URL`, para nunca perder contas em um deploy. Use HTTPS e encaminhe `X-Forwarded-Proto: https`. Uma única instância da API (o cache de leitura fica em memória). Sem `DATABASE_URL` (só em desenvolvimento) a API usa o arquivo JSON assinado em `backend/data`.
 
 Para rodar os testes unitários/API: `cd frontend` e `npm test`. Para os testes de navegador instale Chromium com `npx playwright install chromium`, depois rode `npm run test:e2e`.
 
@@ -46,7 +46,7 @@ O atlas de personagens fica em `frontend/public/assets/sprites/v2/`. Ele é gera
 - **Proteções:** limite de 10 tentativas/min por IP nas rotas `/api/auth/*`; 5 senhas erradas bloqueiam a conta por 5 min; lista de senhas fracas recusadas. Atrás de proxy, defina `CRISO_TRUST_PROXY=1`.
 - **Progresso de convidado** vai junto ao criar a conta. O jogador pode sair e **excluir a conta** (pede a senha) — apaga conta, progresso e conquistas.
 - **Conquistas** (`catalog-data.json` → `achievements`) são avaliadas **no servidor** com dados já validados; o cliente só exibe. Estatísticas: moedas ganhas, materiais coletados, trocas e compras.
-- **Produção:** defina `CRISO_SERVER_SECRET` (≥ 32 caracteres), sirva por HTTPS e faça backup da pasta `backend/data`. Rotas: `POST /api/auth/register | login | logout | delete`.
+- **Produção:** defina `DATABASE_URL` (Postgres), sirva por HTTPS e faça backup do banco. `GET /api/health` mostra `storage.engine` (`postgres`) e quantas contas existem. Rotas: `POST /api/auth/register | login | logout | delete`.
 - **Dev:** `npm run dev:api` (porta 4174) e `npm run dev`.
 
 ## Geração de assets (opcional)

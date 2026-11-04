@@ -63,7 +63,7 @@ Abra o endereço local mostrado pelo Vite. A API precisa estar ativa; servir ape
 
 ### Build e hospedagem
 
-`npm run build` gera o frontend em `dist/`. A hospedagem precisa disponibilizar a API Node `../backend/economy-api.mjs` e encaminhar `/api` para ela na mesma origem do site. Configure `CRISO_SERVER_SECRET` com segredo forte de pelo menos 32 caracteres e `CRISO_DATA_DIR` em armazenamento persistente. Em produção use HTTPS, proxy reverso configurado para encaminhar `X-Forwarded-Proto: https`, e uma única instância do servidor. O armazenamento atual é JSON assinado, feito para uma instância; para escalar, migre as operações transacionais para banco de dados.
+`npm run build` gera o frontend em `dist/`. A hospedagem precisa disponibilizar a API Node `../backend/economy-api.mjs` e encaminhar `/api` para ela na mesma origem do site. Contas e progresso ficam no Postgres: defina `DATABASE_URL` no serviço da API (as tabelas `criso_*` são criadas sozinhas). Em produção use HTTPS, proxy reverso configurado para encaminhar `X-Forwarded-Proto: https`, e uma única instância do servidor.
 
 ### Dados e proteção
 
