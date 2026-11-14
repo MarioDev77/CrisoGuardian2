@@ -1,0 +1,74 @@
+{
+  "image": "portals_09_16.png",
+  "cell": [
+    180,
+    200
+  ],
+  "columns": 4,
+  "frames": [
+    {
+      "name": "phase_09_portal",
+      "x": 16,
+      "y": 16,
+      "w": 171,
+      "h": 192,
+      "source": "frontend/public/assets/islands/manguezal/portal_custom.png"
+    },
+    {
+      "name": "phase_10_portal",
+      "x": 208,
+      "y": 16,
+      "w": 171,
+      "h": 192,
+      "source": "frontend/public/assets/islands/geleira/portal_custom.png"
+    },
+    {
+      "name": "phase_11_portal",
+      "x": 400,
+      "y": 16,
+      "w": 171,
+      "h": 192,
+      "source": "frontend/public/assets/islands/vulcao/portal_custom.png"
+    },
+    {
+      "name": "phase_12_portal",
+      "x": 592,
+      "y": 16,
+      "w": 171,
+      "h": 192,
+      "source": "frontend/public/assets/islands/fabrica/portal_custom.png"
+    },
+    {
+      "name": "phase_13_portal",
+      "x": 16,
+      "y": 228,
+      "w": 171,
+      "h": 192,
+      "source": "frontend/public/assets/islands/copas/portal_custom.png"
+    },
+    {
+      "name": "phase_14_portal",
+      "x": 208,
+      "y": 228,
+      "w": 171,
+      "h": 192,
+      "source": "frontend/public/assets/islands/oceano/portal_custom.png"
+    },
+    {
+      "name": "phase_15_portal",
+      "x": 400,
+      "y": 228,
+      "w": 171,
+      "h": 192,
+      "source": "frontend/public/assets/islands/cidade/portal_custom.png"
+    },
+    {
+      "name": "phase_16_portal",
+      "x": 592,
+      "y": 228,
+      "w": 171,
+      "h": 192,
+      "source": "frontend/public/assets/islands/guardiao/portal_custom.png"
+    }
+  ]
+}

@@ -864,7 +864,10 @@ export class Engine {
     if (b.phase === 3 && st !== 'dead') { ctx.save(); ctx.globalAlpha = 0.18 + 0.1 * Math.sin(t * 8); ctx.fillStyle = '#ff4a2a'; ctx.beginPath(); ctx.ellipse(cx, gy - 80, 110, 130, 0, 0, 7); ctx.fill(); ctx.restore(); } // aura de fúria
     ctx.translate(cx + ox, gy + 6); ctx.scale(sx, sy);
     const gl = this.levelIndex === GRANDE_LIXO_LEVEL ? grandeLixoPose({ state: st, stateT: b.stateT, atk: b.atk, hurt: b.hurt, dying: b.dying, vx: b.vx, t, windup: wind }) : null;
-    if (!(gl && (a.drawHero?.(ctx, 'grande_lixo', '', gl.anim, gl.index, 0, 0, { flip: b.dir > 0 ? false : true }) ?? false))) a.draw(ctx, name, 0, 0, { scale: 2.1, flip: b.dir > 0 ? false : true });
+    const heroDrawn = !!(gl && (a.drawHero?.(ctx, 'grande_lixo', '', gl.anim, gl.index, 0, 0, { flip: b.dir > 0 ? false : true }) ?? false));
+    // chefe exclusivo do bioma (Vulcão Verde): respira, balança ao andar e acompanha a pose de ataque por escala/inclinação
+    const bob = st === 'dead' ? 0 : Math.sin(t * 4) * 2;
+    if (!heroDrawn && !(a.drawIslandBoss?.(ctx, this.levelIndex, 0, bob, 0.84, b.dir < 0 ? false : true) ?? false)) a.draw(ctx, name, 0, 0, { scale: 2.1, flip: b.dir > 0 ? false : true });
     ctx.restore();
   }
 

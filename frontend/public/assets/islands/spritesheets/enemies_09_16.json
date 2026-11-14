@@ -1,0 +1,138 @@
+{
+  "image": "enemies_09_16.png",
+  "cell": [
+    160,
+    160
+  ],
+  "columns": 4,
+  "frames": [
+    {
+      "name": "phase_09_walker",
+      "x": 16,
+      "y": 16,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/manguezal/enemy_walker.svg"
+    },
+    {
+      "name": "phase_09_flyer",
+      "x": 188,
+      "y": 16,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/manguezal/enemy_flyer.svg"
+    },
+    {
+      "name": "phase_10_walker",
+      "x": 360,
+      "y": 16,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/geleira/enemy_walker.svg"
+    },
+    {
+      "name": "phase_10_flyer",
+      "x": 532,
+      "y": 16,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/geleira/enemy_flyer.svg"
+    },
+    {
+      "name": "phase_11_walker",
+      "x": 16,
+      "y": 188,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/vulcao/enemy_walker.svg"
+    },
+    {
+      "name": "phase_11_flyer",
+      "x": 188,
+      "y": 188,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/vulcao/enemy_flyer.svg"
+    },
+    {
+      "name": "phase_12_walker",
+      "x": 360,
+      "y": 188,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/fabrica/enemy_walker.svg"
+    },
+    {
+      "name": "phase_12_flyer",
+      "x": 532,
+      "y": 188,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/fabrica/enemy_flyer.svg"
+    },
+    {
+      "name": "phase_13_walker",
+      "x": 16,
+      "y": 360,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/copas/enemy_walker.svg"
+    },
+    {
+      "name": "phase_13_flyer",
+      "x": 188,
+      "y": 360,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/copas/enemy_flyer.svg"
+    },
+    {
+      "name": "phase_14_walker",
+      "x": 360,
+      "y": 360,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/oceano/enemy_walker.svg"
+    },
+    {
+      "name": "phase_14_flyer",
+      "x": 532,
+      "y": 360,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/oceano/enemy_flyer.svg"
+    },
+    {
+      "name": "phase_15_walker",
+      "x": 16,
+      "y": 532,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/cidade/enemy_walker.svg"
+    },
+    {
+      "name": "phase_15_flyer",
+      "x": 188,
+      "y": 532,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/cidade/enemy_flyer.svg"
+    },
+    {
+      "name": "phase_16_walker",
+      "x": 360,
+      "y": 532,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/guardiao/enemy_walker.svg"
+    },
+    {
+      "name": "phase_16_flyer",
+      "x": 532,
+      "y": 532,
+      "w": 152,
+      "h": 152,
+      "source": "frontend/public/assets/islands/guardiao/enemy_flyer.svg"
+    }
+  ]
+}

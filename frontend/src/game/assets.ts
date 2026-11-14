@@ -3,7 +3,7 @@ interface ActorFrame { x:number; y:number; w:number; h:number; pivot:{x:number;y
 interface ActorManifest { frames: Record<string,ActorFrame> }
 export interface Src { img: CanvasImageSource; x: number; y: number; w: number; h: number }
 /** Entrada de public/assets/phases/catalog.json (gerada por tools/build_phase_assets.py). */
-export interface CatalogEntry { name: string; src: string; w: number; h: number; lip?: number; modular?: boolean; category: string; role: string; phase: number }
+export interface CatalogEntry { name: string; src: string; w: number; h: number; hitbox?: { x: number; y: number; w: number; h: number }; lip?: number; modular?: boolean; category: string; role: string; phase: number }
 export interface DrawOpts { scale?: number; flip?: boolean; alpha?: number; rot?: number; anchor?: 'feet' | 'center'; pixelArt?: boolean }
 
 const BASE = '/assets/game/';
@@ -158,10 +158,16 @@ export class Assets {
   /** Portal de saída (anel de pedra + vórtice + feixe + símbolo): atlas em public/assets/portal. */
   portal: { img: HTMLImageElement; frames: Record<string, { x: number; y: number; w: number; h: number }>; hole: { x: number; y: number; w: number; h: number } } | null = null;
   islandLayers = new Map<number, Record<string,HTMLImageElement>>();
+  /** Portais e chefes exclusivos de cada bioma (fases 9–16), por índice de fase: assets/islands/<bioma>/{portal,boss}_custom.png. */
+  private islandPortals = new Map<number, HTMLImageElement>();
+  private islandBosses = new Map<number, HTMLImageElement>();
+  private curLevel = -1;
   meta: Record<string, Frame> = {};
   tiles = new Map<string, HTMLImageElement>();
   /** Recuo (fração da altura do tile) entre o topo da imagem e a linha onde o personagem pisa; vem do catálogo de sprites. */
   private lips = new Map<string, number>();
+  /** Fator de exibição de sprites de alta resolução (lixeiras 192×240 das fases 9–16 → ~48×60 em jogo, como as das fases 1–8). */
+  private fit = new Map<string, number>();
   scenes = new Map<number, CanvasImageSource>();
   /** Cenários originais (a paleta é lida deles; `scenes` passa a guardar a versão nítida da fase atual). */
   private rawScenes = new Map<number, HTMLImageElement>();
@@ -173,6 +179,7 @@ export class Assets {
 
   /** Prepara a integração visual (cor, névoa, sombras) de uma fase. Resultado fica em cache. */
   setLevel(index: number): void {
+    this.curLevel = index;
     let g = this.graded.get(index);
     if (!g) {
       const n = index + 1; const raw = this.rawScenes.get(n) ?? (this.scenes.get(n) as HTMLImageElement | undefined);
@@ -206,7 +213,7 @@ export class Assets {
       fetch(BASE + 'tiles.json').then((r) => r.json() as Promise<string[]>),
       loadImage('/assets/sprites/v2/actors.svg'),
       fetch('/assets/sprites/v2/actors.json').then((r) => r.json() as Promise<ActorManifest>),
-      fetch('/assets/islands/catalog.json').then((r) => r.json() as Promise<{index:number;layers:Record<string,string>}[]>),
+      fetch('/assets/islands/catalog.json').then((r) => r.json() as Promise<{index:number;slug:string;layers:Record<string,string>}[]>),
     ]);
     this.atlas = atlas;
     this.spriteAtlasV2 = actorAtlas;
@@ -220,7 +227,7 @@ export class Assets {
     // catálogo de sprites por fase (terreno modular, caixas, lixeiras, decoração): public/assets/phases/catalog.json
     const catalog = await fetch('/assets/phases/catalog.json').then((r) => r.json() as Promise<CatalogEntry[]>).catch(() => [] as CatalogEntry[]);
     await Promise.all(catalog.map(async (e) => {
-      try { this.tiles.set(e.name, await loadImage(e.src)); if (e.lip !== undefined) this.lips.set(e.name, e.lip); }
+      try { this.tiles.set(e.name, await loadImage(e.src)); if (e.lip !== undefined) this.lips.set(e.name, e.lip); if (e.role === 'recycling-bin' && e.hitbox && e.w > e.hitbox.w * 1.5) this.fit.set(e.name, e.hitbox.w / e.w); }
       catch { /* sprite ausente: o jogo segue sem ele */ }
     }));
     try {
@@ -240,6 +247,10 @@ export class Assets {
     ]);    await Promise.all(islandCatalog.map(async (island) => {
       const layers = await Promise.all(['sky','far','mid','near'].map(async (layer) => [layer, await loadImage(island.layers[layer]!)] as const));
       this.islandLayers.set(island.index, Object.fromEntries(layers));
+      const optional = async (file: string, into: Map<number, HTMLImageElement>): Promise<void> => {
+        try { into.set(island.index, await loadImage(`/assets/islands/${island.slug}/${file}`)); } catch { /* sem arte própria: usa o padrão do motor */ }
+      };
+      await Promise.all([optional('portal_custom.png', this.islandPortals), optional('boss_custom.png', this.islandBosses)]);
     }));
   }
 
@@ -264,12 +275,15 @@ export class Assets {
   }
   /** Posição (mundo) do centro do vórtice do portal cujo chão está em (x, groundY). */
   portalCenter(x: number, groundY: number): { x: number; y: number; rx: number; ry: number } {
+    if (this.islandPortals.has(this.curLevel)) return { x, y: groundY - PORTAL_CY, rx: 60, ry: 60 };
     const P = this.portal; if (!P) return { x, y: groundY - PORTAL_CY, rx: 60, ry: 22 };
     const f = P.frames['ring_0']; if (!f) return { x, y: groundY - PORTAL_CY, rx: 60, ry: 22 }; const rx0 = x - f.w * PORTAL_SCALE / 2, ry0 = groundY + 4 - f.h * PORTAL_SCALE;
     return { x: rx0 + P.hole.x * PORTAL_SCALE, y: ry0 + P.hole.y * PORTAL_SCALE, rx: P.hole.w * PORTAL_SCALE / 2, ry: P.hole.h * PORTAL_SCALE / 2 };
   }
   /** Desenha o portal: anel de pedra, vórtice animado dentro do buraco, feixe de luz e símbolo de reciclagem flutuando. */
   drawPortal(ctx: CanvasRenderingContext2D, x: number, groundY: number, t: number, open: boolean, glow: number): void {
+    const custom = this.islandPortals.get(this.curLevel);
+    if (custom) { this.drawIslandPortal(ctx, custom, x, groundY, Number.isFinite(t) ? t : 0, open, glow); return; }
     const P = this.portal; if (!P) return; if (!Number.isFinite(t)) t = 0; const F = P.frames; const S = PORTAL_SCALE;
     const idx = (tt: number, fps: number, n: number): number => ((Math.floor(tt * fps) % n) + n) % n; const img = P.img;
     const ring = F['ring_0']; if (!ring) return; const c = this.portalCenter(x, groundY);
@@ -288,6 +302,29 @@ export class Assets {
     put(bn, c.x, c.y + c.ry * 0.5, S * 1.25 * (1 + 0.5 * glow), S * 1.25 * (1 + 0.8 * glow), 0.85 + 0.15 * glow, true, true);
     const sn = `symbol_${idx(t, 6, 4)}`; const sc = 0.5 * (1 + 0.35 * glow);
     put(sn, c.x, c.y - 132 - 26 * glow + Math.sin(t * 2.2) * 7, sc, sc, 0.97, false);
+  }
+  /** Portal temático das fases 9–16 (PNG 256×288, anel de ~225 px com centro em ≈(128,135)): pulsa, flutua e brilha; fica apagado enquanto o chefe vive. */
+  private drawIslandPortal(ctx: CanvasRenderingContext2D, img: HTMLImageElement, x: number, groundY: number, t: number, open: boolean, glow: number): void {
+    const S = 0.72 * (1 + 0.04 * Math.sin(t * 2.4) + 0.22 * glow), cyWorld = groundY - PORTAL_CY, bob = open ? Math.sin(t * 1.8) * 3 : 0;
+    const dx = x - 128 * S, dy = cyWorld - 135 * S + bob;
+    ctx.save();
+    if (!open) { ctx.globalAlpha = 0.6; ctx.filter = 'grayscale(0.85) brightness(0.75)'; }
+    ctx.drawImage(img, dx, dy, img.width * S, img.height * S);
+    ctx.restore();
+    if (!open) return;
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    const r = 112 * S; const gr = ctx.createRadialGradient(x, cyWorld + bob, r * 0.35, x, cyWorld + bob, r * 1.55);
+    gr.addColorStop(0, `rgba(255,255,255,${0.10 + 0.08 * Math.sin(t * 3)})`); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(x, cyWorld + bob, r * 1.55, 0, 7); ctx.fill();
+    ctx.restore();
+  }
+  /** Chefe exclusivo do bioma (fase 11), arte única animada por código no motor. Devolve false se a fase não tiver chefe próprio. */
+  hasIslandBoss(levelIndex: number): boolean { return this.islandBosses.has(levelIndex); }
+  drawIslandBoss(ctx: CanvasRenderingContext2D, levelIndex: number, x: number, y: number, scale: number, flip: boolean): boolean {
+    const img = this.islandBosses.get(levelIndex); if (!img) return false;
+    ctx.save(); ctx.translate(x, y); if (flip) ctx.scale(-1, 1);
+    ctx.drawImage(img, -128 * scale, -240 * scale, img.width * scale, img.height * scale);
+    ctx.restore(); return true;
   }
   petFrame(petId: string, animation: string, time: number): string | null { return this.cycleFrame(`${petId}|${animation}`, time); }
 
@@ -309,7 +346,8 @@ export class Assets {
     const f = this.meta[name];
     if (f) return { w: f.w, h: f.h };
     const t = this.tiles.get(name);
-    return t ? { w: t.width, h: t.height } : { w: 0, h: 0 };
+    const k = this.fit.get(name) ?? 1;
+    return t ? { w: t.width * k, h: t.height * k } : { w: 0, h: 0 };
   }
 
   /** Draws a frame with its anchor (feet / center) at world position x,y. */
@@ -325,7 +363,7 @@ export class Assets {
     if (!f) {
       const t = this.tiles.get(name);
       if (!t) return;
-      this.blit(ctx, t, 0, 0, t.width, t.height, x, y, t.width, t.height, s, o, o.anchor === 'center' ? t.width / 2 : t.width / 2, o.anchor === 'center' ? t.height / 2 : t.height);
+      this.blit(ctx, t, 0, 0, t.width, t.height, x, y, t.width, t.height, s * (this.fit.get(name) ?? 1), o, o.anchor === 'center' ? t.width / 2 : t.width / 2, o.anchor === 'center' ? t.height / 2 : t.height);
       return;
     }
     const ax = o.anchor === 'center' ? f.w / 2 : f.ax;
