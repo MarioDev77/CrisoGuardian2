@@ -22,3 +22,14 @@
 
 ## Rodar
 Em `frontend/`: `npm install`, depois `npm run dev:api` e `npm run dev` (dois terminais). Abra http://localhost:5173.
+
+## Segunda auditoria
+- Decorativos das fases 9–16: 102 PNGs tinham alfa residual (≤8%) formando um retângulo quase invisível; limpos (pixels totalmente transparentes agora).
+- Todos os nomes de sprite usados no código (216) existem nos catálogos/atlas. Os 16 inimigos 9–16 conferidos visualmente.
+- Pendentes (decisão sua): animais de bioma (`animal.svg`) sem uso no motor; chefe do Guardião (fase 16) é arte estática.
+
+## Animais de bioma (integrados)
+- `assets/islands/animals/animals.png` + `animals.json` (clipes idle/move e âncora dos pés por quadro).
+- 4 animais por fase (9–16), decorativos sem colisão: andam/voam num trecho do chão e param/olham o herói a ~150 px. Código em `engine.ts` (`critters`) e `assets.ts` (`drawAnimal`).
+- Limpeza da sheet enviada: removidas manchas cinza/escuras atrás de foca, pássaro, gato e caranguejo. Quadros quebrados ou de estilo diferente NÃO são usados (salamandra move_2/3, gato move_0/1/2, pássaro move_3, caranguejo idle_1/move_3, foca move_0/2/3). Para usar mais quadros, a sheet precisa ser regerada.
+- `image.png` (lixeiras/portais de referência) ainda não integrada.
