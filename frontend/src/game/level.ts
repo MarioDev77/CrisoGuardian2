@@ -22,6 +22,42 @@ function mulberry32(a: number) {
   return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 }
 
+
+/** Obstáculos que causam dano nas fases 9–16 (índices 8–15): sprites do catálogo `pNN_d_*` colocados no chão por `placeHazards`.
+ *  `w` = largura em tela (px) desejada; os tiles alternam ao longo da fase. */
+const ISLAND_HAZARDS: Record<number, { tiles: string[]; w: number; count: number }> = {
+  8: { tiles: ['p09_d_espinhos', 'p09_d_estacas'], w: 140, count: 3 },
+  9: { tiles: ['p10_d_espinhos'], w: 140, count: 3 },
+  10: { tiles: ['p11_d_brasa', 'p11_d_fogo'], w: 150, count: 3 },
+  11: { tiles: ['p12_d_espinhos'], w: 140, count: 3 },
+  12: { tiles: ['p13_d_estacas', 'p13_d_estacas'], w: 110, count: 4 },
+  13: { tiles: ['p14_d_coral3'], w: 100, count: 4 },
+  14: { tiles: ['p15_d_espinhos'], w: 140, count: 4 },
+  15: { tiles: ['p16_d_espinhos'], w: 140, count: 4 },
+};
+
+/** Espalha obstáculos perigosos (1 por trecho largo de chão), longe do início, do portal, do chefe, das lixeiras e de caixas, para sempre poderem ser pulados. */
+function placeHazards(w: { index: number; scale: number; goal: { x: number }; start: { x: number }; bins: { x: number }[]; bossAt: { x: number } | null; decor: WDecor[]; surfaces: WSurface[] }, assets: Assets, rnd: () => number): void {
+  const cfg = ISLAND_HAZARDS[w.index]; if (!cfg) return;
+  const grounds = w.surfaces.filter((g) => g.kind === 'ground' && g.w >= 260 && g.x + g.w > 560 && g.x < w.goal.x - 380).sort((a, b) => a.x - b.x);
+  if (!grounds.length) return;
+  const crates = w.surfaces.filter((c) => c.kind === 'crates');
+  const stride = Math.max(1, grounds.length / cfg.count);
+  let placed = 0;
+  for (let gi = 0; placed < cfg.count && gi < grounds.length * 2; gi++) {
+    const g = grounds[Math.floor((gi * stride) % grounds.length)]!, tile = cfg.tiles[placed % cfg.tiles.length]!;
+    const sz = assets.size(tile); if (!sz.w) continue;
+    const rel = cfg.w / (sz.w * w.scale), half = cfg.w / 2 + 70; // folga p/ pular dos dois lados
+    const lo = Math.max(g.x + half, 520), hi = Math.min(g.x + g.w - half, w.goal.x - 380); if (lo >= hi) continue;
+    const x = lo + (hi - lo) * (0.25 + 0.5 * rnd());
+    if (w.bossAt && Math.abs(x - w.bossAt.x) < 420) continue;
+    if (w.bins.some((b) => Math.abs(b.x - x) < 170)) continue;
+    if (w.decor.some((d) => d.hazard && Math.abs(d.x - x) < 300)) continue;
+    if (crates.some((c) => x + cfg.w / 2 + 40 > c.x && x - cfg.w / 2 - 40 < c.x + c.w && c.y < g.top + 4 && c.y > g.top - 260)) continue;
+    w.decor.push({ x, y: g.top, tile, scale: rel * w.scale, hazard: true }); placed++;
+  }
+}
+
 /** Builds the world: the scene art is repeated and mirrored every other screen so geometry always lines up. */
 export function buildWorld(index: number, assets: Assets): World {
   const layout = layouts[index] ?? layouts[0]!;
@@ -161,5 +197,6 @@ export function buildWorld(index: number, assets: Assets): World {
     if (p) powers.push({ x: p.x + p.w / 2, y: p.top - 52, type }); else powers.push({ x: k * screenW + screenW / 2, y: topAt(k * screenW + screenW / 2) - 52, type });
   });
 
+  placeHazards({ index, scale: s, goal, start, bins, bossAt, decor, surfaces: merged }, assets, rnd);
   return { layout, index, scale: s, screenW, width, bottom: VIEW_H, surfaces: merged, ladders, decor, walkers, flyers, waste, coins, powers, bins, goal, start, bossAt };
 }

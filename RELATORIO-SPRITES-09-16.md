@@ -33,3 +33,10 @@ Em `frontend/`: `npm install`, depois `npm run dev:api` e `npm run dev` (dois te
 - 4 animais por fase (9–16), decorativos sem colisão: andam/voam num trecho do chão e param/olham o herói a ~150 px. Código em `engine.ts` (`critters`) e `assets.ts` (`drawAnimal`).
 - Limpeza da sheet enviada: removidas manchas cinza/escuras atrás de foca, pássaro, gato e caranguejo. Quadros quebrados ou de estilo diferente NÃO são usados (salamandra move_2/3, gato move_0/1/2, pássaro move_3, caranguejo idle_1/move_3, foca move_0/2/3). Para usar mais quadros, a sheet precisa ser regerada.
 - `image.png` (lixeiras/portais de referência) ainda não integrada.
+
+## Obstáculos das fases 9–16
+- O pacote `obstaculos_fases_09_16.zip` tem só recortes de referência (≈256×120 px, quadriculado embutido, objetos agrupados) dos MESMOS objetos que já existem no catálogo (`pNN_d_*`). Não foi usado diretamente: seria perder qualidade.
+- Problema real encontrado: os mapas 9–16 praticamente não tinham obstáculos que causam dano (só 2 decorações com `hazard`), apesar de o catálogo ter espinhos, estacas, brasa, fogo e coral.
+- Agora `level.ts` (`placeHazards`) coloca obstáculos perigosos por bioma: 9 espinhos/estacas de madeira, 10 espinhos de gelo, 11 brasa/fogo, 12/15/16 espinhos de metal, 13 estacas, 14 coral-de-fogo. Regras: 1 por trecho largo de chão, longe do início, do portal, do chefe, das lixeiras e de caixas, e ≥300 px entre si. Dano pelo mesmo mecanismo dos cactos (`hurtPlayer`).
+- Animais ambientais passaram a desviar dos obstáculos.
+- Testes novos: `tests/islandHazards.test.ts`. `collisionFuzz` tornado determinístico (falhava às vezes por sorteio do chefe).

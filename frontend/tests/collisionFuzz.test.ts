@@ -29,6 +29,7 @@ describe('fuzz de colisão (11 fases, entradas aleatórias)', () => {
   for (let lvl = 0; lvl < 11; lvl++) {
     it(`fase ${lvl + 1}: herói e inimigos nunca ficam presos em sólidos nem saem do mapa`, () => {
       let worstP = 0, worstE = 0, outside = 0, nan = 0, held = 0, wins = 0;
+      vi.spyOn(Math, 'random').mockImplementation(rng(4242 + lvl)); // o motor sorteia chefe/inimigos: sem isso o resultado variava entre execuções
       for (let seed = 0; seed < 6; seed++) {
         const e = make(lvl); const r = rng(1000 + lvl * 17 + seed); e.p.hp = 99999;
         for (let f = 0; f < 5000; f++) {

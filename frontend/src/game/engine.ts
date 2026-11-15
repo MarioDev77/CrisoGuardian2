@@ -122,7 +122,9 @@ export class Engine {
       const grounds = w.surfaces.filter((c) => c.kind === 'ground' && c.w > 260 && c.x + c.w > 500 && c.x < w.goal.x - 260);
       const step = Math.max(1, Math.floor(grounds.length / 4));
       for (let i = 0, n = 0; i < grounds.length && n < 4; i += step, n++) {
-        const g = grounds[i]!, minX = Math.max(g.x + 40, 460), maxX = Math.min(g.x + g.w - 40, w.goal.x - 240);
+        const g = grounds[i]!; let minX = Math.max(g.x + 40, 460), maxX = Math.min(g.x + g.w - 40, w.goal.x - 240);
+        // animais não atravessam obstáculos perigosos: encolhem a faixa para o lado maior livre
+        for (const hz of w.decor) if (hz.hazard && hz.x > minX - 90 && hz.x < maxX + 90) { if (hz.x - minX >= maxX - hz.x) maxX = Math.min(maxX, hz.x - 110); else minX = Math.max(minX, hz.x + 110); }
         if (maxX - minX < 120) continue;
         this.critters.push({ x: minX + (maxX - minX) * (0.3 + 0.4 * ((i * 37) % 10) / 10), foot: g.top ?? g.y, minX, maxX, dir: n % 2 ? -1 : 1, t: n * 1.7, seed: n, near: false });
       }
