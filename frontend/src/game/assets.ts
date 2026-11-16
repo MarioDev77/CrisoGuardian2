@@ -234,6 +234,29 @@ export class Assets {
       try { this.tiles.set(e.name, await loadImage(e.src)); if (e.lip !== undefined) this.lips.set(e.name, e.lip); if (e.role === 'recycling-bin' && e.hitbox && e.w > e.hitbox.w * 1.5) this.fit.set(e.name, e.hitbox.w / e.w); }
       catch { /* sprite ausente: o jogo segue sem ele */ }
     }));
+    // Fallback visual: as lixeiras das fases 9–16 nunca ficam invisíveis se um arquivo específico falhar.
+    // Prioriza a lixeira verde da fase 1; a fase 2 é a segunda opção compatível.
+    const fallbackBin = this.tiles.get('p01_bin') ?? this.tiles.get('p02_bin');
+    if (fallbackBin) {
+      for (let phase = 9; phase <= 16; phase++) {
+        const key = `p${String(phase).padStart(2, '0')}_bin`;
+        if (!this.tiles.has(key)) this.tiles.set(key, fallbackBin);
+      }
+    }
+    // Garante terreno jogável caso algum arquivo de plataforma de uma ilha esteja ausente/corrompido.
+    const terrainFallbacks: Record<string, string> = {
+      ground: 'p01_ground', ledge: 'p01_ledge', bridge: 'p01_bridge', crate: 'p03_crate',
+    };
+    for (let phase = 9; phase <= 16; phase++) {
+      const prefix = `p${String(phase).padStart(2, '0')}_`;
+      for (const [kind, fallbackKey] of Object.entries(terrainFallbacks)) {
+        const key = prefix + kind;
+        if (!this.tiles.has(key)) {
+          const fallback = this.tiles.get(fallbackKey);
+          if (fallback) this.tiles.set(key, fallback);
+        }
+      }
+    }
     try {
       const pm = await fetch('/assets/portal/portal.json').then((r) => r.json() as Promise<{ image: string; frames: Record<string, { x: number; y: number; w: number; h: number }>; hole: { x: number; y: number; w: number; h: number } }>);
       this.portal = { img: await loadImage(pm.image), frames: pm.frames, hole: pm.hole };

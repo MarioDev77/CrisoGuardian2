@@ -1,0 +1,1388 @@
+[
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_161.png",
+    "width": 35,
+    "height": 43,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_097.png",
+    "width": 138,
+    "height": 147,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_171.png",
+    "width": 27,
+    "height": 27,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_168.png",
+    "width": 28,
+    "height": 28,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_107.png",
+    "width": 57,
+    "height": 54,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_034.png",
+    "width": 37,
+    "height": 59,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_165.png",
+    "width": 42,
+    "height": 34,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_064.png",
+    "width": 62,
+    "height": 66,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_090.png",
+    "width": 173,
+    "height": 184,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_094.png",
+    "width": 100,
+    "height": 159,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_096.png",
+    "width": 71,
+    "height": 32,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_133.png",
+    "width": 44,
+    "height": 38,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_169.png",
+    "width": 32,
+    "height": 27,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_004.png",
+    "width": 65,
+    "height": 104,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_163.png",
+    "width": 31,
+    "height": 42,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_016.png",
+    "width": 122,
+    "height": 71,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_124.png",
+    "width": 34,
+    "height": 40,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_044.png",
+    "width": 123,
+    "height": 59,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_134.png",
+    "width": 40,
+    "height": 67,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_102.png",
+    "width": 43,
+    "height": 57,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_120.png",
+    "width": 39,
+    "height": 40,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_020.png",
+    "width": 144,
+    "height": 81,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_113.png",
+    "width": 66,
+    "height": 53,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_145.png",
+    "width": 27,
+    "height": 31,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_038.png",
+    "width": 42,
+    "height": 54,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_012.png",
+    "width": 116,
+    "height": 156,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_046.png",
+    "width": 102,
+    "height": 54,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_002.png",
+    "width": 196,
+    "height": 228,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_024.png",
+    "width": 144,
+    "height": 79,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_101.png",
+    "width": 53,
+    "height": 51,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_042.png",
+    "width": 78,
+    "height": 76,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_071.png",
+    "width": 164,
+    "height": 110,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_146.png",
+    "width": 26,
+    "height": 32,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_070.png",
+    "width": 81,
+    "height": 50,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_074.png",
+    "width": 160,
+    "height": 41,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_077.png",
+    "width": 62,
+    "height": 47,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_050.png",
+    "width": 55,
+    "height": 45,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_055.png",
+    "width": 31,
+    "height": 44,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_049.png",
+    "width": 61,
+    "height": 43,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_166.png",
+    "width": 31,
+    "height": 31,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_103.png",
+    "width": 52,
+    "height": 54,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_135.png",
+    "width": 40,
+    "height": 55,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_018.png",
+    "width": 46,
+    "height": 58,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_047.png",
+    "width": 82,
+    "height": 41,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_129.png",
+    "width": 39,
+    "height": 36,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_092.png",
+    "width": 160,
+    "height": 173,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_021.png",
+    "width": 95,
+    "height": 49,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_105.png",
+    "width": 30,
+    "height": 52,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_127.png",
+    "width": 33,
+    "height": 59,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_076.png",
+    "width": 100,
+    "height": 42,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_063.png",
+    "width": 111,
+    "height": 70,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_170.png",
+    "width": 27,
+    "height": 26,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_128.png",
+    "width": 35,
+    "height": 36,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_155.png",
+    "width": 35,
+    "height": 45,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_032.png",
+    "width": 76,
+    "height": 70,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_123.png",
+    "width": 33,
+    "height": 40,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_006.png",
+    "width": 114,
+    "height": 115,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_051.png",
+    "width": 58,
+    "height": 39,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_027.png",
+    "width": 98,
+    "height": 72,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_079.png",
+    "width": 57,
+    "height": 49,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_065.png",
+    "width": 117,
+    "height": 89,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_017.png",
+    "width": 54,
+    "height": 61,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_066.png",
+    "width": 76,
+    "height": 68,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_045.png",
+    "width": 174,
+    "height": 139,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_132.png",
+    "width": 33,
+    "height": 37,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_084.png",
+    "width": 96,
+    "height": 42,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_059.png",
+    "width": 59,
+    "height": 67,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_154.png",
+    "width": 52,
+    "height": 46,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_098.png",
+    "width": 30,
+    "height": 40,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_007.png",
+    "width": 73,
+    "height": 73,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_073.png",
+    "width": 70,
+    "height": 67,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_052.png",
+    "width": 43,
+    "height": 44,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_140.png",
+    "width": 37,
+    "height": 55,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_091.png",
+    "width": 171,
+    "height": 175,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_081.png",
+    "width": 79,
+    "height": 40,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_058.png",
+    "width": 216,
+    "height": 158,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_009.png",
+    "width": 90,
+    "height": 77,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_087.png",
+    "width": 168,
+    "height": 197,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_106.png",
+    "width": 44,
+    "height": 52,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_069.png",
+    "width": 56,
+    "height": 61,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_025.png",
+    "width": 101,
+    "height": 81,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_086.png",
+    "width": 49,
+    "height": 21,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_085.png",
+    "width": 79,
+    "height": 38,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_082.png",
+    "width": 35,
+    "height": 40,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_037.png",
+    "width": 103,
+    "height": 112,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_043.png",
+    "width": 96,
+    "height": 62,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_125.png",
+    "width": 33,
+    "height": 40,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_153.png",
+    "width": 33,
+    "height": 44,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_057.png",
+    "width": 92,
+    "height": 128,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_149.png",
+    "width": 30,
+    "height": 56,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_131.png",
+    "width": 35,
+    "height": 35,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_005.png",
+    "width": 164,
+    "height": 91,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_114.png",
+    "width": 38,
+    "height": 46,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_080.png",
+    "width": 54,
+    "height": 53,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_142.png",
+    "width": 34,
+    "height": 41,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_036.png",
+    "width": 87,
+    "height": 81,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_152.png",
+    "width": 44,
+    "height": 47,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_122.png",
+    "width": 36,
+    "height": 39,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_028.png",
+    "width": 61,
+    "height": 77,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_157.png",
+    "width": 50,
+    "height": 46,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_160.png",
+    "width": 86,
+    "height": 41,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_029.png",
+    "width": 159,
+    "height": 69,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_150.png",
+    "width": 28,
+    "height": 55,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_148.png",
+    "width": 30,
+    "height": 32,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_088.png",
+    "width": 225,
+    "height": 197,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_164.png",
+    "width": 41,
+    "height": 33,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_118.png",
+    "width": 25,
+    "height": 39,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_099.png",
+    "width": 84,
+    "height": 57,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_023.png",
+    "width": 59,
+    "height": 59,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_031.png",
+    "width": 66,
+    "height": 66,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_003.png",
+    "width": 90,
+    "height": 144,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_067.png",
+    "width": 104,
+    "height": 59,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_159.png",
+    "width": 49,
+    "height": 44,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_061.png",
+    "width": 52,
+    "height": 14,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_139.png",
+    "width": 39,
+    "height": 55,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_126.png",
+    "width": 23,
+    "height": 39,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_062.png",
+    "width": 120,
+    "height": 117,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_053.png",
+    "width": 45,
+    "height": 44,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_040.png",
+    "width": 85,
+    "height": 59,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_001.png",
+    "width": 209,
+    "height": 160,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_078.png",
+    "width": 70,
+    "height": 49,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_015.png",
+    "width": 74,
+    "height": 99,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_115.png",
+    "width": 33,
+    "height": 42,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_109.png",
+    "width": 52,
+    "height": 53,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_039.png",
+    "width": 81,
+    "height": 148,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_162.png",
+    "width": 76,
+    "height": 40,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_158.png",
+    "width": 30,
+    "height": 46,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_026.png",
+    "width": 32,
+    "height": 28,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_089.png",
+    "width": 122,
+    "height": 133,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_108.png",
+    "width": 89,
+    "height": 52,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_147.png",
+    "width": 31,
+    "height": 32,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_030.png",
+    "width": 39,
+    "height": 58,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_060.png",
+    "width": 70,
+    "height": 66,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_008.png",
+    "width": 59,
+    "height": 90,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_116.png",
+    "width": 30,
+    "height": 42,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_151.png",
+    "width": 24,
+    "height": 47,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_033.png",
+    "width": 59,
+    "height": 59,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_111.png",
+    "width": 60,
+    "height": 56,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_136.png",
+    "width": 52,
+    "height": 54,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_014.png",
+    "width": 75,
+    "height": 90,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_172.png",
+    "width": 26,
+    "height": 27,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_100.png",
+    "width": 69,
+    "height": 57,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_093.png",
+    "width": 137,
+    "height": 159,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_054.png",
+    "width": 57,
+    "height": 47,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_156.png",
+    "width": 58,
+    "height": 46,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_144.png",
+    "width": 31,
+    "height": 29,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_083.png",
+    "width": 39,
+    "height": 38,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_068.png",
+    "width": 85,
+    "height": 60,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_095.png",
+    "width": 138,
+    "height": 153,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_117.png",
+    "width": 30,
+    "height": 50,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_167.png",
+    "width": 31,
+    "height": 29,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_138.png",
+    "width": 51,
+    "height": 55,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_119.png",
+    "width": 28,
+    "height": 40,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_022.png",
+    "width": 59,
+    "height": 63,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_072.png",
+    "width": 53,
+    "height": 49,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_041.png",
+    "width": 84,
+    "height": 124,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_013.png",
+    "width": 60,
+    "height": 147,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_143.png",
+    "width": 80,
+    "height": 22,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_048.png",
+    "width": 51,
+    "height": 40,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_121.png",
+    "width": 39,
+    "height": 38,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_010.png",
+    "width": 157,
+    "height": 68,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_035.png",
+    "width": 145,
+    "height": 78,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_137.png",
+    "width": 35,
+    "height": 52,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_104.png",
+    "width": 86,
+    "height": 52,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_056.png",
+    "width": 37,
+    "height": 41,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_011.png",
+    "width": 42,
+    "height": 59,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_112.png",
+    "width": 47,
+    "height": 49,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_141.png",
+    "width": 44,
+    "height": 48,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_110.png",
+    "width": 49,
+    "height": 51,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_075.png",
+    "width": 89,
+    "height": 58,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_019.png",
+    "width": 83,
+    "height": 75,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/ambiente/sprite_130.png",
+    "width": 36,
+    "height": 35,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_181.png",
+    "width": 55,
+    "height": 51,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_219.png",
+    "width": 102,
+    "height": 107,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_216.png",
+    "width": 79,
+    "height": 96,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_228.png",
+    "width": 68,
+    "height": 52,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_208.png",
+    "width": 107,
+    "height": 67,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_210.png",
+    "width": 87,
+    "height": 62,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_196.png",
+    "width": 79,
+    "height": 90,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_229.png",
+    "width": 68,
+    "height": 51,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_209.png",
+    "width": 77,
+    "height": 62,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_204.png",
+    "width": 104,
+    "height": 74,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_198.png",
+    "width": 71,
+    "height": 90,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_175.png",
+    "width": 58,
+    "height": 62,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_202.png",
+    "width": 91,
+    "height": 79,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_212.png",
+    "width": 66,
+    "height": 49,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_205.png",
+    "width": 58,
+    "height": 57,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_214.png",
+    "width": 180,
+    "height": 126,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_176.png",
+    "width": 41,
+    "height": 62,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_189.png",
+    "width": 48,
+    "height": 54,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_201.png",
+    "width": 104,
+    "height": 79,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_182.png",
+    "width": 78,
+    "height": 70,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_211.png",
+    "width": 66,
+    "height": 49,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_230.png",
+    "width": 88,
+    "height": 48,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_197.png",
+    "width": 77,
+    "height": 90,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_220.png",
+    "width": 93,
+    "height": 51,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_195.png",
+    "width": 60,
+    "height": 47,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_193.png",
+    "width": 79,
+    "height": 45,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_224.png",
+    "width": 68,
+    "height": 79,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_199.png",
+    "width": 93,
+    "height": 87,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_177.png",
+    "width": 62,
+    "height": 60,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_200.png",
+    "width": 101,
+    "height": 78,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_194.png",
+    "width": 68,
+    "height": 42,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_180.png",
+    "width": 54,
+    "height": 55,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_188.png",
+    "width": 57,
+    "height": 50,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_184.png",
+    "width": 81,
+    "height": 68,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_215.png",
+    "width": 131,
+    "height": 118,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_231.png",
+    "width": 55,
+    "height": 37,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_222.png",
+    "width": 96,
+    "height": 51,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_218.png",
+    "width": 163,
+    "height": 110,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_178.png",
+    "width": 70,
+    "height": 56,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_190.png",
+    "width": 45,
+    "height": 51,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_173.png",
+    "width": 55,
+    "height": 63,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_213.png",
+    "width": 105,
+    "height": 59,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_186.png",
+    "width": 48,
+    "height": 52,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_174.png",
+    "width": 65,
+    "height": 59,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_227.png",
+    "width": 77,
+    "height": 71,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_226.png",
+    "width": 57,
+    "height": 69,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_217.png",
+    "width": 77,
+    "height": 98,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_179.png",
+    "width": 54,
+    "height": 55,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_221.png",
+    "width": 122,
+    "height": 114,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_203.png",
+    "width": 83,
+    "height": 78,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_207.png",
+    "width": 75,
+    "height": 61,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_192.png",
+    "width": 37,
+    "height": 49,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_187.png",
+    "width": 71,
+    "height": 48,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_206.png",
+    "width": 67,
+    "height": 65,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_185.png",
+    "width": 62,
+    "height": 60,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_225.png",
+    "width": 85,
+    "height": 89,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_183.png",
+    "width": 79,
+    "height": 70,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_191.png",
+    "width": 37,
+    "height": 41,
+    "mode": "RGBA"
+  },
+  {
+    "file": "sprites/imported-crisoverde-pack/criaturas/sprite_223.png",
+    "width": 70,
+    "height": 92,
+    "mode": "RGBA"
+  }
+]
