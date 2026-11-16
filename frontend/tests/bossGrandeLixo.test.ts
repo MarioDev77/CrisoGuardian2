@@ -6,12 +6,13 @@ import { layouts } from '../src/game/levels/layouts';
 const base = { state: 'idle' as const, stateT: 0.2, atk: null, hurt: 0, dying: 0, vx: 0, t: 1, windup: 0.6 };
 describe('chefão da fase 16 — O Grande Lixo', () => {
   it('é o chefe da última fase', () => { expect(layouts[GRANDE_LIXO_LEVEL]!.boss).toBe(true); expect(layouts[GRANDE_LIXO_LEVEL]!.name).toMatch(/Guardião/); });
-  it('quadros individuais RGBA, todas as animações e projéteis', () => {
+  it('quadros na spritesheet RGBA, todas as animações e projéteis', () => {
     const meta = JSON.parse(fs.readFileSync('public/assets/characters/grande_lixo/sprites.json', 'utf8'));
     const need: Record<string, number> = { idle: 4, walk: 8, attack: 6, hurt: 5, death: 5, proj: 5 };
+    const sheet = fs.readFileSync('public/assets/characters/grande_lixo/spritesheet.png'); expect(sheet.readUInt8(25)).toBe(6);
     for (const [a, n] of Object.entries(need)) {
       expect(meta.animations[a].frames, a).toHaveLength(n);
-      for (const f of meta.animations[a].frames) { const b = fs.readFileSync(`public/assets/characters/grande_lixo/${a}/${f}.png`); expect(b.readUInt8(25)).toBe(6); expect(b.readUInt32BE(16)).toBe(meta.cell.w); }
+      for (const f of meta.animations[a].frames) { const r = meta.frames[f]; expect(r, f).toBeTruthy(); expect(r.w).toBe(meta.cell.w); expect(r.x + r.w).toBeLessThanOrEqual(sheet.readUInt32BE(16)); expect(r.y + r.h).toBeLessThanOrEqual(sheet.readUInt32BE(20)); }
     }
   });
   it('escolhe a pose certa por estado, sempre com quadros que existem', () => {

@@ -15,7 +15,7 @@ describe('visual overhaul assets',()=>{
   expect(existsSync(resolve(root,'sprites/v2/actors.svg'))).toBe(true);
   expect(Object.keys(manifest.frames).some(k=>k.startsWith('crisoman_'))).toBe(false);
   expect(existsSync(resolve(root,'characters/crisomer/spritesheet.png'))).toBe(true);
-  expect(existsSync(resolve(root,'characters/quisogril/idle/idle_00.png'))).toBe(true);
+  expect(existsSync(resolve(root,'characters/quisogril/spritesheet.png'))).toBe(true);
  });
  it('has eight new island backgrounds and tiled assets wired to playable phases',()=>{
   expect(levelConfigs).toHaveLength(16);

@@ -8,16 +8,18 @@ const ANIMS = ['idle', 'walk', 'run', 'jump', 'fall', 'land', 'hurt', 'attack', 
 
 describe('sprites reais dos heróis', () => {
   for (const [id, folder] of Object.entries(HERO_FOLDER)) {
-    it(`${id}: pasta ${folder} tem as 9 animações com quadros PNG individuais`, () => {
+    it(`${id}: pasta ${folder} tem as 9 animações, todas dentro da spritesheet RGBA`, () => {
       const meta = JSON.parse(fs.readFileSync(`public/assets/characters/${folder}/sprites.json`, 'utf8'));
+      const buf = fs.readFileSync(`public/assets/characters/${folder}/spritesheet.png`);
+      expect(buf.subarray(1, 4).toString()).toBe('PNG');
+      expect(buf.readUInt8(25)).toBe(6); // color type 6 = RGBA
+      const W = buf.readUInt32BE(16), H = buf.readUInt32BE(20);
       for (const a of ANIMS) {
         expect(meta.animations[a], a).toBeTruthy();
         for (const name of meta.animations[a].frames) {
-          const file = `public/assets/characters/${folder}/${a}/${name}.png`;
-          const buf = fs.readFileSync(file);
-          expect(buf.subarray(1, 4).toString()).toBe('PNG');
-          expect(buf.readUInt8(25)).toBe(6); // color type 6 = RGBA
-          expect(buf.readUInt32BE(16)).toBe(meta.cell.w); expect(buf.readUInt32BE(20)).toBe(meta.cell.h);
+          const f = meta.frames[name]; expect(f, name).toBeTruthy();
+          expect([f.w, f.h], name).toEqual([meta.cell.w, meta.cell.h]);
+          expect(f.x + f.w, name).toBeLessThanOrEqual(W); expect(f.y + f.h, name).toBeLessThanOrEqual(H);
         }
       }
     });

@@ -72,126 +72,6 @@
     "lip": 0.06
   },
   {
-    "name": "p01_block",
-    "phase": 1,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/phases/phase-01-floresta-viva/terrain/block.png",
-    "w": 36,
-    "h": 40,
-    "hitbox": {
-      "x": 2,
-      "y": 2,
-      "w": 32,
-      "h": 38
-    },
-    "source": {
-      "file": "fase_01_floresta_viva/wooden_bridge.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p01_wall",
-    "phase": 1,
-    "category": "terrain",
-    "role": "wall",
-    "src": "/assets/phases/phase-01-floresta-viva/terrain/wall.png",
-    "w": 74,
-    "h": 79,
-    "hitbox": {
-      "x": 4,
-      "y": 3,
-      "w": 65,
-      "h": 74
-    },
-    "source": {
-      "file": "fase_01_floresta_viva/stone_wall.png",
-      "component": 1
-    },
-    "issues": []
-  },
-  {
-    "name": "p01_crate",
-    "phase": 1,
-    "category": "props",
-    "role": "crate",
-    "src": "/assets/phases/phase-01-floresta-viva/props/crate.png",
-    "w": 36,
-    "h": 40,
-    "hitbox": {
-      "x": 2,
-      "y": 2,
-      "w": 32,
-      "h": 38
-    },
-    "source": {
-      "file": "fase_01_floresta_viva/barrel.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p01_barrel",
-    "phase": 1,
-    "category": "props",
-    "role": "barrel",
-    "src": "/assets/phases/phase-01-floresta-viva/props/barrel.png",
-    "w": 63,
-    "h": 85,
-    "hitbox": {
-      "x": 4,
-      "y": 3,
-      "w": 55,
-      "h": 80
-    },
-    "source": {
-      "file": "fase_01_floresta_viva/metal_pipe.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p01_ladder",
-    "phase": 1,
-    "category": "props",
-    "role": "ladder",
-    "src": "/assets/phases/phase-01-floresta-viva/props/ladder.png",
-    "w": 50,
-    "h": 90,
-    "hitbox": {
-      "x": 3,
-      "y": 4,
-      "w": 44,
-      "h": 85
-    },
-    "source": {
-      "file": "fase_01_floresta_viva/crate.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p01_pipe",
-    "phase": 1,
-    "category": "props",
-    "role": "pipe",
-    "src": "/assets/phases/phase-01-floresta-viva/props/pipe.png",
-    "w": 60,
-    "h": 55,
-    "hitbox": {
-      "x": 4,
-      "y": 2,
-      "w": 53,
-      "h": 52
-    },
-    "source": {
-      "file": "fase_01_floresta_viva/stone_wall.png",
-      "component": 0
-    },
-    "issues": []
-  },
-  {
     "name": "p01_bin",
     "phase": 1,
     "category": "props",
@@ -208,128 +88,6 @@
     "source": {
       "file": "fase_01_floresta_viva/recycle_bin.png",
       "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p01_coin",
-    "phase": 1,
-    "category": "collectibles",
-    "role": "coin",
-    "src": "/assets/phases/phase-01-floresta-viva/collectibles/coin.png",
-    "w": 51,
-    "h": 60,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 45,
-      "h": 56
-    },
-    "source": {
-      "file": "fase_01_floresta_viva/leaf_coin.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p01_shield",
-    "phase": 1,
-    "category": "collectibles",
-    "role": "shield",
-    "src": "/assets/phases/phase-01-floresta-viva/collectibles/shield.png",
-    "w": 55,
-    "h": 73,
-    "hitbox": {
-      "x": 3,
-      "y": 3,
-      "w": 48,
-      "h": 69
-    },
-    "source": {
-      "file": "fase_01_floresta_viva/banana.png",
-      "component": 0
-    },
-    "issues": []
-  },
-  {
-    "name": "p01_paper",
-    "phase": 1,
-    "category": "collectibles",
-    "role": "paper",
-    "src": "/assets/phases/phase-01-floresta-viva/collectibles/paper.png",
-    "w": 37,
-    "h": 40,
-    "hitbox": {
-      "x": 2,
-      "y": 2,
-      "w": 33,
-      "h": 38
-    },
-    "source": {
-      "file": "fase_01_floresta_viva/paper_scrap.png",
-      "component": 0
-    },
-    "issues": []
-  },
-  {
-    "name": "p01_bottle",
-    "phase": 1,
-    "category": "collectibles",
-    "role": "bottle",
-    "src": "/assets/phases/phase-01-floresta-viva/collectibles/bottle.png",
-    "w": 27,
-    "h": 56,
-    "hitbox": {
-      "x": 2,
-      "y": 2,
-      "w": 24,
-      "h": 53
-    },
-    "source": {
-      "file": "fase_01_floresta_viva/paper_scrap.png",
-      "component": 1
-    },
-    "issues": []
-  },
-  {
-    "name": "p01_banana",
-    "phase": 1,
-    "category": "collectibles",
-    "role": "banana",
-    "src": "/assets/phases/phase-01-floresta-viva/collectibles/banana.png",
-    "w": 71,
-    "h": 81,
-    "hitbox": {
-      "x": 4,
-      "y": 3,
-      "w": 62,
-      "h": 76
-    },
-    "source": {
-      "file": "fase_01_floresta_viva/water_bottle.png",
-      "component": null
-    },
-    "issues": [
-      "halo azul opaco removido por cor"
-    ]
-  },
-  {
-    "name": "p01_rat",
-    "phase": 1,
-    "category": "enemies",
-    "role": "rat",
-    "src": "/assets/phases/phase-01-floresta-viva/enemies/rat.png",
-    "w": 76,
-    "h": 72,
-    "hitbox": {
-      "x": 5,
-      "y": 3,
-      "w": 67,
-      "h": 68
-    },
-    "source": {
-      "file": "fase_01_floresta_viva/forest_mouse.png",
-      "component": 1
     },
     "issues": []
   },
@@ -406,86 +164,6 @@
     "lip": 0.06
   },
   {
-    "name": "p02_block",
-    "phase": 2,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/phases/phase-02-rio-limpo/terrain/block.png",
-    "w": 42,
-    "h": 40,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 37,
-      "h": 38
-    },
-    "source": {
-      "file": "fase_02_rio_limpo/river_bridge.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p02_barrel",
-    "phase": 2,
-    "category": "props",
-    "role": "barrel",
-    "src": "/assets/phases/phase-02-rio-limpo/props/barrel.png",
-    "w": 48,
-    "h": 63,
-    "hitbox": {
-      "x": 3,
-      "y": 3,
-      "w": 42,
-      "h": 59
-    },
-    "source": {
-      "file": "fase_02_rio_limpo/blue_drum.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p02_rock",
-    "phase": 2,
-    "category": "props",
-    "role": "rock",
-    "src": "/assets/phases/phase-02-rio-limpo/props/rock.png",
-    "w": 61,
-    "h": 55,
-    "hitbox": {
-      "x": 4,
-      "y": 2,
-      "w": 54,
-      "h": 52
-    },
-    "source": {
-      "file": "fase_02_rio_limpo/ladder.png",
-      "component": 0
-    },
-    "issues": []
-  },
-  {
-    "name": "p02_pipe",
-    "phase": 2,
-    "category": "props",
-    "role": "pipe",
-    "src": "/assets/phases/phase-02-rio-limpo/props/pipe.png",
-    "w": 76,
-    "h": 58,
-    "hitbox": {
-      "x": 5,
-      "y": 2,
-      "w": 67,
-      "h": 55
-    },
-    "source": {
-      "file": "fase_02_rio_limpo/recycle_bin.png",
-      "component": 0
-    },
-    "issues": []
-  },
-  {
     "name": "p02_bin",
     "phase": 2,
     "category": "props",
@@ -508,66 +186,6 @@
     ]
   },
   {
-    "name": "p02_bag",
-    "phase": 2,
-    "category": "collectibles",
-    "role": "bag",
-    "src": "/assets/phases/phase-02-rio-limpo/collectibles/bag.png",
-    "w": 54,
-    "h": 46,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 48,
-      "h": 43
-    },
-    "source": {
-      "file": "fase_02_rio_limpo/trash_bag.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p02_bottle",
-    "phase": 2,
-    "category": "collectibles",
-    "role": "bottle",
-    "src": "/assets/phases/phase-02-rio-limpo/collectibles/bottle.png",
-    "w": 35,
-    "h": 75,
-    "hitbox": {
-      "x": 2,
-      "y": 3,
-      "w": 31,
-      "h": 70
-    },
-    "source": {
-      "file": "fase_02_rio_limpo/trash_paper.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p02_paper",
-    "phase": 2,
-    "category": "collectibles",
-    "role": "paper",
-    "src": "/assets/phases/phase-02-rio-limpo/collectibles/paper.png",
-    "w": 40,
-    "h": 48,
-    "hitbox": {
-      "x": 2,
-      "y": 2,
-      "w": 35,
-      "h": 45
-    },
-    "source": {
-      "file": "fase_02_rio_limpo/fish_enemy.png",
-      "component": 0
-    },
-    "issues": []
-  },
-  {
     "name": "p02_fish",
     "phase": 2,
     "category": "enemies",
@@ -586,23 +204,6 @@
       "component": 1
     },
     "issues": []
-  },
-  {
-    "name": "p02_coin",
-    "phase": 2,
-    "category": "collectibles",
-    "role": "coin",
-    "src": "/assets/game/tiles/f02_coin.png",
-    "w": 0,
-    "h": 0,
-    "hitbox": null,
-    "source": {
-      "file": "projeto: f02_coin",
-      "component": null
-    },
-    "issues": [
-      "peça ausente/quebrada no pacote; reaproveitada do projeto"
-    ]
   },
   {
     "name": "p03_ground",
@@ -653,72 +254,6 @@
     "lip": 0.06
   },
   {
-    "name": "p03_bridge",
-    "phase": 3,
-    "category": "terrain",
-    "role": "bridge",
-    "src": "/assets/phases/phase-03-cidade-verde/terrain/bridge.png",
-    "w": 75,
-    "h": 28,
-    "hitbox": {
-      "x": 4,
-      "y": 1,
-      "w": 66,
-      "h": 26
-    },
-    "source": {
-      "file": "fase_03_cidade_verde/traffic_cone.png",
-      "component": null
-    },
-    "issues": [],
-    "modular": true,
-    "capPx": 15,
-    "surfaceInset": 0,
-    "lip": 0.06
-  },
-  {
-    "name": "p03_block",
-    "phase": 3,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/phases/phase-03-cidade-verde/terrain/block.png",
-    "w": 52,
-    "h": 40,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 46,
-      "h": 38
-    },
-    "source": {
-      "file": "fase_03_cidade_verde/bench.png",
-      "component": null
-    },
-    "issues": [
-      "mancha verde translúcida à esquerda cortada"
-    ]
-  },
-  {
-    "name": "p03_wall",
-    "phase": 3,
-    "category": "terrain",
-    "role": "wall",
-    "src": "/assets/phases/phase-03-cidade-verde/terrain/wall.png",
-    "w": 70,
-    "h": 93,
-    "hitbox": {
-      "x": 4,
-      "y": 4,
-      "w": 62,
-      "h": 87
-    },
-    "source": {
-      "file": "fase_03_cidade_verde/brick_wall.png",
-      "component": 1
-    },
-    "issues": []
-  },
-  {
     "name": "p03_crate",
     "phase": 3,
     "category": "props",
@@ -734,26 +269,6 @@
     },
     "source": {
       "file": "fase_03_cidade_verde/barrel.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p03_barrel",
-    "phase": 3,
-    "category": "props",
-    "role": "barrel",
-    "src": "/assets/phases/phase-03-cidade-verde/props/barrel.png",
-    "w": 67,
-    "h": 82,
-    "hitbox": {
-      "x": 4,
-      "y": 3,
-      "w": 59,
-      "h": 77
-    },
-    "source": {
-      "file": "fase_03_cidade_verde/pipe.png",
       "component": null
     },
     "issues": []
@@ -775,86 +290,6 @@
     "source": {
       "file": "fase_03_cidade_verde/crate.png",
       "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p03_pipe",
-    "phase": 3,
-    "category": "props",
-    "role": "pipe",
-    "src": "/assets/phases/phase-03-cidade-verde/props/pipe.png",
-    "w": 68,
-    "h": 57,
-    "hitbox": {
-      "x": 4,
-      "y": 2,
-      "w": 60,
-      "h": 54
-    },
-    "source": {
-      "file": "fase_03_cidade_verde/brick_wall.png",
-      "component": 0
-    },
-    "issues": []
-  },
-  {
-    "name": "p03_coin",
-    "phase": 3,
-    "category": "collectibles",
-    "role": "coin",
-    "src": "/assets/phases/phase-03-cidade-verde/collectibles/coin.png",
-    "w": 48,
-    "h": 55,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 42,
-      "h": 52
-    },
-    "source": {
-      "file": "fase_03_cidade_verde/paper.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p03_wrapper",
-    "phase": 3,
-    "category": "collectibles",
-    "role": "wrapper",
-    "src": "/assets/phases/phase-03-cidade-verde/collectibles/wrapper.png",
-    "w": 52,
-    "h": 51,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 46,
-      "h": 48
-    },
-    "source": {
-      "file": "fase_03_cidade_verde/food_wrapper.png",
-      "component": 0
-    },
-    "issues": []
-  },
-  {
-    "name": "p03_bottle",
-    "phase": 3,
-    "category": "collectibles",
-    "role": "bottle",
-    "src": "/assets/phases/phase-03-cidade-verde/collectibles/bottle.png",
-    "w": 36,
-    "h": 70,
-    "hitbox": {
-      "x": 2,
-      "y": 3,
-      "w": 32,
-      "h": 66
-    },
-    "source": {
-      "file": "fase_03_cidade_verde/bottle.png",
-      "component": 1
     },
     "issues": []
   },
@@ -968,206 +403,6 @@
     "lip": 0.06
   },
   {
-    "name": "p04_block",
-    "phase": 4,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/phases/phase-04-montanha/terrain/block.png",
-    "w": 34,
-    "h": 40,
-    "hitbox": {
-      "x": 2,
-      "y": 2,
-      "w": 30,
-      "h": 38
-    },
-    "source": {
-      "file": "fase_04_montanha/snow_bridge.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p04_rock",
-    "phase": 4,
-    "category": "terrain",
-    "role": "rock",
-    "src": "/assets/phases/phase-04-montanha/terrain/rock.png",
-    "w": 58,
-    "h": 47,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 51,
-      "h": 44
-    },
-    "source": {
-      "file": "fase_04_montanha/ice_crystal.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p04_wall",
-    "phase": 4,
-    "category": "terrain",
-    "role": "wall",
-    "src": "/assets/phases/phase-04-montanha/terrain/wall.png",
-    "w": 81,
-    "h": 76,
-    "hitbox": {
-      "x": 5,
-      "y": 3,
-      "w": 71,
-      "h": 71
-    },
-    "source": {
-      "file": "fase_04_montanha/snow_wall.png",
-      "component": 1
-    },
-    "issues": []
-  },
-  {
-    "name": "p04_crate",
-    "phase": 4,
-    "category": "props",
-    "role": "crate",
-    "src": "/assets/phases/phase-04-montanha/props/crate.png",
-    "w": 38,
-    "h": 40,
-    "hitbox": {
-      "x": 2,
-      "y": 2,
-      "w": 33,
-      "h": 38
-    },
-    "source": {
-      "file": "fase_04_montanha/barrel.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p04_barrel",
-    "phase": 4,
-    "category": "props",
-    "role": "barrel",
-    "src": "/assets/phases/phase-04-montanha/props/barrel.png",
-    "w": 62,
-    "h": 82,
-    "hitbox": {
-      "x": 4,
-      "y": 3,
-      "w": 55,
-      "h": 77
-    },
-    "source": {
-      "file": "fase_04_montanha/pipe.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p04_ladder",
-    "phase": 4,
-    "category": "props",
-    "role": "ladder",
-    "src": "/assets/phases/phase-04-montanha/props/ladder.png",
-    "w": 54,
-    "h": 84,
-    "hitbox": {
-      "x": 3,
-      "y": 3,
-      "w": 48,
-      "h": 79
-    },
-    "source": {
-      "file": "fase_04_montanha/crate.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p04_pipe",
-    "phase": 4,
-    "category": "props",
-    "role": "pipe",
-    "src": "/assets/phases/phase-04-montanha/props/pipe.png",
-    "w": 57,
-    "h": 54,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 50,
-      "h": 51
-    },
-    "source": {
-      "file": "fase_04_montanha/snow_wall.png",
-      "component": 0
-    },
-    "issues": []
-  },
-  {
-    "name": "p04_snowball",
-    "phase": 4,
-    "category": "props",
-    "role": "snowball",
-    "src": "/assets/phases/phase-04-montanha/props/snowball.png",
-    "w": 46,
-    "h": 43,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 40,
-      "h": 40
-    },
-    "source": {
-      "file": "fase_04_montanha/snowball.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p04_coin",
-    "phase": 4,
-    "category": "collectibles",
-    "role": "coin",
-    "src": "/assets/phases/phase-04-montanha/collectibles/coin.png",
-    "w": 42,
-    "h": 57,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 37,
-      "h": 54
-    },
-    "source": {
-      "file": "fase_04_montanha/leaf_coin.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p04_bottle",
-    "phase": 4,
-    "category": "collectibles",
-    "role": "bottle",
-    "src": "/assets/phases/phase-04-montanha/collectibles/bottle.png",
-    "w": 33,
-    "h": 68,
-    "hitbox": {
-      "x": 2,
-      "y": 3,
-      "w": 29,
-      "h": 64
-    },
-    "source": {
-      "file": "fase_04_montanha/bottle.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
     "name": "p04_yeti",
     "phase": 4,
     "category": "enemies",
@@ -1277,86 +512,6 @@
     "lip": 0.06
   },
   {
-    "name": "p05_block",
-    "phase": 5,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/phases/phase-05-praia-limpa/terrain/block.png",
-    "w": 48,
-    "h": 40,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 42,
-      "h": 38
-    },
-    "source": {
-      "file": "fase_05_praia_limpa/star_block.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p05_wall",
-    "phase": 5,
-    "category": "terrain",
-    "role": "wall",
-    "src": "/assets/phases/phase-05-praia-limpa/terrain/wall.png",
-    "w": 86,
-    "h": 84,
-    "hitbox": {
-      "x": 5,
-      "y": 3,
-      "w": 76,
-      "h": 79
-    },
-    "source": {
-      "file": "fase_05_praia_limpa/stone_wall.png",
-      "component": 1
-    },
-    "issues": []
-  },
-  {
-    "name": "p05_crate",
-    "phase": 5,
-    "category": "props",
-    "role": "crate",
-    "src": "/assets/phases/phase-05-praia-limpa/props/crate.png",
-    "w": 42,
-    "h": 40,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 37,
-      "h": 38
-    },
-    "source": {
-      "file": "fase_05_praia_limpa/barrel.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p05_palm",
-    "phase": 5,
-    "category": "props",
-    "role": "palm",
-    "src": "/assets/phases/phase-05-praia-limpa/props/palm.png",
-    "w": 68,
-    "h": 92,
-    "hitbox": {
-      "x": 4,
-      "y": 4,
-      "w": 60,
-      "h": 86
-    },
-    "source": {
-      "file": "fase_05_praia_limpa/crate.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
     "name": "p05_bin",
     "phase": 5,
     "category": "props",
@@ -1392,66 +547,6 @@
     },
     "source": {
       "file": "fase_05_praia_limpa/crab_enemy.png",
-      "component": 1
-    },
-    "issues": []
-  },
-  {
-    "name": "p05_coin",
-    "phase": 5,
-    "category": "collectibles",
-    "role": "coin",
-    "src": "/assets/phases/phase-05-praia-limpa/collectibles/coin.png",
-    "w": 49,
-    "h": 58,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 43,
-      "h": 55
-    },
-    "source": {
-      "file": "fase_05_praia_limpa/leaf_coin.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p05_fishbone",
-    "phase": 5,
-    "category": "collectibles",
-    "role": "fishbone",
-    "src": "/assets/phases/phase-05-praia-limpa/collectibles/fishbone.png",
-    "w": 72,
-    "h": 63,
-    "hitbox": {
-      "x": 4,
-      "y": 3,
-      "w": 63,
-      "h": 59
-    },
-    "source": {
-      "file": "fase_05_praia_limpa/bottle.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p05_bottle",
-    "phase": 5,
-    "category": "collectibles",
-    "role": "bottle",
-    "src": "/assets/phases/phase-05-praia-limpa/collectibles/bottle.png",
-    "w": 34,
-    "h": 69,
-    "hitbox": {
-      "x": 2,
-      "y": 3,
-      "w": 30,
-      "h": 65
-    },
-    "source": {
-      "file": "fase_05_praia_limpa/shell.png",
       "component": 1
     },
     "issues": []
@@ -1525,70 +620,6 @@
     "lip": 0.06
   },
   {
-    "name": "p06_bridge",
-    "phase": 6,
-    "category": "terrain",
-    "role": "bridge",
-    "src": "/assets/phases/phase-06-deserto/terrain/bridge.png",
-    "w": 70,
-    "h": 28,
-    "hitbox": {
-      "x": 4,
-      "y": 1,
-      "w": 62,
-      "h": 26
-    },
-    "source": {
-      "file": "fase_06_deserto/ladder.png",
-      "component": null
-    },
-    "issues": [],
-    "modular": true,
-    "capPx": 14,
-    "surfaceInset": 0.143,
-    "lip": 0.06
-  },
-  {
-    "name": "p06_block",
-    "phase": 6,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/phases/phase-06-deserto/terrain/block.png",
-    "w": 50,
-    "h": 40,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 44,
-      "h": 38
-    },
-    "source": {
-      "file": "fase_06_deserto/cactus.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p06_wall",
-    "phase": 6,
-    "category": "terrain",
-    "role": "wall",
-    "src": "/assets/phases/phase-06-deserto/terrain/wall.png",
-    "w": 76,
-    "h": 72,
-    "hitbox": {
-      "x": 5,
-      "y": 3,
-      "w": 67,
-      "h": 68
-    },
-    "source": {
-      "file": "fase_06_deserto/sandstone_wall.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
     "name": "p06_crate",
     "phase": 6,
     "category": "props",
@@ -1604,26 +635,6 @@
     },
     "source": {
       "file": "fase_06_deserto/barrel.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p06_ladder",
-    "phase": 6,
-    "category": "props",
-    "role": "ladder",
-    "src": "/assets/phases/phase-06-deserto/props/ladder.png",
-    "w": 54,
-    "h": 67,
-    "hitbox": {
-      "x": 3,
-      "y": 3,
-      "w": 48,
-      "h": 63
-    },
-    "source": {
-      "file": "fase_06_deserto/crate.png",
       "component": null
     },
     "issues": []
@@ -1664,46 +675,6 @@
     },
     "source": {
       "file": "fase_06_deserto/red_bin.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p06_coin",
-    "phase": 6,
-    "category": "collectibles",
-    "role": "coin",
-    "src": "/assets/phases/phase-06-deserto/collectibles/coin.png",
-    "w": 49,
-    "h": 55,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 43,
-      "h": 52
-    },
-    "source": {
-      "file": "fase_06_deserto/leaf_coin.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p06_paper",
-    "phase": 6,
-    "category": "collectibles",
-    "role": "paper",
-    "src": "/assets/phases/phase-06-deserto/collectibles/paper.png",
-    "w": 52,
-    "h": 42,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 46,
-      "h": 39
-    },
-    "source": {
-      "file": "fase_06_deserto/paper.png",
       "component": null
     },
     "issues": []
@@ -1777,170 +748,6 @@
     "lip": 0.06
   },
   {
-    "name": "p07_bridge",
-    "phase": 7,
-    "category": "terrain",
-    "role": "bridge",
-    "src": "/assets/phases/phase-07-metropole-sustentavel/terrain/bridge.png",
-    "w": 100,
-    "h": 28,
-    "hitbox": {
-      "x": 6,
-      "y": 1,
-      "w": 88,
-      "h": 26
-    },
-    "source": {
-      "file": "fase_07_metropole_sustentavel/tech_ladder.png",
-      "component": null
-    },
-    "issues": [],
-    "modular": true,
-    "capPx": 20,
-    "surfaceInset": 0,
-    "lip": 0.06
-  },
-  {
-    "name": "p07_block",
-    "phase": 7,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/phases/phase-07-metropole-sustentavel/terrain/block.png",
-    "w": 56,
-    "h": 40,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 49,
-      "h": 38
-    },
-    "source": {
-      "file": "fase_07_metropole_sustentavel/energy_bridge.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p07_hazard",
-    "phase": 7,
-    "category": "terrain",
-    "role": "hazard",
-    "src": "/assets/phases/phase-07-metropole-sustentavel/terrain/hazard.png",
-    "w": 96,
-    "h": 64,
-    "hitbox": {
-      "x": 6,
-      "y": 3,
-      "w": 84,
-      "h": 60
-    },
-    "source": {
-      "file": "fase_07_metropole_sustentavel/hazard_block.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p07_crate",
-    "phase": 7,
-    "category": "props",
-    "role": "crate",
-    "src": "/assets/phases/phase-07-metropole-sustentavel/props/crate.png",
-    "w": 46,
-    "h": 40,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 40,
-      "h": 38
-    },
-    "source": {
-      "file": "fase_07_metropole_sustentavel/tech_barrel.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p07_ladder",
-    "phase": 7,
-    "category": "props",
-    "role": "ladder",
-    "src": "/assets/phases/phase-07-metropole-sustentavel/props/ladder.png",
-    "w": 51,
-    "h": 68,
-    "hitbox": {
-      "x": 3,
-      "y": 3,
-      "w": 45,
-      "h": 64
-    },
-    "source": {
-      "file": "fase_07_metropole_sustentavel/tech_crate.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p07_shield",
-    "phase": 7,
-    "category": "collectibles",
-    "role": "shield",
-    "src": "/assets/phases/phase-07-metropole-sustentavel/collectibles/shield.png",
-    "w": 45,
-    "h": 57,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 40,
-      "h": 54
-    },
-    "source": {
-      "file": "fase_07_metropole_sustentavel/drone.png",
-      "component": 0
-    },
-    "issues": []
-  },
-  {
-    "name": "p07_battery",
-    "phase": 7,
-    "category": "collectibles",
-    "role": "battery",
-    "src": "/assets/phases/phase-07-metropole-sustentavel/collectibles/battery.png",
-    "w": 34,
-    "h": 65,
-    "hitbox": {
-      "x": 2,
-      "y": 3,
-      "w": 30,
-      "h": 61
-    },
-    "source": {
-      "file": "fase_07_metropole_sustentavel/battery.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p07_circuit",
-    "phase": 7,
-    "category": "collectibles",
-    "role": "circuit",
-    "src": "/assets/phases/phase-07-metropole-sustentavel/collectibles/circuit.png",
-    "w": 68,
-    "h": 65,
-    "hitbox": {
-      "x": 4,
-      "y": 3,
-      "w": 60,
-      "h": 61
-    },
-    "source": {
-      "file": "fase_07_metropole_sustentavel/circuit.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
     "name": "p07_drone",
     "phase": 7,
     "category": "enemies",
@@ -1959,23 +766,6 @@
       "component": 1
     },
     "issues": []
-  },
-  {
-    "name": "p07_coin",
-    "phase": 7,
-    "category": "collectibles",
-    "role": "coin",
-    "src": "/assets/game/tiles/f07_coin.png",
-    "w": 0,
-    "h": 0,
-    "hitbox": null,
-    "source": {
-      "file": "projeto: f07_coin",
-      "component": null
-    },
-    "issues": [
-      "peça ausente/quebrada no pacote; reaproveitada do projeto"
-    ]
   },
   {
     "name": "p07_bin",
@@ -2043,210 +833,6 @@
     "lip": 0.06
   },
   {
-    "name": "p08_bridge",
-    "phase": 8,
-    "category": "terrain",
-    "role": "bridge",
-    "src": "/assets/phases/phase-08-planeta-crisoverde/terrain/bridge.png",
-    "w": 65,
-    "h": 28,
-    "hitbox": {
-      "x": 4,
-      "y": 1,
-      "w": 57,
-      "h": 26
-    },
-    "source": {
-      "file": "fase_08_planeta_crisoverde/energy_ladder.png",
-      "component": null
-    },
-    "issues": [],
-    "modular": true,
-    "capPx": 13,
-    "surfaceInset": 0.107,
-    "lip": 0.06
-  },
-  {
-    "name": "p08_block",
-    "phase": 8,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/phases/phase-08-planeta-crisoverde/terrain/block.png",
-    "w": 41,
-    "h": 40,
-    "hitbox": {
-      "x": 2,
-      "y": 2,
-      "w": 36,
-      "h": 38
-    },
-    "source": {
-      "file": "fase_08_planeta_crisoverde/purple_wall.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p08_float",
-    "phase": 8,
-    "category": "terrain",
-    "role": "float",
-    "src": "/assets/phases/phase-08-planeta-crisoverde/terrain/float.png",
-    "w": 60,
-    "h": 45,
-    "hitbox": {
-      "x": 4,
-      "y": 2,
-      "w": 53,
-      "h": 42
-    },
-    "source": {
-      "file": "fase_08_planeta_crisoverde/crystal.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p08_crate",
-    "phase": 8,
-    "category": "props",
-    "role": "crate",
-    "src": "/assets/phases/phase-08-planeta-crisoverde/props/crate.png",
-    "w": 37,
-    "h": 40,
-    "hitbox": {
-      "x": 2,
-      "y": 2,
-      "w": 33,
-      "h": 38
-    },
-    "source": {
-      "file": "fase_08_planeta_crisoverde/tech_barrel.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p08_ladder",
-    "phase": 8,
-    "category": "props",
-    "role": "ladder",
-    "src": "/assets/phases/phase-08-planeta-crisoverde/props/ladder.png",
-    "w": 48,
-    "h": 68,
-    "hitbox": {
-      "x": 3,
-      "y": 3,
-      "w": 42,
-      "h": 64
-    },
-    "source": {
-      "file": "fase_08_planeta_crisoverde/tech_crate.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p08_crystal",
-    "phase": 8,
-    "category": "props",
-    "role": "crystal",
-    "src": "/assets/phases/phase-08-planeta-crisoverde/props/crystal.png",
-    "w": 53,
-    "h": 69,
-    "hitbox": {
-      "x": 3,
-      "y": 3,
-      "w": 47,
-      "h": 65
-    },
-    "source": {
-      "file": "fase_08_planeta_crisoverde/energy_bridge.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p08_pipe",
-    "phase": 8,
-    "category": "props",
-    "role": "pipe",
-    "src": "/assets/phases/phase-08-planeta-crisoverde/props/pipe.png",
-    "w": 23,
-    "h": 41,
-    "hitbox": {
-      "x": 1,
-      "y": 2,
-      "w": 20,
-      "h": 39
-    },
-    "source": {
-      "file": "fase_08_planeta_crisoverde/energy_pipe.png",
-      "component": 1
-    },
-    "issues": []
-  },
-  {
-    "name": "p08_shield",
-    "phase": 8,
-    "category": "collectibles",
-    "role": "shield",
-    "src": "/assets/phases/phase-08-planeta-crisoverde/collectibles/shield.png",
-    "w": 46,
-    "h": 56,
-    "hitbox": {
-      "x": 3,
-      "y": 2,
-      "w": 40,
-      "h": 53
-    },
-    "source": {
-      "file": "fase_08_planeta_crisoverde/alien_enemy.png",
-      "component": 0
-    },
-    "issues": []
-  },
-  {
-    "name": "p08_capsule",
-    "phase": 8,
-    "category": "collectibles",
-    "role": "capsule",
-    "src": "/assets/phases/phase-08-planeta-crisoverde/collectibles/capsule.png",
-    "w": 32,
-    "h": 61,
-    "hitbox": {
-      "x": 2,
-      "y": 2,
-      "w": 28,
-      "h": 57
-    },
-    "source": {
-      "file": "fase_08_planeta_crisoverde/capsule.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
-    "name": "p08_banana",
-    "phase": 8,
-    "category": "collectibles",
-    "role": "banana",
-    "src": "/assets/phases/phase-08-planeta-crisoverde/collectibles/banana.png",
-    "w": 54,
-    "h": 65,
-    "hitbox": {
-      "x": 3,
-      "y": 3,
-      "w": 48,
-      "h": 61
-    },
-    "source": {
-      "file": "fase_08_planeta_crisoverde/energy_bottle.png",
-      "component": null
-    },
-    "issues": []
-  },
-  {
     "name": "p08_alien",
     "phase": 8,
     "category": "enemies",
@@ -2265,23 +851,6 @@
       "component": 1
     },
     "issues": []
-  },
-  {
-    "name": "p08_coin",
-    "phase": 8,
-    "category": "collectibles",
-    "role": "coin",
-    "src": "/assets/game/tiles/f08_coin.png",
-    "w": 0,
-    "h": 0,
-    "hitbox": null,
-    "source": {
-      "file": "projeto: f08_coin",
-      "component": null
-    },
-    "issues": [
-      "peça ausente/quebrada no pacote; reaproveitada do projeto"
-    ]
   },
   {
     "name": "p08_bin",
@@ -2841,26 +1410,6 @@
     "lip": 0.08
   },
   {
-    "name": "p09_block",
-    "phase": 9,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/islands/manguezal/tiles/block.png",
-    "w": 64,
-    "h": 63,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 63
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p09_crate",
     "phase": 9,
     "category": "props",
@@ -2893,46 +1442,6 @@
       "y": 0,
       "w": 131,
       "h": 121
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
-    "name": "p09_d_arv2",
-    "phase": 9,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/manguezal/deco/arv2.png",
-    "w": 104,
-    "h": 117,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 104,
-      "h": 117
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
-    "name": "p09_d_arv3",
-    "phase": 9,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/manguezal/deco/arv3.png",
-    "w": 83,
-    "h": 101,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 83,
-      "h": 101
     },
     "issues": [],
     "modular": false,
@@ -3005,7 +1514,7 @@
     "phase": 9,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/manguezal/deco/pedra.png",
+    "src": "/assets/islands/guardiao/deco/pedra.png",
     "w": 90,
     "h": 78,
     "hitbox": {
@@ -3021,31 +1530,11 @@
     "lip": 0
   },
   {
-    "name": "p09_d_tronco",
-    "phase": 9,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/manguezal/deco/tronco.png",
-    "w": 89,
-    "h": 57,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 89,
-      "h": 57
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p09_d_placa",
     "phase": 9,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/manguezal/deco/placa.png",
+    "src": "/assets/islands/copas/deco/placa.png",
     "w": 36,
     "h": 46,
     "hitbox": {
@@ -3053,26 +1542,6 @@
       "y": 0,
       "w": 36,
       "h": 46
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
-    "name": "p09_d_toco",
-    "phase": 9,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/manguezal/deco/toco.png",
-    "w": 89,
-    "h": 66,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 89,
-      "h": 66
     },
     "issues": [],
     "modular": false,
@@ -3145,7 +1614,7 @@
     "phase": 9,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/manguezal/deco/flores.png",
+    "src": "/assets/islands/guardiao/deco/flores.png",
     "w": 27,
     "h": 21,
     "hitbox": {
@@ -3185,7 +1654,7 @@
     "phase": 9,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/manguezal/deco/grama.png",
+    "src": "/assets/islands/guardiao/deco/grama.png",
     "w": 48,
     "h": 38,
     "hitbox": {
@@ -3361,26 +1830,6 @@
     "lip": 0.08
   },
   {
-    "name": "p10_block",
-    "phase": 10,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/islands/geleira/tiles/block.png",
-    "w": 35,
-    "h": 64,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 35,
-      "h": 64
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p10_crate",
     "phase": 10,
     "category": "props",
@@ -3393,26 +1842,6 @@
       "y": 0,
       "w": 64,
       "h": 47
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
-    "name": "p10_d_pinheiros",
-    "phase": 10,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/geleira/deco/pinheiros.png",
-    "w": 220,
-    "h": 196,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 220,
-      "h": 196
     },
     "issues": [],
     "modular": false,
@@ -3781,26 +2210,6 @@
     "lip": 0.08
   },
   {
-    "name": "p11_block",
-    "phase": 11,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/islands/vulcao/tiles/block.png",
-    "w": 53,
-    "h": 64,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 53,
-      "h": 64
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p11_crate",
     "phase": 11,
     "category": "props",
@@ -3841,26 +2250,6 @@
     "lip": 0
   },
   {
-    "name": "p11_d_espiral",
-    "phase": 11,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/vulcao/deco/espiral.png",
-    "w": 105,
-    "h": 109,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 105,
-      "h": 109
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p11_d_pilar",
     "phase": 11,
     "category": "props",
@@ -3872,26 +2261,6 @@
       "x": 0,
       "y": 0,
       "w": 131,
-      "h": 122
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
-    "name": "p11_d_bloco",
-    "phase": 11,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/vulcao/deco/bloco.png",
-    "w": 121,
-    "h": 122,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 121,
       "h": 122
     },
     "issues": [],
@@ -3981,26 +2350,6 @@
     "lip": 0
   },
   {
-    "name": "p11_d_cerca",
-    "phase": 11,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/vulcao/deco/cerca.png",
-    "w": 124,
-    "h": 126,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 124,
-      "h": 126
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p11_d_barril",
     "phase": 11,
     "category": "props",
@@ -4013,26 +2362,6 @@
       "y": 0,
       "w": 48,
       "h": 69
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
-    "name": "p11_d_fogueira",
-    "phase": 11,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/vulcao/deco/fogueira.png",
-    "w": 131,
-    "h": 116,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 131,
-      "h": 116
     },
     "issues": [],
     "modular": false,
@@ -4221,26 +2550,6 @@
     "lip": 0.08
   },
   {
-    "name": "p12_block",
-    "phase": 12,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/islands/fabrica/tiles/block.png",
-    "w": 64,
-    "h": 40,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 40
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p12_crate",
     "phase": 12,
     "category": "props",
@@ -4265,7 +2574,7 @@
     "phase": 12,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/fabrica/deco/torre.png",
+    "src": "/assets/islands/cidade/deco/torre.png",
     "w": 85,
     "h": 112,
     "hitbox": {
@@ -4285,7 +2594,7 @@
     "phase": 12,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/fabrica/deco/tubo.png",
+    "src": "/assets/islands/cidade/deco/tubo.png",
     "w": 64,
     "h": 158,
     "hitbox": {
@@ -4325,7 +2634,7 @@
     "phase": 12,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/fabrica/deco/antena.png",
+    "src": "/assets/islands/cidade/deco/antena.png",
     "w": 84,
     "h": 112,
     "hitbox": {
@@ -4345,7 +2654,7 @@
     "phase": 12,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/fabrica/deco/maquina.png",
+    "src": "/assets/islands/cidade/deco/maquina.png",
     "w": 156,
     "h": 117,
     "hitbox": {
@@ -4365,7 +2674,7 @@
     "phase": 12,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/fabrica/deco/cilindro.png",
+    "src": "/assets/islands/cidade/deco/cilindro.png",
     "w": 50,
     "h": 86,
     "hitbox": {
@@ -4385,7 +2694,7 @@
     "phase": 12,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/fabrica/deco/cupula.png",
+    "src": "/assets/islands/cidade/deco/cupula.png",
     "w": 94,
     "h": 91,
     "hitbox": {
@@ -4405,7 +2714,7 @@
     "phase": 12,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/fabrica/deco/lata.png",
+    "src": "/assets/islands/cidade/deco/lata.png",
     "w": 51,
     "h": 67,
     "hitbox": {
@@ -4445,7 +2754,7 @@
     "phase": 12,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/fabrica/deco/cristal.png",
+    "src": "/assets/islands/cidade/deco/cristal.png",
     "w": 57,
     "h": 66,
     "hitbox": {
@@ -4505,7 +2814,7 @@
     "phase": 12,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/fabrica/deco/espinhos.png",
+    "src": "/assets/islands/cidade/deco/espinhos.png",
     "w": 95,
     "h": 29,
     "hitbox": {
@@ -4525,7 +2834,7 @@
     "phase": 12,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/fabrica/deco/torre.png",
+    "src": "/assets/islands/cidade/deco/torre.png",
     "w": 85,
     "h": 112,
     "hitbox": {
@@ -4601,26 +2910,6 @@
     "lip": 0.08
   },
   {
-    "name": "p13_block",
-    "phase": 13,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/islands/copas/tiles/block.png",
-    "w": 64,
-    "h": 48,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 48
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p13_crate",
     "phase": 13,
     "category": "props",
@@ -4661,26 +2950,6 @@
     "lip": 0
   },
   {
-    "name": "p13_d_arv2",
-    "phase": 13,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/copas/deco/arv2.png",
-    "w": 131,
-    "h": 121,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 131,
-      "h": 121
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p13_d_arv3",
     "phase": 13,
     "category": "props",
@@ -4713,26 +2982,6 @@
       "y": 0,
       "w": 104,
       "h": 117
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
-    "name": "p13_d_arbusto1",
-    "phase": 13,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/copas/deco/arbusto1.png",
-    "w": 71,
-    "h": 55,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 71,
-      "h": 55
     },
     "issues": [],
     "modular": false,
@@ -4881,26 +3130,6 @@
     "lip": 0
   },
   {
-    "name": "p13_d_cogumelo2",
-    "phase": 13,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/copas/deco/cogumelo2.png",
-    "w": 43,
-    "h": 45,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 43,
-      "h": 45
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p13_d_flores",
     "phase": 13,
     "category": "props",
@@ -5001,26 +3230,6 @@
     "lip": 0
   },
   {
-    "name": "p13_d_espinhos",
-    "phase": 13,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/copas/deco/espinhos.png",
-    "w": 48,
-    "h": 66,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 48,
-      "h": 66
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p13_prop",
     "phase": 13,
     "category": "props",
@@ -5101,26 +3310,6 @@
     "lip": 0.08
   },
   {
-    "name": "p14_block",
-    "phase": 14,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/islands/oceano/tiles/block.png",
-    "w": 64,
-    "h": 37,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 37
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p14_crate",
     "phase": 14,
     "category": "props",
@@ -5173,46 +3362,6 @@
       "y": 0,
       "w": 62,
       "h": 126
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
-    "name": "p14_d_recife",
-    "phase": 14,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/oceano/deco/recife.png",
-    "w": 134,
-    "h": 184,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 134,
-      "h": 184
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
-    "name": "p14_d_navio",
-    "phase": 14,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/oceano/deco/navio.png",
-    "w": 212,
-    "h": 145,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 212,
-      "h": 145
     },
     "issues": [],
     "modular": false,
@@ -5281,26 +3430,6 @@
     "lip": 0
   },
   {
-    "name": "p14_d_coral4",
-    "phase": 14,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/oceano/deco/coral4.png",
-    "w": 81,
-    "h": 59,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 81,
-      "h": 59
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p14_d_algas3",
     "phase": 14,
     "category": "props",
@@ -5333,26 +3462,6 @@
       "y": 0,
       "w": 120,
       "h": 113
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
-    "name": "p14_d_agua-viva",
-    "phase": 14,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/oceano/deco/agua-viva.png",
-    "w": 55,
-    "h": 96,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 55,
-      "h": 96
     },
     "issues": [],
     "modular": false,
@@ -5519,26 +3628,6 @@
     "capPx": 26,
     "surfaceInset": 0,
     "lip": 0.08
-  },
-  {
-    "name": "p15_block",
-    "phase": 15,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/islands/cidade/tiles/block.png",
-    "w": 64,
-    "h": 40,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 40
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
   },
   {
     "name": "p15_crate",
@@ -5901,31 +3990,11 @@
     "lip": 0.08
   },
   {
-    "name": "p16_block",
-    "phase": 16,
-    "category": "terrain",
-    "role": "block",
-    "src": "/assets/islands/guardiao/tiles/block.png",
-    "w": 64,
-    "h": 40,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 40
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p16_crate",
     "phase": 16,
     "category": "props",
     "role": "crate",
-    "src": "/assets/islands/guardiao/tiles/crate.png",
+    "src": "/assets/islands/fabrica/tiles/crate.png",
     "w": 49,
     "h": 64,
     "hitbox": {
@@ -5945,7 +4014,7 @@
     "phase": 16,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/guardiao/deco/pilar1.png",
+    "src": "/assets/islands/cidade/deco/torre.png",
     "w": 85,
     "h": 112,
     "hitbox": {
@@ -5965,7 +4034,7 @@
     "phase": 16,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/guardiao/deco/pilar2.png",
+    "src": "/assets/islands/cidade/deco/tubo.png",
     "w": 64,
     "h": 158,
     "hitbox": {
@@ -5985,7 +4054,7 @@
     "phase": 16,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/guardiao/deco/maquina.png",
+    "src": "/assets/islands/cidade/deco/maquina.png",
     "w": 156,
     "h": 117,
     "hitbox": {
@@ -6001,31 +4070,11 @@
     "lip": 0
   },
   {
-    "name": "p16_d_arvore",
-    "phase": 16,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/guardiao/deco/arvore.png",
-    "w": 83,
-    "h": 101,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 83,
-      "h": 101
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p16_d_cupula",
     "phase": 16,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/guardiao/deco/cupula.png",
+    "src": "/assets/islands/cidade/deco/cupula.png",
     "w": 94,
     "h": 91,
     "hitbox": {
@@ -6045,7 +4094,7 @@
     "phase": 16,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/guardiao/deco/cilindro.png",
+    "src": "/assets/islands/cidade/deco/cilindro.png",
     "w": 50,
     "h": 86,
     "hitbox": {
@@ -6101,31 +4150,11 @@
     "lip": 0
   },
   {
-    "name": "p16_d_placa",
-    "phase": 16,
-    "category": "props",
-    "role": "decoration",
-    "src": "/assets/islands/guardiao/deco/placa.png",
-    "w": 36,
-    "h": 46,
-    "hitbox": {
-      "x": 0,
-      "y": 0,
-      "w": 36,
-      "h": 46
-    },
-    "issues": [],
-    "modular": false,
-    "capPx": 0,
-    "surfaceInset": 0,
-    "lip": 0
-  },
-  {
     "name": "p16_d_cristal",
     "phase": 16,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/guardiao/deco/cristal.png",
+    "src": "/assets/islands/cidade/deco/cristal.png",
     "w": 57,
     "h": 66,
     "hitbox": {
@@ -6145,7 +4174,7 @@
     "phase": 16,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/guardiao/deco/planta.png",
+    "src": "/assets/islands/copas/deco/planta.png",
     "w": 86,
     "h": 82,
     "hitbox": {
@@ -6205,7 +4234,7 @@
     "phase": 16,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/guardiao/deco/espinhos.png",
+    "src": "/assets/islands/cidade/deco/espinhos.png",
     "w": 95,
     "h": 29,
     "hitbox": {
@@ -6225,7 +4254,7 @@
     "phase": 16,
     "category": "props",
     "role": "decoration",
-    "src": "/assets/islands/guardiao/deco/pilar1.png",
+    "src": "/assets/islands/cidade/deco/torre.png",
     "w": 85,
     "h": 112,
     "hitbox": {

@@ -28,7 +28,7 @@
       "crate": "/assets/islands/manguezal/tiles/crate.png"
     },
     "props": [],
-    "bin": "/assets/islands/manguezal/bin.svg",
+    "bin": "/assets/islands/manguezal/bin_custom.png",
     "thumbnail": "/assets/islands/manguezal/thumbnail.jpg"
   },
   {
@@ -60,7 +60,7 @@
       "crate": "/assets/islands/geleira/tiles/crate.png"
     },
     "props": [],
-    "bin": "/assets/islands/geleira/bin.svg",
+    "bin": "/assets/islands/geleira/bin_custom.png",
     "thumbnail": "/assets/islands/geleira/thumbnail.jpg"
   },
   {
@@ -92,7 +92,7 @@
       "crate": "/assets/islands/vulcao/tiles/crate.png"
     },
     "props": [],
-    "bin": "/assets/islands/vulcao/bin.svg",
+    "bin": "/assets/islands/vulcao/bin_custom.png",
     "thumbnail": "/assets/islands/vulcao/thumbnail.jpg"
   },
   {
@@ -124,7 +124,7 @@
       "crate": "/assets/islands/fabrica/tiles/crate.png"
     },
     "props": [],
-    "bin": "/assets/islands/fabrica/bin.svg",
+    "bin": "/assets/islands/fabrica/bin_custom.png",
     "thumbnail": "/assets/islands/fabrica/thumbnail.jpg"
   },
   {
@@ -156,7 +156,7 @@
       "crate": "/assets/islands/copas/tiles/crate.png"
     },
     "props": [],
-    "bin": "/assets/islands/copas/bin.svg",
+    "bin": "/assets/islands/copas/bin_custom.png",
     "thumbnail": "/assets/islands/copas/thumbnail.jpg"
   },
   {
@@ -188,7 +188,7 @@
       "crate": "/assets/islands/oceano/tiles/crate.png"
     },
     "props": [],
-    "bin": "/assets/islands/oceano/bin.svg",
+    "bin": "/assets/islands/oceano/bin_custom.png",
     "thumbnail": "/assets/islands/oceano/thumbnail.jpg"
   },
   {
@@ -220,7 +220,7 @@
       "crate": "/assets/islands/cidade/tiles/crate.png"
     },
     "props": [],
-    "bin": "/assets/islands/cidade/bin.svg",
+    "bin": "/assets/islands/cidade/bin_custom.png",
     "thumbnail": "/assets/islands/cidade/thumbnail.jpg"
   },
   {
@@ -249,10 +249,10 @@
       "ledge": "/assets/islands/guardiao/tiles/ledge.png",
       "bridge": "/assets/islands/guardiao/tiles/bridge.png",
       "block": "/assets/islands/guardiao/tiles/block.png",
-      "crate": "/assets/islands/guardiao/tiles/crate.png"
+      "crate": "/assets/islands/fabrica/tiles/crate.png"
     },
     "props": [],
-    "bin": "/assets/islands/guardiao/bin.svg",
+    "bin": "/assets/islands/guardiao/bin_custom.png",
     "thumbnail": "/assets/islands/guardiao/thumbnail.jpg"
   }
 ]
