@@ -45,8 +45,6 @@ export class Engine {
   private p!: Player;
   private enemies: Enemy[] = []; private boss: Boss | null = null; private bossBlocked = false;
   private pickups: Pickup[] = []; private bins: Bin[] = [];
-  /** Animais ambientais (decorativos, sem colisão): andam/voam num trecho do chão e olham o herói quando ele chega perto. */
-  private critters: { x: number; foot: number; minX: number; maxX: number; dir: number; t: number; seed: number; near: boolean }[] = [];
   private shots: Shot[] = []; private sludge: Sludge[] = []; private parts: Particle[] = []; private texts: FloatText[] = [];
   private coins = 0; private score = 0; private materials = 0; private totalMaterials = 0; private sinceBin = 0; private runCollectibles: LevelResult['collectibles'] = [];
   private cam = 0; private safe = { x: 0, y: 0, t: 0 };
@@ -116,18 +114,6 @@ export class Engine {
     for (const b of w.bins) {
       const sz = this.assets.size(w.layout.bin); const sc = w.scale * 0.95;
       this.bins.push({ id: this.nextId++, sprite: w.layout.bin, x: b.x - sz.w * sc / 2, y: b.y - sz.h * sc, w: sz.w * sc, h: sz.h * sc, used: false, pulse: 0 });
-    }
-    this.critters = [];
-    if (this.levelIndex >= 8) {
-      const grounds = w.surfaces.filter((c) => c.kind === 'ground' && c.w > 260 && c.x + c.w > 500 && c.x < w.goal.x - 260);
-      const step = Math.max(1, Math.floor(grounds.length / 4));
-      for (let i = 0, n = 0; i < grounds.length && n < 4; i += step, n++) {
-        const g = grounds[i]!; let minX = Math.max(g.x + 40, 460), maxX = Math.min(g.x + g.w - 40, w.goal.x - 240);
-        // animais não atravessam obstáculos perigosos: encolhem a faixa para o lado maior livre
-        for (const hz of w.decor) if (hz.hazard && hz.x > minX - 90 && hz.x < maxX + 90) { if (hz.x - minX >= maxX - hz.x) maxX = Math.min(maxX, hz.x - 110); else minX = Math.max(minX, hz.x + 110); }
-        if (maxX - minX < 120) continue;
-        this.critters.push({ x: minX + (maxX - minX) * (0.3 + 0.4 * ((i * 37) % 10) / 10), foot: g.top ?? g.y, minX, maxX, dir: n % 2 ? -1 : 1, t: n * 1.7, seed: n, near: false });
-      }
     }
     if (w.bossAt) {
       const bw = this.levelIndex === GRANDE_LIXO_LEVEL ? 150 : 120, bh = this.levelIndex === GRANDE_LIXO_LEVEL ? 215 : 180; // o Grande Lixo é maior (≈250 px em tela)
@@ -362,17 +348,7 @@ export class Engine {
 
   private goalRect(): Rect { const g = this.world.goal; return { x: g.x - 50, y: g.y - 260, w: 100, h: 260 }; }
 
-  private updateCritters(dt: number): void {
-    const clips = this.assets.animalFor?.(this.levelIndex); if (!clips) return;
-    for (const c of this.critters) {
-      c.t += dt; const dx = this.p.x - c.x; c.near = Math.abs(dx) < 150 && Math.abs(this.p.y - c.foot) < 160;
-      if (c.near) { c.dir = dx < 0 ? -1 : 1; continue; } // para e olha para o herói
-      c.x += c.dir * (clips.fly ? 38 : 22) * dt;
-      if (c.x < c.minX) { c.x = c.minX; c.dir = 1; } else if (c.x > c.maxX) { c.x = c.maxX; c.dir = -1; }
-    }
-  }
   private updateEnemies(dt: number): void {
-    this.updateCritters(dt);
     const p = this.p;
     for (const e of this.enemies) {
       const sp = ENEMIES[e.kind], pr = AI[e.kind]; e.t += dt; e.hurt = Math.max(0, e.hurt - dt);
@@ -685,13 +661,6 @@ export class Engine {
       if (q.type !== 'coin') { const gy = this.groundBelow(q.x + q.w / 2, q.y + q.h); if (gy !== null) this.shadow(q.x + q.w / 2, gy, 17, 0.55, gy - (q.y + q.h + bob)); }
       a.draw(ctx, q.sprite, q.x + q.w / 2, q.y + q.h / 2 + bob, { scale: sc, anchor: 'center' });
     }
-    { const clips = this.assets.animalFor?.(this.levelIndex); if (clips) for (const c of this.critters) {
-      if (!vis(c.x - 40, 80)) continue;
-      const list = c.near ? clips.idle : clips.move, f = list[Math.floor(c.t * (c.near ? 2.2 : 6)) % list.length]; if (!f) continue;
-      const lift = clips.fly ? 34 + Math.sin(c.t * 2.4 + c.seed) * 6 : 0;
-      this.shadow(c.x, c.foot, 26, 0.7, lift);
-      a.drawAnimal?.(ctx, f, c.x, c.foot - lift, 0.46, c.dir < 0);
-    } }
     for (const e of this.enemies) {
       if (!vis(e.x, e.w)) continue; const sp = ENEMIES[e.kind]; const name = this.enemyFrame(e);
       const faceDir = e.chasing && sp.fly ? (this.p.x < e.x ? -1 : 1) : e.dir; const flip = sp.noFlip ? false : sp.nativeLeft ? faceDir > 0 : faceDir < 0;

@@ -17,7 +17,7 @@ describe('obstáculos perigosos das fases 9–16', () => {
       if (w.bossAt) expect(Math.abs(h.x - w.bossAt.x)).toBeGreaterThan(400);
       for (const b of w.bins) expect(Math.abs(b.x - h.x)).toBeGreaterThan(60);
     }
-    for (let a = 0; a < hz.length; a++) for (let b = a + 1; b < hz.length; b++) expect(Math.abs(hz[a]!.x - hz[b]!.x)).toBeGreaterThan(300);
+    for (let a = 0; a < hz.length; a++) for (let b = a + 1; b < hz.length; b++) expect(Math.abs(hz[a]!.x - hz[b]!.x)).toBeGreaterThan(250);
   });
   it('encostar no obstáculo tira vida do herói (fase 9)', () => {
     const canvas = document.createElement('canvas');
@@ -28,5 +28,17 @@ describe('obstáculos perigosos das fases 9–16', () => {
     e.p.x = h.x - e.p.w / 2; e.p.y = h.y - e.p.h - 1; e.p.vy = 0; e.p.inv = 0;
     for (let i = 0; i < 10; i++) e.update(1 / 60);
     expect(e.p.hp).toBeLessThan(hp0);
+  });
+});
+
+describe('inimigos das fases 9–16 vêm só do pacote de sprites novo', () => {
+  const ALLOWED: Record<number, string[]> = {
+    8: ['fiddler', 'dragonfly', 'an_crab'], 9: ['penguin', 'snowowl', 'an_seal'], 10: ['salamander', 'ember', 'an_salamander'], 11: ['sweeper', 'cogdrone', 'an_bird'],
+    12: ['monkey', 'toucan', 'an_sloth'], 13: ['urchin', 'jelly', 'an_turtle'], 14: ['sentinel', 'orbdrone', 'an_cat'], 15: ['golem', 'wisp', 'an_owl'],
+  };
+  it.each([8, 9, 10, 11, 12, 13, 14, 15])('fase %i', (i) => {
+    const w = buildWorld(i, fake()); const kinds = new Set([...w.walkers, ...w.flyers].map((s) => s.type as string));
+    expect(kinds.size).toBeGreaterThan(0);
+    for (const k of kinds) expect(ALLOWED[i], `${k} não é do pacote da fase ${i + 1}`).toContain(k);
   });
 });

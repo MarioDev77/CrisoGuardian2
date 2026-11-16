@@ -40,3 +40,15 @@ Em `frontend/`: `npm install`, depois `npm run dev:api` e `npm run dev` (dois te
 - Agora `level.ts` (`placeHazards`) coloca obstáculos perigosos por bioma: 9 espinhos/estacas de madeira, 10 espinhos de gelo, 11 brasa/fogo, 12/15/16 espinhos de metal, 13 estacas, 14 coral-de-fogo. Regras: 1 por trecho largo de chão, longe do início, do portal, do chefe, das lixeiras e de caixas, e ≥300 px entre si. Dano pelo mesmo mecanismo dos cactos (`hurtPlayer`).
 - Animais ambientais passaram a desviar dos obstáculos.
 - Testes novos: `tests/islandHazards.test.ts`. `collisionFuzz` tornado determinístico (falhava às vezes por sorteio do chefe).
+
+## Só criaturas do pacote novo (fases 9–16)
+- Antes, cada fase misturava o inimigo do pacote (fiddler, penguin, salamander…) com inimigos genéricos antigos das fases 1–8 (crab, yeti, bat, lizard, fly, spider, fish, robot, drone, armor).
+- Agora `islandLayouts.ts` lista só os do pacote por fase; teste em `tests/islandHazards.test.ts`.
+- Os animais ambientais continuam sendo os da spritesheet de animais.
+
+## Correções após teste no navegador (F12)
+- **404 de `boss_custom.png`**: o carregador pedia o arquivo de todos os biomas; só `vulcao` e `guardiao` têm chefe próprio. Agora só pede esses dois (sem erro no console).
+- **Animais "só andavam"**: eram enfeite sem colisão. Agora os 8 animais da spritesheet são inimigos de verdade (`an_crab`, `an_seal`, `an_salamander`, `an_bird`, `an_sloth`, `an_turtle`, `an_cat`, `an_owl`): quadros recortados registrados em `assets.ts` (`an<fase>_m<i>`), perfis em `entities.ts`/`enemyAI.ts`/`actors.json`, e entram nas listas de inimigos de cada fase. Verificado por simulação: dão dano ao encostar e morrem com tiros nas 8 fases.
+- Enfeites inofensivos removidos do motor.
+- Obstáculos (espinhos/estacas/brasa/coral): redistribuídos ao longo de todo o chão (de 2 a 5 por fase; limitado pela geometria: só há chão plano largo em poucos trechos).
+- Tela cinza com "Gire o celular": é o aviso de modo retrato (jogo só na horizontal), não falha de sprite. Use o ícone de rotacionar da barra de dispositivo do DevTools, ou largura > altura.

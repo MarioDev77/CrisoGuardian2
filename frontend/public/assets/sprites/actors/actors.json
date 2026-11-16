@@ -794,6 +794,94 @@
       "hp": 2,
       "flying": true,
       "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+    },
+    "an_crab": {
+      "sprite": "an9_m0",
+      "body": {
+        "w": 58,
+        "h": 42,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 2,
+      "flying": false,
+      "note": "quadros reais da spritesheet de animais (islands/animals); animação por troca de quadros, registrada em assets.ts"
+    },
+    "an_seal": {
+      "sprite": "an10_m0",
+      "body": {
+        "w": 58,
+        "h": 38,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": false,
+      "note": "quadros reais da spritesheet de animais (islands/animals); animação por troca de quadros, registrada em assets.ts"
+    },
+    "an_salamander": {
+      "sprite": "an11_m0",
+      "body": {
+        "w": 62,
+        "h": 34,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": false,
+      "note": "quadros reais da spritesheet de animais (islands/animals); animação por troca de quadros, registrada em assets.ts"
+    },
+    "an_bird": {
+      "sprite": "an12_m0",
+      "body": {
+        "w": 50,
+        "h": 42,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 2,
+      "flying": true,
+      "note": "quadros reais da spritesheet de animais (islands/animals); animação por troca de quadros, registrada em assets.ts"
+    },
+    "an_sloth": {
+      "sprite": "an13_m0",
+      "body": {
+        "w": 54,
+        "h": 48,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 4,
+      "flying": false,
+      "note": "quadros reais da spritesheet de animais (islands/animals); animação por troca de quadros, registrada em assets.ts"
+    },
+    "an_turtle": {
+      "sprite": "an14_m0",
+      "body": {
+        "w": 56,
+        "h": 36,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 4,
+      "flying": false,
+      "note": "quadros reais da spritesheet de animais (islands/animals); animação por troca de quadros, registrada em assets.ts"
+    },
+    "an_cat": {
+      "sprite": "an15_m0",
+      "body": {
+        "w": 54,
+        "h": 42,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": false,
+      "note": "quadros reais da spritesheet de animais (islands/animals); animação por troca de quadros, registrada em assets.ts"
+    },
+    "an_owl": {
+      "sprite": "an16_m0",
+      "body": {
+        "w": 50,
+        "h": 46,
+        "note": "hitbox física; independente do tamanho do sprite"
+      },
+      "hp": 3,
+      "flying": true,
+      "note": "quadros reais da spritesheet de animais (islands/animals); animação por troca de quadros, registrada em assets.ts"
     }
   },
   "boss": {

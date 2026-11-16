@@ -3,7 +3,7 @@ interface ActorFrame { x:number; y:number; w:number; h:number; pivot:{x:number;y
 interface ActorManifest { frames: Record<string,ActorFrame> }
 export interface Src { img: CanvasImageSource; x: number; y: number; w: number; h: number }
 /** Entrada de public/assets/phases/catalog.json (gerada por tools/build_phase_assets.py). */
-export interface AnimalFrame { x: number; y: number; w: number; h: number; ax: number; by: number; bw: number; bh: number }
+export interface AnimalFrame { x: number; y: number; w: number; h: number; ax: number; by: number; tx: number; ty: number; bw: number; bh: number }
 export interface AnimalClips { fly: boolean; idle: AnimalFrame[]; move: AnimalFrame[] }
 export interface CatalogEntry { name: string; src: string; w: number; h: number; hitbox?: { x: number; y: number; w: number; h: number }; lip?: number; modular?: boolean; category: string; role: string; phase: number }
 export interface DrawOpts { scale?: number; flip?: boolean; alpha?: number; rot?: number; anchor?: 'feet' | 'center'; pixelArt?: boolean }
@@ -141,6 +141,7 @@ function gradeAtlas(atlas: HTMLImageElement, look: Look, k: number, haze: number
  */
 const CRISP_SPRITES = false;
 
+const BOSS_ISLANDS = new Set(['vulcao', 'guardiao']);
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -164,9 +165,6 @@ export class Assets {
   private islandPortals = new Map<number, HTMLImageElement>();
   private islandBosses = new Map<number, HTMLImageElement>();
   private curLevel = -1;
-  /** Animais ambientais dos biomas 9–16 (sheet 160×160 com âncora dos pés por quadro). */
-  private animalImg: HTMLImageElement | null = null;
-  private animalMeta: Record<string, AnimalClips> = {};
   meta: Record<string, Frame> = {};
   tiles = new Map<string, HTMLImageElement>();
   /** Recuo (fração da altura do tile) entre o topo da imagem e a linha onde o personagem pisa; vem do catálogo de sprites. */
@@ -212,7 +210,7 @@ export class Assets {
   }
 
   private async load(): Promise<void> {
-    void this.loadAnimals();
+    const animalsReady = this.loadAnimals();
     const [atlas, meta, tileNames, actorAtlas, actorMeta, islandCatalog] = await Promise.all([
       loadImage(BASE + 'atlas.png'),
       fetch(BASE + 'atlas.json').then((r) => r.json() as Promise<Record<string, Frame>>),
@@ -256,8 +254,10 @@ export class Assets {
       const optional = async (file: string, into: Map<number, HTMLImageElement>): Promise<void> => {
         try { into.set(island.index, await loadImage(`/assets/islands/${island.slug}/${file}`)); } catch { /* sem arte própria: usa o padrão do motor */ }
       };
-      await Promise.all([optional('portal_custom.png', this.islandPortals), optional('boss_custom.png', this.islandBosses)]);
+      // chefe próprio só existe em Vulcão Verde e Guardião do Planeta: não pede os outros (evita 404 no console)
+      await Promise.all([optional('portal_custom.png', this.islandPortals), BOSS_ISLANDS.has(island.slug) ? optional('boss_custom.png', this.islandBosses) : Promise.resolve()]);
     }));
+    await animalsReady;
   }
 
   private cycleFrame(key: string, time: number): string | null {
@@ -309,20 +309,17 @@ export class Assets {
     const sn = `symbol_${idx(t, 6, 4)}`; const sc = 0.5 * (1 + 0.35 * glow);
     put(sn, c.x, c.y - 132 - 26 * glow + Math.sin(t * 2.2) * 7, sc, sc, 0.97, false);
   }
+  /** Animais da spritesheet viram inimigos reais: cada quadro de movimento é recortado (caixa tx/ty/bw/bh) e registrado como tile `an<fase>_m<i>`. */
   private async loadAnimals(): Promise<void> {
     try {
       const m = await fetch('/assets/islands/animals/animals.json').then((r) => r.json() as Promise<{ image: string; animals: Record<string, AnimalClips> }>);
-      this.animalImg = await loadImage(m.image); this.animalMeta = m.animals;
-    } catch { /* sem animais: o jogo segue normalmente */ }
-  }
-  /** Clipes do animal da fase (índice 0-based; fases 9–16 → chaves "9".."16"). */
-  animalFor(levelIndex: number): AnimalClips | null { return this.animalImg ? this.animalMeta[String(levelIndex + 1)] ?? null : null; }
-  /** Desenha um quadro do animal com os pés em (x, footY). `scale` ≈ 0.45 → ~64 px de largura em jogo. */
-  drawAnimal(ctx: CanvasRenderingContext2D, f: AnimalFrame, x: number, footY: number, scale: number, flip: boolean): void {
-    if (!this.animalImg) return;
-    ctx.save(); ctx.translate(x, footY); if (flip) ctx.scale(-1, 1);
-    ctx.drawImage(this.animalImg, f.x, f.y, f.w, f.h, -f.ax * scale, -f.by * scale, f.w * scale, f.h * scale);
-    ctx.restore();
+      const img = await loadImage(m.image);
+      for (const [phase, clips] of Object.entries(m.animals)) clips.move.forEach((f, i) => {
+        const c = document.createElement('canvas'); c.width = f.bw; c.height = f.bh;
+        c.getContext('2d')?.drawImage(img, f.x + f.tx, f.y + f.ty, f.bw, f.bh, 0, 0, f.bw, f.bh);
+        this.tiles.set(`an${phase}_m${i}`, c as unknown as HTMLImageElement);
+      });
+    } catch { /* sem animais: o jogo segue com os demais inimigos */ }
   }
   /** Portal temático das fases 9–16 (PNG 256×288, anel de ~225 px com centro em ≈(128,135)): pulsa, flutua e brilha; fica apagado enquanto o chefe vive. */
   private drawIslandPortal(ctx: CanvasRenderingContext2D, img: HTMLImageElement, x: number, groundY: number, t: number, open: boolean, glow: number): void {

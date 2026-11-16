@@ -53,6 +53,15 @@ export const ENEMIES: Record<EnemyKind, EnemySpec> = {
   orbdrone: { w: 56, h: 52, hp: 3, speed: 125, scale: 0.78, fly: true, score: 230, frames: ['p15_flyer'], motion: 'hover', noFlip: true },
   golem: { w: 62, h: 66, hp: 7, speed: 55, scale: 0.82, fly: false, score: 300, frames: ['p16_walker'], motion: 'stomp', noFlip: true },
   wisp: { w: 52, h: 58, hp: 4, speed: 105, scale: 0.78, fly: true, score: 260, frames: ['p16_flyer'], motion: 'swim', noFlip: true },
+  // animais da spritesheet das ilhas 9–16 (public/assets/islands/animals): quadros reais de caminhada/voo, registrados em assets.ts como `an<fase>_m<i>`
+  an_crab: { w: 58, h: 42, hp: 2, speed: 90, scale: 0.46, fly: false, score: 140, frames: ['an9_m0', 'an9_m1', 'an9_m2'], noFlip: false },
+  an_seal: { w: 58, h: 38, hp: 3, speed: 60, scale: 0.46, fly: false, score: 190, frames: ['an10_m0', 'an10_m1'] },
+  an_salamander: { w: 62, h: 34, hp: 3, speed: 110, scale: 0.5, fly: false, score: 200, frames: ['an11_m0', 'an11_m1'] },
+  an_bird: { w: 50, h: 42, hp: 2, speed: 120, scale: 0.42, fly: true, score: 200, frames: ['an12_m0', 'an12_m1'] },
+  an_sloth: { w: 54, h: 48, hp: 4, speed: 45, scale: 0.46, fly: false, score: 210, frames: ['an13_m0', 'an13_m1', 'an13_m2', 'an13_m3'] },
+  an_turtle: { w: 56, h: 36, hp: 4, speed: 50, scale: 0.46, fly: false, score: 220, frames: ['an14_m0', 'an14_m1', 'an14_m2', 'an14_m3'] },
+  an_cat: { w: 54, h: 42, hp: 3, speed: 100, scale: 0.46, fly: false, score: 230, frames: ['an15_m0', 'an15_m1'] },
+  an_owl: { w: 50, h: 46, hp: 3, speed: 105, scale: 0.42, fly: true, score: 250, frames: ['an16_m0', 'an16_m1', 'an16_m2', 'an16_m3'] },
 };
 
 export interface Enemy extends Body {

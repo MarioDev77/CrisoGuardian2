@@ -10,7 +10,7 @@ export interface Decor { x: number; y: number; tile: string; scale?: number; haz
 export type EnemyKind = 'rat' | 'mutant' | 'armor' | 'bat' | 'roach' | 'fly' | 'spider' | 'cloud'
   | 'fish' | 'robot' | 'yeti' | 'crab' | 'lizard' | 'drone' | 'alien'
   // inimigos exclusivos das ilhas 9 a 16
-  | 'fiddler' | 'dragonfly' | 'penguin' | 'snowowl' | 'salamander' | 'ember' | 'sweeper' | 'cogdrone' | 'monkey' | 'toucan' | 'urchin' | 'jelly' | 'sentinel' | 'orbdrone' | 'golem' | 'wisp';
+  | 'fiddler' | 'dragonfly' | 'penguin' | 'snowowl' | 'salamander' | 'ember' | 'sweeper' | 'cogdrone' | 'monkey' | 'toucan' | 'urchin' | 'jelly' | 'sentinel' | 'orbdrone' | 'golem' | 'wisp' | 'an_crab' | 'an_seal' | 'an_salamander' | 'an_bird' | 'an_sloth' | 'an_turtle' | 'an_cat' | 'an_owl';
 export type Material = 'papel' | 'plastico' | 'metal' | 'vidro' | 'fruta' | 'restos' | 'folhas' | 'bateria' | 'tinta' | 'eletronico';
 
 export interface LayoutPart { surfaces: Surface[]; ladders: Ladder[]; decor: Decor[] }
