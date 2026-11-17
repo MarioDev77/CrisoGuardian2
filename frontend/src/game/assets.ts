@@ -247,7 +247,10 @@ export class Assets {
     // catálogo de sprites por fase (terreno modular, caixas, lixeiras, decoração): public/assets/phases/catalog.json
     const catalog = await fetch('/assets/phases/catalog.json').then((r) => r.json() as Promise<CatalogEntry[]>).catch(() => [] as CatalogEntry[]);
     await Promise.all(catalog.map(async (e) => {
-      try { const img = await loadImage(e.src); this.tiles.set(e.name, img); if (e.lip !== undefined) this.lips.set(e.name, e.lip);
+      try { let img = await loadImage(e.src);
+        // PNGs das fases 9–16 vêm exportados em 2×: reduz ao tamanho lógico do catálogo (e.w × e.h), senão o motor desenharia tudo dobrado
+        if (e.w > 0 && e.h > 0 && img.width >= e.w * 1.5) { const c = document.createElement('canvas'); c.width = e.w; c.height = e.h; const g = c.getContext('2d'); if (g) { g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high'; g.drawImage(img, 0, 0, e.w, e.h); img = c as unknown as HTMLImageElement; } }
+        this.tiles.set(e.name, img); if (e.lip !== undefined) this.lips.set(e.name, e.lip);
         if ((e.role === 'ground' || e.role === 'ledge') && e.lip !== undefined) { const m = solidTopFraction(img); if (m !== null && m > e.lip) this.lips.set(e.name, Math.min(0.35, m)); } if (e.role === 'recycling-bin' && e.hitbox && e.w > e.hitbox.w * 1.5) this.fit.set(e.name, e.hitbox.w / e.w); }
       catch { /* sprite ausente: o jogo segue sem ele */ }
     }));

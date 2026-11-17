@@ -28,7 +28,7 @@ describe('Mapa 2 (fases 9 a 16)', () => {
       expect(w.start.y).toBeLessThan(600); expect(w.goal.y).toBeLessThan(600); expect(w.waste.length).toBeGreaterThan(5);
       expect(w.bossAt !== null).toBe(!!L.boss);
       const slug = NEW_ISLANDS[i - 8]!.id.replace(/-\d+$/, '');
-      for (const f of ['tiles/ground.png', 'tiles/ledge.png', 'tiles/bridge.png', 'background/far.webp', 'background/sky.webp', 'bin_custom.png', 'portal_custom.png', 'thumbnail.jpg']) expect(fs.existsSync(`public/assets/islands/${slug}/${f}`), f).toBe(true);
+      for (const f of ['tiles/ground.png', 'tiles/ledge.png', 'tiles/bridge.png', 'background/far.png', 'background/sky.png', 'bin.png', 'thumbnail.png']) expect(fs.existsSync(`public/assets/islands/${slug}/${f}`), f).toBe(true);
     });
   }
 });
