@@ -504,11 +504,9 @@ export class Engine {
 
   /** Sombra projetada por plataformas/pontes no cenário atrás delas (assenta a peça no fundo). */
   private underShadow(sf: WSurface): void {
-    const ctx = this.ctx; const [r, g, b] = this.assets.look.shadow ?? [14, 24, 34];
-    const y0 = sf.top + (sf.kind === 'bridge' ? 4 : 10); const h = 34;
-    const gr = ctx.createLinearGradient(0, y0, 0, y0 + h);
-    gr.addColorStop(0, `rgba(${r | 0},${g | 0},${b | 0},0.34)`); gr.addColorStop(1, `rgba(${r | 0},${g | 0},${b | 0},0)`);
-    ctx.save(); ctx.fillStyle = gr; ctx.fillRect(sf.x + 6, y0, Math.max(0, sf.w - 12), h); ctx.restore();
+    // só plataformas sólidas (a ponte é fina e vazada: sombra retangular aparecia como um bloco escuro); elipse suave, sem bordas retas
+    if (sf.kind !== 'plat') return;
+    this.shadow(sf.x + sf.w / 2, sf.top + 22, Math.max(20, sf.w * 0.42), 0.45);
   }
 
   /** Grade final por cima do mundo: vinheta e luz suave na cor do cenário, ligando fundo e objetos num só quadro. */
@@ -677,7 +675,6 @@ export class Engine {
     for (const q of this.pickups) {
       if (q.taken || !vis(q.x, q.w)) continue; const bob = Math.sin(this.t * 3 + q.phase) * 5;
       const sc = q.type === 'coin' ? 0.62 : q.type === 'waste' ? 0.72 : 0.9;
-      if (q.type !== 'coin') { ctx.save(); ctx.globalAlpha = 0.22; ctx.fillStyle = q.type === 'power' ? '#7fe9ff' : '#9dffb0'; ctx.beginPath(); ctx.arc(q.x + q.w / 2, q.y + q.h / 2 + bob, 26, 0, 7); ctx.fill(); ctx.restore(); }
       if (q.type !== 'coin') { const gy = this.groundBelow(q.x + q.w / 2, q.y + q.h); if (gy !== null) this.shadow(q.x + q.w / 2, gy, 17, 0.55, gy - (q.y + q.h + bob)); }
       a.draw(ctx, q.sprite, q.x + q.w / 2, q.y + q.h / 2 + bob, { scale: sc, anchor: 'center' });
     }

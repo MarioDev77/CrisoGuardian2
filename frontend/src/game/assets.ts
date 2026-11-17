@@ -141,6 +141,22 @@ function gradeAtlas(atlas: HTMLImageElement, look: Look, k: number, haze: number
  */
 const CRISP_SPRITES = false;
 
+/** Fração da altura onde a superfície sólida começa (linhas com >50% de pixels opacos). Tiles com arbusto/folhagem transparente no topo
+ *  têm esse valor bem acima do `lip` genérico do catálogo; sem medir, o chão fica desenhado abaixo da linha onde o personagem pisa. */
+function solidTopFraction(img: HTMLImageElement): number | null {
+  if (typeof document === 'undefined' || !img.width || !img.height) return null;
+  try {
+    const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+    const g = c.getContext('2d', { willReadFrequently: true }); if (!g) return null;
+    g.drawImage(img, 0, 0); const d = g.getImageData(0, 0, c.width, c.height).data;
+    for (let y = 0; y < c.height; y++) {
+      let solid = 0; for (let x = 0; x < c.width; x++) if (d[(y * c.width + x) * 4 + 3]! > 200) solid++;
+      if (solid / c.width > 0.5) return y / c.height;
+    }
+  } catch { /* canvas bloqueado: mantém o lip do catálogo */ }
+  return null;
+}
+
 const BOSS_ISLANDS = new Set(['vulcao', 'guardiao']);
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -231,7 +247,8 @@ export class Assets {
     // catálogo de sprites por fase (terreno modular, caixas, lixeiras, decoração): public/assets/phases/catalog.json
     const catalog = await fetch('/assets/phases/catalog.json').then((r) => r.json() as Promise<CatalogEntry[]>).catch(() => [] as CatalogEntry[]);
     await Promise.all(catalog.map(async (e) => {
-      try { this.tiles.set(e.name, await loadImage(e.src)); if (e.lip !== undefined) this.lips.set(e.name, e.lip); if (e.role === 'recycling-bin' && e.hitbox && e.w > e.hitbox.w * 1.5) this.fit.set(e.name, e.hitbox.w / e.w); }
+      try { const img = await loadImage(e.src); this.tiles.set(e.name, img); if (e.lip !== undefined) this.lips.set(e.name, e.lip);
+        if ((e.role === 'ground' || e.role === 'ledge') && e.lip !== undefined) { const m = solidTopFraction(img); if (m !== null && m > e.lip) this.lips.set(e.name, Math.min(0.35, m)); } if (e.role === 'recycling-bin' && e.hitbox && e.w > e.hitbox.w * 1.5) this.fit.set(e.name, e.hitbox.w / e.w); }
       catch { /* sprite ausente: o jogo segue sem ele */ }
     }));
     try {
