@@ -16,3 +16,6 @@ FORMATO
 
 IMPORTANTE
 Estes assets são kits vetoriais procedurais produzidos pelo gerador que já estava no código-fonte. Eles completam visualmente as fases 09–16 e permitem ao motor compor fundos em camadas e usar tiles/props/criaturas independentes. Não são recortes perfeitos dos animais específicos das pranchas conceituais antigas; algumas criaturas são variantes estilizadas genéricas por bioma. As animações completas de cada criatura não estão incluídas como sequências de frames.
+
+ETAPA 2 (arte das pranchas de referência)
+Inimigos (enemy_walker/enemy_flyer), animal, lixeira (bin), props/prop2/prop3 e chefes (boss_custom das fases 11 e 16) agora são recortes das pranchas de referência, em PNG 1× com alfa. Terreno (ground/ledge/bridge/block/crate) e fundos continuam do kit procedural (Etapa 3). Originais substituídos: tools/backup/etapa2-originais/.

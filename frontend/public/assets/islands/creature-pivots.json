@@ -2,126 +2,126 @@
   "fiddler": {
     "source": "manguezal/enemy_walker.png",
     "alpha_bbox": [
-      17,
-      45,
-      173,
-      164
+      15,
+      26,
+      81,
+      92
     ],
     "pivot": {
-      "x": 0.4948,
-      "y": 0.8542
+      "x": 0.5,
+      "y": 0.9583
     },
     "anchor": "feet"
   },
   "dragonfly": {
     "source": "manguezal/enemy_flyer.png",
     "alpha_bbox": [
-      15,
-      50,
-      177,
-      124
+      13,
+      17,
+      83,
+      78
     ],
     "pivot": {
       "x": 0.5,
-      "y": 0.4531
+      "y": 0.4948
     },
     "anchor": "center"
   },
   "penguin": {
     "source": "geleira/enemy_walker.png",
     "alpha_bbox": [
-      27,
-      41,
-      165,
-      182
+      8,
+      3,
+      88,
+      92
     ],
     "pivot": {
       "x": 0.5,
-      "y": 0.9479
+      "y": 0.9583
     },
     "anchor": "feet"
   },
   "snowowl": {
     "source": "geleira/enemy_flyer.png",
     "alpha_bbox": [
-      25,
-      30,
-      167,
-      159
+      9,
+      4,
+      87,
+      93
     ],
     "pivot": {
       "x": 0.5,
-      "y": 0.4922
+      "y": 0.5052
     },
     "anchor": "center"
   },
   "salamander": {
     "source": "vulcao/enemy_walker.png",
     "alpha_bbox": [
-      4,
-      86,
-      189,
-      178
+      8,
+      28,
+      87,
+      92
     ],
     "pivot": {
-      "x": 0.5026,
-      "y": 0.9271
+      "x": 0.4948,
+      "y": 0.9583
     },
     "anchor": "feet"
   },
   "ember": {
     "source": "vulcao/enemy_flyer.png",
     "alpha_bbox": [
-      27,
-      10,
-      163,
-      179
+      11,
+      3,
+      84,
+      93
     ],
     "pivot": {
       "x": 0.4948,
-      "y": 0.4922
+      "y": 0.5
     },
     "anchor": "center"
   },
   "sweeper": {
     "source": "fabrica/enemy_walker.png",
     "alpha_bbox": [
-      29,
-      38,
-      188,
-      185
+      7,
+      3,
+      89,
+      92
     ],
     "pivot": {
-      "x": 0.5651,
-      "y": 0.9635
+      "x": 0.5,
+      "y": 0.9583
     },
     "anchor": "feet"
   },
   "cogdrone": {
     "source": "fabrica/enemy_flyer.png",
     "alpha_bbox": [
-      32,
-      26,
-      160,
-      184
+      15,
+      22,
+      81,
+      74
     ],
     "pivot": {
       "x": 0.5,
-      "y": 0.5469
+      "y": 0.5
     },
     "anchor": "center"
   },
   "monkey": {
     "source": "copas/enemy_walker.png",
     "alpha_bbox": [
-      6,
-      39,
-      165,
-      186
+      14,
+      20,
+      82,
+      92
     ],
     "pivot": {
-      "x": 0.4453,
-      "y": 0.9688
+      "x": 0.5,
+      "y": 0.9583
     },
     "anchor": "feet"
   },
@@ -129,97 +129,97 @@
     "source": "copas/enemy_flyer.png",
     "alpha_bbox": [
       15,
-      47,
-      192,
-      177
+      12,
+      81,
+      83
     ],
     "pivot": {
-      "x": 0.5391,
-      "y": 0.5833
+      "x": 0.5,
+      "y": 0.4948
     },
     "anchor": "center"
   },
   "urchin": {
     "source": "oceano/enemy_walker.png",
     "alpha_bbox": [
-      20,
-      35,
-      172,
-      189
+      3,
+      9,
+      92,
+      92
     ],
     "pivot": {
-      "x": 0.5,
-      "y": 0.9844
+      "x": 0.4948,
+      "y": 0.9583
     },
     "anchor": "feet"
   },
   "jelly": {
     "source": "oceano/enemy_flyer.png",
     "alpha_bbox": [
-      33,
-      29,
-      159,
-      177
+      21,
+      5,
+      74,
+      91
     ],
     "pivot": {
-      "x": 0.5,
-      "y": 0.5365
+      "x": 0.4948,
+      "y": 0.5
     },
     "anchor": "center"
   },
   "sentinel": {
     "source": "cidade/enemy_walker.png",
     "alpha_bbox": [
-      41,
+      16,
       2,
-      184,
-      183
+      79,
+      92
     ],
     "pivot": {
-      "x": 0.5859,
-      "y": 0.9531
+      "x": 0.4948,
+      "y": 0.9583
     },
     "anchor": "feet"
   },
   "orbdrone": {
     "source": "cidade/enemy_flyer.png",
     "alpha_bbox": [
-      16,
-      20,
-      176,
-      147
+      12,
+      23,
+      84,
+      73
     ],
     "pivot": {
       "x": 0.5,
-      "y": 0.4349
+      "y": 0.5
     },
     "anchor": "center"
   },
   "golem": {
     "source": "guardiao/enemy_walker.png",
     "alpha_bbox": [
-      13,
-      10,
-      179,
-      183
+      3,
+      8,
+      93,
+      92
     ],
     "pivot": {
       "x": 0.5,
-      "y": 0.9531
+      "y": 0.9583
     },
     "anchor": "feet"
   },
   "wisp": {
     "source": "guardiao/enemy_flyer.png",
     "alpha_bbox": [
-      29,
-      6,
-      162,
-      177
+      9,
+      5,
+      86,
+      91
     ],
     "pivot": {
-      "x": 0.4974,
-      "y": 0.4766
+      "x": 0.4948,
+      "y": 0.5
     },
     "anchor": "center"
   }
