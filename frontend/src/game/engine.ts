@@ -616,14 +616,34 @@ export class Engine {
     const cam = Math.round(this.cam);
     if (this.win && this.win.z !== 1) { const zx = w.goal.x - cam, zy = w.goal.y - PORTAL_CY, z = this.win.z; ctx.translate(zx, zy); ctx.scale(z, z); ctx.translate(-zx, -zy); }
 
-    // New islands use four cached parallax layers; original eight phases keep their painted backdrops.
+    // Fases 9–16 usam parallax em camadas. Cada faixa repete em espelho para evitar
+    // costuras duras quando a câmera cruza o limite da imagem.
     const layers=a.islandLayers?.get(this.levelIndex);
     if (layers) {
+      // O recorte near do manguezal/copas/vulcão é uma faixa de ilhas suspensas com
+      // borda reta no arquivo-fonte; sobre a copa principal ela parece um retângulo.
+      // Mantemos céu, distância e plano médio (o cenário continua completo) e não
+      // sobrepomos esse recorte nesses três biomas até existir uma arte de foreground correta.
+      const omitNear = this.levelIndex === 8 || this.levelIndex === 12 || this.levelIndex === 14;
       for (const [name,rate] of [['sky',0],['far',0.12],['mid',0.3],['near',0.52]] as const) {
+        if (name === 'near' && omitNear) continue;
         const img=layers[name]; if (!img) continue;
-        // a camada mantém a proporção da arte (altura = tela) e se repete na horizontal; as artes são espelhadas para fechar sem emenda
-        const iw=Math.max(1,img.width*VIEW_H/Math.max(1,img.height)); const shift=((cam*rate)%iw+iw)%iw;
-        for (let x=-shift; x<VIEW_W; x+=iw) ctx.drawImage(img,x,0,iw+0.5,VIEW_H);
+        const iw=Math.max(1,img.width*VIEW_H/Math.max(1,img.height));
+        const offset=cam*rate; const shift=((offset%iw)+iw)%iw;
+        const firstTile=Math.floor(offset/iw);
+        let tile=0;
+        for (let x=-shift; x<VIEW_W; x+=iw, tile++) {
+          const worldTile=firstTile+tile;
+          const mirror=((worldTile%2)+2)%2===1;
+          ctx.save();
+          if (mirror) {
+            ctx.translate(x+iw+0.5,0); ctx.scale(-1,1);
+            ctx.drawImage(img,0,0,iw+0.5,VIEW_H);
+          } else {
+            ctx.drawImage(img,x-0.5,0,iw+1,VIEW_H);
+          }
+          ctx.restore();
+        }
       }
     } else {
       const scene = a.scenes.get(this.levelIndex + 1);

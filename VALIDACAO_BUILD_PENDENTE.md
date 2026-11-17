@@ -1,23 +1,17 @@
-# Status de validação — CrisoGuardian2 (fases 09–16)
+# Validação pendente
 
-Data: 17/11/2026
+O build de produção ainda não foi aprovado. O diretório `node_modules` está incompleto e a instalação não pode ser concluída neste ambiente porque `registry.npmjs.org` falha na resolução DNS (`EAI_AGAIN`).
 
-## Resultado desta tentativa
-
-- `npm run build`: **BLOQUEADO / NÃO APROVADO**.
-- Causa observada: `node_modules` ficou incompleto. O TypeScript reportou definições de tipos ausentes (`@types/node`, `@types/react`, `chai`, `estree`, entre outras). A tentativa de `npm ci --no-audit --no-fund` excedeu o limite de tempo do ambiente.
-- `npm test`: não executado, pois as dependências locais não foram instaladas integralmente.
-- Testes de navegador: não executados.
-
-## Importante
-
-Este pacote contém a implementação e os assets reconstruídos para as fases 09–16, mas **não deve ser tratado como build final aprovado**. Para concluir a validação em um ambiente com acesso ao npm:
+Executar em ambiente com acesso ao npm:
 
 ```bash
 cd frontend
 npm ci
 npm run build
 npm test
+npm run test:e2e
 ```
 
-Se os comandos passarem, realizar também `npm run test:e2e` e validar visualmente as fases 09–16 no navegador.
+Depois, abrir as fases 9–16 no navegador, verificar visualmente o parallax e as colisões e só então publicar.
+
+A correção de renderização está no arquivo `frontend/src/game/engine.ts`. Este ZIP é um pacote de revisão do código-fonte, não uma build de produção validada.
