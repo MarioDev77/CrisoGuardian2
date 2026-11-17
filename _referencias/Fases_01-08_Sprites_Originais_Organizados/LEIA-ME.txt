@@ -1,0 +1,18 @@
+CrisoGuardian — sprites organizados | Fases 01–08
+
+Estrutura por fase:
+- cenario/: imagem de fundo inteira, independente, em PNG RGBA (alfa totalmente opaco, pois o fundo deve preencher a tela).
+- animais/: inimigos/animais individuais presentes nos arquivos-fonte.
+- obstaculos/: props e obstáculos individuais.
+- terreno/: peças de chão, plataformas, pontes e similares.
+- coletaveis/: moedas e itens coletáveis.
+
+Transparência:
+- Os elementos individuais foram exportados em PNG RGBA e as margens externas totalmente transparentes foram aparadas sem cortar pixels visíveis.
+- Os cenários são fundos completos e, portanto, não têm transparência removida.
+- Não foi aplicada remoção por cor ao branco dos sprites: isso poderia apagar detalhes claros legítimos. Os assets individuais já tinham canal alfa no projeto-fonte.
+
+Limitações importantes:
+- Este ZIP contém os elementos individuais existentes no projeto enviado. Não foram inventados frames de animação.
+- O projeto-fonte traz um sprite estático por inimigo nas fases em que há inimigo. Para animações completas (idle, andar, ataque etc.) são necessários frames-fonte ou uma etapa de criação de arte.
+- Alguns tiles também aparecem em assets individuais de terreno/props; os arquivos foram mantidos separados e organizados por fase.

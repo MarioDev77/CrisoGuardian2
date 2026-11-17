@@ -1,0 +1,23 @@
+CRISOGUARDIAN — RELATÓRIO DE AUDITORIA E ENTREGA
+
+ESCOPO
+Revisadas as fontes enviadas: projeto web/backend das fases 01–08, biblioteca processada 01–08, pranchas conceituais 09–16, extrações alpha anteriores e biblioteca consolidada 01–16.
+
+ACHADOS PRINCIPAIS
+1. Fases 01–08: a fonte já contém projeto jogável e assets PNG organizados por categoria. Os cenários são fundos opacos; elementos isolados usam RGBA. O pacote preserva os sprites existentes e suas limitações de animação.
+2. Fases 09–16: as pranchas originais são conceituais (768x256), com quadriculado RGB desenhado, não transparência real. Não contêm animações completas. Os recortes automáticos anteriores misturavam peças e não tinham classificação semântica confiável.
+3. O projeto-fonte já incluía o gerador frontend/tools/build_island_kits.mjs e o motor Assets.ts já tentava carregar /assets/islands/catalog.json, mas a pasta public/assets/islands não estava presente no ZIP original. Isso causaria ausência dos fundos em camadas/tiles/props/creatures próprios das fases 09–16.
+4. Foi executado o gerador existente. Ele produziu kits para os 8 biomas, catálogo de 8 ilhas (índices 8–15, correspondentes às fases 09–16), fundos em quatro camadas, tiles e objetos/criaturas independentes. Todos os caminhos do catálogo foram verificados.
+5. Foram exportados PNGs RGBA a 2x de cada SVG para facilitar uso em ferramentas que não importam SVG. Os SVGs originais foram mantidos.
+
+LIMITAÇÕES QUE PERMANECEM
+- Os novos kits 09–16 são arte vetorial procedural, não redesenhos fiéis 1:1 de cada animal das pranchas.
+- Não foram criadas animações frame-a-frame (idle/run/attack/hit/death) para todos os inimigos.
+- O build/teste automatizado do frontend não foi executado: o pacote não traz node_modules e vitest não está instalado neste ambiente. O gerador de assets foi executado com sucesso e os 8 registros/caminhos do catálogo foram verificados.
+- Os arquivos conceituais originais foram mantidos em pasta separada para consulta, não apresentados como sprites finais.
+
+ESTRUTURA
+- Fases_01-08_Sprites_Originais_Organizados/: pacote anterior 01–08.
+- Fases_09-16_Assets_Reconstruidos/: SVGs e PNGs separados por bioma.
+- Fases_09-16_Referencias_Conceituais/: pranchas originais.
+- Projeto_Fonte_Com_Assets_Gerados/: projeto completo com public/assets/islands gerado e pronto para testar/buildar localmente.

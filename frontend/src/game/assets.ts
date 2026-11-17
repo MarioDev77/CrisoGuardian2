@@ -6,7 +6,7 @@ export interface Src { img: CanvasImageSource; x: number; y: number; w: number; 
 export interface AnimalFrame { x: number; y: number; w: number; h: number; ax: number; by: number; tx: number; ty: number; bw: number; bh: number }
 export interface AnimalClips { fly: boolean; idle: AnimalFrame[]; move: AnimalFrame[] }
 export interface CatalogEntry { name: string; src: string; w: number; h: number; hitbox?: { x: number; y: number; w: number; h: number }; lip?: number; modular?: boolean; category: string; role: string; phase: number }
-export interface DrawOpts { scale?: number; flip?: boolean; alpha?: number; rot?: number; anchor?: 'feet' | 'center'; pixelArt?: boolean }
+export interface DrawOpts { scale?: number; flip?: boolean; alpha?: number; rot?: number; anchor?: 'feet' | 'center'; pivot?: { x: number; y: number }; pixelArt?: boolean }
 
 const BASE = '/assets/game/';
 /** Tamanho do portal em tela (1 = arte original 300 px de largura) e altura aproximada do vórtice acima do chão. */
@@ -416,19 +416,19 @@ export class Assets {
     const s = o.scale ?? 1;
     const actor = this.actorMeta.frames[name];
     if (actor) {
-      const ax = o.anchor === 'center' ? actor.w / 2 : actor.pivot.x;
-      const ay = o.anchor === 'center' ? actor.h / 2 : actor.pivot.y;
+      const ax = o.pivot ? actor.w * o.pivot.x : o.anchor === 'center' ? actor.w / 2 : actor.pivot.x;
+      const ay = o.pivot ? actor.h * o.pivot.y : o.anchor === 'center' ? actor.h / 2 : actor.pivot.y;
       this.blit(ctx, this.spriteAtlasV2, actor.x, actor.y, actor.w, actor.h, x, y, actor.w, actor.h, s, o, ax, ay); return;
     }
     const f = this.meta[name];
     if (!f) {
       const t = this.tiles.get(name);
       if (!t) return;
-      this.blit(ctx, t, 0, 0, t.width, t.height, x, y, t.width, t.height, s * (this.fit.get(name) ?? 1), o, o.anchor === 'center' ? t.width / 2 : t.width / 2, o.anchor === 'center' ? t.height / 2 : t.height);
+      this.blit(ctx, t, 0, 0, t.width, t.height, x, y, t.width, t.height, s * (this.fit.get(name) ?? 1), o, t.width * (o.pivot?.x ?? 0.5), t.height * (o.pivot?.y ?? (o.anchor === 'center' ? 0.5 : 1)));
       return;
     }
-    const ax = o.anchor === 'center' ? f.w / 2 : f.ax;
-    const ay = o.anchor === 'center' ? f.h / 2 : f.ay;
+    const ax = o.pivot ? f.w * o.pivot.x : o.anchor === 'center' ? f.w / 2 : f.ax;
+    const ay = o.pivot ? f.h * o.pivot.y : o.anchor === 'center' ? f.h / 2 : f.ay;
     this.blit(ctx, this.atlasFor(name), f.x, f.y, f.w, f.h, x, y, f.w, f.h, s, o, ax, ay);
   }
 

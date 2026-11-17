@@ -1,0 +1,7 @@
+FASE 13 — Floresta das Copas
+
+Troncos, cipós, plataformas de madeira e folhagem; onça, macaco, arara e borboleta.
+
+Arquivos: atlas_referencia.png (painel completo); cenario_referencia.png (faixa do cenário); plataformas_obstaculos_animais_referencia.png (conceitos de plataformas, obstáculos e criaturas).
+
+IMPORTANTE: estes PNGs são recortes de uma prancha conceitual. O padrão quadriculado da imagem foi gerado como pixels RGB e NÃO é transparência alfa real. Os elementos ainda não estão separados individualmente nem possuem animações em frames independentes. Use como referência visual/protótipo, não como sprites finais prontos para colisão ou animação.

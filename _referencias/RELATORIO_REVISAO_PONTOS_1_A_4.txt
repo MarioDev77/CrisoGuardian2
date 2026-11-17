@@ -1,0 +1,37 @@
+CRISOGUARDIAN — REVISÃO DOS PONTOS 1 A 4 (FASES 09–16)
+Data: 17/11/2026
+
+1) ANIMAÇÃO DOS ANIMAIS E INIMIGOS
+- Corrigidos os identificadores de sprite dos 16 inimigos exclusivos das fases 09–16. Antes, o motor procurava nomes com sufixos de frames (_0, _1 etc.) que não existiam no catálogo de assets gerado.
+- Agora cada walker/flyer aponta para o SVG/asset realmente presente no catálogo da fase.
+- Os inimigos usam animação procedural do motor (natação, balanço, passos, rastejo, voo/hover e salto), com squash/stretch, inclinação e bobbing conforme o tipo.
+- Limitação: isso não equivale a uma sequência desenhada frame-a-frame para cada criatura. Não foram inventados frames de ataque/morte que não existiam na fonte.
+
+2) PIVÔS E ALINHAMENTO
+- Adicionado suporte a pivô normalizado em DrawOpts e no desenho de sprites, com valores explícitos por criatura.
+- Os pivôs foram calculados a partir da caixa alfa real dos PNGs de walker/flyer de cada bioma: centro inferior para criaturas terrestres e centro visual para criaturas voadoras.
+- Relatório técnico dos limites alfa e pivôs: frontend/public/assets/islands/creature-pivots.json.
+
+3) CHEFES E INIMIGOS ESPECIAIS
+- Confirmado que as fases 11 (Vulcão Verde) e 16 (Guardião do Planeta) têm configuração de chefe.
+- Criados chefes visuais individuais com transparência RGBA para os biomas Vulcão e Guardião, nos caminhos esperados pelo carregador do motor.
+- Criado src/game/bossAnim.ts, que estava ausente apesar de ser importado pelo motor. O módulo implementa seleção de poses e ciclo de projéteis do chefe clássico da fase 8.
+- O chefe customizado das fases 11 e 16 usa as artes boss_custom.png; a fase 8 continua usando o chefe clássico e o fallback existente.
+
+4) TRANSIÇÃO ENTRE FASES
+- Encontrado e corrigido um defeito de integração: layouts.ts continha apenas as fases 01–08 e não anexava islandLayouts. Assim, as fases 09–16 não entravam no array principal usado pelo motor.
+- Agora o array principal inclui os oito layouts gerados das fases 09–16.
+- Conferida a sequência de vitória do motor (walk → suck → burst → iris) e o botão Próxima fase, que chama onNext(level + 1) e respeita o limite da última fase.
+
+VERIFICAÇÃO EXECUTADA
+- Executado: node tools/verify_island_gameplay.mjs
+- Resultado: OK — 8 layouts 09–16 conectados; 16 sprites walker/flyer resolvidos; pivôs dentro do intervalo e aplicados; chefes 11/16 presentes; quatro etapas de transição e avanço de fase conectados.
+- Conferida a presença dos PNGs dos chefes e dos assets no catálogo.
+
+NÃO EXECUTADO (conforme solicitado)
+- Não executei npm install, npm test, Playwright nem npm run build. O build automático fica para o usuário executar.
+- A verificação acima é estática/de integração de assets e código; não substitui um teste visual jogando as 16 fases no navegador.
+
+LIMITAÇÕES VISUAIS
+- Os dois chefes adicionados são artes vetoriais novas e estilizadas, não cópias exatas das pranchas conceituais.
+- As animações dos inimigos 09–16 são procedurais no motor; animações frame-a-frame originais continuam sendo uma etapa futura se forem desejadas.

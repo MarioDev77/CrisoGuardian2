@@ -689,7 +689,7 @@ export class Engine {
         // sprite estático: pose (inclinação, squash/stretch, deslocamento) calculada por código
         const pose = this.enemyPose(e, sp, faceDir >= 0 ? 1 : -1);
         ctx.translate(e.x + e.w / 2, (sp.fly ? e.y + e.h / 2 : e.y + e.h + 2 - bob) + pose.dy); ctx.rotate(pose.rot); ctx.scale(pose.sx, pose.sy);
-        a.draw(ctx, name, 0, 0, sp.fly ? { scale: sp.scale, flip, anchor: 'center' } : { scale: sp.scale, flip });
+        a.draw(ctx, name, 0, 0, sp.fly ? { scale: sp.scale, flip, anchor: 'center', pivot: sp.pivot } : { scale: sp.scale, flip, pivot: sp.pivot });
       }
       else if (sp.fly) a.draw(ctx, name, e.x + e.w / 2, e.y + e.h / 2, { scale: sp.scale, flip, anchor: 'center' });
       else { const ap = this.aiPose(e); ctx.translate(e.x + e.w / 2, e.y + e.h + 2 - bob); ctx.rotate(ap.rot); ctx.scale(ap.sx, ap.sy); a.draw(ctx, name, 0, 0, { scale: sp.scale, flip }); }

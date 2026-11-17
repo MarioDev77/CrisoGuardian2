@@ -311,24 +311,6 @@
       "icon": "👾"
     },
     {
-      "id": "volcano_boss",
-      "name": "Coração do Vulcão",
-      "desc": "Conclua o Vulcão Verde (fase 11).",
-      "icon": "🌋"
-    },
-    {
-      "id": "map2_done",
-      "name": "Guardião do Mapa 2",
-      "desc": "Conclua as fases 9 a 16.",
-      "icon": "🏝️"
-    },
-    {
-      "id": "planet_guardian",
-      "name": "Guardião do Planeta",
-      "desc": "Conclua a fase 16.",
-      "icon": "🌍"
-    },
-    {
       "id": "three_stars",
       "name": "Perfeito!",
       "desc": "Ganhe 3 estrelas em uma fase.",
@@ -345,12 +327,6 @@
       "name": "Constelação",
       "desc": "Some 30 estrelas.",
       "icon": "🌟"
-    },
-    {
-      "id": "all_stars",
-      "name": "Céu completo",
-      "desc": "Ganhe 3 estrelas em todas as 16 fases.",
-      "icon": "🏆"
     },
     {
       "id": "coins_500",

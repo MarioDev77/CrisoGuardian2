@@ -1,0 +1,11 @@
+{
+  "fase": 7,
+  "nome": "phase-07-metropole-sustentavel",
+  "cenario": "cenario/cenario_f07.png",
+  "pastas": {
+    "animais": "inimigos/personagens individuais",
+    "obstaculos": "props e obstáculos individuais",
+    "terreno": "plataformas e peças de terreno",
+    "coletaveis": "itens coletáveis"
+  }
+}

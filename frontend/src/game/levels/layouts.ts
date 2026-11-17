@@ -1,3 +1,5 @@
+import { islandLayouts } from './islandLayouts';
+
 /**
  * Hand-built layouts for the 8 missions. All coordinates are in "scene pixels" of the official
  * phase sprite (357 px wide, y measured from the top of the scene art). The engine scales them
@@ -35,7 +37,6 @@ export interface Layout {
   accent: string;
 }
 
-import { islandLayouts } from './islandLayouts';
 export const SCENE_W = 357;
 
 export const layouts: Layout[] = [

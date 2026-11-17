@@ -1,0 +1,17 @@
+CRISOGUARDIAN — PACOTE CONCEITUAL DE ASSETS (FASES 09 A 16)
+
+Cada fase possui uma subpasta própria com:
+- atlas_referencia.png: painel completo da fase;
+- cenario_referencia.png: recorte da faixa de cenário;
+- plataformas_obstaculos_animais_referencia.png: recorte dos elementos de gameplay e criaturas;
+- LEIA-ME.txt: descrição e limitações do material.
+
+LIMITAÇÃO TÉCNICA IMPORTANTE
+Esta entrega organiza os conceitos visuais gerados em pastas por fase. A imagem-fonte contém um padrão
+quadriculado desenhado (RGB), e não um canal alfa transparente. Por isso, não foi removido automaticamente:
+isso poderia apagar partes brancas dos animais e danificar os contornos. Os elementos também não foram
+recortados um a um, e as pequenas sequências visuais não constituem animações completas em spritesheet.
+
+Para uso final no jogo, será necessário produzir cada asset isoladamente com transparência alfa real,
+resolução consistente, pivô/origem definido e frames de animação separados. A prancha serve como guia
+visual para essa etapa.

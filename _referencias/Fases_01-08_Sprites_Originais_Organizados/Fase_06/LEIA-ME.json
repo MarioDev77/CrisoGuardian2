@@ -1,0 +1,11 @@
+{
+  "fase": 6,
+  "nome": "phase-06-deserto",
+  "cenario": "cenario/cenario_f06.png",
+  "pastas": {
+    "animais": "inimigos/personagens individuais",
+    "obstaculos": "props e obstáculos individuais",
+    "terreno": "plataformas e peças de terreno",
+    "coletaveis": "itens coletáveis"
+  }
+}

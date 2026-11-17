@@ -1,0 +1,18 @@
+CRISOGUARDIAN — FASES 09–16 — ASSETS RECONSTRUÍDOS
+
+Esta pasta foi gerada pelo script frontend/tools/build_island_kits.mjs do projeto enviado.
+
+ORGANIZAÇÃO POR BIOMA
+- background/sky, far, mid, near: quatro camadas independentes de cenário para composição/parallax.
+- tiles/: chão, plataforma, ponte, bloco e caixa, cada um em arquivo separado.
+- enemy_walker / enemy_flyer / animal: criaturas individuais do kit procedural.
+- props, prop2, prop3, bin: objetos e lixeira separados.
+- thumbnail: miniatura de referência.
+- catalog.json: caminhos e metadados usados pelo motor do jogo.
+
+FORMATO
+- SVG: arte vetorial com transparência real (alpha implícito no SVG), escalável sem serrilhado.
+- PNG: exportação raster 2x dos SVGs, canal RGBA preservado, útil para editores que preferem PNG.
+
+IMPORTANTE
+Estes assets são kits vetoriais procedurais produzidos pelo gerador que já estava no código-fonte. Eles completam visualmente as fases 09–16 e permitem ao motor compor fundos em camadas e usar tiles/props/criaturas independentes. Não são recortes perfeitos dos animais específicos das pranchas conceituais antigas; algumas criaturas são variantes estilizadas genéricas por bioma. As animações completas de cada criatura não estão incluídas como sequências de frames.
