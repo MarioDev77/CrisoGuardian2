@@ -1,0 +1,64 @@
+{
+  "phase": 15,
+  "image": "/assets/islands/cidade/deco/pack/phase_props_sheet.png",
+  "cell": 192,
+  "columns": 3,
+  "rows": 2,
+  "items": [
+    {
+      "name": "p15_pack_091",
+      "sourceSprite": 91,
+      "src": "/assets/islands/cidade/deco/pack/p15_pack_091.png",
+      "sourceWidth": 171,
+      "sourceHeight": 172,
+      "frameX": 12,
+      "frameY": 12,
+      "frameW": 167,
+      "frameH": 168
+    },
+    {
+      "name": "p15_pack_092",
+      "sourceSprite": 92,
+      "src": "/assets/islands/cidade/deco/pack/p15_pack_092.png",
+      "sourceWidth": 159,
+      "sourceHeight": 169,
+      "frameX": 209,
+      "frameY": 12,
+      "frameW": 158,
+      "frameH": 168
+    },
+    {
+      "name": "p15_pack_093",
+      "sourceSprite": 93,
+      "src": "/assets/islands/cidade/deco/pack/p15_pack_093.png",
+      "sourceWidth": 135,
+      "sourceHeight": 156,
+      "frameX": 412,
+      "frameY": 18,
+      "frameW": 135,
+      "frameH": 156
+    },
+    {
+      "name": "p15_pack_094",
+      "sourceSprite": 94,
+      "src": "/assets/islands/cidade/deco/pack/p15_pack_094.png",
+      "sourceWidth": 98,
+      "sourceHeight": 155,
+      "frameX": 47,
+      "frameY": 210,
+      "frameW": 98,
+      "frameH": 155
+    },
+    {
+      "name": "p15_pack_095",
+      "sourceSprite": 95,
+      "src": "/assets/islands/cidade/deco/pack/p15_pack_095.png",
+      "sourceWidth": 137,
+      "sourceHeight": 149,
+      "frameX": 219,
+      "frameY": 213,
+      "frameW": 137,
+      "frameH": 149
+    }
+  ]
+}

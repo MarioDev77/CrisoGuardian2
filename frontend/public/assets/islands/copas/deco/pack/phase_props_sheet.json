@@ -1,0 +1,64 @@
+{
+  "phase": 13,
+  "image": "/assets/islands/copas/deco/pack/phase_props_sheet.png",
+  "cell": 192,
+  "columns": 3,
+  "rows": 2,
+  "items": [
+    {
+      "name": "p13_pack_001",
+      "sourceSprite": 1,
+      "src": "/assets/islands/copas/deco/pack/p13_pack_001.png",
+      "sourceWidth": 205,
+      "sourceHeight": 158,
+      "frameX": 12,
+      "frameY": 31,
+      "frameW": 168,
+      "frameH": 129
+    },
+    {
+      "name": "p13_pack_002",
+      "sourceSprite": 2,
+      "src": "/assets/islands/copas/deco/pack/p13_pack_002.png",
+      "sourceWidth": 193,
+      "sourceHeight": 226,
+      "frameX": 216,
+      "frameY": 12,
+      "frameW": 143,
+      "frameH": 168
+    },
+    {
+      "name": "p13_pack_012",
+      "sourceSprite": 12,
+      "src": "/assets/islands/copas/deco/pack/p13_pack_012.png",
+      "sourceWidth": 116,
+      "sourceHeight": 154,
+      "frameX": 422,
+      "frameY": 19,
+      "frameW": 116,
+      "frameH": 154
+    },
+    {
+      "name": "p13_pack_014",
+      "sourceSprite": 14,
+      "src": "/assets/islands/copas/deco/pack/p13_pack_014.png",
+      "sourceWidth": 75,
+      "sourceHeight": 90,
+      "frameX": 58,
+      "frameY": 243,
+      "frameW": 75,
+      "frameH": 90
+    },
+    {
+      "name": "p13_pack_037",
+      "sourceSprite": 37,
+      "src": "/assets/islands/copas/deco/pack/p13_pack_037.png",
+      "sourceWidth": 100,
+      "sourceHeight": 112,
+      "frameX": 238,
+      "frameY": 232,
+      "frameW": 100,
+      "frameH": 112
+    }
+  ]
+}

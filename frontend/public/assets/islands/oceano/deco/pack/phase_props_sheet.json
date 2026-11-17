@@ -1,0 +1,64 @@
+{
+  "phase": 14,
+  "image": "/assets/islands/oceano/deco/pack/phase_props_sheet.png",
+  "cell": 192,
+  "columns": 3,
+  "rows": 2,
+  "items": [
+    {
+      "name": "p14_pack_165",
+      "sourceSprite": 165,
+      "src": "/assets/islands/oceano/deco/pack/p14_pack_165.png",
+      "sourceWidth": 40,
+      "sourceHeight": 32,
+      "frameX": 76,
+      "frameY": 80,
+      "frameW": 40,
+      "frameH": 32
+    },
+    {
+      "name": "p14_pack_166",
+      "sourceSprite": 166,
+      "src": "/assets/islands/oceano/deco/pack/p14_pack_166.png",
+      "sourceWidth": 31,
+      "sourceHeight": 29,
+      "frameX": 272,
+      "frameY": 81,
+      "frameW": 31,
+      "frameH": 29
+    },
+    {
+      "name": "p14_pack_167",
+      "sourceSprite": 167,
+      "src": "/assets/islands/oceano/deco/pack/p14_pack_167.png",
+      "sourceWidth": 27,
+      "sourceHeight": 28,
+      "frameX": 466,
+      "frameY": 82,
+      "frameW": 27,
+      "frameH": 28
+    },
+    {
+      "name": "p14_pack_168",
+      "sourceSprite": 168,
+      "src": "/assets/islands/oceano/deco/pack/p14_pack_168.png",
+      "sourceWidth": 24,
+      "sourceHeight": 26,
+      "frameX": 84,
+      "frameY": 275,
+      "frameW": 24,
+      "frameH": 26
+    },
+    {
+      "name": "p14_pack_169",
+      "sourceSprite": 169,
+      "src": "/assets/islands/oceano/deco/pack/p14_pack_169.png",
+      "sourceWidth": 27,
+      "sourceHeight": 24,
+      "frameX": 274,
+      "frameY": 276,
+      "frameW": 27,
+      "frameH": 24
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "phase": 12,
+  "image": "/assets/islands/creatures/phase_12.png",
+  "cell": {
+    "w": 160,
+    "h": 144
+  },
+  "animations": {
+    "walker": [
+      {
+        "name": "p12_walker_0",
+        "sourceSprite": 216,
+        "frameX": 42,
+        "frameY": 40,
+        "frameW": 75,
+        "frameH": 92,
+        "pivotX": 37.5,
+        "pivotY": 92,
+        "image": "/assets/islands/creatures/p12_walker_0.png"
+      },
+      {
+        "name": "p12_walker_1",
+        "sourceSprite": 217,
+        "frameX": 202,
+        "frameY": 38,
+        "frameW": 75,
+        "frameH": 94,
+        "pivotX": 37.5,
+        "pivotY": 94,
+        "image": "/assets/islands/creatures/p12_walker_1.png"
+      },
+      {
+        "name": "p12_walker_2",
+        "sourceSprite": 219,
+        "frameX": 351,
+        "frameY": 29,
+        "frameW": 98,
+        "frameH": 103,
+        "pivotX": 49.0,
+        "pivotY": 103,
+        "image": "/assets/islands/creatures/p12_walker_2.png"
+      }
+    ],
+    "flyer": [
+      {
+        "name": "p12_flyer_0",
+        "sourceSprite": 179,
+        "frameX": 55,
+        "frameY": 190,
+        "frameW": 50,
+        "frameH": 51,
+        "pivotX": 25.0,
+        "pivotY": 25.5,
+        "image": "/assets/islands/creatures/p12_flyer_0.png"
+      },
+      {
+        "name": "p12_flyer_1",
+        "sourceSprite": 181,
+        "frameX": 214,
+        "frameY": 192,
+        "frameW": 51,
+        "frameH": 47,
+        "pivotX": 25.5,
+        "pivotY": 23.5,
+        "image": "/assets/islands/creatures/p12_flyer_1.png"
+      }
+    ]
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "phase": 13,
+  "image": "/assets/islands/creatures/phase_13.png",
+  "cell": {
+    "w": 160,
+    "h": 144
+  },
+  "animations": {
+    "walker": [
+      {
+        "name": "p13_walker_0",
+        "sourceSprite": 175,
+        "frameX": 52,
+        "frameY": 74,
+        "frameW": 55,
+        "frameH": 58,
+        "pivotX": 27.5,
+        "pivotY": 58,
+        "image": "/assets/islands/creatures/p13_walker_0.png"
+      },
+      {
+        "name": "p13_walker_1",
+        "sourceSprite": 185,
+        "frameX": 211,
+        "frameY": 76,
+        "frameW": 58,
+        "frameH": 56,
+        "pivotX": 29.0,
+        "pivotY": 56,
+        "image": "/assets/islands/creatures/p13_walker_1.png"
+      },
+      {
+        "name": "p13_walker_2",
+        "sourceSprite": 190,
+        "frameX": 379,
+        "frameY": 85,
+        "frameW": 41,
+        "frameH": 47,
+        "pivotX": 20.5,
+        "pivotY": 47,
+        "image": "/assets/islands/creatures/p13_walker_2.png"
+      },
+      {
+        "name": "p13_walker_3",
+        "sourceSprite": 192,
+        "frameX": 543,
+        "frameY": 87,
+        "frameW": 34,
+        "frameH": 45,
+        "pivotX": 17.0,
+        "pivotY": 45,
+        "image": "/assets/islands/creatures/p13_walker_3.png"
+      }
+    ],
+    "flyer": [
+      {
+        "name": "p13_flyer_0",
+        "sourceSprite": 182,
+        "frameX": 42,
+        "frameY": 183,
+        "frameW": 76,
+        "frameH": 66,
+        "pivotX": 38.0,
+        "pivotY": 33.0,
+        "image": "/assets/islands/creatures/p13_flyer_0.png"
+      },
+      {
+        "name": "p13_flyer_1",
+        "sourceSprite": 183,
+        "frameX": 202,
+        "frameY": 183,
+        "frameW": 75,
+        "frameH": 66,
+        "pivotX": 37.5,
+        "pivotY": 33.0,
+        "image": "/assets/islands/creatures/p13_flyer_1.png"
+      },
+      {
+        "name": "p13_flyer_2",
+        "sourceSprite": 184,
+        "frameX": 361,
+        "frameY": 183,
+        "frameW": 78,
+        "frameH": 65,
+        "pivotX": 39.0,
+        "pivotY": 32.5,
+        "image": "/assets/islands/creatures/p13_flyer_2.png"
+      }
+    ]
+  }
+}

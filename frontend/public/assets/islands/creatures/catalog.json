@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "source": "crisoverde_assets_pack.zip / sprites/criaturas",
+  "phases": {
+    "9": "/assets/islands/creatures/phase_09.json",
+    "10": "/assets/islands/creatures/phase_10.json",
+    "11": "/assets/islands/creatures/phase_11.json",
+    "12": "/assets/islands/creatures/phase_12.json",
+    "13": "/assets/islands/creatures/phase_13.json",
+    "14": "/assets/islands/creatures/phase_14.json",
+    "15": "/assets/islands/creatures/phase_15.json",
+    "16": "/assets/islands/creatures/phase_16.json"
+  }
+}

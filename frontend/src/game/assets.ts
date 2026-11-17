@@ -234,29 +234,6 @@ export class Assets {
       try { this.tiles.set(e.name, await loadImage(e.src)); if (e.lip !== undefined) this.lips.set(e.name, e.lip); if (e.role === 'recycling-bin' && e.hitbox && e.w > e.hitbox.w * 1.5) this.fit.set(e.name, e.hitbox.w / e.w); }
       catch { /* sprite ausente: o jogo segue sem ele */ }
     }));
-    // Fallback visual: as lixeiras das fases 9–16 nunca ficam invisíveis se um arquivo específico falhar.
-    // Prioriza a lixeira verde da fase 1; a fase 2 é a segunda opção compatível.
-    const fallbackBin = this.tiles.get('p01_bin') ?? this.tiles.get('p02_bin');
-    if (fallbackBin) {
-      for (let phase = 9; phase <= 16; phase++) {
-        const key = `p${String(phase).padStart(2, '0')}_bin`;
-        if (!this.tiles.has(key)) this.tiles.set(key, fallbackBin);
-      }
-    }
-    // Garante terreno jogável caso algum arquivo de plataforma de uma ilha esteja ausente/corrompido.
-    const terrainFallbacks: Record<string, string> = {
-      ground: 'p01_ground', ledge: 'p01_ledge', bridge: 'p01_bridge', crate: 'p03_crate',
-    };
-    for (let phase = 9; phase <= 16; phase++) {
-      const prefix = `p${String(phase).padStart(2, '0')}_`;
-      for (const [kind, fallbackKey] of Object.entries(terrainFallbacks)) {
-        const key = prefix + kind;
-        if (!this.tiles.has(key)) {
-          const fallback = this.tiles.get(fallbackKey);
-          if (fallback) this.tiles.set(key, fallback);
-        }
-      }
-    }
     try {
       const pm = await fetch('/assets/portal/portal.json').then((r) => r.json() as Promise<{ image: string; frames: Record<string, { x: number; y: number; w: number; h: number }>; hole: { x: number; y: number; w: number; h: number } }>);
       this.portal = { img: await loadImage(pm.image), frames: pm.frames, hole: pm.hole };
@@ -332,8 +309,9 @@ export class Assets {
     const sn = `symbol_${idx(t, 6, 4)}`; const sc = 0.5 * (1 + 0.35 * glow);
     put(sn, c.x, c.y - 132 - 26 * glow + Math.sin(t * 2.2) * 7, sc, sc, 0.97, false);
   }
-  /** Animais da spritesheet viram inimigos reais: cada quadro de movimento é recortado (caixa tx/ty/bw/bh) e registrado como tile `an<fase>_m<i>`. */
+  /** Carrega o atlas legado e as oito spritesheets RGBA por bioma; os quadros são recortados e registrados como tiles animáveis. */
   private async loadAnimals(): Promise<void> {
+    // Atlas legado de animais: mantém compatibilidade com os quadros já usados nas fases 9–16.
     try {
       const m = await fetch('/assets/islands/animals/animals.json').then((r) => r.json() as Promise<{ image: string; animals: Record<string, AnimalClips> }>);
       const img = await loadImage(m.image);
@@ -342,7 +320,32 @@ export class Assets {
         c.getContext('2d')?.drawImage(img, f.x + f.tx, f.y + f.ty, f.bw, f.bh, 0, 0, f.bw, f.bh);
         this.tiles.set(`an${phase}_m${i}`, c as unknown as HTMLImageElement);
       });
-    } catch { /* sem animais: o jogo segue com os demais inimigos */ }
+    } catch { /* o atlas antigo é opcional: as novas criaturas continuam disponíveis */ }
+
+    // Spritesheets temáticos novos: um atlas transparente por fase, com frames de caminhada/voo.
+    // Os PNGs individuais do catálogo continuam como fallback caso algum atlas não carregue.
+    try {
+      const index = await fetch('/assets/islands/creatures/catalog.json').then((r) => r.json() as Promise<{ phases: Record<string, string> }>);
+      await Promise.all(Object.values(index.phases).map(async (manifestPath) => {
+        try {
+          const manifest = await fetch(manifestPath).then((r) => r.json() as Promise<{ image: string; animations: Record<string, { name: string; image: string; frameX: number; frameY: number; frameW: number; frameH: number }[]> }>);
+          const frames = Object.values(manifest.animations).flat();
+          try {
+            const sheet = await loadImage(manifest.image);
+            for (const frame of frames) {
+              const c = document.createElement('canvas'); c.width = frame.frameW; c.height = frame.frameH;
+              const g = c.getContext('2d');
+              if (!g) continue;
+              g.drawImage(sheet, frame.frameX, frame.frameY, frame.frameW, frame.frameH, 0, 0, frame.frameW, frame.frameH);
+              this.tiles.set(frame.name, c as unknown as HTMLImageElement);
+            }
+          } catch {
+            // Se o atlas falhar, usa os PNGs individuais do mesmo manifesto.
+            await Promise.all(frames.map(async (frame) => { try { this.tiles.set(frame.name, await loadImage(frame.image)); } catch { /* frame opcional */ } }));
+          }
+        } catch { /* falha isolada de um bioma não impede os outros */ }
+      }));
+    } catch { /* spritesheets opcionais: o restante do jogo continua carregando */ }
   }
   /** Portal temático das fases 9–16 (PNG 256×288, anel de ~225 px com centro em ≈(128,135)): pulsa, flutua e brilha; fica apagado enquanto o chefe vive. */
   private drawIslandPortal(ctx: CanvasRenderingContext2D, img: HTMLImageElement, x: number, groundY: number, t: number, open: boolean, glow: number): void {

@@ -1,0 +1,64 @@
+{
+  "phase": 9,
+  "image": "/assets/islands/manguezal/deco/pack/phase_props_sheet.png",
+  "cell": 192,
+  "columns": 3,
+  "rows": 2,
+  "items": [
+    {
+      "name": "p09_pack_001",
+      "sourceSprite": 1,
+      "src": "/assets/islands/manguezal/deco/pack/p09_pack_001.png",
+      "sourceWidth": 205,
+      "sourceHeight": 158,
+      "frameX": 12,
+      "frameY": 31,
+      "frameW": 168,
+      "frameH": 129
+    },
+    {
+      "name": "p09_pack_002",
+      "sourceSprite": 2,
+      "src": "/assets/islands/manguezal/deco/pack/p09_pack_002.png",
+      "sourceWidth": 193,
+      "sourceHeight": 226,
+      "frameX": 216,
+      "frameY": 12,
+      "frameW": 143,
+      "frameH": 168
+    },
+    {
+      "name": "p09_pack_003",
+      "sourceSprite": 3,
+      "src": "/assets/islands/manguezal/deco/pack/p09_pack_003.png",
+      "sourceWidth": 90,
+      "sourceHeight": 142,
+      "frameX": 435,
+      "frameY": 25,
+      "frameW": 90,
+      "frameH": 142
+    },
+    {
+      "name": "p09_pack_004",
+      "sourceSprite": 4,
+      "src": "/assets/islands/manguezal/deco/pack/p09_pack_004.png",
+      "sourceWidth": 63,
+      "sourceHeight": 100,
+      "frameX": 64,
+      "frameY": 238,
+      "frameW": 63,
+      "frameH": 100
+    },
+    {
+      "name": "p09_pack_014",
+      "sourceSprite": 14,
+      "src": "/assets/islands/manguezal/deco/pack/p09_pack_014.png",
+      "sourceWidth": 75,
+      "sourceHeight": 90,
+      "frameX": 250,
+      "frameY": 243,
+      "frameW": 75,
+      "frameH": 90
+    }
+  ]
+}

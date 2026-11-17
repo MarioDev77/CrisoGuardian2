@@ -1,0 +1,64 @@
+{
+  "phase": 16,
+  "image": "/assets/islands/guardiao/deco/pack/phase_props_sheet.png",
+  "cell": 192,
+  "columns": 3,
+  "rows": 2,
+  "items": [
+    {
+      "name": "p16_pack_090",
+      "sourceSprite": 90,
+      "src": "/assets/islands/guardiao/deco/pack/p16_pack_090.png",
+      "sourceWidth": 171,
+      "sourceHeight": 180,
+      "frameX": 16,
+      "frameY": 12,
+      "frameW": 160,
+      "frameH": 168
+    },
+    {
+      "name": "p16_pack_094",
+      "sourceSprite": 94,
+      "src": "/assets/islands/guardiao/deco/pack/p16_pack_094.png",
+      "sourceWidth": 98,
+      "sourceHeight": 155,
+      "frameX": 239,
+      "frameY": 18,
+      "frameW": 98,
+      "frameH": 155
+    },
+    {
+      "name": "p16_pack_095",
+      "sourceSprite": 95,
+      "src": "/assets/islands/guardiao/deco/pack/p16_pack_095.png",
+      "sourceWidth": 137,
+      "sourceHeight": 149,
+      "frameX": 411,
+      "frameY": 21,
+      "frameW": 137,
+      "frameH": 149
+    },
+    {
+      "name": "p16_pack_141",
+      "sourceSprite": 141,
+      "src": "/assets/islands/guardiao/deco/pack/p16_pack_141.png",
+      "sourceWidth": 41,
+      "sourceHeight": 43,
+      "frameX": 75,
+      "frameY": 266,
+      "frameW": 41,
+      "frameH": 43
+    },
+    {
+      "name": "p16_pack_142",
+      "sourceSprite": 142,
+      "src": "/assets/islands/guardiao/deco/pack/p16_pack_142.png",
+      "sourceWidth": 32,
+      "sourceHeight": 37,
+      "frameX": 272,
+      "frameY": 269,
+      "frameW": 32,
+      "frameH": 37
+    }
+  ]
+}
