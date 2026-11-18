@@ -19,3 +19,6 @@ Estes assets são kits vetoriais procedurais produzidos pelo gerador que já est
 
 ETAPA 2 (arte das pranchas de referência)
 Inimigos (enemy_walker/enemy_flyer), animal, lixeira (bin), props/prop2/prop3 e chefes (boss_custom das fases 11 e 16) agora são recortes das pranchas de referência, em PNG 1× com alfa. Terreno (ground/ledge/bridge/block/crate) e fundos continuam do kit procedural (Etapa 3). Originais substituídos: tools/backup/etapa2-originais/.
+
+ETAPA 3 (terreno)
+ground/ledge/crate (e bridge da fase 13) agora vêm das plataformas das pranchas, em 1× (128×96, 128×64, 64×64, 128×40). Pontes das demais fases e blocos (block.png, não usado nos mapas) seguem do kit procedural. Originais: tools/backup/etapa3-originais/.
