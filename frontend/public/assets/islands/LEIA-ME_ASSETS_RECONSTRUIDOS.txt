@@ -36,3 +36,6 @@ Fundo: pintura enviada pelo jm em geleira/background/far.png (parallax); mid.png
 
 FASE 11 (Vulcão Verde)
 Fundo: pintura enviada pelo jm em vulcao/background/far.png (parallax); mid.png e near.png transparentes. Cenário: 10 sprites de lava/cristal verde em vulcao/deco/ (catálogo p11_deco_*), distribuídos por tela em islandLayouts.ts (gerado: não rode tools/build_island_kits.mjs). Originais: tools/backup/fase11-originais/.
+
+FASE 12 (Fábrica da Reciclagem)
+Fundo: pintura enviada pelo jm em fabrica/background/far.png (parallax); mid.png e near.png transparentes. Cenário: 12 sprites industriais em fabrica/deco/ (catálogo p12_deco_*), distribuídos por tela em islandLayouts.ts (gerado: não rode tools/build_island_kits.mjs). Originais: tools/backup/fase12-originais/.

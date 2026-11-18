@@ -3628,5 +3628,245 @@
     "capPx": 0,
     "surfaceInset": 0,
     "lip": 0
+  },
+  {
+    "name": "p12_deco_barrelY",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/deco/barrelY.png",
+    "w": 56,
+    "h": 79,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 56,
+      "h": 79
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_deco_barrel",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/deco/barrel.png",
+    "w": 50,
+    "h": 74,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 50,
+      "h": 74
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_deco_pipe",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/deco/pipe.png",
+    "w": 102,
+    "h": 61,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 102,
+      "h": 61
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_deco_pipe2",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/deco/pipe2.png",
+    "w": 116,
+    "h": 61,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 116,
+      "h": 61
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_deco_machine",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/deco/machine.png",
+    "w": 89,
+    "h": 53,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 89,
+      "h": 53
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_deco_machine2",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/deco/machine2.png",
+    "w": 57,
+    "h": 62,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 57,
+      "h": 62
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_deco_barrier",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/deco/barrier.png",
+    "w": 145,
+    "h": 55,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 145,
+      "h": 55
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_deco_basin",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/deco/basin.png",
+    "w": 70,
+    "h": 61,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 70,
+      "h": 61
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_deco_pillar",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/deco/pillar.png",
+    "w": 31,
+    "h": 61,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 31,
+      "h": 61
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_deco_post",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/deco/post.png",
+    "w": 29,
+    "h": 60,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 29,
+      "h": 60
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_deco_crane",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/deco/crane.png",
+    "w": 149,
+    "h": 106,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 149,
+      "h": 106
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_deco_struct",
+    "phase": 12,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/fabrica/deco/struct.png",
+    "w": 137,
+    "h": 144,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 137,
+      "h": 144
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
   }
 ]
