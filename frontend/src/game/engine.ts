@@ -622,7 +622,7 @@ export class Engine {
       // borda reta no arquivo-fonte; sobre a copa principal ela parece um retângulo.
       // Mantemos céu, distância e plano médio (o cenário continua completo) e não
       // sobrepomos esse recorte nesses três biomas até existir uma arte de foreground correta.
-      const omitNear = this.levelIndex === 8 || this.levelIndex === 12 || this.levelIndex === 14;
+      const omitNear = this.levelIndex === 8 || this.levelIndex === 10 || this.levelIndex === 11 || this.levelIndex === 12 || this.levelIndex === 14;
       for (const [name,rate] of [['sky',0],['far',0.12],['mid',0.3],['near',0.52]] as const) {
         if (name === 'near' && omitNear) continue;
         const img=layers[name]; if (!img) continue;
