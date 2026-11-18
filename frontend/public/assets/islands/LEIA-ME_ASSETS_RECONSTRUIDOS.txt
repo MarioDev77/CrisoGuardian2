@@ -30,3 +30,6 @@ FASE 9 (Manguezal Vivo) — trabalho fase a fase
 Fundo: pintura enviada pelo jm (1920×640) em background/far.png, com parallax; mid.png ficou transparente.
 Cenário: 18 sprites do mangue em manguezal/deco/ (catálogo p09_deco_*), distribuídos em cada tela só sobre chão/plataformas em src/game/levels/islandLayouts.ts.
 ATENÇÃO: islandLayouts.ts é gerado por tools/build_island_kits.mjs — NÃO rode esse gerador, ele sobrescreveria a arte e o layout editados à mão. Originais da fase 9: tools/backup/fase9-originais/.
+
+FASE 10 (Geleira Azul)
+Fundo: pintura enviada pelo jm em geleira/background/far.png (parallax); mid.png e near.png transparentes. Cenário: 14 sprites de gelo em geleira/deco/ (catálogo p10_deco_*), distribuídos por tela só sobre chão/plataformas em islandLayouts.ts (arquivo gerado: não rode tools/build_island_kits.mjs). Originais: tools/backup/fase10-originais/.

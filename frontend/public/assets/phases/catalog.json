@@ -3148,5 +3148,285 @@
     "capPx": 0,
     "surfaceInset": 0,
     "lip": 0
+  },
+  {
+    "name": "p10_deco_crystal",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/deco/crystal.png",
+    "w": 50,
+    "h": 58,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 50,
+      "h": 58
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_deco_crystal2",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/deco/crystal2.png",
+    "w": 63,
+    "h": 43,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 63,
+      "h": 43
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_deco_crystalS",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/deco/crystalS.png",
+    "w": 29,
+    "h": 54,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 29,
+      "h": 54
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_deco_crystalC",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/deco/crystalC.png",
+    "w": 78,
+    "h": 74,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 78,
+      "h": 74
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_deco_crystalB",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/deco/crystalB.png",
+    "w": 64,
+    "h": 92,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 92
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_deco_crystalT",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/deco/crystalT.png",
+    "w": 55,
+    "h": 71,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 55,
+      "h": 71
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_deco_mound",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/deco/mound.png",
+    "w": 51,
+    "h": 41,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 51,
+      "h": 41
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_deco_mound2",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/deco/mound2.png",
+    "w": 58,
+    "h": 51,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 58,
+      "h": 51
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_deco_iceblock",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/deco/iceblock.png",
+    "w": 68,
+    "h": 49,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 68,
+      "h": 49
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_deco_icestalag",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/deco/icestalag.png",
+    "w": 46,
+    "h": 69,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 46,
+      "h": 69
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_deco_column2",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/deco/column2.png",
+    "w": 75,
+    "h": 78,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 75,
+      "h": 78
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_deco_seal",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/deco/seal.png",
+    "w": 58,
+    "h": 51,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 58,
+      "h": 51
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_deco_snowman",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/deco/snowman.png",
+    "w": 59,
+    "h": 78,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 59,
+      "h": 78
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_deco_spikes",
+    "phase": 10,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/geleira/deco/spikes.png",
+    "w": 49,
+    "h": 72,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 49,
+      "h": 72
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
   }
 ]
