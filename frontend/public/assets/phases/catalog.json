@@ -3428,5 +3428,205 @@
     "capPx": 0,
     "surfaceInset": 0,
     "lip": 0
+  },
+  {
+    "name": "p11_deco_firerock",
+    "phase": 11,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/vulcao/deco/firerock.png",
+    "w": 71,
+    "h": 63,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 71,
+      "h": 63
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_deco_spikes",
+    "phase": 11,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/vulcao/deco/spikes.png",
+    "w": 76,
+    "h": 43,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 76,
+      "h": 43
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_deco_redspikes",
+    "phase": 11,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/vulcao/deco/redspikes.png",
+    "w": 177,
+    "h": 82,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 177,
+      "h": 82
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_deco_darkspike",
+    "phase": 11,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/vulcao/deco/darkspike.png",
+    "w": 49,
+    "h": 72,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 49,
+      "h": 72
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_deco_darkspike2",
+    "phase": 11,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/vulcao/deco/darkspike2.png",
+    "w": 87,
+    "h": 69,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 87,
+      "h": 69
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_deco_barrel",
+    "phase": 11,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/vulcao/deco/barrel.png",
+    "w": 33,
+    "h": 54,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 33,
+      "h": 54
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_deco_purple",
+    "phase": 11,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/vulcao/deco/purple.png",
+    "w": 41,
+    "h": 42,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 41,
+      "h": 42
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_deco_greenpillar",
+    "phase": 11,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/vulcao/deco/greenpillar.png",
+    "w": 107,
+    "h": 136,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 107,
+      "h": 136
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_deco_greencrystal",
+    "phase": 11,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/vulcao/deco/greencrystal.png",
+    "w": 51,
+    "h": 86,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 51,
+      "h": 86
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_deco_smallrock",
+    "phase": 11,
+    "category": "props",
+    "role": "decoration",
+    "src": "/assets/islands/vulcao/deco/smallrock.png",
+    "w": 32,
+    "h": 23,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 23
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
   }
 ]
