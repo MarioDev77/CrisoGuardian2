@@ -25,3 +25,8 @@ ground/ledge/crate (e bridge da fase 13) agora vêm das plataformas das pranchas
 
 ETAPA 4 (fundos)
 Camadas far e mid das 8 ilhas recompostas com cenário das pranchas (árvores de mangue, gelo, vulcão, fábrica, copas, recifes, ilhas flutuantes, ruínas), com neblina de profundidade. A camada sky (céu) segue procedural; na fase 15 o far procedural foi mantido e as ilhas flutuantes entraram no mid. O near das fases 11 e 12 deixou de ser desenhado (postes/pilares procedurais destoavam). Originais: tools/backup/etapa4-originais/.
+
+FASE 9 (Manguezal Vivo) — trabalho fase a fase
+Fundo: pintura enviada pelo jm (1920×640) em background/far.png, com parallax; mid.png ficou transparente.
+Cenário: 18 sprites do mangue em manguezal/deco/ (catálogo p09_deco_*), distribuídos em cada tela só sobre chão/plataformas em src/game/levels/islandLayouts.ts.
+ATENÇÃO: islandLayouts.ts é gerado por tools/build_island_kits.mjs — NÃO rode esse gerador, ele sobrescreveria a arte e o layout editados à mão. Originais da fase 9: tools/backup/fase9-originais/.
