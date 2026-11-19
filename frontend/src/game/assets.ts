@@ -17,6 +17,12 @@ export const PORTAL_CY = 68;
 export const HERO_FOLDER: Record<string, string> = { crisoman: 'crisomer', crisogirl: 'quisogril' };
 /** Além dos heróis: o chefão da fase 16 usa o mesmo formato de quadros (sprites.json + spritesheet). */
 export const SPRITE_SETS: Record<string, string> = { ...HERO_FOLDER, grande_lixo: 'grande_lixo' };
+/** Conjuntos de herói sem atlas no pacote: não são pedidos (evita 404 no console). Remova daqui quando public/assets/characters/<pasta>/sprites.json existir. */
+const SETS_WITHOUT_ART = new Set(['grande_lixo']);
+/** Ilhas com portal_custom.png próprio (nenhuma por enquanto: o motor usa o portal padrão). */
+const PORTAL_ISLANDS = new Set<string>();
+/** Atlas legado de animais e spritesheets de criaturas: ausentes neste pacote. Ligue quando os arquivos voltarem. */
+const LEGACY_CREATURE_SHEETS = false;
 interface HeroManifest { image: string; cell: { w: number; h: number }; pivot: { x: number; y: number }; displayScale: number; animations: Record<string, { fps: number; loop: boolean; frames: string[] }>; frames: Record<string, { x: number; y: number; w: number; h: number }> }
 interface HeroSheet { meta: HeroManifest; img: HTMLImageElement; variants: Map<string, CanvasImageSource> }
 /** Recolor só do uniforme (pixels verdes); pele, cabelo e fones pretos ficam intactos. hue = ângulo absoluto alvo. */
@@ -258,7 +264,7 @@ export class Assets {
       const pm = await fetch('/assets/portal/portal.json').then((r) => r.json() as Promise<{ image: string; frames: Record<string, { x: number; y: number; w: number; h: number }>; hole: { x: number; y: number; w: number; h: number } }>);
       this.portal = { img: await loadImage(pm.image), frames: pm.frames, hole: pm.hole };
     } catch { /* sem atlas do portal: o portal simplesmente não aparece */ }
-    await Promise.all(Object.entries(SPRITE_SETS).map(async ([id, folder]) => {
+    await Promise.all(Object.entries(SPRITE_SETS).filter(([id]) => !SETS_WITHOUT_ART.has(id)).map(async ([id, folder]) => {
       try {
         const meta = await fetch(`/assets/characters/${folder}/sprites.json`).then((r) => r.json() as Promise<HeroManifest>);
         this.heroes.set(id, { meta, img: await loadImage(meta.image), variants: new Map() });
@@ -275,7 +281,7 @@ export class Assets {
         try { into.set(island.index, await loadImage(`/assets/islands/${island.slug}/${file}`)); } catch { /* sem arte própria: usa o padrão do motor */ }
       };
       // chefe próprio só existe em Vulcão Verde e Guardião do Planeta: não pede os outros (evita 404 no console)
-      await Promise.all([optional('portal_custom.png', this.islandPortals), BOSS_ISLANDS.has(island.slug) ? optional('boss_custom.png', this.islandBosses) : Promise.resolve()]);
+      await Promise.all([PORTAL_ISLANDS.has(island.slug) ? optional('portal_custom.png', this.islandPortals) : Promise.resolve(), BOSS_ISLANDS.has(island.slug) ? optional('boss_custom.png', this.islandBosses) : Promise.resolve()]);
     }));
     await animalsReady;
   }
@@ -331,6 +337,7 @@ export class Assets {
   }
   /** Carrega o atlas legado e as oito spritesheets RGBA por bioma; os quadros são recortados e registrados como tiles animáveis. */
   private async loadAnimals(): Promise<void> {
+    if (!LEGACY_CREATURE_SHEETS) return;
     // Atlas legado de animais: mantém compatibilidade com os quadros já usados nas fases 9–16.
     try {
       const m = await fetch('/assets/islands/animals/animals.json').then((r) => r.json() as Promise<{ image: string; animals: Record<string, AnimalClips> }>);
