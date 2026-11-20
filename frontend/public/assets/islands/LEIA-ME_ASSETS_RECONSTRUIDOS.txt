@@ -39,3 +39,8 @@ Fundo: pintura enviada pelo jm em vulcao/background/far.png (parallax); mid.png 
 
 FASE 12 (Fábrica da Reciclagem)
 Fundo: pintura enviada pelo jm em fabrica/background/far.png (parallax); mid.png e near.png transparentes. Cenário: 12 sprites industriais em fabrica/deco/ (catálogo p12_deco_*), distribuídos por tela em islandLayouts.ts (gerado: não rode tools/build_island_kits.mjs). Originais: tools/backup/fase12-originais/.
+
+CORREÇÕES DE CONSOLE E INIMIGOS NOVOS (fases 10, 11 e 12)
+- vite.config.ts: o precache do service worker tinha 478 URLs duplicadas (includeAssets + glob), o que derrubava a instalação do SW e mantinha arquivos antigos em cache; agora só bundles com hash dispensam revisão.
+- thumbnail.jpg de cada ilha criado (o mapa do mundo pedia esse arquivo e dava 404). assets.ts deixou de pedir portal_custom.png, animals.json, creatures/catalog.json e o atlas grande_lixo, que não existem neste pacote.
+- Inimigos com quadros reais de animação, recortados das folhas enviadas: fase 10 lobo + águia; fase 11 javali + pássaro de fogo; fase 12 slime tóxico + vespa (substituem yeti/bat, lizard/bat e robot/drone do atlas antigo). Quadros em islands/<ilha>/anim/.

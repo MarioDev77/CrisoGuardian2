@@ -3868,5 +3868,405 @@
     "capPx": 0,
     "surfaceInset": 0,
     "lip": 0
+  },
+  {
+    "name": "p10_wolf0",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/wolf_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_wolf1",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/wolf_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_wolf2",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/wolf_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_wolf3",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/wolf_3.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_eagle0",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/eagle_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_eagle1",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/eagle_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_eagle2",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/eagle_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_eagle3",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/eagle_3.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_boar0",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/boar_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_boar1",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/boar_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_boar2",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/boar_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_boar3",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/boar_3.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_firebird0",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/firebird_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_firebird1",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/firebird_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_firebird2",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/firebird_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_slime0",
+    "phase": 12,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/fabrica/anim/slime_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_slime1",
+    "phase": 12,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/fabrica/anim/slime_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_slime2",
+    "phase": 12,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/fabrica/anim/slime_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_wasp0",
+    "phase": 12,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/fabrica/anim/wasp_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_wasp1",
+    "phase": 12,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/fabrica/anim/wasp_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
   }
 ]

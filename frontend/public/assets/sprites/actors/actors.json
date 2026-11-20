@@ -882,6 +882,78 @@
       "hp": 3,
       "flying": true,
       "note": "quadros reais da spritesheet de animais (islands/animals); animação por troca de quadros, registrada em assets.ts"
+    },
+    "wolf": {
+      "sprite": "p10_wolf0",
+      "motion": null,
+      "body": {
+        "w": 68,
+        "h": 46,
+        "note": "hitbox física; quadros reais de animação (recortes das folhas do jm)"
+      },
+      "hp": 4,
+      "flying": false,
+      "note": "4 quadros em phases/catalog.json; ciclo de quadros feito pelo engine"
+    },
+    "eagle": {
+      "sprite": "p10_eagle0",
+      "motion": null,
+      "body": {
+        "w": 64,
+        "h": 46,
+        "note": "hitbox física; quadros reais de animação (recortes das folhas do jm)"
+      },
+      "hp": 3,
+      "flying": true,
+      "note": "4 quadros em phases/catalog.json; ciclo de quadros feito pelo engine"
+    },
+    "boar": {
+      "sprite": "p11_boar0",
+      "motion": null,
+      "body": {
+        "w": 70,
+        "h": 48,
+        "note": "hitbox física; quadros reais de animação (recortes das folhas do jm)"
+      },
+      "hp": 5,
+      "flying": false,
+      "note": "4 quadros em phases/catalog.json; ciclo de quadros feito pelo engine"
+    },
+    "firebird": {
+      "sprite": "p11_firebird0",
+      "motion": null,
+      "body": {
+        "w": 56,
+        "h": 44,
+        "note": "hitbox física; quadros reais de animação (recortes das folhas do jm)"
+      },
+      "hp": 2,
+      "flying": true,
+      "note": "3 quadros em phases/catalog.json; ciclo de quadros feito pelo engine"
+    },
+    "slime": {
+      "sprite": "p12_slime0",
+      "motion": "hop",
+      "body": {
+        "w": 56,
+        "h": 46,
+        "note": "hitbox física; quadros reais de animação (recortes das folhas do jm)"
+      },
+      "hp": 3,
+      "flying": false,
+      "note": "3 quadros em phases/catalog.json; ciclo de quadros feito pelo engine"
+    },
+    "wasp": {
+      "sprite": "p12_wasp0",
+      "motion": null,
+      "body": {
+        "w": 50,
+        "h": 46,
+        "note": "hitbox física; quadros reais de animação (recortes das folhas do jm)"
+      },
+      "hp": 2,
+      "flying": true,
+      "note": "2 quadros em phases/catalog.json; ciclo de quadros feito pelo engine"
     }
   },
   "boss": {

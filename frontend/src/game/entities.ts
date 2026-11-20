@@ -55,6 +55,13 @@ export const ENEMIES: Record<EnemyKind, EnemySpec> = {
   orbdrone: { w: 56, h: 52, hp: 3, speed: 125, scale: 0.90, fly: true, score: 230, frames: ['p15_flyer'], motion: 'hover', noFlip: true, pivot: { x: 0.5, y: 0.5 }},
   golem: { w: 62, h: 66, hp: 7, speed: 55, scale: 0.54, fly: false, score: 300, frames: ['p16_walker'], motion: 'stomp', noFlip: true, pivot: { x: 0.5, y: 0.9583 }},
   wisp: { w: 52, h: 58, hp: 4, speed: 105, scale: 0.78, fly: true, score: 260, frames: ['p16_flyer'], motion: 'swim', noFlip: true, pivot: { x: 0.4948, y: 0.5 }},
+  // quadros reais de animação (recortes das folhas de sprites enviadas pelo jm)
+  wolf: { w: 68, h: 46, hp: 4, speed: 88, scale: 0.9, fly: false, score: 240, frames: ['p10_wolf0', 'p10_wolf1', 'p10_wolf2', 'p10_wolf3'], pivot: { x: 0.4948, y: 0.9583 }},
+  eagle: { w: 64, h: 46, hp: 3, speed: 118, scale: 0.85, fly: true, score: 220, frames: ['p10_eagle0', 'p10_eagle1', 'p10_eagle2', 'p10_eagle3'], pivot: { x: 0.5, y: 0.5 }},
+  boar: { w: 70, h: 48, hp: 5, speed: 82, scale: 0.9, fly: false, score: 260, frames: ['p11_boar0', 'p11_boar1', 'p11_boar2', 'p11_boar3'], pivot: { x: 0.4948, y: 0.9583 }},
+  firebird: { w: 56, h: 44, hp: 2, speed: 130, scale: 0.8, fly: true, score: 190, frames: ['p11_firebird0', 'p11_firebird1', 'p11_firebird2'], pivot: { x: 0.4948, y: 0.4948 }},
+  slime: { w: 56, h: 46, hp: 3, speed: 60, scale: 0.8, fly: false, score: 170, frames: ['p12_slime0', 'p12_slime1', 'p12_slime2'], motion: 'hop', noFlip: true, pivot: { x: 0.5, y: 0.9583 }},
+  wasp: { w: 50, h: 46, hp: 2, speed: 135, scale: 0.8, fly: true, score: 190, frames: ['p12_wasp0', 'p12_wasp1'], pivot: { x: 0.4948, y: 0.5 }},
   // animais complementares do atlas original das ilhas 9–16 (public/assets/islands/animals), registrados como `an<fase>_m<i>`.
   an_crab: { w: 58, h: 42, hp: 2, speed: 90, scale: 0.46, fly: false, score: 140, frames: ['an9_m0', 'an9_m1', 'an9_m2'], noFlip: false },
   an_seal: { w: 58, h: 38, hp: 3, speed: 60, scale: 0.46, fly: false, score: 190, frames: ['an10_m0', 'an10_m1'] },
