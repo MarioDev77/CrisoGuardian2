@@ -82,11 +82,11 @@ export const AI: Record<EnemyKind, AiProfile> = {
   // inimigos das ilhas 9–16: reaproveitam o comportamento do arquétipo mais parecido
   fiddler: undefined as never, penguin: undefined as never, salamander: undefined as never, sweeper: undefined as never, monkey: undefined as never, urchin: undefined as never, sentinel: undefined as never, golem: undefined as never,
   an_crab: undefined as never, an_seal: undefined as never, an_salamander: undefined as never, an_sloth: undefined as never, an_turtle: undefined as never, an_cat: undefined as never,
-  wolf: undefined as never, boar: undefined as never, slime: undefined as never,
+  wolf: undefined as never, boar: undefined as never, slime: undefined as never, croc: undefined as never, snake: undefined as never, turtle: undefined as never,
   an_bird: flyer(), an_owl: flyer(),
-  dragonfly: flyer(), snowowl: flyer(), ember: flyer(), cogdrone: flyer(), toucan: flyer(), jelly: flyer(), orbdrone: flyer(), wisp: flyer(), eagle: flyer(), firebird: flyer(), wasp: flyer(),
+  dragonfly: flyer(), snowowl: flyer(), ember: flyer(), cogdrone: flyer(), toucan: flyer(), jelly: flyer(), orbdrone: flyer(), wisp: flyer(), eagle: flyer(), firebird: flyer(), wasp: flyer(), shark: flyer(),
 };
-const ALIAS: Partial<Record<EnemyKind, EnemyKind>> = { fiddler: 'crab', penguin: 'yeti', salamander: 'lizard', sweeper: 'robot', monkey: 'alien', urchin: 'mutant', sentinel: 'robot', golem: 'armor', an_crab: 'crab', an_seal: 'yeti', an_salamander: 'lizard', an_sloth: 'yeti', an_turtle: 'armor', an_cat: 'alien', wolf: 'yeti', boar: 'armor', slime: 'mutant' };
+const ALIAS: Partial<Record<EnemyKind, EnemyKind>> = { fiddler: 'crab', penguin: 'yeti', salamander: 'lizard', sweeper: 'robot', monkey: 'alien', urchin: 'mutant', sentinel: 'robot', golem: 'armor', an_crab: 'crab', an_seal: 'yeti', an_salamander: 'lizard', an_sloth: 'yeti', an_turtle: 'armor', an_cat: 'alien', wolf: 'yeti', boar: 'armor', slime: 'mutant', croc: 'armor', snake: 'lizard', turtle: 'armor' };
 for (const [kind, base] of Object.entries(ALIAS) as [EnemyKind, EnemyKind][]) AI[kind] = { ...AI[base] };
 
 /** Campos que a IA lê e escreve (compatível com `Enemy`). */

@@ -44,3 +44,10 @@ CORREÇÕES DE CONSOLE E INIMIGOS NOVOS (fases 10, 11 e 12)
 - vite.config.ts: o precache do service worker tinha 478 URLs duplicadas (includeAssets + glob), o que derrubava a instalação do SW e mantinha arquivos antigos em cache; agora só bundles com hash dispensam revisão.
 - thumbnail.jpg de cada ilha criado (o mapa do mundo pedia esse arquivo e dava 404). assets.ts deixou de pedir portal_custom.png, animals.json, creatures/catalog.json e o atlas grande_lixo, que não existem neste pacote.
 - Inimigos com quadros reais de animação, recortados das folhas enviadas: fase 10 lobo + águia; fase 11 javali + pássaro de fogo; fase 12 slime tóxico + vespa (substituem yeti/bat, lizard/bat e robot/drone do atlas antigo). Quadros em islands/<ilha>/anim/.
+
+CRIATURAS GERADAS PELO JM + CHÃO SEM ESPELHO
+- Folha gerada (11 criaturas × 7 colunas: andar ×4, ataque, dano, morte) extraída por chave de magenta com desfazer de mistura nas bordas. Ligadas ao motor: pinguim, coruja (fase 10), salamandra, pássaro de brasa (11), robô varredor (12), cobra (13), tartaruga e tubarão (14). Folha 7: caranguejo, jacaré e libélula (fase 9, 4 quadros).
+- O motor agora usa os quadros attack/hit/die de qualquer inimigo (antes só o rato). Spec novo: EnemySpec.hit.
+- Sapo, coelho e esquilo ficaram em islands/ambient/ (ainda não ligados).
+- ground.png das fases 9, 11, 12, 15 e 16 refeito sem metade espelhada (faixa contínua esticada, base do topo fundida). Backups em tools/backup/integracao-gerado/.
+- O escorpião (quadros cortados) foi removido de vulcao/anim; o javali o substituiu.

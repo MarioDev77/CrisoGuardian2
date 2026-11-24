@@ -13,7 +13,7 @@ export interface Player extends Body {
 
 export interface EnemySpec {
   w: number; h: number; hp: number; speed: number; scale: number; fly: boolean; score: number;
-  frames: string[]; chase?: string; attack?: string; die?: string; nativeLeft?: boolean;
+  frames: string[]; chase?: string; attack?: string; /** quadro de dano (opcional) */ hit?: string; die?: string; nativeLeft?: boolean;
   /** Sprite estático (sem quadros): a animação é feita por código no engine. `noFlip` = sprite de frente, nunca espelha. */
   motion?: EnemyMotion; noFlip?: boolean;
   /** Pivô normalizado do sprite (0–1): ponto de apoio para alinhar desenho e hitbox. */
@@ -39,13 +39,13 @@ export const ENEMIES: Record<EnemyKind, EnemySpec> = {
   drone: { w: 56, h: 42, hp: 3, speed: 115, scale: 0.8, fly: true, score: 190, frames: ['p07_drone'], motion: 'hover', noFlip: true },
   alien: { w: 50, h: 54, hp: 4, speed: 80, scale: 0.85, fly: false, score: 210, frames: ['p08_alien'], motion: 'hop', noFlip: true },
   // inimigos exclusivos das ilhas 9 a 16 (SVG em public/assets/islands/*/enemy_*.svg, animados por código)
-  fiddler: { w: 58, h: 44, hp: 3, speed: 95, scale: 0.77, fly: false, score: 150, frames: ['p09_walker'], motion: 'scuttle', noFlip: true, pivot: { x: 0.5, y: 0.9583 }},
-  dragonfly: { w: 56, h: 38, hp: 2, speed: 125, scale: 0.72, fly: true, score: 160, frames: ['p09_flyer'], motion: 'hover', pivot: { x: 0.5, y: 0.4948 }},
-  penguin: { w: 50, h: 62, hp: 4, speed: 60, scale: 0.56, fly: false, score: 220, frames: ['p10_walker'], motion: 'stomp', noFlip: true, pivot: { x: 0.5, y: 0.9583 }},
-  snowowl: { w: 56, h: 52, hp: 3, speed: 100, scale: 0.60, fly: true, score: 200, frames: ['p10_flyer'], motion: 'hover', noFlip: true, pivot: { x: 0.5, y: 0.5052 }},
-  salamander: { w: 66, h: 40, hp: 3, speed: 115, scale: 0.72, fly: false, score: 190, frames: ['p11_walker'], motion: 'slither', pivot: { x: 0.4948, y: 0.9583 }},
-  ember: { w: 48, h: 56, hp: 3, speed: 110, scale: 0.60, fly: true, score: 210, frames: ['p11_flyer'], motion: 'hover', noFlip: true, pivot: { x: 0.4948, y: 0.5 }},
-  sweeper: { w: 62, h: 50, hp: 5, speed: 70, scale: 0.48, fly: false, score: 230, frames: ['p12_walker'], motion: 'stomp', pivot: { x: 0.5, y: 0.9583 }},
+  fiddler: { w: 58, h: 44, hp: 3, speed: 95, scale: 0.77, fly: false, score: 150, frames: ['p9_fiddler_0', 'p9_fiddler_1', 'p9_fiddler_2', 'p9_fiddler_3'], pivot: { x: 0.4948, y: 0.9583 }},
+  dragonfly: { w: 56, h: 38, hp: 2, speed: 125, scale: 0.72, fly: true, score: 160, frames: ['p9_dragonfly_0', 'p9_dragonfly_1', 'p9_dragonfly_2', 'p9_dragonfly_3'], pivot: { x: 0.5, y: 0.4948 }},
+  penguin: { w: 50, h: 62, hp: 4, speed: 60, scale: 0.56, fly: false, score: 220, frames: ['p10_penguin_0', 'p10_penguin_1', 'p10_penguin_2', 'p10_penguin_3'], attack: 'p10_penguin_atk', hit: 'p10_penguin_hit', die: 'p10_penguin_die', pivot: { x: 0.5, y: 0.9583 }},
+  snowowl: { w: 56, h: 52, hp: 3, speed: 100, scale: 0.60, fly: true, score: 200, frames: ['p10_snowowl_0', 'p10_snowowl_1', 'p10_snowowl_2', 'p10_snowowl_3'], attack: 'p10_snowowl_atk', hit: 'p10_snowowl_hit', die: 'p10_snowowl_die', pivot: { x: 0.5, y: 0.4948 }},
+  salamander: { w: 66, h: 40, hp: 3, speed: 115, scale: 0.72, fly: false, score: 190, frames: ['p11_salamander_0', 'p11_salamander_1', 'p11_salamander_2', 'p11_salamander_3'], attack: 'p11_salamander_atk', hit: 'p11_salamander_hit', die: 'p11_salamander_die', pivot: { x: 0.5, y: 0.9583 }},
+  ember: { w: 48, h: 56, hp: 3, speed: 110, scale: 0.60, fly: true, score: 210, frames: ['p11_ember_0', 'p11_ember_1', 'p11_ember_2', 'p11_ember_3'], attack: 'p11_ember_atk', hit: 'p11_ember_hit', die: 'p11_ember_die', pivot: { x: 0.5, y: 0.4948 }},
+  sweeper: { w: 62, h: 50, hp: 5, speed: 70, scale: 0.48, fly: false, score: 230, frames: ['p12_sweeper_0', 'p12_sweeper_1', 'p12_sweeper_2', 'p12_sweeper_3'], attack: 'p12_sweeper_atk', hit: 'p12_sweeper_hit', die: 'p12_sweeper_die', pivot: { x: 0.5, y: 0.9583 }},
   cogdrone: { w: 52, h: 52, hp: 3, speed: 120, scale: 0.90, fly: true, score: 210, frames: ['p12_flyer'], motion: 'hover', noFlip: true, pivot: { x: 0.5, y: 0.5 }},
   monkey: { w: 52, h: 56, hp: 3, speed: 100, scale: 0.88, fly: false, score: 190, frames: ['p13_walker'], motion: 'hop', pivot: { x: 0.5, y: 0.9583 }},
   toucan: { w: 60, h: 46, hp: 2, speed: 125, scale: 0.75, fly: true, score: 180, frames: ['p13_flyer'], motion: 'swim', pivot: { x: 0.5, y: 0.4948 }},
@@ -62,6 +62,10 @@ export const ENEMIES: Record<EnemyKind, EnemySpec> = {
   firebird: { w: 56, h: 44, hp: 2, speed: 130, scale: 0.8, fly: true, score: 190, frames: ['p11_firebird0', 'p11_firebird1', 'p11_firebird2'], pivot: { x: 0.4948, y: 0.4948 }},
   slime: { w: 56, h: 46, hp: 3, speed: 60, scale: 0.8, fly: false, score: 170, frames: ['p12_slime0', 'p12_slime1', 'p12_slime2'], motion: 'hop', noFlip: true, pivot: { x: 0.5, y: 0.9583 }},
   wasp: { w: 50, h: 46, hp: 2, speed: 135, scale: 0.8, fly: true, score: 190, frames: ['p12_wasp0', 'p12_wasp1'], pivot: { x: 0.4948, y: 0.5 }},
+  snake: { w: 64, h: 46, hp: 2, speed: 100, scale: 0.85, fly: false, score: 170, frames: ['p13_snake_0', 'p13_snake_1', 'p13_snake_2', 'p13_snake_3'], attack: 'p13_snake_atk', hit: 'p13_snake_hit', die: 'p13_snake_die', pivot: { x: 0.4948, y: 0.9583 }},
+  turtle: { w: 60, h: 48, hp: 5, speed: 55, scale: 0.85, fly: false, score: 230, frames: ['p14_turtle_0', 'p14_turtle_1', 'p14_turtle_2', 'p14_turtle_3'], attack: 'p14_turtle_atk', hit: 'p14_turtle_hit', die: 'p14_turtle_die', pivot: { x: 0.4948, y: 0.9583 }},
+  shark: { w: 78, h: 48, hp: 3, speed: 112, scale: 0.8, fly: true, score: 230, frames: ['p14_shark_0', 'p14_shark_1', 'p14_shark_2', 'p14_shark_3'], attack: 'p14_shark_atk', hit: 'p14_shark_hit', die: 'p14_shark_die', pivot: { x: 0.5, y: 0.5 }},
+  croc: { w: 84, h: 46, hp: 4, speed: 70, scale: 0.85, fly: false, score: 250, frames: ['p9_croc_0', 'p9_croc_1', 'p9_croc_2', 'p9_croc_3'], pivot: { x: 0.5, y: 0.9583 }},
   // animais complementares do atlas original das ilhas 9–16 (public/assets/islands/animals), registrados como `an<fase>_m<i>`.
   an_crab: { w: 58, h: 42, hp: 2, speed: 90, scale: 0.46, fly: false, score: 140, frames: ['an9_m0', 'an9_m1', 'an9_m2'], noFlip: false },
   an_seal: { w: 58, h: 38, hp: 3, speed: 60, scale: 0.46, fly: false, score: 190, frames: ['an10_m0', 'an10_m1'] },

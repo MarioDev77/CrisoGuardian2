@@ -604,8 +604,7 @@
       "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
     },
     "penguin": {
-      "sprite": "p10_walker",
-      "motion": "stomp",
+      "sprite": "p10_penguin_0",
       "body": {
         "w": 50,
         "h": 62,
@@ -613,11 +612,10 @@
       },
       "hp": 4,
       "flying": false,
-      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+      "note": "4 quadros de andar/voo + ataque, dano e morte (folhas geradas pelo jm); ciclo de quadros feito pelo engine"
     },
     "snowowl": {
-      "sprite": "p10_flyer",
-      "motion": "hover",
+      "sprite": "p10_snowowl_0",
       "body": {
         "w": 56,
         "h": 52,
@@ -625,11 +623,10 @@
       },
       "hp": 3,
       "flying": true,
-      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+      "note": "4 quadros de andar/voo + ataque, dano e morte (folhas geradas pelo jm); ciclo de quadros feito pelo engine"
     },
     "salamander": {
-      "sprite": "p11_walker",
-      "motion": "slither",
+      "sprite": "p11_salamander_0",
       "body": {
         "w": 66,
         "h": 40,
@@ -637,11 +634,10 @@
       },
       "hp": 3,
       "flying": false,
-      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+      "note": "4 quadros de andar/voo + ataque, dano e morte (folhas geradas pelo jm); ciclo de quadros feito pelo engine"
     },
     "ember": {
-      "sprite": "p11_flyer",
-      "motion": "hover",
+      "sprite": "p11_ember_0",
       "body": {
         "w": 48,
         "h": 56,
@@ -649,11 +645,10 @@
       },
       "hp": 3,
       "flying": true,
-      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+      "note": "4 quadros de andar/voo + ataque, dano e morte (folhas geradas pelo jm); ciclo de quadros feito pelo engine"
     },
     "sweeper": {
-      "sprite": "p12_walker",
-      "motion": "stomp",
+      "sprite": "p12_sweeper_0",
       "body": {
         "w": 62,
         "h": 50,
@@ -661,7 +656,7 @@
       },
       "hp": 5,
       "flying": false,
-      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+      "note": "4 quadros de andar/voo + ataque, dano e morte (folhas geradas pelo jm); ciclo de quadros feito pelo engine"
     },
     "cogdrone": {
       "sprite": "p12_flyer",
@@ -772,8 +767,7 @@
       "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
     },
     "fiddler": {
-      "sprite": "p09_walker",
-      "motion": "scuttle",
+      "sprite": "p9_fiddler_0",
       "body": {
         "w": 58,
         "h": 44,
@@ -781,11 +775,10 @@
       },
       "hp": 3,
       "flying": false,
-      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+      "note": "4 quadros de andar/voo (folhas geradas pelo jm); ciclo de quadros feito pelo engine"
     },
     "dragonfly": {
-      "sprite": "p09_flyer",
-      "motion": "hover",
+      "sprite": "p9_dragonfly_0",
       "body": {
         "w": 56,
         "h": 38,
@@ -793,7 +786,7 @@
       },
       "hp": 2,
       "flying": true,
-      "note": "sprite estático do catálogo de fases (phases/catalog.json); a animação é feita por código (engine.ts enemyPose)"
+      "note": "4 quadros de andar/voo (folhas geradas pelo jm); ciclo de quadros feito pelo engine"
     },
     "an_crab": {
       "sprite": "an9_m0",
@@ -954,6 +947,46 @@
       "hp": 2,
       "flying": true,
       "note": "2 quadros em phases/catalog.json; ciclo de quadros feito pelo engine"
+    },
+    "snake": {
+      "sprite": "p13_snake_0",
+      "body": {
+        "w": 64,
+        "h": 46
+      },
+      "hp": 2,
+      "flying": false,
+      "note": "4 quadros de andar/voo + ataque, dano e morte (folhas geradas pelo jm); ciclo de quadros feito pelo engine"
+    },
+    "turtle": {
+      "sprite": "p14_turtle_0",
+      "body": {
+        "w": 60,
+        "h": 48
+      },
+      "hp": 5,
+      "flying": false,
+      "note": "4 quadros de andar/voo + ataque, dano e morte (folhas geradas pelo jm); ciclo de quadros feito pelo engine"
+    },
+    "shark": {
+      "sprite": "p14_shark_0",
+      "body": {
+        "w": 78,
+        "h": 48
+      },
+      "hp": 3,
+      "flying": true,
+      "note": "4 quadros de andar/voo + ataque, dano e morte (folhas geradas pelo jm); ciclo de quadros feito pelo engine"
+    },
+    "croc": {
+      "sprite": "p9_croc_0",
+      "body": {
+        "w": 84,
+        "h": 46
+      },
+      "hp": 4,
+      "flying": false,
+      "note": "4 quadros de andar/voo (folhas geradas pelo jm); ciclo de quadros feito pelo engine"
     }
   },
   "boss": {

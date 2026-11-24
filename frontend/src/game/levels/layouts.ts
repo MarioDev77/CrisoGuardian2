@@ -14,7 +14,9 @@ export type EnemyKind = 'rat' | 'mutant' | 'armor' | 'bat' | 'roach' | 'fly' | '
   // inimigos exclusivos das ilhas 9 a 16
   | 'fiddler' | 'dragonfly' | 'penguin' | 'snowowl' | 'salamander' | 'ember' | 'sweeper' | 'cogdrone' | 'monkey' | 'toucan' | 'urchin' | 'jelly' | 'sentinel' | 'orbdrone' | 'golem' | 'wisp' | 'an_crab' | 'an_seal' | 'an_salamander' | 'an_bird' | 'an_sloth' | 'an_turtle' | 'an_cat' | 'an_owl'
   // inimigos animados (quadros reais) das fases 10, 11 e 12
-  | 'wolf' | 'eagle' | 'boar' | 'firebird' | 'slime' | 'wasp';
+  | 'wolf' | 'eagle' | 'boar' | 'firebird' | 'slime' | 'wasp'
+  // inimigos animados das folhas geradas (fases 9, 13 e 14)
+  | 'croc' | 'snake' | 'turtle' | 'shark';
 export type Material = 'papel' | 'plastico' | 'metal' | 'vidro' | 'fruta' | 'restos' | 'folhas' | 'bateria' | 'tinta' | 'eletronico';
 
 export interface LayoutPart { surfaces: Surface[]; ladders: Ladder[]; decor: Decor[] }

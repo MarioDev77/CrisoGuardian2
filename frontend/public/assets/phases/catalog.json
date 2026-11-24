@@ -4268,5 +4268,1365 @@
     "capPx": 0,
     "surfaceInset": 0,
     "lip": 0
+  },
+  {
+    "name": "p10_penguin_0",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/penguin_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_penguin_1",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/penguin_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_penguin_2",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/penguin_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_penguin_3",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/penguin_3.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_penguin_atk",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/penguin_atk.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_penguin_hit",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/penguin_hit.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_penguin_die",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/penguin_die.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_snowowl_0",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/snowowl_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_snowowl_1",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/snowowl_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_snowowl_2",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/snowowl_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_snowowl_3",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/snowowl_3.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_snowowl_atk",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/snowowl_atk.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_snowowl_hit",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/snowowl_hit.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p10_snowowl_die",
+    "phase": 10,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/geleira/anim/snowowl_die.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_salamander_0",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/salamander_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_salamander_1",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/salamander_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_salamander_2",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/salamander_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_salamander_3",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/salamander_3.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_salamander_atk",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/salamander_atk.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_salamander_hit",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/salamander_hit.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_salamander_die",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/salamander_die.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_ember_0",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/ember_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_ember_1",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/ember_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_ember_2",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/ember_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_ember_3",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/ember_3.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_ember_atk",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/ember_atk.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_ember_hit",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/ember_hit.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p11_ember_die",
+    "phase": 11,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/vulcao/anim/ember_die.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_sweeper_0",
+    "phase": 12,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/fabrica/anim/sweeper_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_sweeper_1",
+    "phase": 12,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/fabrica/anim/sweeper_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_sweeper_2",
+    "phase": 12,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/fabrica/anim/sweeper_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_sweeper_3",
+    "phase": 12,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/fabrica/anim/sweeper_3.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_sweeper_atk",
+    "phase": 12,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/fabrica/anim/sweeper_atk.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_sweeper_hit",
+    "phase": 12,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/fabrica/anim/sweeper_hit.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p12_sweeper_die",
+    "phase": 12,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/fabrica/anim/sweeper_die.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_snake_0",
+    "phase": 13,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/copas/anim/snake_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_snake_1",
+    "phase": 13,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/copas/anim/snake_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_snake_2",
+    "phase": 13,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/copas/anim/snake_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_snake_3",
+    "phase": 13,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/copas/anim/snake_3.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_snake_atk",
+    "phase": 13,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/copas/anim/snake_atk.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_snake_hit",
+    "phase": 13,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/copas/anim/snake_hit.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p13_snake_die",
+    "phase": 13,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/copas/anim/snake_die.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_turtle_0",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/anim/turtle_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_turtle_1",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/anim/turtle_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_turtle_2",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/anim/turtle_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_turtle_3",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/anim/turtle_3.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_turtle_atk",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/anim/turtle_atk.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_turtle_hit",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/anim/turtle_hit.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_turtle_die",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/anim/turtle_die.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_shark_0",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/anim/shark_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_shark_1",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/anim/shark_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_shark_2",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/anim/shark_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_shark_3",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/anim/shark_3.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_shark_atk",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/anim/shark_atk.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_shark_hit",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/anim/shark_hit.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p14_shark_die",
+    "phase": 14,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/oceano/anim/shark_die.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p9_fiddler_0",
+    "phase": 9,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/manguezal/anim/fiddler_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p9_fiddler_1",
+    "phase": 9,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/manguezal/anim/fiddler_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p9_fiddler_2",
+    "phase": 9,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/manguezal/anim/fiddler_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p9_fiddler_3",
+    "phase": 9,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/manguezal/anim/fiddler_3.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p9_dragonfly_0",
+    "phase": 9,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/manguezal/anim/dragonfly_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p9_dragonfly_1",
+    "phase": 9,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/manguezal/anim/dragonfly_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p9_dragonfly_2",
+    "phase": 9,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/manguezal/anim/dragonfly_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p9_dragonfly_3",
+    "phase": 9,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/manguezal/anim/dragonfly_3.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p9_croc_0",
+    "phase": 9,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/manguezal/anim/croc_0.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p9_croc_1",
+    "phase": 9,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/manguezal/anim/croc_1.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p9_croc_2",
+    "phase": 9,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/manguezal/anim/croc_2.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
+  },
+  {
+    "name": "p9_croc_3",
+    "phase": 9,
+    "category": "enemies",
+    "role": "enemy",
+    "src": "/assets/islands/manguezal/anim/croc_3.png",
+    "w": 96,
+    "h": 96,
+    "hitbox": {
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96
+    },
+    "issues": [],
+    "modular": false,
+    "capPx": 0,
+    "surfaceInset": 0,
+    "lip": 0
   }
 ]

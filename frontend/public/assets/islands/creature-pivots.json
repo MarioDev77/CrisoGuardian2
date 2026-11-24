@@ -1,25 +1,25 @@
 {
   "fiddler": {
-    "source": "manguezal/enemy_walker.png",
+    "source": "manguezal/anim/fiddler_0.png",
     "alpha_bbox": [
-      15,
-      26,
-      81,
+      6,
+      38,
+      89,
       92
     ],
     "pivot": {
-      "x": 0.5,
+      "x": 0.4948,
       "y": 0.9583
     },
     "anchor": "feet"
   },
   "dragonfly": {
-    "source": "manguezal/enemy_flyer.png",
+    "source": "manguezal/anim/dragonfly_0.png",
     "alpha_bbox": [
-      13,
-      17,
-      83,
-      78
+      5,
+      25,
+      91,
+      70
     ],
     "pivot": {
       "x": 0.5,
@@ -28,9 +28,9 @@
     "anchor": "center"
   },
   "penguin": {
-    "source": "geleira/enemy_walker.png",
+    "source": "geleira/anim/penguin_0.png",
     "alpha_bbox": [
-      8,
+      7,
       3,
       88,
       92
@@ -42,53 +42,53 @@
     "anchor": "feet"
   },
   "snowowl": {
-    "source": "geleira/enemy_flyer.png",
+    "source": "geleira/anim/snowowl_0.png",
     "alpha_bbox": [
-      9,
-      4,
-      87,
-      93
+      3,
+      19,
+      93,
+      77
     ],
     "pivot": {
       "x": 0.5,
-      "y": 0.5052
+      "y": 0.4948
     },
     "anchor": "center"
   },
   "salamander": {
-    "source": "vulcao/enemy_walker.png",
+    "source": "vulcao/anim/salamander_0.png",
     "alpha_bbox": [
-      8,
-      28,
-      87,
+      3,
+      59,
+      93,
       92
     ],
     "pivot": {
-      "x": 0.4948,
+      "x": 0.5,
       "y": 0.9583
     },
     "anchor": "feet"
   },
   "ember": {
-    "source": "vulcao/enemy_flyer.png",
+    "source": "vulcao/anim/ember_0.png",
     "alpha_bbox": [
-      11,
-      3,
-      84,
-      93
+      6,
+      19,
+      90,
+      77
     ],
     "pivot": {
-      "x": 0.4948,
-      "y": 0.5
+      "x": 0.5,
+      "y": 0.4948
     },
     "anchor": "center"
   },
   "sweeper": {
-    "source": "fabrica/enemy_walker.png",
+    "source": "fabrica/anim/sweeper_0.png",
     "alpha_bbox": [
-      7,
-      3,
-      89,
+      5,
+      47,
+      90,
       92
     ],
     "pivot": {

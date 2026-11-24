@@ -568,6 +568,8 @@ export class Engine {
     if (e.dying > 0 && sp.die) return sp.die;
     if (e.kind === 'rat') { if (e.state === 'strike' && sp.attack) return sp.attack; if (e.state === 'windup' || e.state === 'recover') return sp.frames[1]!; if (e.chasing && sp.chase) return Math.floor(e.t * 10) % 2 ? sp.chase : sp.frames[0]!; return sp.frames[Math.floor(e.t * 4) % 2]!; }
     if (e.kind === 'fly') return e.chasing && Math.floor(e.t * 14) % 2 ? 'fly_2' : sp.frames[Math.floor(e.t * 18) % 2]!;
+    if (sp.hit && (e.state === 'hurt' || e.hurt > 0)) return sp.hit;
+    if (sp.attack && e.state === 'strike') return sp.attack;
     return sp.frames[Math.floor(e.t * 6) % sp.frames.length]!;
   }
 

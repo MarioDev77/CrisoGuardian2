@@ -1,0 +1,1 @@
+Animais ambientais já gerados (sapo, coelho, esquilo): quadros 96x96 (andar 0-3, atk, hit, die), ainda NÃO ligados ao motor. O decor atual é estático; ligar exige animar o cenário (próxima etapa).
